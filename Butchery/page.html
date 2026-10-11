@@ -1,0 +1,409 @@
+<!doctype html>
+<!-- Dazed Butchery Workshop art. Each <section class="shot" id="x"> renders to images/x.png
+     (banner -> banner.jpg):  node _kit/render.mjs Butchery   (from the workshop-art root).
+     Sprites come from sprites.json:  python3 _kit/sprites.py Butchery
+     Every number below is from the mod's Lua at its sandbox defaults; the file is named next to each panel. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/suite.css">
+<style>
+  .hdr .tile svg { width: 74px; height: 74px; }
+
+  /* ---------------- cut panel */
+  .cutrow { display: grid; grid-template-columns: 600px 1fr; gap: 14px; }
+  .diag { position: relative; width: 540px; height: 354px; margin: 6px auto 4px; }
+  .diag img { width: 540px; height: 354px; }
+  .diag .tag { position: absolute; transform: translate(-50%, -50%); z-index: 2;
+    font-size: 17px; font-weight: 700; line-height: 1.05; color: #fff; text-align: center; white-space: nowrap;
+    padding: 2px 7px 3px; border-radius: 7px; background: rgba(20, 8, 34, .78); }
+  .trace { position: relative; height: 290px; border-radius: 12px; overflow: hidden; border: 1.5px solid #5d3a9a; margin-bottom: 14px; }
+  .trace .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 45%; filter: brightness(.55); }
+  .trace svg { position: absolute; inset: 0; }
+  .trace .cap { position: absolute; font-size: 19px; font-weight: 700; color: #fff; text-shadow: 0 1px 3px #000, 0 0 6px #000; white-space: nowrap; }
+  .card.list { text-align: left; padding: 18px 22px 20px; }
+  .card.list h4 { text-align: center; }
+  .pts { display: grid; gap: 8px; }
+  .pts div { font-size: 22px; line-height: 1.3; color: var(--ink); padding-left: 26px; position: relative; }
+  .pts div::before { content: ""; position: absolute; left: 4px; top: 11px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+  .pts .m { color: var(--muted); }
+  .tools .card h4 { font-size: 30px; margin-bottom: 6px; }
+  .icons { display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 100px; margin-bottom: 12px; position: relative; }
+  .icons::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 170px; height: 22px; transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(165, 90, 255, .5), rgba(165, 90, 255, 0) 70%); }
+  .icons img { position: relative; z-index: 1; }
+
+  /* ---------------- grades panel */
+  .tiers { display: grid; grid-template-columns: 25fr 20fr 20fr 20fr 15fr; gap: 4px; height: 70px; }
+  .tiers div { border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.05; }
+  .tiers b { font-size: 25px; font-weight: 800; color: #1b0d2c; }
+  .tiers span { font-size: 18px; font-weight: 600; color: #2b1544; }
+  .seen { display: flex; justify-content: center; gap: 12px; margin-top: 14px; }
+  .chip { font-size: 21px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #6d43b5; background: var(--well); color: var(--lilac); white-space: nowrap; }
+  .mods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; margin-top: 4px; }
+  .mod { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 12px; text-align: left;
+    background: var(--well); border: 1.5px solid #5d3a9a; border-radius: 12px; padding: 8px 14px; }
+  .mod .v { font-weight: 800; font-size: 28px; text-align: center; line-height: 1; }
+  .mod .v.up { color: #9be38f; } .mod .v.dn { color: #ff9a9a; } .mod .v.cap { color: #ffd27a; font-size: 24px; }
+  .mod .t { font-size: 21px; line-height: 1.25; color: var(--ink); }
+  .mod .t i { font-style: normal; color: var(--muted); }
+  .sets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+  .sets .card { padding: 14px 10px 16px; }
+  .sets .big { font-weight: 800; font-size: 40px; line-height: 1; color: var(--ink); margin: 2px 0 6px; }
+  .yields { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 14px; }
+  .yields .card { padding: 12px 6px 14px; }
+  .yields .art { height: 118px; margin-bottom: 12px; }
+  .yields .kg { font-weight: 800; font-size: 34px; line-height: 1; }
+  .yields .kg small { font-size: 22px; font-weight: 700; color: var(--muted); }
+
+  /* ---------------- field panel */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .steps .card { padding-top: 14px; }
+  .steps .lbl { font-size: 27px; }
+  .haul { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+  .haul .card h4 { font-size: 30px; }
+  .card.bad { border-color: #c26a8a; }
+  .haul .big { font-weight: 800; font-size: 36px; line-height: 1.05; margin: 4px 0 4px; }
+  .big.dn { color: #ff9a9a; } .big.up { color: #9be38f; }
+
+  /* ---------------- aging panel */
+  .three { display: grid; grid-template-columns: 1fr 1fr 1.12fr; gap: 14px; }
+  .edge { margin: 6px 0 12px; }
+  .edge .row { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 10px; margin-bottom: 10px; text-align: left; }
+  .edge .row span { font-size: 20px; color: var(--muted); }
+  .edge .bar { height: 38px; }
+  .bar.warm .fill { background: linear-gradient(90deg, #d06a7a, #ffb27a); }
+  .bars.temp { gap: 9px; }
+  .bars.temp .bar { height: 40px; }
+  .bars.temp .bar .in { font-size: 22px; }
+  .bars.temp .bar .tail { font-size: 22px; font-weight: 700; color: var(--ink); }
+
+  /* ---------------- preserve panel */
+  .recipes .card { padding: 14px 10px 16px; }
+  .recipes .icons { height: 96px; }
+  .recipes h4 { font-size: 28px; margin-bottom: 6px; }
+  .recipes .sub { font-size: 20px; }
+</style>
+</head>
+<body>
+
+<!-- =============================================================== banner -->
+<section class="shot banner" id="banner">
+  <div class="title" style="font-size:140px;top:88px;white-space:nowrap;letter-spacing:3px">DAZED BUTCHERY</div>
+  <div class="sub">Cut-by-cut butchering for Project Zomboid Build 42</div>
+  <div class="pills">
+    <span class="pill">Seven animals</span>
+    <span class="pill">Trace every cut</span>
+    <span class="pill">Hidden grades</span>
+    <span class="pill">Field dressing</span>
+    <span class="pill">Dry-aging</span>
+    <span class="pill">Curing</span>
+  </div>
+  <div class="row">
+    <div class="spr"><img src="sprites/coat-cow.png" style="height:180px"></div>
+    <div class="spr"><img src="sprites/beef-sirloin.png" class="px" style="height:92px"></div>
+    <div class="spr"><img src="sprites/coat-pig.png" style="height:138px"></div>
+    <div class="spr"><img src="sprites/cured-ham.png" class="px" style="height:100px"></div>
+    <div class="spr"><img src="sprites/coat-deer.png" style="height:190px"></div>
+    <div class="spr"><img src="sprites/coat-sheep.png" style="height:126px"></div>
+    <div class="spr"><img src="sprites/coat-turkey.png" style="height:120px"></div>
+  </div>
+</section>
+
+<!-- =============================================================== section headers (workshop.txt order) -->
+<section class="shot hdr" id="h-cut">
+  <div class="tile"><img src="sprites/diagram-cow.png" style="width:90px;height:auto"></div>
+  <div class="num">01</div><h2>How a carcass is cut</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-grades">
+  <div class="tile"><img src="sprites/beef-sirloin.png" class="px" style="height:80px"></div>
+  <div class="num">02</div><h2>Grades and yields</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-field">
+  <div class="tile"><img src="sprites/venison-quarter-hind.png" class="px" style="height:84px"></div>
+  <div class="num">03</div><h2>In the field</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-aging">
+  <div class="tile"><img src="sprites/beef-rib.png" class="px" style="width:84px;height:auto"></div>
+  <div class="num">04</div><h2>Edge, aging and weather</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-preserve">
+  <div class="tile"><img src="sprites/cured-ham.png" class="px" style="height:84px"></div>
+  <div class="num">05</div><h2>Preserving and by-products</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-sandbox">
+  <div class="tile">
+    <svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
+      <g stroke="#8d74b5" stroke-width="4"><path d="M10 16h44M10 32h44M10 48h44"/></g>
+      <g fill="#c592ff" stroke="#f6efff" stroke-width="2.5"><circle cx="40" cy="16" r="6"/><circle cx="22" cy="32" r="6"/><circle cx="46" cy="48" r="6"/></g>
+    </svg>
+  </div>
+  <div class="num">06</div><h2>Sandbox options</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-compat">
+  <div class="tile"><img src="sprites/coat-rabbit.png" style="height:84px"></div>
+  <div class="num">07</div><h2>Compatibility</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-help">
+  <div class="tile"><img src="sprites/meat-scraps.png" class="px" style="width:84px;height:auto"></div>
+  <div class="num">08</div><h2>Bugs and help</h2><div class="rule"></div>
+</section>
+
+<!-- =============================================================== cut
+     Regions: DB_CutDefinitions.lua (cow primals, tools; diagram drawn at 1.5x).
+     Trace look: DB_TracePanel.lua (white clean band, dashed guide, green start, red end, dark red cut). -->
+<section class="shot panel" id="cut">
+  <div class="ptitle">Pick a primal on the diagram, then trace the cut yourself</div>
+  <div class="cutrow">
+    <div class="card">
+      <h4>The cow, primal by primal</h4>
+      <div class="diag">
+        <img src="sprites/diagram-cow.png">
+        <span class="tag" style="left:191px;top:99px">Chuck</span>
+        <span class="tag" style="left:271px;top:99px">Rib</span>
+        <span class="tag" style="left:344px;top:66px">Short<br>loin</span>
+        <span class="tag" style="left:401px;top:66px">Sirloin</span>
+        <span class="tag" style="left:482px;top:117px">Round</span>
+        <span class="tag" style="left:191px;top:193px">Brisket</span>
+        <span class="tag" style="left:271px;top:193px">Plate</span>
+        <span class="tag" style="left:371px;top:193px">Flank</span>
+        <span class="tag" style="left:371px;top:149px">Tenderloin</span>
+      </div>
+      <div class="sub">11 primals on a cow, 7 animals in all.<br>Skin or pluck first: until then the body is one target.</div>
+    </div>
+    <div class="card list">
+      <div class="trace">
+        <img class="bg" src="sprites/meat-cow.png">
+        <svg viewBox="0 0 560 300" width="100%" height="100%" preserveAspectRatio="none">
+          <!-- guide: KNIFE_GUIDE 0.05,.5 .35,.4 .65,.6 .95,.5 over a 560x300 box (y squashed) -->
+          <polyline points="40,150 196,110 364,190 520,150" stroke="rgba(255,255,255,.22)" stroke-width="40" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+          <polyline points="40,150 196,110 364,190 520,150" stroke="rgba(255,255,255,.9)" stroke-width="2.5" stroke-dasharray="10 8" fill="none"/>
+          <!-- the cut so far: wanders around the guide -->
+          <path d="M40 150 C70 140 95 150 120 132 S165 112 196 118 S240 125 262 148 S300 178 318 166 S345 192 372 196" stroke="rgb(140,13,13)" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <rect x="33" y="143" width="14" height="14" fill="rgb(51,217,51)"/>
+          <rect x="513" y="143" width="14" height="14" fill="rgb(230,38,38)"/>
+          <rect x="368" y="192" width="8" height="8" fill="#ffff33" stroke="#000" stroke-width="2"/>
+        </svg>
+        <span class="cap" style="left:22px;top:170px">start</span>
+        <span class="cap" style="left:482px;top:172px">end</span>
+        <span class="cap" style="left:140px;top:30px">clean band</span>
+        <span class="cap" style="left:330px;top:228px">the knife drifts</span>
+      </div>
+      <div class="pts">
+        <div>Drag from the green marker to the red one. <span class="m">Rushing makes the knife wander more.</span></div>
+        <div>Hold on past the red marker and you cut into the next primal.</div>
+        <div>Knife, saw or cleaver: <span class="m">the primal decides which.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid cols-4 tools" style="margin-top:14px">
+    <div class="card">
+      <div class="icons"><img src="sprites/coat-cow.png" style="height:96px"></div>
+      <h4>Hook and bleed</h4>
+      <div class="sub">Cows, pigs, sheep and deer<br>hang on a butcher hook.<br><span class="accent">Unbled caps grades at 75</span></div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/beef-tenderloin.png" class="px" style="height:72px"><img src="sprites/beef-brisket.png" class="px" style="height:80px"></div>
+      <h4>Knife</h4>
+      <div class="sub">brisket, plate, flank,<br>round, sirloin, tenderloin</div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/beef-rib.png" class="px" style="height:80px"><img src="sprites/beef-shank.png" class="px" style="height:84px"></div>
+      <h4>Saw</h4>
+      <div class="sub">shanks, rib, short loin</div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/beef-chuck.png" class="px" style="height:84px"></div>
+      <h4>Cleaver or hatchet</h4>
+      <div class="sub">chuck</div>
+    </div>
+  </div>
+  <div class="note">Cow tools shown<span class="dot">·</span>a worn or dull tool drifts more<span class="dot">·</span>chickens, turkeys and rabbits open from vanilla's Butcher option</div>
+</section>
+
+<!-- =============================================================== grades
+     DB_Core.lua tiers 85/65/45/25; DB_GradeMath.lua: tool -15, freshness -1/h past 6 h (cap -40), young +5,
+     road kill -15, hung 12 h +5, unbled cap 75, overcut neighbour cap 25 (sandbox AdjacentCap);
+     yield 0.6 + 0.4 g, food x(0.8 + 0.4 g), XP x(0.5 + g). Visibility: tier at 2, number at 6.
+     Yields: liveKg x sum of primal pct (DB_CutDefinitions.lua), full size, grade 100, before the meat-ratio gene. -->
+<section class="shot panel" id="grades">
+  <div class="ptitle">Every cut comes out with a hidden grade, 0 to 100</div>
+  <div class="tiers">
+    <div style="background:linear-gradient(180deg,#8c7aa6,#6f5e88)"><b>Poor</b><span>0 to 24</span></div>
+    <div style="background:linear-gradient(180deg,#b49ad6,#9478c0)"><b>Standard</b><span>25 to 44</span></div>
+    <div style="background:linear-gradient(180deg,#c6a2f4,#a676ee)"><b>Select</b><span>45 to 64</span></div>
+    <div style="background:linear-gradient(180deg,#d8b6ff,#b98af7)"><b>Choice</b><span>65 to 84</span></div>
+    <div style="background:linear-gradient(180deg,#ffe7a8,#f2c35e)"><b>Prime</b><span>85+</span></div>
+  </div>
+  <div class="seen"><span class="chip">Butchering 2: you see the tier</span><span class="chip">Butchering 6: you see the number</span></div>
+  <div class="two" style="display:grid;grid-template-columns:1fr;margin-top:16px">
+    <div class="mods">
+      <div class="mod"><div class="v up">0-100</div><div class="t">Your trace starts it <i>(clean share and how far misses strayed)</i></div></div>
+      <div class="mod"><div class="v cap">max 75</div><div class="t">Not bled first</div></div>
+      <div class="mod"><div class="v up">+5</div><div class="t">Hung 12 hours on the hook <i>(large animals)</i></div></div>
+      <div class="mod"><div class="v cap">max 25</div><div class="t">Overcut by its neighbour <i>(and less yield)</i></div></div>
+      <div class="mod"><div class="v up">+5</div><div class="t">Young animal</div></div>
+      <div class="mod"><div class="v dn">-40</div><div class="t">at most for freshness: <i>-1 an hour past 6 hours</i></div></div>
+      <div class="mod"><div class="v dn">-15</div><div class="t">Road kill</div></div>
+      <div class="mod"><div class="v dn">-15</div><div class="t">at most for a worn tool</div></div>
+    </div>
+  </div>
+  <div class="sets">
+    <div class="card"><div class="sub">meat kept from the primal</div><div class="big">60% to 100%</div><div class="sub accent">the rest goes to scraps</div></div>
+    <div class="card"><div class="sub">food values</div><div class="big">×0.8 to ×1.2</div><div class="sub accent">poor cuts also spoil sooner</div></div>
+    <div class="card"><div class="sub">Butchering XP</div><div class="big">×0.5 to ×1.5</div><div class="sub accent">clean cuts level faster</div></div>
+  </div>
+  <div class="yields">
+    <div class="card"><div class="art"><img src="sprites/coat-cow.png" style="height:100px"></div><div class="kg">220 <small>kg</small></div><div class="sub">cow</div></div>
+    <div class="card"><div class="art"><img src="sprites/coat-pig.png" style="height:72px"></div><div class="kg">66 <small>kg</small></div><div class="sub">pig</div></div>
+    <div class="card"><div class="art"><img src="sprites/coat-deer.png" style="height:112px"></div><div class="kg">27 <small>kg</small></div><div class="sub">deer</div></div>
+    <div class="card"><div class="art"><img src="sprites/coat-sheep.png" style="height:84px"></div><div class="kg">25 <small>kg</small></div><div class="sub">sheep</div></div>
+    <div class="card"><div class="art"><img src="sprites/coat-turkey.png" style="height:92px"></div><div class="kg">7 <small>kg</small></div><div class="sub">turkey</div></div>
+    <div class="card"><div class="art"><img src="sprites/coat-chicken.png" style="height:86px"></div><div class="kg">1.75 <small>kg</small></div><div class="sub">chicken</div></div>
+    <div class="card"><div class="art"><img src="sprites/coat-rabbit.png" style="height:86px"></div><div class="kg">1 <small>kg</small></div><div class="sub">rabbit</div></div>
+  </div>
+  <div class="note">Cuts from a full-size animal at grade 100, before the meat-ratio gene<span class="dot">·</span>offal, fat and scraps come on top</div>
+</section>
+
+<!-- =============================================================== field
+     DB_Quarter.lua: field dress with a knife (offal, FieldDressSpoilMult 2), quarter with a saw: 2 fore + 2 hind.
+     DB_Haul.lua / DB_HaulServer.lua: loose quarters lose 2 grade an hour while moving, max 10;
+     sled and cart hooks do not bruise and spoil at 0.75x. -->
+<section class="shot panel" id="field">
+  <div class="ptitle">Big game comes home in quarters</div>
+  <div class="steps">
+    <div class="card">
+      <div class="badge">1</div>
+      <div class="icons"><img src="sprites/heart.png" class="px" style="height:80px"><img src="sprites/liver.png" class="px" style="height:56px"><img src="sprites/kidney.png" class="px" style="height:56px"></div>
+      <h4>Field Dress</h4>
+      <div class="sub">on the ground, with a knife:<br>the offal comes out now<br><span class="accent">and the carcass keeps twice as long</span></div>
+    </div>
+    <div class="card">
+      <div class="badge">2</div>
+      <div class="icons"><img src="sprites/venison-quarter-fore.png" class="px" style="height:88px"><img src="sprites/venison-quarter-fore.png" class="px" style="height:88px"><img src="sprites/venison-quarter-hind.png" class="px" style="height:88px"><img src="sprites/venison-quarter-hind.png" class="px" style="height:88px"></div>
+      <h4>Quarter</h4>
+      <div class="sub">with a saw: two forequarters<br>and two hindquarters<br><span class="accent">the hide comes off too</span></div>
+    </div>
+    <div class="card">
+      <div class="badge">3</div>
+      <div class="icons"><img src="sprites/venison-backstrap.png" class="px" style="height:80px"><img src="sprites/venison-hindquarter.png" class="px" style="height:88px"></div>
+      <h4>Open Butchery</h4>
+      <div class="sub">right-click a quarter at home<br>to cut its half of<br><span class="accent">each primal on that end</span></div>
+    </div>
+  </div>
+  <div class="haul">
+    <div class="card bad">
+      <div class="icons"><img src="sprites/beef-quarter-hind.png" class="px" style="height:88px"><img src="sprites/beef-quarter-fore.png" class="px" style="height:88px"></div>
+      <h4>Loose</h4>
+      <div class="big dn">-2 grade an hour</div>
+      <div class="sub">by hand, in a bag or a vehicle,<br>while you move, <span class="accent">up to -10</span></div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/hand-sled.png" class="px" style="height:66px"></div>
+      <h4>Butcher's Hand Sled</h4>
+      <div class="big up">no bruising</div>
+      <div class="sub">drag it behind you,<br><span class="accent">spoils at 75% speed</span></div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/game-cart-kit.png" class="px" style="height:76px"></div>
+      <h4>Game Cart</h4>
+      <div class="big up">no bruising</div>
+      <div class="sub">a rack trailer any vehicle can tow,<br><span class="accent">quarters hang on its hooks</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== aging
+     DB_Tools.lua: dull 1.2% x (1 + 0.25 x difficulty) per cut; hone >= +20%, floor 60% + 4% per Maintenance level.
+     DB_DryAge.lua: grade 65+, aged cold (at most half speed, not frozen), +1 a day up to +8, -1.5% weight a day.
+     DB_Climate.lua: spoil curve -2:0.05, 0-4:0.3, 10:0.7, 20:1.0, 30:1.6. -->
+<section class="shot panel" id="aging">
+  <div class="ptitle">Keep the edge, age the best cuts, mind the weather</div>
+  <div class="three">
+    <div class="card list">
+      <h4>Butcher's edge</h4>
+      <div class="edge">
+        <div class="row"><span>fresh</span><div class="bar"><div class="fill" style="width:calc(100% - 6px)"></div></div></div>
+        <div class="row"><span>after cuts</span><div class="bar"><div class="fill" style="width:45%"></div></div></div>
+        <div class="row"><span>honed</span><div class="bar"><div class="fill" style="width:72%"></div></div></div>
+      </div>
+      <div class="pts">
+        <div>Every cut dulls it a little, hard cuts more</div>
+        <div>Hone on a whetstone: <span class="m">Maintenance sets how sharp it comes back</span></div>
+        <div>Vanilla sharpness is untouched</div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Dry-age</h4>
+      <div class="icons" style="height:110px"><img src="sprites/beef-rib.png" class="px" style="height:96px"><img src="sprites/beef-short-loin.png" class="px" style="height:100px"></div>
+      <div class="lbl">+1 grade a day</div>
+      <div class="sub accent" style="margin-bottom:12px">up to +8, losing 1.5% weight a day</div>
+      <div class="sub">A Choice or Prime cut kept in a fridge<br>for a day or more, then trimmed.<br>Frozen does not count.</div>
+    </div>
+    <div class="card list">
+      <h4>Spoil speed</h4>
+      <div class="bars temp">
+        <div class="bar warm"><div class="fill" style="width:calc(100% - 6px)"></div><div class="in">30 °C</div><div class="tail" style="color:#1b0d2c">×1.6</div></div>
+        <div class="bar warm"><div class="fill" style="width:62%"></div><div class="in">20 °C</div><div class="tail">×1.0</div></div>
+        <div class="bar ice"><div class="fill" style="width:44%"></div><div class="in">10 °C</div><div class="tail">×0.7</div></div>
+        <div class="bar ice"><div class="fill" style="width:19%"></div><div class="in" style="color:var(--ink);left:calc(19% + 14px)">0 to 4 °C</div><div class="tail">×0.3</div></div>
+        <div class="bar ice"><div class="fill" style="width:3%"></div><div class="in" style="color:var(--ink);left:calc(3% + 14px)">-2 °C</div><div class="tail">×0.05</div></div>
+      </div>
+      <div class="sub" style="text-align:center;margin-top:12px">of carcasses and quarters, by the<br>temperature where they lie</div>
+    </div>
+  </div>
+  <div class="note">A deer hung outside in winter keeps for days<span class="dot">·</span>with Dazed Climate, rooms have their own temperature</div>
+</section>
+
+<!-- =============================================================== preserve
+     DazedButchery_recipes.txt outputs: bacon 1, ham 1, jerky 4, sausages 9 (3 mince + intestines + salt),
+     mince 3, suet pot -> 3 tallow, pork fat pot -> 3 lard + 2 cracklings, candles 2, lye soap 2,
+     bone -> 2 bone meal, 3 bone meal + blood + sandbag -> fertilizer. -->
+<section class="shot panel" id="preserve">
+  <div class="ptitle">Nothing goes to waste, and the grade carries over</div>
+  <div class="grid cols-4 recipes">
+    <div class="card">
+      <div class="icons"><img src="sprites/pork-belly.png" class="px" style="height:72px"><img src="sprites/cured-bacon.png" class="px" style="height:80px"></div>
+      <h4>Cured bacon</h4><div class="sub">pork belly and salt</div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/pork-ham.png" class="px" style="height:84px"><img src="sprites/cured-ham.png" class="px" style="height:88px"></div>
+      <h4>Cured ham</h4><div class="sub">pork ham and salt</div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/venison-backstrap.png" class="px" style="height:76px"><img src="sprites/jerky.png" class="px" style="height:64px"></div>
+      <h4>Jerky</h4><div class="sub">a beef, mutton or venison<br>cut and salt <span class="accent">give 4</span></div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/meat-scraps.png" class="px" style="height:62px"><img src="sprites/intestines.png" class="px" style="height:50px"></div>
+      <h4>Mince and sausages</h4><div class="sub">3 mince, cleaned intestines<br>and salt <span class="accent">give 9 sausages</span></div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/animal-fat.png" class="px" style="height:60px"><img src="sprites/pot-of-suet.png" class="px" style="height:80px"><img src="sprites/tallow.png" class="px" style="height:80px"></div>
+      <h4>Tallow</h4><div class="sub">render suet in a cooking pot,<br>strain <span class="accent">3 tallow</span></div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/pork-fatback.png" class="px" style="height:72px"><img src="sprites/pot-of-pork-fat.png" class="px" style="height:80px"><img src="sprites/cracklings.png" class="px" style="height:48px"></div>
+      <h4>Lard</h4><div class="sub">render pork fat, strain<br><span class="accent">3 lard and 2 cracklings</span></div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/tallow.png" class="px" style="height:80px"></div>
+      <h4>Candles and soap</h4><div class="sub">tallow or lard makes<br><span class="accent">2 candles or 2 lye soap</span></div>
+    </div>
+    <div class="card">
+      <div class="icons"><img src="sprites/bone-meal.png" class="px" style="height:88px"></div>
+      <h4>Bone meal</h4><div class="sub">ground bones, then blood<br>and bone <span class="accent">fertilizer</span></div>
+    </div>
+  </div>
+  <div class="note">Five magazines in loot: four primal guides steady your knife on their animals, <i>Curing and Smoking Quarterly</i> teaches the cures</div>
+</section>
+
+</body>
+</html>
