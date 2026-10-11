@@ -1,0 +1,363 @@
+<!doctype html>
+<!-- Dazed Core Workshop art. Each <section class="shot" id="x"> renders to images/x.png
+     (banner -> banner.jpg):  node _kit/render.mjs Core   (from the workshop-art root).
+     Sprites come from sprites.json:  python3 _kit/sprites.py Core
+     Core ships almost no art of its own (the sidebar Guide icon), so the art here is the suite
+     mods' own: Power, Plumbing, Dank, Butchery, Climate, Power: EV. Essentials' crowbar is the
+     same inline icon its page uses. All text comes from DazedCore's translation files and code. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/suite.css">
+<style>
+  /* the EV concept render carries a soft baked shadow: fade its crop edges (as PowerEV/page.html) */
+  img.r { -webkit-mask-image:
+      linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%),
+      linear-gradient(180deg, transparent 0, #000 6%, #000 92%, transparent 100%);
+    -webkit-mask-composite: source-in; mask-composite: intersect; }
+  svg.ic { display: block; position: relative; z-index: 1; overflow: visible; }
+  .hdr .tile svg { width: 80px; height: 80px; }
+
+  /* core overview cards */
+  .feat .card { padding: 18px 16px 20px; }
+  .feat .art { height: 140px; margin-bottom: 14px; align-items: center; }
+  .feat .card h4 { font-size: 32px; margin-bottom: 8px; }
+  .part { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 1; }
+  .part img { height: 96px; }
+  .tag { font-weight: 700; font-size: 21px; color: var(--ink); background: var(--well); border: 1.5px solid #6d43b5;
+    border-radius: 999px; padding: 2px 12px; line-height: 1.2; }
+  .chips { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 360px; }
+  .chip { font-size: 21px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #6d43b5;
+    background: var(--well); color: var(--lilac); white-space: nowrap; }
+  .chip.on { background: #8f4be6; border-color: #c592ff; color: #fff; }
+  .sidebtn { position: relative; z-index: 1; width: 120px; height: 120px; border-radius: 14px; border: 2px solid #a676ee;
+    background: linear-gradient(160deg, #3d1f63, #24123c); display: flex; align-items: center; justify-content: center; }
+
+  /* building picker */
+  .pick { display: grid; grid-template-columns: 1fr 470px; gap: 14px; }
+  .pick > .card { display: flex; flex-direction: column; justify-content: center; }
+  .town { display: flex; justify-content: space-around; align-items: flex-end; height: 170px; margin: 0 0 14px; }
+  .house { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .house svg { display: block; }
+  .key { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
+  .key .lbl { font-size: 27px; }
+  .key .sub { font-size: 20px; }
+  .from { display: flex; justify-content: center; align-items: flex-end; gap: 28px; margin-top: 26px; padding-top: 20px; border-top: 1px solid #4a2c7a; }
+  .from .it { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .from img { height: 92px; }
+
+  /* mock game windows */
+  .win { border: 1.5px solid #8b58e0; border-radius: 12px; background: #120a1d; overflow: hidden; text-align: left; }
+  .win .tb { background: linear-gradient(180deg, #3d1f63, #2b1544); padding: 10px 16px; font-weight: 700; font-size: 24px; color: var(--ink);
+    border-bottom: 1.5px solid #6c40b8; }
+  .win .wb { padding: 14px 18px 16px; }
+  .win .t { font-size: 21px; line-height: 1.35; color: var(--muted); margin-bottom: 10px; }
+  .win .row { font-size: 22px; color: var(--ink); padding: 7px 10px; border-radius: 8px; background: #1d1030; margin-bottom: 6px; }
+  .win .row.g { box-shadow: inset 4px 0 0 #33cc66; }
+  .win .cnt { font-weight: 700; font-size: 22px; color: var(--lilac); margin: 4px 0 8px; }
+  .btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .btn { text-align: center; font-weight: 600; font-size: 21px; padding: 7px 0; border-radius: 8px; border: 1.5px solid #8b58e0; background: #2b1544; color: var(--ink); }
+  .dotc { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin: 0 6px 0 2px; vertical-align: -1px; }
+
+  /* options + guide */
+  .set { display: grid; grid-template-columns: 560px 1fr; gap: 14px; }
+  .opt { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 4px; border-bottom: 1px solid #2b1a42; }
+  .opt:last-child { border-bottom: 0; }
+  .opt .nm { font-size: 22px; color: var(--ink); }
+  .opt .by { font-size: 18px; color: var(--accent); margin-left: 8px; }
+  .box { width: 26px; height: 26px; border-radius: 6px; background: #8f4be6; border: 1.5px solid #c592ff; flex: none;
+    display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 19px; }
+  .combo { font-size: 20px; color: var(--ink); background: #1d1030; border: 1.5px solid #8b58e0; border-radius: 6px; padding: 3px 10px; white-space: nowrap; }
+  .drop { margin: 2px 0 6px auto; width: 220px; border: 1.5px solid #6c40b8; border-radius: 6px; background: #1d1030; }
+  .drop div { font-size: 19px; color: var(--muted); padding: 3px 10px; }
+  .drop div.on { color: var(--ink); background: #3d1f63; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tabs span { font-size: 19px; font-weight: 600; padding: 4px 12px; border-radius: 8px 8px 0 0; background: #1d1030; color: var(--muted); border: 1.5px solid #4a2c7a; border-bottom: 0; }
+  .tabs span.on { background: #3d1f63; color: var(--ink); border-color: #a676ee; }
+  .gcols { display: grid; grid-template-columns: 200px 1fr; gap: 14px; }
+  .pages div { font-size: 20px; color: var(--muted); padding: 5px 8px; border-radius: 6px; }
+  .pages div.on { background: #3d1f63; color: var(--ink); }
+  .gtext h5 { font-size: 26px; color: var(--ink); margin-bottom: 6px; }
+  .gtext p { font-size: 21px; line-height: 1.4; color: var(--muted); margin-bottom: 8px; }
+
+  /* suite */
+  .suite .card { padding: 16px 12px 18px; }
+  .suite .art { height: 160px; margin-bottom: 12px; gap: 8px; }
+  .suite .card h4 { font-size: 30px; margin-bottom: 6px; }
+  .suite .sub { font-size: 20px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- same crowbar icon as Essentials/page.html -->
+    <symbol id="i-crowbar" viewBox="0 0 64 64">
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 57L41 17C45 9 52 5 57 9C60 12 58 17 54 19" stroke="#1a0f29" stroke-width="9"/>
+        <path d="M15 57L7 55" stroke="#1a0f29" stroke-width="8"/>
+        <path d="M15 57L41 17C45 9 52 5 57 9C60 12 58 17 54 19" stroke="#e2675a" stroke-width="5.5"/>
+        <path d="M15 57L7 55" stroke="#e2675a" stroke-width="4.5"/>
+        <path d="M53.5 16.5L57 20" stroke="#1a0f29" stroke-width="2"/>
+        <path d="M20 47L38 20" stroke="#ff9d8f" stroke-width="1.8" opacity=".8"/>
+      </g>
+    </symbol>
+    <symbol id="i-gear" viewBox="0 0 64 64">
+      <g fill="#c592ff">
+        <rect x="28" y="2" width="8" height="12" rx="1.5"/><rect x="28" y="50" width="8" height="12" rx="1.5"/>
+        <rect x="2" y="28" width="12" height="8" rx="1.5"/><rect x="50" y="28" width="12" height="8" rx="1.5"/>
+        <rect x="28" y="2" width="8" height="12" rx="1.5" transform="rotate(45 32 32)"/><rect x="28" y="50" width="8" height="12" rx="1.5" transform="rotate(45 32 32)"/>
+        <rect x="2" y="28" width="12" height="8" rx="1.5" transform="rotate(45 32 32)"/><rect x="50" y="28" width="12" height="8" rx="1.5" transform="rotate(45 32 32)"/>
+      </g>
+      <circle cx="32" cy="32" r="19" fill="none" stroke="#c592ff" stroke-width="5"/>
+      <circle cx="32" cy="32" r="10" fill="#c592ff"/>
+    </symbol>
+    <symbol id="i-puzzle" viewBox="0 0 64 64">
+      <path d="M8 18H24Q22 8 30 8Q38 8 36 18H52V34Q62 32 62 40Q62 48 52 46V58H8Z" fill="#3b2a52" stroke="#c592ff" stroke-width="3.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-help" viewBox="0 0 64 64">
+      <path d="M8 12Q8 6 14 6H50Q56 6 56 12V40Q56 46 50 46H26L14 57V46Q8 46 8 40Z" fill="#3b2a52" stroke="#c592ff" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M25 19Q25 12 32 12Q39 12 39 18Q39 23 32 25V30" fill="none" stroke="#f6efff" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="32" cy="37" r="2.6" fill="#f6efff"/>
+    </symbol>
+    <symbol id="i-code" viewBox="0 0 64 64">
+      <rect x="5" y="9" width="54" height="46" rx="7" fill="#3b2a52" stroke="#c592ff" stroke-width="3.5"/>
+      <path d="M24 23L15 32L24 41M40 23L49 32L40 41" fill="none" stroke="#f6efff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M35 20L29 44" stroke="#b47cf7" stroke-width="4" stroke-linecap="round"/>
+    </symbol>
+    <!-- server and players, for server sync -->
+    <symbol id="i-sync" viewBox="0 0 120 120">
+      <rect x="40" y="10" width="40" height="52" rx="6" fill="#3b2a52" stroke="#c592ff" stroke-width="3.5"/>
+      <path d="M48 24h24M48 34h24M48 44h24" stroke="#8d74b5" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="72" cy="54" r="3" fill="#7be59a"/>
+      <path d="M60 62v14M60 76H22v10M60 76h38v10M60 76v10" fill="none" stroke="#b47cf7" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g fill="#cdb6f2"><circle cx="22" cy="95" r="7"/><path d="M11 116q0-12 11-12t11 12z"/>
+        <circle cx="60" cy="95" r="7"/><path d="M49 116q0-12 11-12t11 12z"/>
+        <circle cx="98" cy="95" r="7"/><path d="M87 116q0-12 11-12t11 12z"/></g>
+    </symbol>
+    <!-- a small isometric house; colour set by the use's fill/stroke via currentColor -->
+    <symbol id="i-house" viewBox="0 0 160 150">
+      <path d="M80 140L10 105V60L80 95Z" fill="currentColor" fill-opacity=".55" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M80 140L150 105V60L80 95Z" fill="currentColor" fill-opacity=".35" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M10 60L45 18L115 18L150 60L80 95Z" fill="#241638" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M45 18L80 58L115 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" opacity=".7"/>
+      <path d="M30 96l14 7v-18l-14-7zM104 103l18-9v-16l-18 9z" fill="#120a1d" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =============================================================== banner -->
+<section class="shot banner" id="banner">
+  <div class="title">DAZED CORE</div>
+  <div class="sub">The shared foundation of the Dazed mod suite for Build 42</div>
+  <div class="pills">
+    <span class="pill">Heavy parts</span>
+    <span class="pill">Building Picker</span>
+    <span class="pill">One sandbox preset</span>
+    <span class="pill">Suite Guide</span>
+    <span class="pill">Shared options</span>
+    <span class="pill">Server sync</span>
+  </div>
+  <div class="row">
+    <div class="spr"><img src="sprites/windmill.png" style="height:240px"></div>
+    <div class="spr"><img src="sprites/tracker.png" style="height:200px"></div>
+    <div class="spr"><img src="sprites/controller.png" style="height:128px"></div>
+    <div class="spr"><img src="sprites/tank-water.png" style="height:180px"></div>
+    <div class="spr"><img src="sprites/plant.png" style="height:225px"></div>
+    <div class="spr"><img src="sprites/cow.png" style="height:136px"></div>
+    <div class="spr"><img src="sprites/thermometer.png" class="px" style="height:112px"></div>
+    <div class="spr"><img src="sprites/cart.png" class="r" style="height:160px"></div>
+    <div class="spr"><svg class="ic" width="130" height="130"><use href="#i-crowbar"/></svg></div>
+  </div>
+</section>
+
+<!-- =============================================================== section headers -->
+<section class="shot hdr" id="h-what">
+  <div class="tile"><svg class="ic"><use href="#i-gear"/></svg></div>
+  <div class="num">01</div><h2>What it does for you</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-authors">
+  <div class="tile"><svg class="ic"><use href="#i-code"/></svg></div>
+  <div class="num">02</div><h2>For mod authors</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-compat">
+  <div class="tile"><svg class="ic"><use href="#i-puzzle"/></svg></div>
+  <div class="num">03</div><h2>Compatibility</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-help">
+  <div class="tile"><svg class="ic"><use href="#i-help"/></svg></div>
+  <div class="num">04</div><h2>Bugs and feedback</h2><div class="rule"></div>
+</section>
+
+<!-- =============================================================== what Core does
+     From DC_HeavyParts (LIMIT 30 kg, "(i/n)"), DC_Picker colours, DC_Preset + sandbox-options.txt,
+     DC_Guide, DC_Options, DC_Net / DC_Note. Workshop Tracking Array (32 kg) is the guide's own example. -->
+<section class="shot panel" id="core">
+  <div class="ptitle">You never open it, but you feel it in every Dazed mod</div>
+  <div class="grid cols-3 feat">
+    <div class="card">
+      <div class="art">
+        <div class="part"><img src="sprites/tracker-item.png" class="px"><span class="tag">(1/2)</span></div>
+        <div class="part"><img src="sprites/tracker-item.png" class="px"><span class="tag">(2/2)</span></div>
+      </div>
+      <h4>Heavy parts</h4>
+      <div class="sub">Over 30 kg is carried in parts, like a bed.<br><span class="accent">Placing needs every part on you.</span></div>
+    </div>
+    <div class="card">
+      <div class="art" style="gap:2px">
+        <svg width="80" height="75" style="color:#3c6;position:relative;z-index:1"><use href="#i-house"/></svg>
+        <svg width="80" height="75" style="color:#f2cc33;position:relative;z-index:1"><use href="#i-house"/></svg>
+        <svg width="80" height="75" style="color:#5999f2;position:relative;z-index:1"><use href="#i-house"/></svg>
+        <svg width="80" height="75" style="color:#e64d40;position:relative;z-index:1"><use href="#i-house"/></svg>
+      </div>
+      <h4>Building Picker</h4>
+      <div class="sub">Click the buildings a part serves<br><span class="accent">with power or water.</span></div>
+    </div>
+    <div class="card">
+      <div class="art">
+        <div class="chips"><span class="chip">Custom</span><span class="chip">Easy</span><span class="chip on">Standard</span><span class="chip">Realistic</span><span class="chip">Hardcore</span></div>
+      </div>
+      <h4>One sandbox preset</h4>
+      <div class="sub">One Dazed Core page sets<br><span class="accent">every Dazed mod's options at once.</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><div class="sidebtn"><img src="sprites/guide.png" style="height:84px"></div></div>
+      <h4>Dazed Mod Suite Guide</h4>
+      <div class="sub">A book button at the foot of the sidebar,<br><span class="accent">a tab for each Dazed mod you run.</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><svg class="ic" width="118" height="118"><use href="#i-gear"/></svg></div>
+      <h4>Shared options page</h4>
+      <div class="sub">Every Dazed tick box under one<br><span class="accent">Dazed Core entry in the Mods tab.</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><svg class="ic" width="130" height="130"><use href="#i-sync"/></svg></div>
+      <h4>Server sync</h4>
+      <div class="sub">The server decides, clients stay in step;<br><span class="accent">a line above your head says why not.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== building picker
+     Colours from DC_Picker.lua (GREEN .2/.8/.4, ADD .95/.8/.2, TAKE .35/.6/.95, FAR .9/.3/.25).
+     Window strings from IG_UI.json (IGUI_DazedCore_Pick*); the counts in the list are an example. -->
+<section class="shot panel" id="picker">
+  <div class="ptitle">The Building Picker: whole houses on your power or water</div>
+  <div class="pick">
+    <div class="card">
+      <div class="town">
+        <div class="house"><svg width="170" height="160" style="color:#33cc66"><use href="#i-house"/></svg></div>
+        <div class="house"><svg width="170" height="160" style="color:#f2cc33"><use href="#i-house"/></svg></div>
+        <div class="house"><svg width="170" height="160" style="color:#5999f2"><use href="#i-house"/></svg></div>
+        <div class="house"><svg width="170" height="160" style="color:#e64d40"><use href="#i-house"/></svg></div>
+      </div>
+      <div class="key">
+        <div><div class="lbl" style="color:#5fe08a">Green</div><div class="sub">served</div></div>
+        <div><div class="lbl" style="color:#f2d54d">Yellow</div><div class="sub">a click adds it</div></div>
+        <div><div class="lbl" style="color:#7cb1ff">Blue</div><div class="sub">a click removes it</div></div>
+        <div><div class="lbl" style="color:#ff7466">Red</div><div class="sub">out of reach, or<br>served by another</div></div>
+      </div>
+      <div class="from">
+        <div class="it"><img src="sprites/transformer.png"><div class="sub">Power transformer</div></div>
+        <div class="it"><img src="sprites/controller.png"><div class="sub">Power controller</div></div>
+        <div class="it"><img src="sprites/water-main.png"><div class="sub">Plumbing water main</div></div>
+      </div>
+    </div>
+    <div class="win">
+      <div class="tb">Choose buildings</div>
+      <div class="wb">
+        <div class="t">Click a building or a structure you built to add it; click it again to remove it.</div>
+        <div class="t"><span class="dotc" style="background:#33cc66"></span>served <span class="dotc" style="background:#f2cc33"></span>adds <span class="dotc" style="background:#5999f2"></span>removes <span class="dotc" style="background:#e64d40"></span>out of reach</div>
+        <div class="cnt">Served: 3</div>
+        <div class="row g">Building, 96 squares, 2 floors</div>
+        <div class="row g">Your structure, 24 squares, 1 floor</div>
+        <div class="row g">Building, 140 squares, 3 floors</div>
+        <div class="btns"><div class="btn">Remove all</div><div class="btn">Done</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Houses, basements or structures you built yourself<span class="dot">·</span>the server picks what the click picks<span class="dot">·</span>made for dedicated servers too</div>
+</section>
+
+<!-- =============================================================== options + guide
+     Options page: DC_Options (TempUnits), DC_Guide (GuideButton), DP_Options + DP_WindSpin (Power),
+     DE_PryGameUI (Essentials). Guide: DC_Guide books and IGUI_DazedGuide_* text. -->
+<section class="shot panel" id="settings">
+  <div class="ptitle">One options page, one guide for the whole suite</div>
+  <div class="set">
+    <div class="win">
+      <div class="tb">Options &gt; Mods &gt; Dazed Core</div>
+      <div class="wb">
+        <div class="opt"><span class="nm">Temperatures</span><span class="combo">Celsius ▾</span></div>
+        <div class="drop"><div>Game setting</div><div class="on">Celsius</div><div>Fahrenheit</div></div>
+        <div class="opt"><span class="nm">Guide button in the sidebar</span><span class="box">✓</span></div>
+        <div class="opt"><span class="nm">Almanac button on the sidebar<span class="by">Power</span></span><span class="box">✓</span></div>
+        <div class="opt"><span class="nm">Animate windmills<span class="by">Power</span></span><span class="box">✓</span></div>
+        <div class="opt"><span class="nm">Ride pedal generators<span class="by">Power</span></span><span class="box">✓</span></div>
+        <div class="opt"><span class="nm">Essentials: prying minigame</span><span class="box">✓</span></div>
+      </div>
+    </div>
+    <div class="win">
+      <div class="tb">Dazed Mod Suite Guide</div>
+      <div class="wb">
+        <div class="tabs"><span class="on">Basics</span><span>Power</span><span>Plumbing</span><span>Butchery</span><span>Cooking</span><span>Dank</span></div>
+        <div class="gcols">
+          <div class="pages"><div>Getting started</div><div>Heavy parts</div><div>Sandbox presets</div><div class="on">Wiring buildings</div></div>
+          <div class="gtext">
+            <h5>Wiring buildings</h5>
+            <p>A transformer or a water main can serve whole buildings. Choose them with the Building Picker: green is served, yellow adds on a click, blue removes on a click, red is out of reach.</p>
+            <p>Inside a served building the lights and appliances (or the taps and fixtures) work as if the town supply were still on.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Temperatures: how every Dazed mod shows them (Climate, Dank's grow rooms)<span class="dot">·</span>a guide tab shows only while its mod is on</div>
+</section>
+
+<!-- =============================================================== the suite
+     Lines shortened from the suite list in workshop.txt. Art is each mod's own (Cooking cooks
+     Butchery's cuts, so it shows two of them; Essentials has no in-game art, so its page icon). -->
+<section class="shot panel" id="suite">
+  <div class="ptitle">Every Dazed mod loads it first</div>
+  <div class="grid cols-4 suite">
+    <div class="card">
+      <div class="art"><img src="sprites/tracker.png" style="height:150px"><img src="sprites/generator.png" style="height:84px"></div>
+      <h4>Power</h4><div class="sub">solar, wind, steam and gas<br>feeding battery banks</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/cart.png" class="r" style="height:140px"></div>
+      <h4>Power: EV</h4><div class="sub">homemade 1993 electric<br>vehicles</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/hand-pump.png" style="height:120px"><img src="sprites/tank-water.png" style="height:140px"></div>
+      <h4>Plumbing</h4><div class="sub">tanks, pipes, pumps, wells<br>and a water main</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/plant.png" style="height:155px"></div>
+      <h4>Dank</h4><div class="sub">realistic cannabis<br>growing</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/thermometer.png" class="px" style="height:120px"></div>
+      <h4>Climate</h4><div class="sub">real winters, frost on crops<br>and freezing pipes</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/pig.png" style="height:105px"></div>
+      <h4>Butchery</h4><div class="sub">pick a primal and trace<br>every cut yourself</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/beef-rib.png" class="px" style="height:78px"><img src="sprites/pork-ham.png" class="px" style="height:90px"></div>
+      <h4>Cooking</h4><div class="sub">a best method and doneness<br>for every cut</div>
+    </div>
+    <div class="card">
+      <div class="art"><svg class="ic" width="130" height="130"><use href="#i-crowbar"/></svg></div>
+      <h4>Essentials</h4><div class="sub">common-sense quality<br>of life</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

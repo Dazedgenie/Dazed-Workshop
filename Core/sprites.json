@@ -1,0 +1,24 @@
+{
+  "repos": "/home/claude",
+  "sprites": {
+    "guide":       {"png": "DazedCore/Contents/mods/DazedCore/common/media/ui/DazedCore/Sidebar/128/Guide_128.png", "scale": 1},
+    "tracker":     {"pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack", "sprite": "dazedpower_01_60", "scale": 1.6},
+    "tracker-item":{"png": "DazedPower/Contents/mods/DazedPower/common/media/textures/Item_DazedTrackerWorkshop.png", "scale": 4, "filter": "nearest"},
+    "windmill":    {"pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack", "sprite": "dazedpower_02_196", "scale": 1.6},
+    "controller":  {"pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack", "sprite": "dazedpower_01_357", "scale": 1.6},
+    "transformer": {"pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack", "sprite": "dazedpower_01_361", "scale": 1.6},
+    "generator":   {"pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack", "sprite": "dazedpower_02_37", "scale": 1.6},
+    "heater":      {"pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack", "sprite": "dazedpower_02_153", "scale": 2.5},
+    "tank-water":  {"pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+                    "layers": [["dazedplumb_01_136", 0, 0], ["dazedplumb_01_137", 64, 32]], "scale": 1.6},
+    "water-main":  {"pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack", "sprite": "dazedplumb_01_232", "scale": 1.6},
+    "hand-pump":   {"pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack", "sprite": "dazedplumb_01_176", "scale": 1.6},
+    "plant":       {"png": "DazedDank-Workshop/art/purple-green/art/sprites/p134.png", "scale": 1.6},
+    "cow":         {"png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/DazedButchery/coat_cow.png", "scale": 1},
+    "pig":         {"png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/DazedButchery/coat_pig.png", "scale": 1},
+    "beef-rib":    {"png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefRib.png", "scale": 4, "filter": "nearest"},
+    "pork-ham":    {"png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkHam.png", "scale": 4, "filter": "nearest"},
+    "thermometer": {"png": "DazedClimate/Contents/mods/DazedClimate/common/media/textures/Item_DazedThermometer.png", "scale": 5, "filter": "nearest"},
+    "cart":        {"png": "/mnt/project-files/electric-vehicles/art/club_cart_0.png", "scale": 0.5, "crop": [106, 0, 920, 767]}
+  }
+}
