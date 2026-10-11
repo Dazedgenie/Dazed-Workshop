@@ -1,0 +1,10 @@
+{
+  "repos": "/home/claude",
+  "sprites": {
+    "heater": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_153",
+      "scale": 2.5
+    }
+  }
+}

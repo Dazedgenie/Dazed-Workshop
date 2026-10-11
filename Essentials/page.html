@@ -1,0 +1,618 @@
+<!doctype html>
+<!-- Dazed Essentials Workshop art. Each <section class="shot" id="x"> renders to images/x.png
+     (banner -> banner.jpg):  node _kit/render.mjs Essentials   (from the workshop-art root).
+     Sprites come from sprites.json:  python3 _kit/sprites.py Essentials
+     Essentials ships no art of its own, so its items and UI are drawn here as icons and mock-ups.
+     The one borrowed sprite is Dazed Power's space heater: burn-all leaves a Dazed machine's square alone. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/suite.css">
+<style>
+  /* drawn item icons (no item art in the repos) */
+  svg.ic { display: block; position: relative; z-index: 1; overflow: visible; }
+  .hdr .tile svg { width: 86px; height: 86px; }
+
+  /* banner: the title is three letters longer than Climate's */
+  #banner .title { font-size: 140px; top: 84px; letter-spacing: 3px; }
+  #banner .sub { top: 236px; }
+  #banner .pills { gap: 12px; }
+  #banner .row { left: 40px; right: 40px; bottom: 26px; height: 250px; }
+
+  /* mock right-click menu and tooltip, in the suite's colours */
+  .menu { background: rgba(12, 6, 22, .94); border: 1.5px solid #6c40b8; border-radius: 10px; padding: 6px 0;
+    text-align: left; font-size: 24px; line-height: 1.2; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); }
+  .menu .it { padding: 8px 20px; color: var(--ink); white-space: nowrap; }
+  .menu .it.dim { color: #7f6b9c; }
+  .menu .it.hi { background: linear-gradient(90deg, #8f4be6, #6a34bf); color: #fff; font-weight: 600; }
+  .tip { background: rgba(12, 6, 22, .94); border: 1.5px solid #6c40b8; border-radius: 10px; padding: 12px 16px;
+    text-align: left; font-size: 20px; line-height: 1.35; color: var(--lilac); }
+  .cap { font-size: 18px; color: var(--muted); font-style: italic; }
+
+  .chip { display: inline-block; font-size: 21px; font-weight: 600; padding: 5px 14px; border-radius: 999px;
+    border: 1.5px solid #6d43b5; background: var(--well); color: var(--lilac); white-space: nowrap; }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+
+  .card.list { text-align: left; padding: 20px 24px 22px; }
+  .card.list h4 { text-align: center; margin-bottom: 16px; }
+  .card.list .foot { margin-top: 14px; text-align: center; }
+  .small h4 { font-size: 28px; }
+  .small.mid { display: flex; flex-direction: column; justify-content: center; }
+  .small .sub { font-size: 21px; }
+
+  /* pry panel: chance rows */
+  .crow { display: grid; grid-template-columns: 250px 1fr; align-items: center; gap: 14px; }
+  .crow .k { font-size: 23px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .crow .k span { font-weight: 400; color: var(--muted); }
+  .costs { display: grid; gap: 12px; }
+  .cost { display: grid; grid-template-columns: 58px 1fr; align-items: center; gap: 12px; font-size: 25px; color: var(--ink); }
+  .cost svg { width: 52px; height: 52px; }
+  .cost .sub { font-size: 21px; display: block; line-height: 1.2; }
+
+  /* minigame mock: DE_PryGameUI's 340x120 panel drawn 2.3x */
+  .pg { position: relative; width: 782px; height: 276px; margin: 0 auto; background: rgba(0, 0, 0, .75);
+    border: 2px solid rgba(255, 255, 255, .35); text-align: left; }
+  .pg .t { position: absolute; left: 37px; top: 14px; font-size: 30px; color: #fff; }
+  .pg .pip { position: absolute; top: 23px; width: 28px; height: 28px; background: #404040; }
+  .pg .pip.used { background: #d92626; }
+  .pg .track { position: absolute; left: 37px; top: 78px; width: 708px; height: 46px; background: #1f1f1f;
+    outline: 2px solid rgba(255, 255, 255, .6); }
+  .pg .zone { position: absolute; top: 0; bottom: 0; background: rgba(51, 179, 64, .85); }
+  .pg .grace { position: absolute; top: 0; bottom: 0; background: rgba(217, 140, 26, .6); }
+  .pg .needle { position: absolute; top: -7px; width: 7px; height: 60px; background: #fff; }
+  .pg .prog { position: absolute; left: 37px; top: 142px; width: 708px; height: 14px; background: #1f1f1f; }
+  .pg .prog i { position: absolute; left: 0; top: 0; bottom: 0; background: #e6cc4d; }
+  .pg .hint { position: absolute; left: 37px; bottom: 26px; font-size: 25px; color: #ccc; }
+  .pg .tag { position: absolute; width: 36px; height: 36px; border-radius: 50%; background: #8f4be6; color: #fff;
+    font-weight: 700; font-size: 22px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 0 3px rgba(20, 8, 34, .9); }
+  .legendl { display: grid; gap: 14px; text-align: left; }
+  .legendl .r { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center; font-size: 22px; line-height: 1.25; color: var(--ink); }
+  .legendl .r .tag { position: static; width: 34px; height: 34px; border-radius: 50%; background: #8f4be6; color: #fff;
+    font-weight: 700; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+  .mini { position: relative; height: 24px; background: #1f1f1f; outline: 1.5px solid rgba(255, 255, 255, .45); }
+  .mini .zone { position: absolute; top: 0; bottom: 0; background: rgba(51, 179, 64, .85); }
+  .mini .sway { position: absolute; top: 0; bottom: 0; border: 2px dashed rgba(120, 220, 130, .7); }
+  .mrow { display: grid; grid-template-columns: 200px 1fr; gap: 12px; align-items: center; font-size: 21px; color: var(--ink); text-align: left; }
+  .big { font-weight: 800; font-size: 54px; line-height: 1; color: var(--ink); }
+  .big.up { color: #8fe39a; }
+  .big.down { color: #ff9a8a; }
+
+  /* cans */
+  .cans { display: grid; grid-template-columns: 340px 1fr 1fr; gap: 14px; }
+  .stats { display: grid; gap: 10px; margin-top: 6px; text-align: left; }
+  .stats div { font-size: 22px; color: var(--ink); padding: 8px 14px; border-radius: 10px; background: var(--well); border: 1.5px solid #5d3a9a; }
+  .stats b { color: var(--fill-a); }
+
+  /* burn: top-down range diagram */
+  .burn { display: grid; grid-template-columns: 500px 1fr; gap: 14px; }
+  .skip { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 12px; }
+
+  /* mirror */
+  .steps .card { padding-top: 16px; }
+  .steps .art { height: 170px; }
+  .arrow { position: absolute; right: -24px; top: 92px; z-index: 3; font-size: 36px; font-weight: 700; color: #c592ff; }
+  .spawn { width: 300px; margin: 0 auto 4px; }
+  .spawn .it { font-size: 22px; padding: 6px 16px; }
+  .sk { display: grid; grid-template-columns: 150px 1fr 120px; gap: 14px; align-items: center; font-size: 23px; }
+  .sk .n { font-weight: 600; color: var(--ink); text-align: left; }
+  .sk .t { color: var(--muted); text-align: left; white-space: nowrap; }
+  .sk .bar { height: 44px; }
+  .sk .ghost { position: absolute; left: 3px; top: 3px; bottom: 3px; border-radius: 7px; border: 2px dashed rgba(220, 190, 255, .7); }
+</style>
+</head>
+<body>
+
+<!-- =============================================================== drawn icons (viewBox 64x64) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-crowbar" viewBox="0 0 64 64">
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 57L41 17C45 9 52 5 57 9C60 12 58 17 54 19" stroke="#1a0f29" stroke-width="9"/>
+        <path d="M15 57L7 55" stroke="#1a0f29" stroke-width="8"/>
+        <path d="M15 57L41 17C45 9 52 5 57 9C60 12 58 17 54 19" stroke="#e2675a" stroke-width="5.5"/>
+        <path d="M15 57L7 55" stroke="#e2675a" stroke-width="4.5"/>
+        <path d="M53.5 16.5L57 20" stroke="#1a0f29" stroke-width="2"/>
+        <path d="M20 47L38 20" stroke="#ff9d8f" stroke-width="1.8" opacity=".8"/>
+      </g>
+    </symbol>
+    <symbol id="i-door" viewBox="0 0 64 64">
+      <rect x="15" y="4" width="34" height="57" rx="3" fill="#3b2a52" stroke="#cdb6f2" stroke-width="3"/>
+      <rect x="21" y="10" width="22" height="18" rx="2" fill="none" stroke="#8d74b5" stroke-width="2.5"/>
+      <rect x="21" y="34" width="22" height="20" rx="2" fill="none" stroke="#8d74b5" stroke-width="2.5"/>
+      <circle cx="43" cy="33" r="2.6" fill="#ffcf6b"/>
+      <path d="M45 41v-4a6 6 0 0 1 12 0v4" fill="none" stroke="#d6d9e6" stroke-width="3"/>
+      <rect x="42" y="40" width="18" height="15" rx="3" fill="#b47cf7" stroke="#1a0f29" stroke-width="1.5"/>
+      <circle cx="51" cy="47" r="2" fill="#1a0f29"/>
+    </symbol>
+    <symbol id="i-garage" viewBox="0 0 64 64">
+      <path d="M5 24L32 8L59 24V58H5Z" fill="#3b2a52" stroke="#cdb6f2" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="13" y="28" width="38" height="30" fill="#2a1c3d" stroke="#8d74b5" stroke-width="2.5"/>
+      <path d="M13 35.5h38M13 43h38M13 50.5h38" stroke="#8d74b5" stroke-width="2.5"/>
+      <rect x="27" y="51" width="10" height="4" rx="1" fill="#ffcf6b"/>
+    </symbol>
+    <symbol id="i-window" viewBox="0 0 64 64">
+      <rect x="8" y="8" width="48" height="48" rx="3" fill="#3b2a52" stroke="#cdb6f2" stroke-width="3"/>
+      <rect x="13" y="13" width="17" height="38" fill="#9fd8ff" opacity=".35"/>
+      <rect x="34" y="13" width="17" height="38" fill="#9fd8ff" opacity=".35"/>
+      <path d="M32 9v46M9 32h46" stroke="#cdb6f2" stroke-width="3"/>
+      <path d="M38 17l5 7-3 5 6 6M43 24l6-3" fill="none" stroke="#e6f6ff" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-car" viewBox="0 0 64 64">
+      <path d="M4 44V37Q4 31 11 30L20 20Q22 18 26 18H42Q46 18 49 21L56 30Q61 31 61 37V44Z" fill="#3b2a52" stroke="#cdb6f2" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M22 29L27 22H34V29ZM38 22H43Q45 22 47 24L51 29H38Z" fill="#9fd8ff" opacity=".45"/>
+      <path d="M36 21V43" stroke="#8d74b5" stroke-width="2"/>
+      <rect x="27" y="33" width="6" height="2.5" rx="1" fill="#ffcf6b"/>
+      <circle cx="17" cy="45" r="7" fill="#1a0f29" stroke="#cdb6f2" stroke-width="2.5"/>
+      <circle cx="49" cy="45" r="7" fill="#1a0f29" stroke="#cdb6f2" stroke-width="2.5"/>
+    </symbol>
+    <symbol id="i-can" viewBox="0 0 64 64">
+      <path d="M16 13V52Q16 57 32 57Q48 57 48 52V13" fill="#bcc4d4" stroke="#1a0f29" stroke-width="2"/>
+      <path d="M16 21H48V47H16Z" fill="#8f4be6"/>
+      <path d="M16 21H48M16 47H48" stroke="#5e2fa8" stroke-width="2"/>
+      <ellipse cx="32" cy="34" rx="8" ry="6" fill="#ffcf6b" opacity=".9"/>
+      <ellipse cx="32" cy="13" rx="16" ry="5" fill="#dfe4ee" stroke="#1a0f29" stroke-width="2"/>
+      <ellipse cx="32" cy="13" rx="12" ry="3.4" fill="none" stroke="#9aa3b5" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="i-screwdriver" viewBox="0 0 64 64">
+      <g transform="rotate(40 32 32)">
+        <rect x="29.5" y="2" width="5" height="32" rx="1" fill="#d3d9e6" stroke="#1a0f29" stroke-width="1.5"/>
+        <rect x="26" y="32" width="12" height="5" fill="#9aa3b5"/>
+        <rect x="24" y="36" width="16" height="25" rx="6" fill="#e8b84a" stroke="#1a0f29" stroke-width="1.5"/>
+        <path d="M28.5 41v15M35.5 41v15" stroke="#b3852a" stroke-width="2"/>
+      </g>
+    </symbol>
+    <symbol id="i-hammer" viewBox="0 0 64 64">
+      <g transform="rotate(-35 32 32)">
+        <rect x="28.5" y="16" width="7" height="45" rx="3" fill="#b98a5a" stroke="#1a0f29" stroke-width="1.5"/>
+        <path d="M14 6H44V19H14Z" fill="#c9d2e3" stroke="#1a0f29" stroke-width="1.5"/>
+        <path d="M44 7Q55 7 57 2M44 18Q56 18 59 11" fill="none" stroke="#c9d2e3" stroke-width="4.5" stroke-linecap="round"/>
+        <rect x="9" y="8" width="6" height="9" fill="#9aa3b5" stroke="#1a0f29" stroke-width="1.5"/>
+      </g>
+    </symbol>
+    <symbol id="i-rock" viewBox="0 0 64 64">
+      <path d="M9 44Q8 30 20 24Q30 15 43 21Q56 26 56 40Q55 52 38 54Q16 56 9 44Z" fill="#8a8396" stroke="#1a0f29" stroke-width="2"/>
+      <path d="M20 30Q28 24 36 26M40 44Q46 42 49 37" fill="none" stroke="#b5afc0" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-lighter" viewBox="0 0 64 64">
+      <path d="M32 3C39 10 40 17 32 22C24 17 25 10 32 3Z" fill="#ffb347"/>
+      <path d="M32 10C35 14 35 17 32 19.5C29 17 29 14 32 10Z" fill="#ffe08a"/>
+      <rect x="22" y="23" width="20" height="9" rx="2" fill="#c9d2e3" stroke="#1a0f29" stroke-width="1.5"/>
+      <circle cx="37" cy="27.5" r="2.5" fill="#6d6880"/>
+      <rect x="21" y="31" width="22" height="30" rx="5" fill="#b47cf7" stroke="#1a0f29" stroke-width="1.5"/>
+      <path d="M26 36v20" stroke="#d6b3ff" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+    </symbol>
+    <symbol id="i-flame" viewBox="0 0 64 64">
+      <path d="M32 4C44 16 52 26 48 42C45 54 37 59 32 59C24 59 15 53 14 42C13 32 20 26 22 18C26 24 28 27 30 28C30 18 30 11 32 4Z" fill="#ff8c3a"/>
+      <path d="M32 26C39 34 42 40 40 48C38 54 35 56 32 56C27 56 23 52 23 46C23 40 27 37 28 32C30 36 31 37 32 37Z" fill="#ffcf6b"/>
+    </symbol>
+    <symbol id="i-pile" viewBox="0 0 64 64">
+      <path d="M5 54Q9 40 22 38Q30 32 40 36Q55 38 59 54Z" fill="#4a3b55" stroke="#1a0f29" stroke-width="2"/>
+      <path d="M14 48Q22 43 30 46M34 42Q44 41 50 48" fill="none" stroke="#7a6a86" stroke-width="2.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-shirt" viewBox="0 0 64 64">
+      <path d="M21 8L27 6Q32 11 37 6L43 8L58 19L51 29L46 25V58H18V25L13 29L6 19Z" fill="#3b2a52" stroke="#cdb6f2" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M27 6Q32 14 37 6" fill="none" stroke="#cdb6f2" stroke-width="2.5"/>
+      <path d="M18 40H46" stroke="#8d74b5" stroke-width="2.5" stroke-dasharray="4 4"/>
+    </symbol>
+    <symbol id="i-rags" viewBox="0 0 64 64">
+      <g stroke="#1a0f29" stroke-width="1.5">
+        <path d="M6 18Q20 12 34 18L58 14L56 24Q42 20 30 26L8 28Z" fill="#c9b8e8"/>
+        <path d="M8 34Q24 30 38 36L56 32L54 42Q40 38 28 44L6 44Z" fill="#a98fd6"/>
+        <path d="M10 50Q22 46 36 52L54 48L52 58Q38 55 26 60L8 59Z" fill="#c9b8e8"/>
+      </g>
+    </symbol>
+    <symbol id="i-mirror" viewBox="0 0 64 64">
+      <ellipse cx="32" cy="27" rx="17" ry="23" fill="#2c2440" stroke="#e0c27a" stroke-width="4"/>
+      <ellipse cx="32" cy="27" rx="13" ry="19" fill="#9fd8ff" opacity=".28"/>
+      <path d="M22 18L33 7M23 27L39 11M28 38L42 24" stroke="#e6f6ff" stroke-width="2.5" stroke-linecap="round" opacity=".75"/>
+      <path d="M32 50V59M22 61H42" stroke="#e0c27a" stroke-width="4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-bag" viewBox="0 0 64 64">
+      <path d="M24 12Q24 5 32 5Q40 5 40 12" fill="none" stroke="#cdb6f2" stroke-width="3"/>
+      <rect x="13" y="12" width="38" height="48" rx="10" fill="#5a3a86" stroke="#cdb6f2" stroke-width="3"/>
+      <rect x="20" y="34" width="24" height="18" rx="4" fill="#3b2a52" stroke="#cdb6f2" stroke-width="2.5"/>
+      <path d="M13 26Q32 32 51 26" fill="none" stroke="#cdb6f2" stroke-width="2.5"/>
+      <rect x="29" y="31" width="6" height="7" rx="1.5" fill="#ffcf6b"/>
+    </symbol>
+    <symbol id="i-return" viewBox="0 0 64 64">
+      <rect x="10" y="24" width="44" height="36" rx="9" fill="#5a3a86" stroke="#cdb6f2" stroke-width="3"/>
+      <path d="M10 36Q32 42 54 36" fill="none" stroke="#cdb6f2" stroke-width="2.5"/>
+      <path d="M44 4Q20 0 20 22" fill="none" stroke="#c592ff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M13 15L20 24L27 15" fill="none" stroke="#c592ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-gear" viewBox="0 0 64 64">
+      <g fill="#c592ff">
+        <rect x="28" y="2" width="8" height="12" rx="1.5"/><rect x="28" y="50" width="8" height="12" rx="1.5"/>
+        <rect x="2" y="28" width="12" height="8" rx="1.5"/><rect x="50" y="28" width="12" height="8" rx="1.5"/>
+        <rect x="28" y="2" width="8" height="12" rx="1.5" transform="rotate(45 32 32)"/><rect x="28" y="50" width="8" height="12" rx="1.5" transform="rotate(45 32 32)"/>
+        <rect x="2" y="28" width="12" height="8" rx="1.5" transform="rotate(45 32 32)"/><rect x="50" y="28" width="12" height="8" rx="1.5" transform="rotate(45 32 32)"/>
+      </g>
+      <circle cx="32" cy="32" r="19" fill="none" stroke="#c592ff" stroke-width="5"/>
+      <circle cx="32" cy="32" r="10" fill="#c592ff"/>
+    </symbol>
+    <symbol id="i-puzzle" viewBox="0 0 64 64">
+      <path d="M8 18H24Q22 8 30 8Q38 8 36 18H52V34Q62 32 62 40Q62 48 52 46V58H8Z" fill="#3b2a52" stroke="#c592ff" stroke-width="3.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-help" viewBox="0 0 64 64">
+      <path d="M8 12Q8 6 14 6H50Q56 6 56 12V40Q56 46 50 46H26L14 57V46Q8 46 8 40Z" fill="#3b2a52" stroke="#c592ff" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M25 19Q25 12 32 12Q39 12 39 18Q39 23 32 25V30" fill="none" stroke="#f6efff" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="32" cy="37" r="2.6" fill="#f6efff"/>
+    </symbol>
+    <symbol id="i-noise" viewBox="0 0 64 64">
+      <path d="M8 24H20L34 12V52L20 40H8Z" fill="#3b2a52" stroke="#c592ff" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M42 22Q48 32 42 42M48 15Q58 32 48 49" fill="none" stroke="#c592ff" stroke-width="3.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-tired" viewBox="0 0 64 64">
+      <path d="M40 8A24 24 0 1 0 56 44A19 19 0 0 1 40 8Z" fill="#3b2a52" stroke="#c592ff" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M44 14h10l-10 10h10" fill="none" stroke="#f6efff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-cracked" viewBox="0 0 64 64">
+      <rect x="10" y="8" width="44" height="48" rx="3" fill="#9fd8ff" fill-opacity=".25" stroke="#cdb6f2" stroke-width="3"/>
+      <path d="M30 8L26 22L36 28L28 40L34 56M36 28L50 24M26 22L12 26M28 40L14 46" fill="none" stroke="#e6f6ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-brokenlock" viewBox="0 0 64 64">
+      <path d="M20 28V18Q20 6 32 6Q42 6 44 16" fill="none" stroke="#d6d9e6" stroke-width="5" stroke-linecap="round"/>
+      <rect x="12" y="28" width="40" height="30" rx="5" fill="#b47cf7" stroke="#1a0f29" stroke-width="2"/>
+      <path d="M32 36v10" stroke="#1a0f29" stroke-width="4" stroke-linecap="round"/>
+      <path d="M48 6l8 8M56 6l-8 8" stroke="#ff9a8a" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =============================================================== banner -->
+<section class="shot banner" id="banner">
+  <div class="title">DAZED ESSENTIALS</div>
+  <div class="sub">Common-sense quality of life for Project Zomboid Build 42</div>
+  <div class="pills">
+    <span class="pill">Crowbar prying</span>
+    <span class="pill">Leverage minigame</span>
+    <span class="pill">Tool return</span>
+    <span class="pill">Can opening</span>
+    <span class="pill">Burn all</span>
+    <span class="pill">Rip all</span>
+    <span class="pill">The mirror</span>
+  </div>
+  <div class="row">
+    <div class="spr"><svg class="ic" width="165" height="165"><use href="#i-crowbar"/></svg></div>
+    <div class="spr"><svg class="ic" width="160" height="160"><use href="#i-door"/></svg></div>
+    <div class="spr"><svg class="ic" width="160" height="160"><use href="#i-car"/></svg></div>
+    <div class="spr"><svg class="ic" width="125" height="125"><use href="#i-can"/></svg></div>
+    <div class="spr"><svg class="ic" width="125" height="125"><use href="#i-lighter"/></svg></div>
+    <div class="spr"><svg class="ic" width="135" height="135"><use href="#i-shirt"/></svg></div>
+    <div class="spr"><svg class="ic" width="180" height="180"><use href="#i-mirror"/></svg></div>
+    <div class="spr"><svg class="ic" width="130" height="130"><use href="#i-bag"/></svg></div>
+  </div>
+</section>
+
+<!-- =============================================================== section headers -->
+<section class="shot hdr" id="h-pry">
+  <div class="tile"><svg class="ic"><use href="#i-crowbar"/></svg></div>
+  <div class="num">01</div><h2>Crowbar prying (off by default)</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-minigame">
+  <div class="tile"><svg class="ic" viewBox="0 0 64 64">
+    <rect x="4" y="24" width="56" height="16" fill="#1f1f1f" stroke="#cdb6f2" stroke-width="2"/>
+    <rect x="30" y="24" width="14" height="16" fill="#33b340"/><rect x="44" y="24" width="4" height="16" fill="#d98c1a"/>
+    <rect x="35" y="19" width="3.5" height="26" fill="#fff"/>
+    <rect x="4" y="46" width="56" height="5" fill="#1f1f1f"/><rect x="4" y="46" width="34" height="5" fill="#e6cc4d"/>
+  </svg></div>
+  <div class="num">02</div><h2>Leverage minigame</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-return">
+  <div class="tile"><svg class="ic"><use href="#i-return"/></svg></div>
+  <div class="num">03</div><h2>Tool return</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-cans">
+  <div class="tile"><svg class="ic"><use href="#i-can"/></svg></div>
+  <div class="num">04</div><h2>Improvised can opening</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-burn">
+  <div class="tile"><svg class="ic"><use href="#i-flame"/></svg></div>
+  <div class="num">05</div><h2>Burn all corpse piles</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-rip">
+  <div class="tile"><svg class="ic"><use href="#i-rags"/></svg></div>
+  <div class="num">06</div><h2>Rip all clothing</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-mirror">
+  <div class="tile"><svg class="ic"><use href="#i-mirror"/></svg></div>
+  <div class="num">07</div><h2>The mirror</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-sandbox">
+  <div class="tile"><svg class="ic"><use href="#i-gear"/></svg></div>
+  <div class="num">08</div><h2>Sandbox options</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-compat">
+  <div class="tile"><svg class="ic"><use href="#i-puzzle"/></svg></div>
+  <div class="num">09</div><h2>Compatibility</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-help">
+  <div class="tile"><svg class="ic"><use href="#i-help"/></svg></div>
+  <div class="num">10</div><h2>Bugs and help</h2><div class="rule"></div>
+</section>
+
+<!-- =============================================================== prying
+     From DE_Pry.lua / DE_Config.lua defaults: chance = 35 + 6 x Strength, -15 for reinforced and garage doors,
+     clamped 5..95; reinforced needs Strength 6. Noise 20 squares, fatigue 4%, glass 25% on a fail,
+     door loses 25% of its health and its lock stays broken until repaired. -->
+<section class="shot panel" id="pry">
+  <div class="ptitle">Right-click what's locked and lever it open</div>
+  <div class="grid cols-4">
+    <div class="card">
+      <div class="art" style="height:132px;margin-bottom:14px"><svg class="ic" width="120" height="120"><use href="#i-door"/></svg></div>
+      <h4>Doors</h4>
+      <div class="sub">locked house doors</div>
+    </div>
+    <div class="card">
+      <div class="art" style="height:132px;margin-bottom:14px"><svg class="ic" width="120" height="120"><use href="#i-garage"/></svg></div>
+      <h4>Heavy doors</h4>
+      <div class="sub">reinforced and garage<br><span class="accent">doors are harder</span></div>
+    </div>
+    <div class="card">
+      <div class="art" style="height:132px;margin-bottom:14px"><svg class="ic" width="112" height="112"><use href="#i-window"/></svg></div>
+      <h4>Windows</h4>
+      <div class="sub">a failed try can<br><span class="accent">break the glass</span></div>
+    </div>
+    <div class="card">
+      <div class="art" style="height:132px;margin-bottom:14px"><svg class="ic" width="128" height="128"><use href="#i-car"/></svg></div>
+      <h4>Cars</h4>
+      <div class="sub">Pry open a door or<br><span class="accent">the trunk, or press V</span></div>
+    </div>
+  </div>
+  <div class="grid" style="grid-template-columns:1.25fr 1fr;margin-top:14px">
+    <div class="card list">
+      <h4>Chance at default settings</h4>
+      <div class="bars">
+        <div class="crow"><div class="k">Door <span>Strength 0</span></div><div class="bar"><div class="fill" style="width:35%"></div><div class="tail">35%</div></div></div>
+        <div class="crow"><div class="k">Door <span>Strength 5</span></div><div class="bar"><div class="fill" style="width:65%"></div><div class="tail">65%</div></div></div>
+        <div class="crow"><div class="k">Garage <span>Strength 5</span></div><div class="bar"><div class="fill" style="width:50%"></div><div class="tail">50%</div></div></div>
+        <div class="crow"><div class="k">Reinforced <span>Str. 6</span></div><div class="bar"><div class="fill" style="width:56%"></div><div class="tail">56%</div></div></div>
+      </div>
+      <div class="sub foot">35% base, +6% per Strength level, 15% less on reinforced<br>and garage doors, kept between 5 and 95%.<br><span class="accent">Reinforced doors need Strength 6 to try</span></div>
+    </div>
+    <div class="card list" style="display:flex;flex-direction:column">
+      <h4>What it costs</h4>
+      <div class="costs" style="flex:1;align-content:space-evenly">
+        <div class="cost"><svg class="ic"><use href="#i-noise"/></svg><div>Loud <span class="sub">heard 20 squares away</span></div></div>
+        <div class="cost"><svg class="ic"><use href="#i-tired"/></svg><div>Tiring <span class="sub">+4% fatigue, success or not</span></div></div>
+        <div class="cost"><svg class="ic"><use href="#i-cracked"/></svg><div>Glass <span class="sub">25% on a failed window or car door</span></div></div>
+        <div class="cost"><svg class="ic"><use href="#i-brokenlock"/></svg><div>Pried door <span class="sub">-25% health, no lock until repaired</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== minigame
+     DE_PryGameUI.lua panel (340x120) drawn 2.3x with its own colours. Zone for a Strength 5 house door:
+     width 0.12 + 5 x 0.012 = 0.18; shown at 0.56..0.74, slip margin 0.05 after it. Needle and progress illustrative.
+     DE_PryGame.lua: width 0.12 + 0.012/Strength level, x0.7 on reinforced and garage doors, which sway 0.06. -->
+<section class="shot panel" id="minigame">
+  <div class="ptitle">Keep the needle in the green until the bar fills</div>
+  <div class="grid" style="grid-template-columns:836px 1fr">
+    <div class="card" style="padding:26px 20px 20px;display:flex;flex-direction:column;justify-content:center">
+      <div class="pg">
+        <div class="t">Prying</div>
+        <div class="pip" style="right:37px"></div><div class="pip" style="right:74px"></div><div class="pip used" style="right:111px"></div>
+        <div class="track">
+          <div class="zone" style="left:56%;width:18%"></div>
+          <div class="grace" style="left:74%;width:5%"></div>
+          <div class="needle" style="left:calc(66% - 3px)"></div>
+        </div>
+        <div class="prog"><i style="width:58%"></i></div>
+        <div class="hint">Hold left mouse here to lever. Keep the needle in the green.</div>
+        <div class="tag" style="left:452px;top:-16px">1</div>
+        <div class="tag" style="left:586px;top:-16px">2</div>
+        <div class="tag" style="left:500px;top:150px">3</div>
+        <div class="tag" style="right:66px;top:-16px">4</div>
+      </div>
+      <div class="cap" style="margin-top:12px">The in-game panel, drawn larger · needle and progress are an example</div>
+    </div>
+    <div class="card list" style="padding-top:22px">
+      <div class="legendl">
+        <div class="r"><span class="tag">1</span><div>Green: the sweet spot. Hold left mouse to push into it</div></div>
+        <div class="r"><span class="tag">2</span><div>Amber: run past it and the crowbar slips</div></div>
+        <div class="r"><span class="tag">3</span><div>The bar fills while you hold it in the green</div></div>
+        <div class="r"><span class="tag">4</span><div>Slips: each half again as loud, three end the try</div></div>
+        <div class="r"><span class="tag" style="background:#4a2a72">✕</span><div>Moving or getting hit stops it, with no roll</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid" style="grid-template-columns:1fr 1fr 1.5fr;margin-top:14px">
+    <div class="card small mid">
+      <div class="big up">+20%</div>
+      <h4 style="margin:8px 0 4px">Clean, quick pop</h4>
+      <div class="sub">at most, by default</div>
+    </div>
+    <div class="card small mid">
+      <div class="big down">-20%</div>
+      <h4 style="margin:8px 0 4px">Botched</h4>
+      <div class="sub">the server still rolls</div>
+    </div>
+    <div class="card small" style="padding:16px 20px">
+      <h4>How wide the green is</h4>
+      <div style="display:grid;gap:10px">
+        <div class="mrow"><div>Strength 0</div><div class="mini"><div class="zone" style="left:55%;width:12%"></div></div></div>
+        <div class="mrow"><div>Strength 10</div><div class="mini"><div class="zone" style="left:49%;width:24%"></div></div></div>
+        <div class="mrow"><div>Garage, Strength 0</div><div class="mini"><div class="sway" style="left:50%;width:20.4%"></div><div class="zone" style="left:56%;width:8.4%"></div></div></div>
+      </div>
+      <div class="sub" style="margin-top:8px">30% narrower on heavy doors, and it sways</div>
+    </div>
+  </div>
+  <div class="note">The world keeps running<span class="dot">·</span>turn it off for yourself in Options &gt; Mods &gt; Dazed Core</div>
+</section>
+
+<!-- =============================================================== cans
+     DE_Cans.lua defaults: screwdriver fails 25%, a failed try cuts 20% of the time; smash never fails, spills 30%
+     of the food half the time; either tool loses 1 condition 20% of the time. -->
+<section class="shot panel" id="cans">
+  <div class="ptitle">No can opener? Right-click a sealed can</div>
+  <div class="cans">
+    <div class="card" style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px">
+      <svg class="ic" width="120" height="120"><use href="#i-can"/></svg>
+      <div class="menu" style="width:290px">
+        <div class="it hi">Open with screwdriver</div>
+        <div class="it">Smash open</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="art" style="height:150px"><svg class="ic" width="120" height="120"><use href="#i-screwdriver"/></svg><svg class="ic" width="104" height="104"><use href="#i-can"/></svg></div>
+      <h4>Open with screwdriver</h4>
+      <div class="stats">
+        <div><b>Quiet</b></div>
+        <div><b>25%</b> of tries fail, still sealed</div>
+        <div><b>20%</b> of those cut your hand</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="art" style="height:150px"><svg class="ic" width="120" height="120"><use href="#i-hammer"/></svg><svg class="ic" width="86" height="86"><use href="#i-rock"/></svg></div>
+      <h4>Smash open</h4>
+      <div class="stats">
+        <div><b>Always</b> gets in</div>
+        <div><b>Loud</b>: zombies hear it</div>
+        <div><b>Half</b> the time, <b>30%</b> of the food spills</div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Either tool: a 20% chance to lose a point of condition<span class="dot">·</span>key-opened tins and unlabeled cans stay vanilla</div>
+</section>
+
+<!-- =============================================================== burn all
+     DE_Burn.lua / DE_Bulk.lua: squares within radius 4 (dx^2 + dy^2 <= 16), nearest first, up to 50 piles,
+     one lighter or matches use each. Pile positions and the count (5) are an example. -->
+<section class="shot panel" id="burn">
+  <div class="ptitle">One right-click lights every pile in range</div>
+  <div class="burn">
+    <div class="card" style="padding:18px">
+      <svg width="462" height="462" viewBox="0 0 462 462" style="display:block;margin:0 auto">
+        <!-- 11 x 11 squares of 42px, player at the centre (5,5) -->
+        <g id="grid"></g>
+        <circle cx="231" cy="231" r="189" fill="none" stroke="#c592ff" stroke-width="2.5" stroke-dasharray="8 7"/>
+      </svg>
+      <div class="cap" style="margin-top:8px">Seen from above · piles in the dashed ring burn, nearest first</div>
+    </div>
+    <div style="display:grid;gap:14px;grid-template-rows:auto 1fr">
+      <div class="card" style="text-align:left;padding:20px 22px">
+        <div class="menu" style="width:470px">
+          <div class="it dim">Walk to</div>
+          <div class="it hi">Burn all corpse piles nearby (5)</div>
+        </div>
+        <div class="tip" style="margin:-2px 0 0 60px;width:600px">Sets each corpse pile within 4 squares alight, one use of your fire source per pile. Skips safehouses you can't use, built objects, machines and containers with items. Cancel any time.</div>
+      </div>
+      <div class="card" style="padding:18px 22px">
+        <div class="skip">
+          <div class="art" style="height:150px;margin:0"><img src="sprites/heater.png" style="height:140px"></div>
+          <div style="text-align:left">
+            <h4 style="font-size:30px">Left alone</h4>
+            <div class="chips" style="justify-content:flex-start">
+              <span class="chip">Safehouses you can't use</span><span class="chip">Player-built objects</span>
+              <span class="chip">Dazed machines</span><span class="chip">Containers holding items</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Needs a lighter or matches, one use per pile<span class="dot">·</span>up to 50 piles a job<span class="dot">·</span>range 4 squares by default</div>
+</section>
+
+<!-- =============================================================== mirror
+     DE_Mirror.lua: remember saves every skill's XP and known recipes and binds the respawn spot; recover brings each
+     skill to 80% (default) of the saved XP, never lower than now; once per past life. Presets 100/80/60/40.
+     The skill bars are an example, not real XP. -->
+<section class="shot panel" id="mirror">
+  <div class="ptitle">Save yourself at a mirror, and remember it in your next life</div>
+  <div class="grid cols-3 steps">
+    <div class="card">
+      <div class="badge">1</div>
+      <div class="art"><svg class="ic" width="150" height="150"><use href="#i-mirror"/></svg></div>
+      <h4>Remember yourself</h4>
+      <div class="sub">every skill's XP, your known recipes,<br><span class="accent">and this spot to respawn at</span></div>
+    </div>
+    <div class="card">
+      <div class="badge">2</div>
+      <div class="art" style="align-items:center">
+        <div class="menu spawn">
+          <div class="it hi">Your mirror</div>
+          <div class="it">Muldraugh, KY</div>
+          <div class="it">Riverside, KY</div>
+          <div class="it dim">Rosewood, KY</div>
+        </div>
+      </div>
+      <h4>After you die</h4>
+      <div class="sub">the spawn screen offers<br><span class="accent">your mirror first</span></div>
+    </div>
+    <div class="card">
+      <div class="badge">3</div>
+      <div class="art"><svg class="ic" width="150" height="150"><use href="#i-mirror"/></svg></div>
+      <h4>Remember your past life</h4>
+      <div class="sub">at any mirror, once<br><span class="accent">per past life</span></div>
+    </div>
+  </div>
+  <div class="grid" style="grid-template-columns:1.6fr 1fr;margin-top:14px">
+    <div class="card list" style="padding-bottom:16px">
+      <h4 style="margin-bottom:22px">Each skill comes back to 80% of the save</h4>
+      <div class="bars" style="gap:20px">
+        <div class="sk"><div class="n">Carpentry</div><div class="bar"><div class="ghost" style="width:75%"></div><div class="fill" style="width:60%"></div></div><div class="t">80%</div></div>
+        <div class="sk"><div class="n">Cooking</div><div class="bar"><div class="ghost" style="width:45%"></div><div class="fill" style="width:36%"></div></div><div class="t">80%</div></div>
+        <div class="sk"><div class="n">Fitness</div><div class="bar"><div class="ghost" style="width:40%"></div><div class="fill" style="width:58%"></div></div><div class="t">kept</div></div>
+      </div>
+      <div class="cap foot">Example skills · dashed: the past life's XP · filled: after remembering</div>
+    </div>
+    <div class="card list">
+      <h4>Share by preset</h4>
+      <div class="bars">
+        <div class="crow" style="grid-template-columns:140px 1fr"><div class="k">Easy</div><div class="bar"><div class="fill" style="width:calc(100% - 6px)"></div><div class="in">100%</div></div></div>
+        <div class="crow" style="grid-template-columns:140px 1fr"><div class="k">Standard</div><div class="bar"><div class="fill" style="width:80%"></div><div class="in">80%</div></div></div>
+        <div class="crow" style="grid-template-columns:140px 1fr"><div class="k">Realistic</div><div class="bar"><div class="fill" style="width:60%"></div><div class="in">60%</div></div></div>
+        <div class="crow" style="grid-template-columns:140px 1fr"><div class="k">Hardcore</div><div class="bar"><div class="fill" style="width:40%"></div><div class="in">40%</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Skills you already have more of stay as they are<span class="dot">·</span>one save per account in multiplayer, one per player in split screen</div>
+</section>
+
+<script>
+  // Burn diagram: 11 x 11 grid, ring radius 4 squares (DE_Bulk.squaresAround: dx^2 + dy^2 <= 16).
+  (function () {
+    const g = document.getElementById("grid"), S = 42, NS = "http://www.w3.org/2000/svg";
+    const el = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); g.appendChild(e); return e; };
+    for (let x = 0; x < 11; x++) for (let y = 0; y < 11; y++) {
+      const dx = x - 5, dy = y - 5, inside = dx * dx + dy * dy <= 16;
+      el("rect", { x: x * S + 1, y: y * S + 1, width: S - 2, height: S - 2, rx: 5,
+        fill: inside ? "rgba(155, 92, 240, .28)" : "rgba(19, 10, 31, .8)", stroke: inside ? "rgba(197, 146, 255, .35)" : "rgba(120, 80, 180, .18)" });
+    }
+    const at = (dx, dy) => [(dx + 5) * S, (dy + 5) * S];
+    const pile = (dx, dy, opts) => {
+      const [x, y] = at(dx, dy);
+      el("use", { href: "#i-pile", x: x - 4, y: y - 6, width: S + 8, height: S + 8, opacity: opts.dim ? .45 : 1 });
+      if (opts.n) {
+        el("use", { href: "#i-flame", x: x + 8, y: y - 14, width: 26, height: 26 });
+        el("circle", { cx: x + S - 4, cy: y + 4, r: 12, fill: "#8f4be6", stroke: "#1b0d2c", "stroke-width": 2 });
+        const t = el("text", { x: x + S - 4, y: y + 11, "text-anchor": "middle", "font-size": 19, "font-weight": 700, fill: "#fff", "font-family": "Suite" });
+        t.textContent = opts.n;
+      }
+      if (opts.x) {
+        el("path", { d: `M${x + 8} ${y + 8}L${x + S - 8} ${y + S - 8}M${x + S - 8} ${y + 8}L${x + 8} ${y + S - 8}`, stroke: "#ff9a8a", "stroke-width": 4, "stroke-linecap": "round" });
+      }
+    };
+    // player
+    const [px, py] = at(0, 0);
+    el("circle", { cx: px + S / 2, cy: py + 13, r: 7, fill: "#f6efff" });
+    el("path", { d: `M${px + 9} ${py + 38}Q${px + 9} ${py + 21} ${px + S / 2} ${py + 21}Q${px + S - 9} ${py + 21} ${px + S - 9} ${py + 38}Z`, fill: "#f6efff" });
+    pile(1, 1, { n: 1 });
+    pile(-2, 1, { n: 2 });
+    pile(0, -3, { n: 3 });
+    pile(3, -2, { n: 4 });
+    pile(-4, 0, { n: 5 });
+    pile(2, 3, { x: true });      // skipped: a container holding items, say
+    pile(5, 4, { dim: true });    // out of range
+    pile(-4, -4, { dim: true });
+    // the skipped pile's crate
+    const [cx, cy] = at(2, 3);
+    el("rect", { x: cx + 22, y: cy + 20, width: 18, height: 16, rx: 2, fill: "#b98a5a", stroke: "#1a0f29", "stroke-width": 1.5 });
+  })();
+</script>
+
+</body>
+</html>
