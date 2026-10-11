@@ -1,0 +1,302 @@
+<!doctype html>
+<!-- Dazed Dank: Garden Crops Workshop art. Each <section class="shot" id="x"> renders to images/x.png
+     (banner -> banner.jpg):  node _kit/render.mjs GardenCrops   (from the workshop-art root).
+     Sprites come from sprites.json:  python3 _kit/sprites.py GardenCrops
+     A .pot is a plant standing in one of Dank's containers: the container and the plant, each at its own trimmed
+     offset within the 128x256 tile (sprites at scale 2), the plant raised by Dank's Config.PLANT_LIFT for that
+     container (1x pixels, so x2 for the 2x tiles, x2 again for the sprite scale). zoom sizes the whole pot.
+     Facts: Dank's CannabisVanillaCrops.lua (HYDRO_SPEED 0.85, DRINK_PER_HOUR 0.3, emptied on harvest, lamp or grow
+     room under KillInsideCrops), CannabisConfig.canSowVanilla and the add-on's GardenCrops.lua (SOIL_ONLY). -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/suite.css">
+<style>
+  .pot { position: relative; z-index: 1; }
+  .pot img { position: absolute; }
+
+  /* banner: the add-on's name under Dank's */
+  #banner .kicker { position: absolute; left: 0; right: 0; top: 34px; text-align: center;
+    font-weight: 800; font-size: 40px; letter-spacing: 14px; color: var(--lilac);
+    text-shadow: 0 0 16px rgba(150, 80, 255, .6); }
+  #banner .title { top: 78px; font-size: 156px; }
+  #banner .sub { top: 246px; }
+  #banner .pills { top: 306px; }
+  #banner .row { left: 24px; right: 24px; bottom: 26px; height: 236px; }
+
+  /* header tiles */
+  .hdr .tile .spr::after { display: none; }
+  .hdr .tile .pot img, .stage .pot img { max-width: none; max-height: none; }
+
+  /* where panel */
+  .where { display: grid; grid-template-columns: 1fr 1.3fr; gap: 14px; }
+  .stage { display: flex; align-items: flex-end; justify-content: center; gap: 18px; height: 230px; margin-bottom: 18px; position: relative; }
+  .stage::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 82%; height: 26px; transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(165, 90, 255, .5), rgba(165, 90, 255, 0) 70%); }
+  .stage .arrow { position: relative; z-index: 1; align-self: center; font-size: 44px; color: var(--accent); font-weight: 700; }
+  .names { display: flex; justify-content: center; gap: 18px; margin: -6px 0 12px; }
+  .names span { font-size: 20px; font-weight: 600; color: var(--muted); }
+  .big { font-weight: 800; font-size: 46px; line-height: 1; color: var(--ink); margin: 2px 0 6px; }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 6px 0 14px; }
+  .chip { font-size: 21px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #6d43b5;
+    background: var(--well); color: var(--lilac); white-space: nowrap; }
+  .soil { margin-top: 14px; }
+  .soil h4 { font-size: 30px; }
+  .greyed { display: inline-block; margin-top: 2px; font-size: 21px; padding: 6px 16px; border-radius: 8px;
+    background: var(--well); border: 1.5px dashed #6d43b5; color: var(--muted); }
+  .greyed b { color: var(--lilac); font-weight: 600; }
+
+  /* grow panel */
+  .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .speed { margin: 40px 6px 40px; display: grid; gap: 14px; text-align: left; }
+  .speed .row { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 10px; }
+  .speed .row span { font-size: 21px; color: var(--muted); }
+  .speed .bar { height: 50px; }
+  .bar.gray .fill { background: linear-gradient(90deg, #6d5a8a, #9b88b8); }
+  .health { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: center; margin-top: 14px; text-align: left; padding: 18px 26px; }
+  .health h4 { margin-bottom: 6px; }
+  .frames { display: flex; align-items: flex-end; justify-content: center; gap: 6px; height: 170px; position: relative; }
+  .frames::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 640px; height: 24px; transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(165, 90, 255, .45), rgba(165, 90, 255, 0) 70%); }
+  .frames .f { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+  .frames img { height: 150px; }
+  .frames .f span { font-size: 20px; color: var(--muted); margin-top: 6px; }
+  .frames .arrow { position: relative; z-index: 1; align-self: center; font-size: 34px; color: var(--accent); margin: 0 6px 30px; font-weight: 700; }
+
+  /* indoors panel */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .two .lbl { font-size: 27px; }
+
+  /* plants panel */
+  .crops { display: grid; grid-template-columns: repeat(9, 1fr); gap: 10px; }
+  .crops .card { padding: 10px 4px 10px; }
+  .crops .art { height: 150px; margin-bottom: 12px; }
+  .crops .art img { max-width: 118px; max-height: 150px; }
+  .crops .nm { font-size: 20px; font-weight: 600; color: var(--ink); line-height: 1.1; }
+
+  /* Workshop thumbnail (256x256), moved to GardenCrops/preview.png after rendering */
+  #preview { width: 256px; height: 256px; }
+  #preview::before { background-size: 12px 12px; }
+  #preview .k { position: absolute; left: 0; right: 0; top: 14px; text-align: center; font-weight: 800; font-size: 19px;
+    letter-spacing: 5px; color: var(--lilac); text-shadow: 0 0 8px rgba(150, 80, 255, .7); }
+  #preview .t { position: absolute; left: 0; right: 0; top: 36px; text-align: center; font-weight: 900; font-size: 50px;
+    line-height: .92; letter-spacing: 1px;
+    background: linear-gradient(180deg, #ffffff 8%, #f0e2ff 42%, #c69bff 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 6px rgba(190, 120, 255, .85)) drop-shadow(0 0 16px rgba(150, 70, 255, .55)); }
+  #preview .row { position: absolute; left: 8px; right: 8px; bottom: 12px; height: 110px;
+    display: flex; align-items: flex-end; justify-content: space-around; }
+  #preview .spr::after { width: 70px; height: 14px; bottom: -6px; }
+</style>
+</head>
+<body>
+
+<!-- =============================================================== banner -->
+<section class="shot banner" id="banner">
+  <div class="kicker">DAZED DANK</div>
+  <div class="title">GARDEN CROPS</div>
+  <div class="sub">Vanilla crops in Dank's grow bags and hydroponics</div>
+  <div class="pills">
+    <span class="pill">55 vanilla crops</span>
+    <span class="pill">Grow bags</span>
+    <span class="pill">DWC · RDWC · Flood tables</span>
+    <span class="pill">15% faster in hydro</span>
+    <span class="pill">Multiplayer</span>
+  </div>
+  <div class="row">
+    <div class="spr"><div class="pot" style="width:164px;height:386px;zoom:0.6"><img src="sprites/bag-large.png" style="left:0px;top:232px"><img src="sprites/sunflower.png" style="left:22px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:138px;height:202px;zoom:0.6"><img src="sprites/dwc.png" style="left:12px;top:78px"><img src="sprites/lettuce.png" style="left:0px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:204px;height:248px;zoom:0.6"><img src="sprites/bag-xl.png" style="left:0px;top:56px"><img src="sprites/kale.png" style="left:42px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:190px;height:270px;zoom:0.6"><img src="sprites/rdwc.png" style="left:0px;top:146px"><img src="sprites/jalapeno.png" style="left:68px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:158px;height:386px;zoom:0.6"><img src="sprites/dwc-xl.png" style="left:2px;top:230px"><img src="sprites/tomato.png" style="left:0px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:244px;height:282px;zoom:0.6"><img src="sprites/flood.png" style="left:0px;top:94px"><img src="sprites/basil.png" style="left:62px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:164px;height:242px;zoom:0.6"><img src="sprites/bag-large.png" style="left:0px;top:88px"><img src="sprites/pumpkin.png" style="left:22px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:138px;height:308px;zoom:0.6"><img src="sprites/dwc.png" style="left:12px;top:184px"><img src="sprites/pepper.png" style="left:0px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:124px;height:238px;zoom:0.6"><img src="sprites/bag-small.png" style="left:0px;top:130px"><img src="sprites/marigold.png" style="left:2px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:124px;height:146px;zoom:0.6"><img src="sprites/bag-small.png" style="left:0px;top:38px"><img src="sprites/cabbage.png" style="left:2px;top:0px"></div></div>
+  </div>
+</section>
+
+<!-- =============================================================== section headers -->
+<section class="shot hdr" id="h-where">
+  <div class="tile"><div class="spr"><div class="pot" style="width:124px;height:180px;zoom:0.478"><img src="sprites/bag-small.png" style="left:0px;top:72px"><img src="sprites/lettuce.png" style="left:2px;top:0px"></div></div></div>
+  <div class="num">01</div><h2>Which crops go where</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-grow">
+  <div class="tile"><div class="spr"><div class="pot" style="width:138px;height:228px;zoom:0.377"><img src="sprites/dwc.png" style="left:12px;top:104px"><img src="sprites/spinach.png" style="left:0px;top:0px"></div></div></div>
+  <div class="num">02</div><h2>How they grow</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-harvest">
+  <div class="tile"><img src="sprites/lamp.png" style="height:84px"></div>
+  <div class="num">03</div><h2>Harvest and indoor growing</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-plants">
+  <div class="tile"><img src="sprites/sunflower.png" style="height:84px"></div>
+  <div class="num">04</div><h2>The plants</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-compat">
+  <div class="tile"><img src="sprites/flood.png" style="width:84px;height:auto"></div>
+  <div class="num">05</div><h2>Compatibility</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-help">
+  <div class="tile"><img src="sprites/rdwc-control.png" style="height:80px"></div>
+  <div class="num">06</div><h2>Bugs and help</h2><div class="rule"></div>
+</section>
+
+<!-- =============================================================== where: 55 crops in bags, 37 in hydro
+     (GardenCropsSprites.CROPS has 55; GardenCrops.SOIL_ONLY 18 of them) -->
+<section class="shot panel" id="where">
+  <div class="ptitle">Every crop grows in a grow bag, most of them in hydro too</div>
+  <div class="where">
+    <div class="card">
+      <h4>Grow bags</h4>
+      <div class="stage">
+        <div class="spr"><div class="pot" style="width:124px;height:230px;zoom:0.66"><img src="sprites/bag-small.png" style="left:0px;top:122px"><img src="sprites/potato.png" style="left:2px;top:0px"></div></div>
+        <div class="spr"><div class="pot" style="width:164px;height:210px;zoom:0.66"><img src="sprites/bag-large.png" style="left:0px;top:56px"><img src="sprites/carrot.png" style="left:24px;top:0px"></div></div>
+        <div class="spr"><div class="pot" style="width:204px;height:294px;zoom:0.66"><img src="sprites/bag-xl.png" style="left:0px;top:102px"><img src="sprites/watermelon.png" style="left:42px;top:0px"></div></div>
+      </div>
+      <div class="big">all 55</div>
+      <div class="sub">Small, Large and XL Grow Bags<br><span class="accent">filled with potting soil</span></div>
+    </div>
+    <div class="card">
+      <h4>Hydro</h4>
+      <div class="stage">
+        <div class="spr"><div class="pot" style="width:138px;height:360px;zoom:0.56"><img src="sprites/dwc.png" style="left:12px;top:236px"><img src="sprites/tomato.png" style="left:0px;top:0px"></div></div>
+        <div class="spr"><div class="pot" style="width:158px;height:228px;zoom:0.56"><img src="sprites/dwc-xl.png" style="left:2px;top:72px"><img src="sprites/kale.png" style="left:0px;top:0px"></div></div>
+        <div class="spr"><div class="pot" style="width:190px;height:202px;zoom:0.56"><img src="sprites/rdwc.png" style="left:0px;top:78px"><img src="sprites/lettuce.png" style="left:68px;top:0px"></div></div>
+        <div class="spr"><div class="pot" style="width:244px;height:246px;zoom:0.56"><img src="sprites/flood.png" style="left:0px;top:58px"><img src="sprites/mint.png" style="left:62px;top:0px"></div></div>
+      </div>
+      <div class="big">37 of them</div>
+      <div class="sub">DWC and XL DWC buckets, RDWC sites, flood tables<br><span class="accent">with a medium in and water in the reservoir</span></div>
+    </div>
+  </div>
+  <div class="card soil">
+    <h4>Needs soil: grow bags only</h4>
+    <div class="chips">
+      <span class="chip">potatoes</span><span class="chip">sweet potatoes</span><span class="chip">carrots</span><span class="chip">radishes</span>
+      <span class="chip">sugar beets</span><span class="chip">turnips</span><span class="chip">onions</span><span class="chip">garlic</span>
+      <span class="chip">wild garlic</span><span class="chip">leeks</span><span class="chip">pumpkins</span><span class="chip">watermelons</span>
+      <span class="chip">corn</span><span class="chip">zucchini</span><span class="chip">wheat</span><span class="chip">barley</span>
+      <span class="chip">rye</span><span class="chip">flax</span>
+    </div>
+    <div class="sub">Root, bulb, sprawling and grain crops. In hydro their Sow Seed row is greyed out:</div>
+    <div class="greyed"><b>This crop needs soil: use a grow bag</b></div>
+  </div>
+</section>
+
+<!-- =============================================================== grow -->
+<section class="shot panel" id="grow">
+  <div class="ptitle">Vanilla's rules, in Dank's containers</div>
+  <div class="three">
+    <div class="card">
+      <div class="stage" style="height:220px">
+        <div class="spr"><div class="pot" style="width:164px;height:322px;zoom:0.6"><img src="sprites/bag-large.png" style="left:0px;top:168px"><img src="sprites/pepper.png" style="left:22px;top:0px"></div></div>
+      </div>
+      <h4>Grow bag</h4>
+      <div class="lbl">you water by hand</div>
+      <div class="sub accent">like a vanilla plot</div>
+    </div>
+    <div class="card">
+      <div class="stage" style="height:220px">
+        <div class="spr"><div class="pot" style="width:138px;height:360px;zoom:0.6"><img src="sprites/dwc.png" style="left:12px;top:236px"><img src="sprites/tomato.png" style="left:0px;top:0px"></div></div>
+        <div class="spr"><div class="pot" style="width:190px;height:228px;zoom:0.6"><img src="sprites/rdwc.png" style="left:0px;top:104px"><img src="sprites/spinach.png" style="left:68px;top:0px"></div></div>
+      </div>
+      <h4>Hydro</h4>
+      <div class="lbl">drinks from the reservoir</div>
+      <div class="sub accent">watered while it holds water,<br>dry when it runs out</div>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:34px">Faster in hydro</h4>
+      <div class="speed">
+        <div class="row"><span>Grow bag</span><div class="bar gray"><div class="fill" style="width:calc(100% - 6px)"></div><div class="in">100%</div></div></div>
+        <div class="row"><span>Hydro</span><div class="bar"><div class="fill" style="width:85%"></div><div class="in">85%</div></div></div>
+      </div>
+      <div class="lbl">time for each growth step</div>
+      <div class="sub accent">15% less in hydro</div>
+    </div>
+  </div>
+  <div class="card health">
+    <div>
+      <h4>Every condition</h4>
+      <div class="sub">Each stage has its healthy, sick, dying and dead plant, so you see how it is doing</div>
+    </div>
+    <div class="frames">
+      <div class="f"><img src="sprites/tomato.png"><span>healthy</span></div><span class="arrow">→</span>
+      <div class="f"><img src="sprites/tomato-sick.png"><span>sick</span></div><span class="arrow">→</span>
+      <div class="f"><img src="sprites/tomato-dying.png"><span>dying</span></div><span class="arrow">→</span>
+      <div class="f"><img src="sprites/tomato-dead.png"><span>dead</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== harvest and indoors -->
+<section class="shot panel" id="indoors">
+  <div class="ptitle">Harvest, sow again, grow inside</div>
+  <div class="two">
+    <div class="card">
+      <div class="stage">
+        <div class="spr"><div class="pot" style="width:164px;height:182px;zoom:0.8"><img src="sprites/bag-large.png" style="left:0px;top:28px"><img src="sprites/cabbage.png" style="left:22px;top:0px"></div></div>
+        <span class="arrow">→</span>
+        <div class="spr"><div class="pot" style="width:164px;height:154px;zoom:0.8"><img src="sprites/bag-large.png" style="left:0px;top:0px"></div></div>
+      </div>
+      <h4>Harvest, then sow</h4>
+      <div class="lbl">a crop that doesn't regrow leaves<br>the container empty, ready to sow</div>
+      <div class="sub accent">a plant that rots away does too</div>
+    </div>
+    <div class="card">
+      <div class="stage">
+        <div class="spr" style="margin-bottom:0"><img src="sprites/lamp.png" style="height:200px;position:relative;z-index:1"></div>
+        <div class="spr"><div class="pot" style="width:138px;height:202px;zoom:0.8"><img src="sprites/dwc.png" style="left:12px;top:78px"><img src="sprites/lettuce.png" style="left:0px;top:0px"></div></div>
+        <div class="spr"><div class="pot" style="width:124px;height:218px;zoom:0.8"><img src="sprites/bag-small.png" style="left:0px;top:110px"><img src="sprites/basil.png" style="left:2px;top:0px"></div></div>
+      </div>
+      <h4>Kill Crops Grown Inside</h4>
+      <div class="lbl">a powered grow lamp or a grow room<br>keeps them alive indoors</div>
+      <div class="sub accent">when vanilla's sandbox option is on</div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== the plants -->
+<section class="shot panel" id="plants">
+  <div class="ptitle">Each crop drawn as one plant, without vanilla's furrow</div>
+  <div class="crops">
+    <div class="card"><div class="art"><img src="sprites/tomato.png"></div><div class="nm">Tomato</div></div>
+    <div class="card"><div class="art"><img src="sprites/sunflower.png"></div><div class="nm">Sunflower</div></div>
+    <div class="card"><div class="art"><img src="sprites/pepper.png"></div><div class="nm">Bell pepper</div></div>
+    <div class="card"><div class="art"><img src="sprites/lavender.png"></div><div class="nm">Lavender</div></div>
+    <div class="card"><div class="art"><img src="sprites/cauliflower.png"></div><div class="nm">Cauliflower</div></div>
+    <div class="card"><div class="art"><img src="sprites/roses.png"></div><div class="nm">Roses</div></div>
+    <div class="card"><div class="art"><img src="sprites/watermelon.png"></div><div class="nm">Watermelon</div></div>
+    <div class="card"><div class="art"><img src="sprites/wheat.png"></div><div class="nm">Wheat</div></div>
+    <div class="card"><div class="art"><img src="sprites/chamomile.png"></div><div class="nm">Chamomile</div></div>
+    <div class="card"><div class="art"><img src="sprites/lettuce.png"></div><div class="nm">Lettuce</div></div>
+    <div class="card"><div class="art"><img src="sprites/marigold.png"></div><div class="nm">Marigold</div></div>
+    <div class="card"><div class="art"><img src="sprites/hops.png"></div><div class="nm">Hops</div></div>
+    <div class="card"><div class="art"><img src="sprites/strawberry.png"></div><div class="nm">Strawberry</div></div>
+    <div class="card"><div class="art"><img src="sprites/tobacco.png"></div><div class="nm">Tobacco</div></div>
+    <div class="card"><div class="art"><img src="sprites/basil.png"></div><div class="nm">Basil</div></div>
+    <div class="card"><div class="art"><img src="sprites/corn.png"></div><div class="nm">Corn</div></div>
+    <div class="card"><div class="art"><img src="sprites/poppies.png"></div><div class="nm">Poppies</div></div>
+    <div class="card"><div class="art"><img src="sprites/cabbage.png"></div><div class="nm">Cabbage</div></div>
+  </div>
+  <div class="note">55 vanilla crops, cut from Project Zomboid's own crop art<span class="dot">·</span>every growth stage and condition</div>
+</section>
+
+<!-- =============================================================== Workshop thumbnail -->
+<section class="shot banner" id="preview">
+  <div class="k">DAZED DANK</div>
+  <div class="t">GARDEN<br>CROPS</div>
+  <div class="row">
+    <div class="spr"><div class="pot" style="width:138px;height:360px;zoom:0.289"><img src="sprites/dwc.png" style="left:12px;top:236px"><img src="sprites/tomato.png" style="left:0px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:164px;height:216px;zoom:0.389"><img src="sprites/bag-large.png" style="left:0px;top:62px"><img src="sprites/lettuce.png" style="left:22px;top:0px"></div></div>
+    <div class="spr"><div class="pot" style="width:190px;height:308px;zoom:0.312"><img src="sprites/rdwc.png" style="left:0px;top:184px"><img src="sprites/pepper.png" style="left:68px;top:0px"></div></div>
+  </div>
+</section>
+
+</body>
+</html>

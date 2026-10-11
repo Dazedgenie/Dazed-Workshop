@@ -1,0 +1,350 @@
+{
+  "repos": "/home/claude",
+  "sprites": {
+    "tomato": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_384",
+      "scale": 2
+    },
+    "lettuce": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_272",
+      "scale": 2
+    },
+    "cabbage": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_188",
+      "scale": 2
+    },
+    "pepper": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_80",
+      "scale": 2
+    },
+    "strawberry": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_208",
+      "scale": 2
+    },
+    "basil": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_48",
+      "scale": 2
+    },
+    "kale": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_168",
+      "scale": 2
+    },
+    "broccoli": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_156",
+      "scale": 2
+    },
+    "cauliflower": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_252",
+      "scale": 2
+    },
+    "corn": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_404",
+      "scale": 2
+    },
+    "sunflower": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_268",
+      "scale": 2
+    },
+    "wheat": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_480",
+      "scale": 2
+    },
+    "potato": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_452",
+      "scale": 2
+    },
+    "carrot": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_220",
+      "scale": 2
+    },
+    "pumpkin": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_488",
+      "scale": 2
+    },
+    "watermelon": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_448",
+      "scale": 2
+    },
+    "zucchini": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_04.pack",
+      "sprite": "dazeddank_gardencrops_04_20",
+      "scale": 2
+    },
+    "cucumber": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_440",
+      "scale": 2
+    },
+    "lavender": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_192",
+      "scale": 2
+    },
+    "hops": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_108",
+      "scale": 2
+    },
+    "tobacco": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_348",
+      "scale": 2
+    },
+    "roses": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_56",
+      "scale": 2
+    },
+    "marigold": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_296",
+      "scale": 2
+    },
+    "poppies": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_424",
+      "scale": 2
+    },
+    "habanero": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_48",
+      "scale": 2
+    },
+    "jalapeno": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_136",
+      "scale": 2
+    },
+    "peas": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_20",
+      "scale": 2
+    },
+    "spinach": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_176",
+      "scale": 2
+    },
+    "soybeans": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_140",
+      "scale": 2
+    },
+    "onion": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_348",
+      "scale": 2
+    },
+    "garlic": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_504",
+      "scale": 2
+    },
+    "sage": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_112",
+      "scale": 2
+    },
+    "mint": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_320",
+      "scale": 2
+    },
+    "chamomile": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_280",
+      "scale": 2
+    },
+    "parsley": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_400",
+      "scale": 2
+    },
+    "rosemary": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_32",
+      "scale": 2
+    },
+    "flax": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_468",
+      "scale": 2
+    },
+    "leek": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_216",
+      "scale": 2
+    },
+    "rye": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_84",
+      "scale": 2
+    },
+    "sweetpotato": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_304",
+      "scale": 2
+    },
+    "turnip": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_416",
+      "scale": 2
+    },
+    "radish": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_8",
+      "scale": 2
+    },
+    "beet": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_240",
+      "scale": 2
+    },
+    "chives": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_304",
+      "scale": 2
+    },
+    "oregano": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_376",
+      "scale": 2
+    },
+    "thyme": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_328",
+      "scale": 2
+    },
+    "cilantro": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_328",
+      "scale": 2
+    },
+    "lemongrass": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_240",
+      "scale": 2
+    },
+    "comfrey": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_352",
+      "scale": 2
+    },
+    "mallow": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_376",
+      "scale": 2
+    },
+    "blacksage": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_104",
+      "scale": 2
+    },
+    "plantain": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_128",
+      "scale": 2
+    },
+    "barley": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_24",
+      "scale": 2
+    },
+    "hemp": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_80",
+      "scale": 2
+    },
+    "wildgarlic": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_504",
+      "scale": 2
+    },
+    "tomato-sick": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_385",
+      "scale": 2
+    },
+    "tomato-dying": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_386",
+      "scale": 2
+    },
+    "tomato-dead": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_387",
+      "scale": 2
+    },
+    "bag-small": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_195",
+      "scale": 2
+    },
+    "bag-large": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_196",
+      "scale": 2
+    },
+    "bag-xl": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_hydro_01.pack",
+      "sprite": "dazeddank_hydro_01_236",
+      "scale": 2
+    },
+    "dwc": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_374",
+      "scale": 2
+    },
+    "dwc-xl": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_hydro_01.pack",
+      "sprite": "dazeddank_hydro_01_350",
+      "scale": 2
+    },
+    "rdwc": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_hydro_01.pack",
+      "sprite": "dazeddank_hydro_01_2",
+      "scale": 2
+    },
+    "rdwc-control": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_hydro_01.pack",
+      "sprite": "dazeddank_hydro_01_113",
+      "scale": 2
+    },
+    "flood": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_hydro_01.pack",
+      "sprite": "dazeddank_hydro_01_123",
+      "scale": 2
+    },
+    "flood-res": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_hydro_01.pack",
+      "sprite": "dazeddank_hydro_01_234",
+      "scale": 2
+    },
+    "lamp": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_235",
+      "scale": 2
+    },
+    "lamp-basic": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_234",
+      "scale": 2
+    }
+  }
+}
