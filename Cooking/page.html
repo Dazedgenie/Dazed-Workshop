@@ -1,0 +1,466 @@
+<!doctype html>
+<!-- Dazed Cooking Workshop art. Each <section class="shot" id="x"> renders to images/x.png
+     (banner -> banner.jpg):  node _kit/render.mjs Cooking   (from the workshop-art root).
+     Sprites come from sprites.json:  python3 _kit/sprites.py Cooking
+     Dazed Cooking ships no textures of its own (its portions use vanilla icons), so the cuts are
+     Dazed Butchery's item icons and the thermometer is Dazed Climate's: the two mods it works with.
+     Appliance icons are drawn here. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/suite.css">
+<style>
+  #banner .title { font-size: 150px; top: 84px; }
+  /* warm ember glow rising behind the banner row */
+  #banner .embers { position: absolute; inset: 0; opacity: .5;
+    background-image:
+      radial-gradient(circle, rgba(255, 190, 120, .9) 1.3px, transparent 2px),
+      radial-gradient(circle, rgba(255, 150, 90, .7) 1px, transparent 1.6px),
+      radial-gradient(circle, rgba(255, 210, 160, .6) 1.8px, transparent 2.4px);
+    background-size: 89px 77px, 59px 67px, 167px 149px;
+    background-position: 11px 9px, 37px 31px, 64px 52px;
+    -webkit-mask-image: linear-gradient(0deg, #000 0%, rgba(0,0,0,.5) 40%, transparent 70%); }
+  #banner .heat { position: absolute; left: 0; right: 0; bottom: 0; height: 200px;
+    background: radial-gradient(ellipse 620px 140px at 50% 100%, rgba(255, 140, 70, .16), transparent 70%); }
+  .row .spr img.px { image-rendering: pixelated; }
+
+  .hdr .tile svg { width: 74px; height: 74px; }
+  .ico { width: 64px; height: 64px; flex: none; }
+
+  /* doneness panel */
+  .tip { display: grid; grid-template-columns: 210px 1fr; gap: 22px; align-items: center; text-align: left; padding: 18px 26px; }
+  .tip .art { height: 150px; margin: 0; }
+  .ttip { background: rgba(10, 6, 16, .82); border: 1.5px solid #6b5a80; border-radius: 6px; padding: 12px 18px; font-size: 24px; line-height: 1.45; color: #e8e2ef; }
+  .ttip .t { font-weight: 700; color: #fff; }
+  .ttip .g { color: #9be38a; }
+  .ttip .y { color: #f2d36b; }
+  .line { position: relative; height: 72px; margin: 6px 6px 0; }
+  .seg { position: absolute; top: 0; height: 46px; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 22px; color: #1b0d2c; border-radius: 0; white-space: nowrap; }
+  .seg.first { border-radius: 10px 0 0 10px; } .seg.last { border-radius: 0 10px 10px 0; }
+  .seg.raw { background: #3a2a4f; color: var(--muted); font-weight: 600; }
+  .seg.r { background: #e98b8b; } .seg.mr { background: #e7a07a; } .seg.m { background: #d9b37a; }
+  .seg.w { background: #b49579; } .seg.b { background: #4a3a34; color: #e4cdb8; }
+  .seg.best { box-shadow: inset 0 0 0 3px #fff; }
+  .tk { position: absolute; top: 50px; transform: translateX(-50%); font-size: 19px; color: var(--muted); white-space: nowrap; }
+  .meth { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
+  .meth .card { padding: 16px 12px 16px; }
+  .meth .ico { margin: 0 auto 8px; display: block; }
+  .meth h4 { font-size: 27px; margin-bottom: 6px; }
+  .word { font-weight: 700; font-size: 25px; color: var(--accent); line-height: 1.2; }
+  .word.sm { font-size: 21px; }
+  .meth .card { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+  .dish { margin: 16px auto 0; width: max-content; font-weight: 700; font-size: 30px; color: var(--ink);
+    padding: 10px 26px 12px; border-radius: 14px; border: 1.5px solid #b98af7; background: var(--well); }
+  .dish span { color: var(--accent); }
+
+  /* cuts panel: eight kinds */
+  .kind { padding: 14px 12px 16px; }
+  .kind .art { height: 124px; margin-bottom: 10px; }
+  .kind h4 { font-size: 30px; margin-bottom: 2px; }
+  .kind .ex { font-size: 19px; color: var(--muted); line-height: 1.25; height: 26px; }
+  .mchips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 10px 0 10px; min-height: 40px; align-items: center; }
+  .mc { font-size: 19px; font-weight: 600; padding: 3px 11px 4px; border-radius: 999px; white-space: nowrap; }
+  .mc.b { background: #8f4be6; color: #fff; }
+  .mc.o { border: 1.5px solid #6d43b5; color: var(--lilac); }
+  .dstrip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .dstrip i { height: 16px; border-radius: 3px; background: #2a1d3b; }
+  .dstrip i.b { background: var(--fill-a); } .dstrip i.o { background: #6c45a8; }
+  .dlab { font-size: 19px; color: var(--lilac); margin-top: 6px; font-weight: 600; }
+  .legend { display: flex; justify-content: center; gap: 30px; margin-top: 16px; font-size: 21px; color: var(--lilac); align-items: center; }
+  .legend i { display: inline-block; width: 30px; height: 14px; border-radius: 4px; margin-right: 9px; vertical-align: 0; }
+
+  /* mood panel */
+  .mood { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .card.list { text-align: left; padding: 18px 20px 20px; }
+  .card.list h4 { text-align: center; font-size: 30px; margin-bottom: 14px; }
+  .kv { display: flex; justify-content: space-between; align-items: center; font-size: 23px; line-height: 1; padding: 9px 4px;
+    border-bottom: 1px solid rgba(160, 120, 230, .22); }
+  .kv:last-of-type { border-bottom: 0; }
+  .kv b { font-weight: 800; color: var(--ink); }
+  .kv .x { font-weight: 800; color: var(--accent); }
+  .kv .bad { color: #ff9a8a; }
+  .times { text-align: center; font-size: 34px; font-weight: 800; color: var(--accent); margin: 0 4px; align-self: center; }
+  .eq { display: grid; grid-template-columns: 1fr 60px 1fr 60px 1fr; }
+  .out { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .out .card { padding: 16px 16px; }
+  .big { font-weight: 800; font-size: 46px; line-height: 1.05; color: var(--ink); }
+  .big.bad { color: #ff9a8a; }
+  .warm { display: flex; align-items: center; gap: 18px; text-align: left; justify-content: center; }
+  
+
+  /* portioning */
+  .prim { display: flex; align-items: center; justify-content: center; gap: 14px; height: 130px; margin-bottom: 10px; position: relative; }
+  .prim::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 160px; height: 24px; transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(165, 90, 255, .5), rgba(165, 90, 255, 0) 70%); }
+  .prim img { position: relative; z-index: 1; }
+  .prim .arrow { font-size: 36px; font-weight: 700; color: var(--accent); position: relative; z-index: 1; }
+  .prim .n { font-size: 64px; font-weight: 800; line-height: 1; color: var(--ink); position: relative; z-index: 1; }
+  .p3 h4 { font-size: 30px; margin-bottom: 4px; }
+  .small { padding: 12px 8px 14px; }
+  .small .prim { height: 84px; gap: 8px; margin-bottom: 8px; }
+  .small .prim .n { font-size: 40px; }
+  .small .prim .arrow { font-size: 26px; }
+  .small .lbl { font-size: 22px; }
+  .small .sub { font-size: 18px; line-height: 1.25; }
+
+  /* cooking window mock */
+  .win { border: 1.5px solid #77708a; border-radius: 8px; background: rgba(8, 5, 12, .85); overflow: hidden; text-align: left; }
+  .win .bar1 { height: 38px; background: #1f1b26; border-bottom: 1px solid #4b4559; display: flex; align-items: center; padding: 0 16px;
+    font-size: 21px; font-weight: 600; color: #ddd6e8; }
+  .tabs { display: flex; gap: 4px; padding: 10px 14px 0; border-bottom: 1px solid #4b4559; }
+  .tab { font-size: 21px; padding: 7px 18px 8px; border: 1px solid #4b4559; border-bottom: 0; border-radius: 6px 6px 0 0; color: #a59fb1; background: #16121c; }
+  .tab.on { color: #fff; background: #2c2537; border-color: #8a80a0; }
+  .wbody { padding: 12px 18px 14px; }
+  .app { font-size: 21px; font-weight: 700; color: #cfc7dd; margin: 4px 0 8px; }
+  .app .on { color: #9be38a; font-weight: 600; }
+  .irow { display: grid; grid-template-columns: 330px 1fr 230px 150px; gap: 16px; align-items: center; padding: 8px 0 12px; border-bottom: 1px solid #2c2636; }
+  .irow:last-of-type { border-bottom: 0; }
+  .iname { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.2; }
+  .isub { font-size: 18px; color: #a59fb1; line-height: 1.3; }
+  .bands { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; height: 26px; }
+  .bands i { font-style: normal; font-size: 16px; font-weight: 700; color: #1b0d2c; display: flex; align-items: center; justify-content: center; }
+  .bands i.best { box-shadow: inset 0 0 0 2px #fff; }
+  .mark { position: absolute; top: -6px; bottom: -6px; width: 4px; background: #fff; border-radius: 2px; box-shadow: 0 0 6px #fff; }
+  .prog { position: relative; height: 26px; background: #221c2b; border: 1px solid #4b4559; }
+  .prog .f { position: absolute; left: 0; top: 0; bottom: 0; background: #5f8f52; }
+  .prog span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 700; color: #fff; }
+  .under { font-size: 16px; color: #a59fb1; margin-top: 4px; }
+  .st { font-size: 20px; font-weight: 700; }
+  .st.g { color: #9be38a; } .st.gr { color: #a59fb1; }
+  .btn { font-size: 18px; color: #e8e2ef; border: 1px solid #77708a; background: #2a2433; padding: 5px 10px; text-align: center; border-radius: 3px; }
+  .btns { display: grid; gap: 6px; }
+  .wfoot { display: flex; justify-content: space-between; font-size: 18px; color: #a59fb1; padding: 8px 18px 10px; border-top: 1px solid #4b4559; }
+  .box { display: inline-block; width: 16px; height: 16px; border: 1.5px solid #a59fb1; margin-right: 8px; vertical-align: -2px; background: #5f8f52; }
+  .tabs3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+  .tabs3 .card h4 { font-size: 30px; margin-bottom: 6px; }
+  .tabs3 .sub { font-size: 21px; }
+</style>
+</head>
+<body>
+
+<!-- SVG icons reused below (drawn here; the mod has no appliance art of its own) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-stove" viewBox="0 0 64 64" fill="none" stroke="#ddc6ff" stroke-width="3.5" stroke-linejoin="round">
+      <rect x="10" y="14" width="44" height="42" rx="4"/><path d="M10 26h44"/>
+      <circle cx="21" cy="20" r="2.5" fill="#ddc6ff" stroke="none"/><circle cx="31" cy="20" r="2.5" fill="#ddc6ff" stroke="none"/>
+      <rect x="17" y="32" width="30" height="17" rx="2"/><path d="M8 14h48" stroke="#ff9d5c"/>
+    </symbol>
+    <symbol id="i-grill" viewBox="0 0 64 64" fill="none" stroke="#ddc6ff" stroke-width="3.5" stroke-linecap="round">
+      <path d="M10 26h44a22 16 0 0 1-44 0z"/><path d="M24 42l-8 16M40 42l8 16M32 42v16"/>
+      <path d="M22 18c-3-4 3-6 0-11M32 18c-3-4 3-6 0-11M42 18c-3-4 3-6 0-11" stroke="#ff9d5c"/>
+    </symbol>
+    <symbol id="i-smoker" viewBox="0 0 64 64" fill="none" stroke="#ddc6ff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="14" y="22" width="36" height="34" rx="4"/><path d="M14 34h36M26 28h12"/><path d="M42 22v-8h6v8"/>
+      <path d="M45 10c-4-3 4-5 0-8" stroke="#c9b6e4"/>
+    </symbol>
+    <symbol id="i-micro" viewBox="0 0 64 64" fill="none" stroke="#ddc6ff" stroke-width="3.5" stroke-linejoin="round">
+      <rect x="6" y="16" width="52" height="34" rx="4"/><rect x="12" y="22" width="30" height="22" rx="2"/>
+      <path d="M48 24h4M48 31h4M48 38h4" stroke-linecap="round"/><path d="M14 50v4M50 50v4"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =============================================================== banner -->
+<section class="shot banner" id="banner">
+  <div class="heat"></div>
+  <div class="embers"></div>
+  <div class="title">DAZED COOKING</div>
+  <div class="sub">Cut-specific cooking for Project Zomboid Build 42</div>
+  <div class="pills">
+    <span class="pill">Best method per cut</span>
+    <span class="pill">Live doneness</span>
+    <span class="pill">Named dishes</span>
+    <span class="pill">Good food mood</span>
+    <span class="pill">Portioning</span>
+    <span class="pill">Cooking window</span>
+  </div>
+  <div class="row" style="left:60px;right:60px">
+    <div class="spr"><img src="sprites/beef-rib.png" class="px"></div>
+    <div class="spr"><img src="sprites/pork-ribs.png" class="px"></div>
+    <div class="spr"><img src="sprites/beef-shortloin.png" class="px"></div>
+    <div class="spr"><img src="sprites/chicken-breasts.png" class="px"></div>
+    <div class="spr"><img src="sprites/mutton-rack.png" class="px"></div>
+    <div class="spr"><img src="sprites/pork-ham.png" class="px"></div>
+    <div class="spr"><img src="sprites/venison-backstrap.png" class="px"></div>
+    <div class="spr"><img src="sprites/heart.png" class="px"></div>
+  </div>
+</section>
+
+<!-- =============================================================== section headers -->
+<section class="shot hdr" id="h-cut">
+  <div class="tile"><img src="sprites/beef-shortloin-3.png" class="px"></div>
+  <div class="num">01</div><h2>Cooking a cut</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-mood">
+  <div class="tile">
+    <svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
+      <circle cx="32" cy="32" r="24" stroke="#ddc6ff" stroke-width="4"/>
+      <circle cx="23" cy="27" r="3.5" fill="#ddc6ff"/><circle cx="41" cy="27" r="3.5" fill="#ddc6ff"/>
+      <path d="M21 39c6 8 16 8 22 0" stroke="#ffcf6b" stroke-width="4.5"/>
+    </svg>
+  </div>
+  <div class="num">02</div><h2>Good food, good mood</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-portion">
+  <div class="tile"><img src="sprites/beef-rib-3.png" class="px"></div>
+  <div class="num">03</div><h2>Portioning (with Dazed Butchery)</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-window">
+  <div class="tile"><svg><use href="#i-stove"/></svg></div>
+  <div class="num">04</div><h2>The Cooking window</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-sandbox">
+  <div class="tile">
+    <svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
+      <g stroke="#ddc6ff" stroke-width="4"><path d="M10 16h44M10 32h44M10 48h44"/></g>
+      <g fill="#b47cf7" stroke="#f6efff" stroke-width="2.5"><circle cx="40" cy="16" r="6"/><circle cx="22" cy="32" r="6"/><circle cx="46" cy="48" r="6"/></g>
+    </svg>
+  </div>
+  <div class="num">05</div><h2>Sandbox options</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-compat">
+  <div class="tile"><img src="sprites/chicken-breasts-3.png" class="px"></div>
+  <div class="num">06</div><h2>Compatibility</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-help">
+  <div class="tile"><img src="sprites/turkey-legs-3.png" class="px"></div>
+  <div class="num">07</div><h2>Bugs and help</h2><div class="rule"></div>
+</section>
+
+<!-- =============================================================== doneness
+     Example cut: Dazed Butchery VenisonBackstrap, MinutesToCook 100, MinutesToBurn 140 (a "steak").
+     From DC_Cook.lua: doneness = 1 + floor(4 * (t - cook) / (burn - cook)), 5 when burnt.
+     Times from DazedCooking_items.txt: RibeyeSteak MinutesToCook 50, MinutesToBurn 70.
+     Ribeye is a "steak": best grill or stove, Medium rare to Medium (DC_Profiles.lua). -->
+<section class="shot panel" id="doneness">
+  <div class="ptitle">Take it out at the right moment</div>
+  <div class="card tip">
+    <div class="art"><img src="sprites/venison-backstrap.png" class="px"></div>
+    <div>
+      <div class="ttip">
+        <div class="t">Venison Backstrap (Choice)</div>
+        <div class="y">Best: Grilled / Pan-seared, Medium rare – Medium</div>
+        <div class="g">Doneness now: Medium rare</div>
+      </div>
+      <div class="line" style="margin-top:16px">
+        <!-- raw squeezed into 170px, then four 10-minute bands of 165px, burnt 90px: 925px -->
+        <div class="seg raw first" style="left:0;width:170px">Raw</div>
+        <div class="seg r" style="left:172px;width:163px">Rare</div>
+        <div class="seg mr best" style="left:337px;width:163px">Medium rare</div>
+        <div class="seg m best" style="left:502px;width:163px">Medium</div>
+        <div class="seg w" style="left:667px;width:163px">Well done</div>
+        <div class="seg b last" style="left:832px;width:93px">Burnt</div>
+        <span class="tk" style="left:172px">100 min</span><span class="tk" style="left:337px">110</span>
+        <span class="tk" style="left:502px">120</span><span class="tk" style="left:667px">130</span><span class="tk" style="left:832px">140</span>
+      </div>
+    </div>
+  </div>
+  <div class="meth">
+    <div class="card"><svg class="ico"><use href="#i-grill"/></svg><h4>Barbecue, campfire, fireplace</h4><div class="word">Grilled</div></div>
+    <div class="card"><svg class="ico"><use href="#i-stove"/></svg><h4>Stove or oven</h4><div class="word sm">Pan-seared, Oven-roasted<br>or Slow-cooked, by cut</div></div>
+    <div class="card"><svg class="ico"><use href="#i-smoker"/></svg><h4>Smoker</h4><div class="word">Smoked</div></div>
+    <div class="card"><svg class="ico"><use href="#i-micro"/></svg><h4>Microwave</h4><div class="word">Microwaved</div></div>
+  </div>
+  <div class="dish">Grilled Venison Backstrap <span>(Choice, Medium rare)</span></div>
+  <div class="note">The method comes from where it cooked<span class="dot">·</span>times shown are a Venison Backstrap's: cooked at 100, burnt at 140</div>
+</section>
+
+<!-- =============================================================== eight kinds (DC_Profiles.lua P.KINDS)
+     strip = Rare, Medium rare, Medium, Well done: bright = best, dim = acceptable. -->
+<section class="shot panel" id="cuts">
+  <div class="ptitle">Eight kinds of cut, each with its own best method and doneness</div>
+  <div class="grid cols-4">
+    <div class="card kind">
+      <div class="art"><img src="sprites/venison-backstrap-3.png" class="px"></div>
+      <h4>Steak</h4><div class="ex">flank, backstrap, steaks</div>
+      <div class="mchips"><span class="mc b">Grill</span><span class="mc b">Stove</span><span class="mc o">Smoker</span></div>
+      <div class="dstrip"><i class="o"></i><i class="b"></i><i class="b"></i><i class="o"></i></div>
+      <div class="dlab">Medium rare – Medium</div>
+    </div>
+    <div class="card kind">
+      <div class="art"><img src="sprites/beef-sirloin-4.png" class="px"></div>
+      <h4>Roast</h4><div class="ex">rib, sirloin, leg, rack</div>
+      <div class="mchips"><span class="mc b">Stove</span><span class="mc o">Grill</span><span class="mc o">Smoker</span></div>
+      <div class="dstrip"><i class="o"></i><i class="b"></i><i class="b"></i><i class="o"></i></div>
+      <div class="dlab">Medium rare – Medium</div>
+    </div>
+    <div class="card kind">
+      <div class="art"><img src="sprites/beef-brisket-4.png" class="px"></div>
+      <h4>Slow</h4><div class="ex">brisket, chuck, shank, belly</div>
+      <div class="mchips"><span class="mc b">Smoker</span><span class="mc b">Stove</span><span class="mc o">Grill</span></div>
+      <div class="dstrip"><i></i><i></i><i class="o"></i><i class="b"></i></div>
+      <div class="dlab">Well done</div>
+    </div>
+    <div class="card kind">
+      <div class="art"><img src="sprites/pork-ribs-4.png" class="px"></div>
+      <h4>Ribs</h4><div class="ex">pork spare ribs, venison ribs</div>
+      <div class="mchips"><span class="mc b">Smoker</span><span class="mc b">Grill</span><span class="mc o">Stove</span></div>
+      <div class="dstrip"><i></i><i></i><i class="o"></i><i class="b"></i></div>
+      <div class="dlab">Well done</div>
+    </div>
+    <div class="card kind">
+      <div class="art"><img src="sprites/mutton-loin-4.png" class="px"></div>
+      <h4>Chop</h4><div class="ex">chops cut from a loin or rack</div>
+      <div class="mchips"><span class="mc b">Grill</span><span class="mc b">Stove</span><span class="mc o">Smoker</span></div>
+      <div class="dstrip"><i></i><i class="o"></i><i class="b"></i><i class="b"></i></div>
+      <div class="dlab">Medium – Well done</div>
+    </div>
+    <div class="card kind">
+      <div class="art"><img src="sprites/pork-loin-4.png" class="px"></div>
+      <h4>Pork roast</h4><div class="ex">pork loin, ham</div>
+      <div class="mchips"><span class="mc b">Stove</span><span class="mc b">Smoker</span><span class="mc o">Grill</span></div>
+      <div class="dstrip"><i></i><i></i><i class="o"></i><i class="b"></i></div>
+      <div class="dlab">Well done</div>
+    </div>
+    <div class="card kind">
+      <div class="art"><img src="sprites/chicken-breasts-4.png" class="px"></div>
+      <h4>Poultry</h4><div class="ex">chicken, turkey</div>
+      <div class="mchips"><span class="mc b">Stove</span><span class="mc b">Grill</span><span class="mc o">Smoker</span></div>
+      <div class="dstrip"><i></i><i></i><i></i><i class="b"></i></div>
+      <div class="dlab">Well done, nothing less</div>
+    </div>
+    <div class="card kind">
+      <div class="art"><img src="sprites/heart-4.png" class="px"></div>
+      <h4>Offal</h4><div class="ex">heart, liver, kidney</div>
+      <div class="mchips"><span class="mc b">Stove</span><span class="mc b">Grill</span></div>
+      <div class="dstrip"><i></i><i class="b"></i><i class="b"></i><i class="o"></i></div>
+      <div class="dlab">Medium rare – Medium</div>
+    </div>
+  </div>
+  <div class="legend">
+    <span><span class="mc b" style="margin-right:9px">Best</span><span class="mc o">Fine</span> method</span>
+    <span><i style="background:var(--fill-a)"></i>best doneness<i style="background:#6c45a8;margin-left:18px"></i>acceptable</span>
+    <span style="color:var(--muted)">strip: Rare · Medium rare · Medium · Well done</span>
+  </div>
+</section>
+
+<!-- =============================================================== mood (DC_Cook.lua K.quality, K.moodFor; DC_Warmth.lua)
+     score = method x doneness x grade; mood at Good Food Mood Bonus 1.0, a whole cut eaten. -->
+<section class="shot panel" id="mood">
+  <div class="ptitle">A cut cooked right lifts your mood</div>
+  <div class="eq">
+    <div class="card list">
+      <h4>Method</h4>
+      <div class="kv"><span>best</span><span class="x">× 1</span></div>
+      <div class="kv"><span>fine</span><span class="x">× 0.6</span></div>
+      <div class="kv"><span>anything else</span><span class="x">× 0.25</span></div>
+      <div class="kv"><span>microwave</span><span class="x bad">× 0</span></div>
+    </div>
+    <div class="times">×</div>
+    <div class="card list">
+      <h4>Doneness</h4>
+      <div class="kv"><span>best</span><span class="x">× 1</span></div>
+      <div class="kv"><span>acceptable</span><span class="x">× 0.6</span></div>
+      <div class="kv"><span>anything else</span><span class="x">× 0.2</span></div>
+      <div class="kv"><span>burnt</span><span class="x bad">× 0</span></div>
+    </div>
+    <div class="times">×</div>
+    <div class="card list">
+      <h4>Butchery grade</h4>
+      <div class="kv"><span><b>Prime</b></span><span class="x">× 1.35 – 1.5</span></div>
+      <div class="kv"><span>Choice</span><span class="x">× 1.15 – 1.34</span></div>
+      <div class="kv"><span>Select</span><span class="x">× 0.95 – 1.14</span></div>
+      <div class="kv"><span>Standard, Poor</span><span class="x">× 0.5 – 0.94</span></div>
+      <div class="kv"><span>no grade (vanilla)</span><span class="x">× 1</span></div>
+    </div>
+  </div>
+  <div class="out">
+    <div class="card">
+      <div class="big">−30</div>
+      <div class="lbl">unhappiness</div>
+      <div class="sub">and −22.5 boredom, less stress:<br>a top Prime cut done right</div>
+    </div>
+    <div class="card">
+      <div class="big bad">+5</div>
+      <div class="lbl">unhappiness</div>
+      <div class="sub">microwaved, burnt, or anything<br>that scores below 0.2</div>
+    </div>
+    <div class="card warm">
+      <img src="sprites/thermometer-3.png" class="px">
+      <div>
+        <div class="lbl">With Dazed Climate</div>
+        <div class="sub" style="white-space:nowrap">below 12 °C, hot food warms<br>you <span class="accent">up to 1 h</span>, a hot drink<br><span class="accent">up to half an hour</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Mood is −20 unhappiness and −15 boredom times the score, at the default Good Food Mood Bonus, eating the whole cut</div>
+</section>
+
+<!-- =============================================================== portioning (DC_Profiles.lua P.PORTIONS) -->
+<section class="shot panel" id="portion">
+  <div class="ptitle">Right-click a raw primal with a knife to cut it into portions</div>
+  <div class="grid cols-3">
+    <div class="card p3">
+      <div class="prim"><img src="sprites/beef-rib-4.png" class="px"><span class="arrow">→</span><span class="n">3</span></div>
+      <h4>Ribeye Steaks</h4><div class="sub">from a Beef Rib</div>
+    </div>
+    <div class="card p3">
+      <div class="prim"><img src="sprites/pork-loin-4.png" class="px"><span class="arrow">→</span><span class="n">4</span></div>
+      <h4>Loin Chops</h4><div class="sub">from a Pork Loin</div>
+    </div>
+    <div class="card p3">
+      <div class="prim"><img src="sprites/venison-backstrap-4.png" class="px"><span class="arrow">→</span><span class="n">4</span></div>
+      <h4>Medallions</h4><div class="sub">from a Venison Backstrap</div>
+    </div>
+  </div>
+  <div class="grid cols-5" style="margin-top:14px">
+    <div class="card small"><div class="prim"><img src="sprites/beef-shortloin-3.png" class="px"><span class="arrow">→</span><span class="n">2</span></div><div class="lbl">T-Bone Steaks</div><div class="sub">Beef Short Loin</div></div>
+    <div class="card small"><div class="prim"><img src="sprites/beef-sirloin-3.png" class="px"><span class="arrow">→</span><span class="n">3</span></div><div class="lbl">Sirloin Steaks</div><div class="sub">Beef Sirloin</div></div>
+    <div class="card small"><div class="prim"><img src="sprites/beef-tenderloin-3.png" class="px"><span class="arrow">→</span><span class="n">4</span></div><div class="lbl">Filet Mignon</div><div class="sub">Beef Tenderloin</div></div>
+    <div class="card small"><div class="prim"><img src="sprites/beef-round-3.png" class="px"><span class="arrow">→</span><span class="n">3</span></div><div class="lbl">Round Steaks</div><div class="sub">Beef Round</div></div>
+    <div class="card small"><div class="prim"><img src="sprites/beef-flank-3.png" class="px"><span class="arrow">→</span><span class="n">2</span></div><div class="lbl">Flank Steaks</div><div class="sub">Beef Flank</div></div>
+    <div class="card small"><div class="prim"><img src="sprites/pork-butt-3.png" class="px"><span class="arrow">→</span><span class="n">3</span></div><div class="lbl">Shoulder Steaks</div><div class="sub">Pork Shoulder Butt</div></div>
+    <div class="card small"><div class="prim"><img src="sprites/mutton-rack-3.png" class="px"><span class="arrow">→</span><span class="n">4</span></div><div class="lbl">Lamb Rib Chops</div><div class="sub">Mutton Rack</div></div>
+    <div class="card small"><div class="prim"><img src="sprites/mutton-loin-3.png" class="px"><span class="arrow">→</span><span class="n">4</span></div><div class="lbl">Lamb Loin Chops</div><div class="sub">Mutton Loin</div></div>
+    <div class="card small"><div class="prim"><img src="sprites/mutton-leg-3.png" class="px"><span class="arrow">→</span><span class="n">3</span></div><div class="lbl">Lamb Leg Steaks</div><div class="sub">Mutton Leg</div></div>
+    <div class="card small"><div class="prim"><img src="sprites/venison-hind-3.png" class="px"><span class="arrow">→</span><span class="n">3</span></div><div class="lbl">Venison Steaks</div><div class="sub">Venison Hindquarter</div></div>
+  </div>
+  <div class="note">Portions keep the primal's food, age and grade<span class="dot">·</span>thaw a frozen primal first</div>
+</section>
+
+<!-- =============================================================== cooking window
+     Illustration of the On the Heat tab, laid out after DC_HeatTab.lua; the values are made up. -->
+<section class="shot panel" id="window">
+  <div class="ptitle">Every dish, pot and stove within reach, in one window</div>
+  <div class="win">
+    <div class="bar1">Cooking</div>
+    <div class="tabs"><span class="tab">Cook</span><span class="tab on">On the Heat (2)</span><span class="tab">Recipes</span></div>
+    <div class="wbody">
+      <div class="app">Barbecue <span class="on">(on)</span>, 3 tiles</div>
+      <div class="irow">
+        <div><div class="iname">Ribeye Steak (Choice)</div><div class="isub">Barbecue · best: Medium rare - Medium</div></div>
+        <div class="bands">
+          <i style="background:#e98b8b">Rare</i><i class="best" style="background:#e7a07a">Med rare</i><i class="best" style="background:#d9b37a">Medium</i><i style="background:#b49579">Well</i><i style="background:#4a3a34;color:#e4cdb8">Burnt</i>
+          <div class="mark" style="left:37%"></div>
+        </div>
+        <div class="st g">Medium rare now</div>
+        <div class="btns"><div class="btn">Take Off</div></div>
+      </div>
+      <div class="app" style="margin-top:10px">Stove <span class="on">(on)</span>, 5 tiles</div>
+      <div class="irow">
+        <div><div class="iname">Pot of Stew</div><div class="isub">Stove</div></div>
+        <div><div class="prog"><div class="f" style="width:64%"></div><span>Cooking 64%</span></div><div class="under">done in 18 min · burns 20 min after</div></div>
+        <div class="st gr">Ready in 18 min</div>
+        <div class="btns"><div class="btn">Take Off</div><div class="btn">Add More</div></div>
+      </div>
+    </div>
+    <div class="wfoot"><span><span class="box"></span>Warn me before anything burns</span><span>Shows appliances within 12 tiles</span></div>
+  </div>
+  <div class="tabs3">
+    <div class="card"><h4>Cook</h4><div class="sub">pick a dish and a pot, see every ingredient<br>in reach with its grade, <span class="accent">Add to pot</span></div></div>
+    <div class="card"><h4>On the Heat</h4><div class="sub">doneness bars for cuts, cooking<br>bars for pots, <span class="accent">Take Off</span></div></div>
+    <div class="card"><h4>Recipes</h4><div class="sub">save a pot, see what you have and<br>what can stand in, <span class="accent">Cook Again</span></div></div>
+  </div>
+  <div class="note">Illustration, not a screenshot: names and times are examples<span class="dot">·</span>does nothing while closed</div>
+</section>
+
+</body>
+</html>

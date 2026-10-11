@@ -1,0 +1,305 @@
+{
+  "repos": "/home/claude",
+  "sprites": {
+    "beef-rib": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefRib.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "beef-rib-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefRib.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "beef-rib-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefRib.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "beef-shortloin": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefShortLoin.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "beef-shortloin-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefShortLoin.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "beef-shortloin-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefShortLoin.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "beef-sirloin": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefSirloin.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "beef-sirloin-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefSirloin.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "beef-sirloin-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefSirloin.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "beef-tenderloin": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefTenderloin.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "beef-tenderloin-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefTenderloin.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "beef-tenderloin-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefTenderloin.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "beef-round": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefRound.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "beef-round-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefRound.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "beef-round-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefRound.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "beef-flank": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefFlank.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "beef-flank-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefFlank.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "beef-flank-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefFlank.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "beef-brisket": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefBrisket.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "beef-brisket-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefBrisket.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "beef-brisket-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefBrisket.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "pork-loin": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkLoin.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "pork-loin-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkLoin.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "pork-loin-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkLoin.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "pork-butt": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkShoulderButt.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "pork-butt-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkShoulderButt.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "pork-butt-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkShoulderButt.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "pork-ribs": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkSpareRibs.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "pork-ribs-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkSpareRibs.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "pork-ribs-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkSpareRibs.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "mutton-rack": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_MuttonRack.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "mutton-rack-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_MuttonRack.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "mutton-rack-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_MuttonRack.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "mutton-loin": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_MuttonLoin.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "mutton-loin-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_MuttonLoin.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "mutton-loin-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_MuttonLoin.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "mutton-leg": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_MuttonLeg.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "mutton-leg-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_MuttonLeg.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "mutton-leg-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_MuttonLeg.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "venison-backstrap": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_VenisonBackstrap.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "venison-backstrap-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_VenisonBackstrap.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "venison-backstrap-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_VenisonBackstrap.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "venison-hind": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_VenisonHindquarter.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "venison-hind-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_VenisonHindquarter.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "venison-hind-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_VenisonHindquarter.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "chicken-breasts": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_ChickenBreasts.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "chicken-breasts-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_ChickenBreasts.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "chicken-breasts-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_ChickenBreasts.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "turkey-legs": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_TurkeyLegs.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "turkey-legs-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_TurkeyLegs.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "turkey-legs-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_TurkeyLegs.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "heart": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_Heart.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "heart-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_Heart.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "heart-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_Heart.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "pork-ham": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkHam.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "pork-ham-4": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkHam.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "pork-ham-3": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_PorkHam.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "thermometer": {
+      "png": "DazedClimate/Contents/mods/DazedClimate/common/media/textures/Item_DazedThermometer.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "thermometer-4": {
+      "png": "DazedClimate/Contents/mods/DazedClimate/common/media/textures/Item_DazedThermometer.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "thermometer-3": {
+      "png": "DazedClimate/Contents/mods/DazedClimate/common/media/textures/Item_DazedThermometer.png",
+      "scale": 3,
+      "filter": "nearest"
+    }
+  }
+}
