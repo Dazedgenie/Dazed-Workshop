@@ -1,0 +1,118 @@
+{
+  "repos": "/home/claude",
+  "sprites": {
+    "thermometer": {
+      "png": "DazedClimate/Contents/mods/DazedClimate/common/media/textures/Item_DazedThermometer.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "insulation": {
+      "png": "DazedClimate/Contents/mods/DazedClimate/common/media/textures/Item_DazedPipeInsulation.png",
+      "scale": 5,
+      "filter": "nearest"
+    },
+    "tomato": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_384",
+      "scale": 2.5
+    },
+    "tomato-dead": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_03.pack",
+      "sprite": "dazeddank_gardencrops_03_387",
+      "scale": 2.5
+    },
+    "lettuce": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_272",
+      "scale": 2.5
+    },
+    "lettuce-dead": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_02.pack",
+      "sprite": "dazeddank_gardencrops_02_275",
+      "scale": 2.5
+    },
+    "cabbage": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_188",
+      "scale": 2.5
+    },
+    "cabbage-dead": {
+      "pack": "dazeddank-gardencrops/Contents/mods/DazedDankGardenCrops/42/media/texturepacks/dazeddank_gardencrops_01.pack",
+      "sprite": "dazeddank_gardencrops_01_191",
+      "scale": 2.5
+    },
+    "heater": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_153",
+      "scale": 2.5
+    },
+    "heater-off": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_149",
+      "scale": 2.5
+    },
+    "cooler": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_145",
+      "scale": 2.5
+    },
+    "tank-water": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_136",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_137",
+          64,
+          32
+        ]
+      ],
+      "scale": 1.6
+    },
+    "tank-propane": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_88",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_89",
+          64,
+          32
+        ]
+      ],
+      "scale": 1.6
+    },
+    "tank-petrol": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_112",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_113",
+          64,
+          32
+        ]
+      ],
+      "scale": 1.6
+    },
+    "drum": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_20",
+      "scale": 2.5
+    },
+    "pipe-t": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_151",
+      "scale": 2.5
+    }
+  }
+}
