@@ -1,0 +1,109 @@
+{
+  "repos": "/home/claude",
+  "sprites": {
+    "cart": {
+      "png": "/mnt/project-files/electric-vehicles/art/club_cart_0.png",
+      "scale": 0.5,
+      "crop": [
+        106,
+        0,
+        920,
+        767
+      ]
+    },
+    "trak": {
+      "png": "/mnt/project-files/electric-vehicles/art/elec_trak_0.png",
+      "scale": 0.5,
+      "crop": [
+        92,
+        0,
+        934,
+        765
+      ]
+    },
+    "wedge": {
+      "png": "/mnt/project-files/electric-vehicles/art/wedge_car_0.png",
+      "scale": 0.5,
+      "crop": [
+        86,
+        0,
+        938,
+        748
+      ]
+    },
+    "wedge-lead": {
+      "png": "/mnt/project-files/electric-vehicles/art/wedge_car_90.png",
+      "scale": 0.5,
+      "crop": [
+        12,
+        21,
+        1024,
+        726
+      ]
+    },
+    "conv": {
+      "png": "/mnt/project-files/electric-vehicles/art/garage_conversion_0.png",
+      "scale": 0.5,
+      "crop": [
+        88,
+        0,
+        936,
+        758
+      ]
+    },
+    "conv-rear": {
+      "png": "/mnt/project-files/electric-vehicles/art/garage_conversion_180.png",
+      "scale": 0.5,
+      "crop": [
+        90,
+        0,
+        934,
+        768
+      ]
+    },
+    "makeshift": {
+      "png": "/mnt/project-files/electric-vehicles/art/makeshift_battery_30.png",
+      "scale": 0.5,
+      "crop": [
+        0,
+        0,
+        768,
+        768
+      ]
+    },
+    "ch-workshop": {
+      "png": "/mnt/project-files/electric-vehicles/art/charger_workshop_0.png",
+      "scale": 0.5,
+      "crop": [
+        274,
+        0,
+        750,
+        768
+      ]
+    },
+    "bench": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_117",
+      "scale": 1.6
+    },
+    "bank-shelf": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_244",
+      "scale": 1.6
+    },
+    "bank-cabinet": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_264",
+      "scale": 1.6
+    },
+    "controller": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_357",
+      "scale": 1.6
+    },
+    "dash": {
+      "png": "/mnt/project-files/electric-vehicles/art/dashboard_preview.png",
+      "scale": 0.62
+    }
+  }
+}
