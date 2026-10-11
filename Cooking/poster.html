@@ -1,0 +1,426 @@
+<!doctype html>
+<!-- Dazed Cooking single-image poster. Render: node _kit/render.mjs Cooking --page poster.html
+     Facts follow Cooking/page.html (checked against the dc4 Lua) and the suite feature list. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/poster.css">
+<style>
+  .grid.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .grid.g5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .grid.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ico { width: 60px; height: 60px; display: block; margin: 0 auto 8px; }
+
+  /* wordmark with signature sprites */
+  .spread { display: flex; align-items: flex-end; justify-content: center; gap: 18px; margin: 6px 0 30px; }
+  .spread img { filter: drop-shadow(0 6px 12px rgba(0,0,0,.45)); }
+
+  /* hero: tooltip and doneness line */
+  .hero { display: grid; grid-template-columns: 170px 1fr; gap: 22px; align-items: center; }
+  .ttip { background: rgba(10, 6, 16, .85); border: 1.5px solid #6b5a80; border-radius: 6px; padding: 10px 16px;
+    font-size: 17px; line-height: 1.45; color: #e8e2ef; }
+  .ttip .t { font-weight: 700; color: #fff; } .ttip .g { color: #9be38a; } .ttip .y { color: #f2d36b; }
+  .line { display: flex; gap: 0; margin-top: 16px; height: 40px; }
+  .seg { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: #1b0d2c; white-space: nowrap; }
+  .seg:first-child { border-radius: 10px 0 0 10px; } .seg:last-child { border-radius: 0 10px 10px 0; }
+  .seg.raw { background: #3a2a4f; color: var(--muted); }
+  .seg.r { background: #e98b8b; } .seg.mr { background: #e7a07a; } .seg.m { background: #d9b37a; }
+  .seg.w { background: #b49579; } .seg.b { background: #4a3a34; color: #e4cdb8; }
+  .seg.best { box-shadow: inset 0 0 0 3px #fff; }
+  .ticks { display: flex; font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .dish { margin: 18px auto 0; width: max-content; font-family: "Display"; font-size: 26px; color: var(--ink);
+    padding: 8px 22px 10px; border-radius: 14px; border: 1.5px solid var(--gold); background: var(--bg); }
+  .dish span { color: var(--gold); }
+
+  /* methods */
+  .meth .word { font-family: "Display"; font-size: 22px; color: var(--gold); margin-top: 6px; line-height: 1.15; }
+  .meth .word.sm { font-size: 18px; }
+
+  /* eight kinds */
+  .kind { padding: 14px 10px 16px; }
+  .kind .art { min-height: 100px; margin-bottom: 8px; }
+  .kind .ex { font-size: 14px; color: var(--muted); }
+  .mchips { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin: 10px 0 10px; }
+  .mc { font-size: 13px; font-weight: 500; padding: 2px 9px 3px; border-radius: 999px; white-space: nowrap; }
+  .mc.b { background: #8f4be6; color: #fff; border: 1.5px solid #8f4be6; }
+  .mc.o { border: 1.5px solid #6d43b5; color: var(--purple); }
+  .dstrip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .dstrip i { height: 12px; border-radius: 3px; background: #1b0d2c; }
+  .dstrip i.b { background: var(--gold); } .dstrip i.o { background: #6c45a8; }
+  .dlab { font-size: 14px; color: var(--ink); margin-top: 6px; font-weight: 500; }
+  .legend { display: flex; justify-content: center; gap: 26px; margin-top: 14px; font-size: 14px; color: var(--muted); align-items: center; }
+  .legend i { display: inline-block; width: 24px; height: 12px; border-radius: 3px; margin: 0 6px 0 4px; vertical-align: -1px; }
+
+  /* mood equation */
+  .eq { display: grid; grid-template-columns: 1fr 34px 1fr 34px 1.15fr; align-items: stretch; }
+  .times { align-self: center; text-align: center; font-family: "Display"; font-size: 30px; color: var(--gold); }
+  .rows h3 { text-align: center; color: var(--gold); margin-bottom: 8px; }
+  .rows div { display: flex; justify-content: space-between; gap: 8px; font-size: 14.5px; padding: 6px 2px; border-bottom: 1px solid rgba(160, 120, 230, .22); }
+  .rows div:last-child { border-bottom: 0; }
+  .rows div span:last-child { font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .rows div .bad { color: var(--red) !important; }
+  .stat { font-family: "Display"; font-size: 46px; line-height: 1; }
+  .warm { display: flex; align-items: center; gap: 16px; text-align: left; }
+
+  /* portioning */
+  .prim { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 120px; margin-bottom: 8px; }
+  .prim .ar { font-family: "Display"; font-size: 30px; color: var(--gold); }
+  .prim .n { font-family: "Display"; font-size: 56px; line-height: 1; color: var(--ink); }
+  .g5 .card { padding: 12px 6px 14px; }
+  .g5 .prim { min-height: 80px; gap: 6px; }
+  .g5 .prim .n { font-size: 36px; } .g5 .prim .ar { font-size: 22px; }
+  .g5 h3 { font-size: 18px; } .g5 p { font-size: 13.5px; }
+
+  /* window mock */
+  .win { border: 1.5px solid #77708a; border-radius: 8px; background: rgba(8, 5, 12, .85); overflow: hidden; }
+  .win .bar1 { height: 32px; background: #1f1b26; border-bottom: 1px solid #4b4559; display: flex; align-items: center; padding: 0 14px;
+    font-size: 15px; font-weight: 500; color: #ddd6e8; }
+  .tabs { display: flex; gap: 4px; padding: 8px 12px 0; border-bottom: 1px solid #4b4559; }
+  .tab { font-size: 14px; padding: 5px 14px 6px; border: 1px solid #4b4559; border-bottom: 0; border-radius: 6px 6px 0 0; color: #a59fb1; background: #16121c; }
+  .tab.on { color: #fff; background: #2c2537; border-color: #8a80a0; }
+  .wbody { padding: 10px 14px 12px; }
+  .app { font-size: 14px; font-weight: 700; color: #cfc7dd; margin: 2px 0 6px; }
+  .app .on { color: #9be38a; font-weight: 500; }
+  .irow { display: grid; grid-template-columns: 220px 1fr 150px 92px; gap: 14px; align-items: center; padding: 6px 0 10px; border-bottom: 1px solid #2c2636; }
+  .irow:last-child { border-bottom: 0; }
+  .iname { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.2; }
+  .isub { font-size: 13px; color: #a59fb1; line-height: 1.3; }
+  .bands { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; height: 22px; }
+  .bands i { font-style: normal; font-size: 12px; font-weight: 700; color: #1b0d2c; display: flex; align-items: center; justify-content: center; }
+  .bands i.best { box-shadow: inset 0 0 0 2px #fff; }
+  .mark { position: absolute; top: -5px; bottom: -5px; width: 4px; background: #fff; border-radius: 2px; box-shadow: 0 0 6px #fff; }
+  .prog { position: relative; height: 22px; background: #221c2b; border: 1px solid #4b4559; }
+  .prog .f { position: absolute; left: 0; top: 0; bottom: 0; background: #5f8f52; }
+  .prog span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-weight: 700; color: #fff; }
+  .st { font-size: 14px; font-weight: 700; } .st.g { color: #9be38a; } .st.gr { color: #a59fb1; }
+  .btn { font-size: 13px; color: #e8e2ef; border: 1px solid #77708a; background: #2a2433; padding: 4px 8px; text-align: center; border-radius: 3px; }
+  .btns { display: grid; gap: 5px; }
+
+  /* drying */
+  .states { display: flex; align-items: flex-end; justify-content: center; gap: 6px; min-height: 150px; margin-bottom: 8px; }
+  .states figure { display: flex; flex-direction: column; align-items: center; }
+  .states figcaption { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-top: 10px; }
+  .foods { display: grid; grid-template-columns: 1fr 3.4fr 1.4fr; gap: 14px; margin-top: 16px; }
+  .foods .card { padding: 14px 10px 14px; }
+  .days { font-family: "Display"; font-size: 24px; color: var(--gold); line-height: 1; margin-bottom: 10px; text-align: center; }
+  .days small { font-family: "Body"; font-size: 13px; color: var(--muted); }
+  .fgrid { display: grid; gap: 8px 4px; }
+  .fd { display: flex; flex-direction: column; align-items: center; }
+  .fd .ic { height: 62px; display: flex; align-items: center; justify-content: center; }
+  .fd span { font-size: 12px; line-height: 1.12; color: var(--text); text-align: center; min-height: 27px; }
+  .wx { display: grid; grid-template-columns: 104px 1fr 104px 1fr; gap: 10px 12px; align-items: center; font-size: 14.5px; color: var(--ink); margin: 10px 0 10px; }
+  .wx .w { font-weight: 700; font-size: 13.5px; text-align: center; padding: 3px 6px; border-radius: 8px; color: #1b0d2c; }
+  .wx .p { background: #e9b3b3; } .wx .s { background: #f0d38c; } .wx .gg { background: #a8e39b; } .wx .n { background: #c9b6e4; }
+  .mini { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 96px; margin-bottom: 8px; }
+  .mini .ar { font-family: "Display"; font-size: 26px; color: var(--gold); }
+  .mini .pl { font-family: "Display"; font-size: 26px; color: var(--muted); }
+  .bigs { font-family: "Display"; font-size: 28px; line-height: 1.1; color: var(--ink); }
+
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+  .facts > div { text-align: center; background: var(--bg); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 10px; }
+  .facts b { display: block; font-family: "Display"; font-weight: 400; font-size: 30px; color: var(--gold); line-height: 1.1; }
+  .facts span { font-size: 14px; }
+  .foot .books .row .art img { height: 60px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-stove" viewBox="0 0 64 64" fill="none" stroke="#ddc6ff" stroke-width="3.5" stroke-linejoin="round">
+      <rect x="10" y="14" width="44" height="42" rx="4"/><path d="M10 26h44"/>
+      <circle cx="21" cy="20" r="2.5" fill="#ddc6ff" stroke="none"/><circle cx="31" cy="20" r="2.5" fill="#ddc6ff" stroke="none"/>
+      <rect x="17" y="32" width="30" height="17" rx="2"/><path d="M8 14h48" stroke="#ff9d5c"/>
+    </symbol>
+    <symbol id="i-grill" viewBox="0 0 64 64" fill="none" stroke="#ddc6ff" stroke-width="3.5" stroke-linecap="round">
+      <path d="M10 26h44a22 16 0 0 1-44 0z"/><path d="M24 42l-8 16M40 42l8 16M32 42v16"/>
+      <path d="M22 18c-3-4 3-6 0-11M32 18c-3-4 3-6 0-11M42 18c-3-4 3-6 0-11" stroke="#ff9d5c"/>
+    </symbol>
+    <symbol id="i-smoker" viewBox="0 0 64 64" fill="none" stroke="#ddc6ff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="14" y="22" width="36" height="34" rx="4"/><path d="M14 34h36M26 28h12"/><path d="M42 22v-8h6v8"/>
+      <path d="M45 10c-4-3 4-5 0-8" stroke="#c9b6e4"/>
+    </symbol>
+    <symbol id="i-micro" viewBox="0 0 64 64" fill="none" stroke="#ddc6ff" stroke-width="3.5" stroke-linejoin="round">
+      <rect x="6" y="16" width="52" height="34" rx="4"/><rect x="12" y="22" width="30" height="22" rx="2"/>
+      <path d="M48 24h4M48 31h4M48 38h4" stroke-linecap="round"/><path d="M14 50v4M50 50v4"/>
+    </symbol>
+  </defs>
+</svg>
+<section class="shot poster" id="poster">
+
+  <!-- ============================================================ top -->
+  <div class="top">
+    <div class="wordmark"><small>Dazed</small>Cooking</div>
+    <div class="spread">
+      <img src="sprites/beef-rib.png" class="px" style="height:104px">
+      <img src="sprites/tile-4.png" style="height:150px">
+      <img src="sprites/pork-ribs.png" class="px" style="height:96px">
+      <img src="sprites/chicken-breasts.png" class="px" style="height:100px">
+      <img src="sprites/tile-29.png" style="height:96px">
+      <img src="sprites/big-mango.png" class="px" style="height:80px">
+      <img src="sprites/big-jerky.png" class="px" style="height:72px">
+    </div>
+    <div class="tagline">Cut-specific cooking for Project Zomboid</div>
+    <div class="kicker">Best method per cut · live doneness · named dishes · food drying</div>
+  </div>
+
+  <div class="card hi">
+    <div class="hero">
+      <div class="art" style="margin:0"><img src="sprites/venison-backstrap.png" class="px" style="height:115px"></div>
+      <div>
+        <div class="ttip">
+          <div class="t">Venison Backstrap (Choice)</div>
+          <div class="y">Best: Grilled / Pan-seared, Medium rare to Medium</div>
+          <div class="g">Doneness now: Medium rare</div>
+        </div>
+      </div>
+    </div>
+    <div class="line">
+      <div class="seg raw" style="flex:1.3">Raw</div>
+      <div class="seg r" style="flex:1.25">Rare</div>
+      <div class="seg mr best" style="flex:1.25">Medium rare</div>
+      <div class="seg m best" style="flex:1.25">Medium</div>
+      <div class="seg w" style="flex:1.25">Well done</div>
+      <div class="seg b" style="flex:.8">Burnt</div>
+    </div>
+    <div class="ticks"><span style="flex:1.3">0 min</span><span style="flex:1.25">100</span><span style="flex:1.25">110</span><span style="flex:1.25">120</span><span style="flex:1.25">130</span><span style="flex:.8">140</span></div>
+    <div class="dish">Grilled Venison Backstrap <span>(Choice, Medium rare)</span></div>
+    <p class="note">Every vanilla and Butchery cut has a best method and doneness. Take it off at the right moment and it gets a name.</p>
+  </div>
+
+  <!-- ============================================================ 01 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">01</div><div><h2>Where it cooks matters</h2><p>The method comes from the heat you put it on.</p></div></div>
+    <div class="grid g4 meth">
+      <div class="card c"><svg class="ico"><use href="#i-grill"/></svg><h3>Barbecue, campfire, fireplace</h3><div class="word">Grilled</div></div>
+      <div class="card c"><svg class="ico"><use href="#i-stove"/></svg><h3>Stove or oven</h3><div class="word sm">Pan-seared, Oven-roasted or Slow-cooked, by cut</div></div>
+      <div class="card c"><svg class="ico"><use href="#i-smoker"/></svg><h3>Smoker</h3><div class="word">Smoked</div><p style="margin-top:4px">Dazed Plumbing's smoker counts</p></div>
+      <div class="card c"><svg class="ico"><use href="#i-micro"/></svg><h3>Microwave</h3><div class="word">Microwaved</div><p style="margin-top:4px">it cooks, but it never pleases</p></div>
+    </div>
+    <h4>Doneness runs from Rare to Burnt</h4>
+    <div class="ladder">
+      <div style="background:#e98b8b;color:#1b0d2c">Rare</div>
+      <div style="background:#e7a07a;color:#1b0d2c">Medium rare</div>
+      <div style="background:#d9b37a;color:#1b0d2c">Medium</div>
+      <div style="background:#b49579;color:#1b0d2c">Well done</div>
+      <div style="background:#4a3a34;color:#e4cdb8">Burnt</div>
+    </div>
+    <p class="note">Hover a cut for its "Best:" tip, and watch the doneness change while it cooks.</p>
+  </div>
+
+  <!-- ============================================================ 02 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">02</div><div><h2>Eight kinds of cut</h2><p>Each with its own best method and doneness.</p></div></div>
+    <div class="grid g4">
+      <div class="card c kind"><div class="art"><img src="sprites/venison-backstrap-4.png" class="px" style="height:92px"></div><h3>Steak</h3><div class="ex">flank, backstrap, steaks</div>
+        <div class="mchips"><span class="mc b">Grill</span><span class="mc b">Stove</span><span class="mc o">Smoker</span></div>
+        <div class="dstrip"><i class="o"></i><i class="b"></i><i class="b"></i><i class="o"></i></div><div class="dlab">Medium rare to Medium</div></div>
+      <div class="card c kind"><div class="art"><img src="sprites/beef-sirloin-4.png" class="px" style="height:100px"></div><h3>Roast</h3><div class="ex">rib, sirloin, leg, rack</div>
+        <div class="mchips"><span class="mc b">Stove</span><span class="mc o">Grill</span><span class="mc o">Smoker</span></div>
+        <div class="dstrip"><i class="o"></i><i class="b"></i><i class="b"></i><i class="o"></i></div><div class="dlab">Medium rare to Medium</div></div>
+      <div class="card c kind"><div class="art"><img src="sprites/beef-brisket-4.png" class="px" style="height:96px"></div><h3>Slow</h3><div class="ex">brisket, chuck, shank, belly</div>
+        <div class="mchips"><span class="mc b">Smoker</span><span class="mc b">Stove</span><span class="mc o">Grill</span></div>
+        <div class="dstrip"><i></i><i></i><i class="o"></i><i class="b"></i></div><div class="dlab">Well done</div></div>
+      <div class="card c kind"><div class="art"><img src="sprites/pork-ribs-4.png" class="px" style="height:90px"></div><h3>Ribs</h3><div class="ex">pork and venison ribs</div>
+        <div class="mchips"><span class="mc b">Smoker</span><span class="mc b">Grill</span><span class="mc o">Stove</span></div>
+        <div class="dstrip"><i></i><i></i><i class="o"></i><i class="b"></i></div><div class="dlab">Well done</div></div>
+      <div class="card c kind"><div class="art"><img src="sprites/mutton-loin-4.png" class="px" style="height:90px"></div><h3>Chop</h3><div class="ex">chops from a loin or rack</div>
+        <div class="mchips"><span class="mc b">Grill</span><span class="mc b">Stove</span><span class="mc o">Smoker</span></div>
+        <div class="dstrip"><i></i><i class="o"></i><i class="b"></i><i class="b"></i></div><div class="dlab">Medium to Well done</div></div>
+      <div class="card c kind"><div class="art"><img src="sprites/pork-loin-4.png" class="px" style="height:90px"></div><h3>Pork roast</h3><div class="ex">pork loin, ham</div>
+        <div class="mchips"><span class="mc b">Stove</span><span class="mc b">Smoker</span><span class="mc o">Grill</span></div>
+        <div class="dstrip"><i></i><i></i><i class="o"></i><i class="b"></i></div><div class="dlab">Well done</div></div>
+      <div class="card c kind"><div class="art"><img src="sprites/chicken-breasts-4.png" class="px" style="height:96px"></div><h3>Poultry</h3><div class="ex">chicken, turkey</div>
+        <div class="mchips"><span class="mc b">Stove</span><span class="mc b">Grill</span><span class="mc o">Smoker</span></div>
+        <div class="dstrip"><i></i><i></i><i></i><i class="b"></i></div><div class="dlab">Well done, nothing less</div></div>
+      <div class="card c kind"><div class="art"><img src="sprites/heart-4.png" class="px" style="height:104px"></div><h3>Offal</h3><div class="ex">heart, liver, kidney</div>
+        <div class="mchips"><span class="mc b">Stove</span><span class="mc b">Grill</span></div>
+        <div class="dstrip"><i></i><i class="b"></i><i class="b"></i><i class="o"></i></div><div class="dlab">Medium rare to Medium</div></div>
+    </div>
+    <div class="legend">
+      <span><span class="mc b">Best</span> <span class="mc o">Fine</span> method</span>
+      <span><i style="background:var(--gold)"></i>best doneness <i style="background:#6c45a8"></i>acceptable</span>
+      <span>strip: Rare, Medium rare, Medium, Well done</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ 03 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">03</div><div><h2>Good food, good mood</h2><p>A cut cooked right lifts your spirits. A good grade lifts them more.</p></div></div>
+    <div class="eq">
+      <div class="card rows"><h3>Method</h3><div><span>best</span><span>×1</span></div><div><span>fine</span><span>×0.6</span></div><div><span>anything else</span><span>×0.25</span></div><div><span>microwave</span><span class="bad">×0</span></div></div>
+      <div class="times">×</div>
+      <div class="card rows"><h3>Doneness</h3><div><span>best</span><span>×1</span></div><div><span>acceptable</span><span>×0.6</span></div><div><span>anything else</span><span>×0.2</span></div><div><span>burnt</span><span class="bad">×0</span></div></div>
+      <div class="times">×</div>
+      <div class="card rows"><h3>Butchery grade</h3><div><span><b>Prime</b></span><span>×1.35 to 1.5</span></div><div><span>Choice</span><span>×1.15 to 1.34</span></div><div><span>Select</span><span>×0.95 to 1.14</span></div><div><span>Standard, Poor</span><span>×0.5 to 0.94</span></div><div><span>vanilla meat</span><span>×1</span></div></div>
+    </div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card c"><div class="stat green">-30</div><h3>unhappiness</h3><p>plus -22.5 boredom and less stress, for a top Prime cut done right</p></div>
+      <div class="card c"><div class="stat red">+5</div><h3>unhappiness</h3><p>microwaved, burnt, or anything that scores below 0.2</p></div>
+      <div class="card c"><div class="art sm" style="min-height:44px;margin-bottom:6px"><img src="sprites/thermometer-3.png" class="px" style="height:48px"></div><h3 class="gold">With Dazed Climate</h3><p>Hot food eaten in the cold warms you up to +6 °C, a dish +8 °C, a hot drink +5 °C</p></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 04 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">04</div><div><h2>Portion your primals</h2><p>With Dazed Butchery: right-click a raw primal with a knife.</p></div></div>
+    <div class="grid g3">
+      <div class="card c"><div class="prim"><img src="sprites/beef-rib-4.png" class="px" style="height:96px"><span class="ar">›</span><span class="n">3</span></div><h3>Ribeye Steaks</h3><p>from a Beef Rib</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/pork-loin-4.png" class="px" style="height:88px"><span class="ar">›</span><span class="n">4</span></div><h3>Loin Chops</h3><p>from a Pork Loin</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/venison-backstrap-4.png" class="px" style="height:84px"><span class="ar">›</span><span class="n">4</span></div><h3>Medallions</h3><p>from a Venison Backstrap</p></div>
+    </div>
+    <div class="grid g5" style="margin-top:14px">
+      <div class="card c"><div class="prim"><img src="sprites/beef-shortloin-3.png" class="px" style="height:72px"><span class="ar">›</span><span class="n">2</span></div><h3>T-Bone Steaks</h3><p>Beef Short Loin</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/beef-sirloin-3.png" class="px" style="height:72px"><span class="ar">›</span><span class="n">3</span></div><h3>Sirloin Steaks</h3><p>Beef Sirloin</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/beef-tenderloin-3.png" class="px" style="height:56px"><span class="ar">›</span><span class="n">4</span></div><h3>Filet Mignon</h3><p>Beef Tenderloin</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/beef-round-3.png" class="px" style="height:68px"><span class="ar">›</span><span class="n">3</span></div><h3>Round Steaks</h3><p>Beef Round</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/beef-flank-3.png" class="px" style="height:66px"><span class="ar">›</span><span class="n">2</span></div><h3>Flank Steaks</h3><p>Beef Flank</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/pork-butt-3.png" class="px" style="height:70px"><span class="ar">›</span><span class="n">3</span></div><h3>Shoulder Steaks</h3><p>Pork Shoulder Butt</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/mutton-rack-3.png" class="px" style="height:66px"><span class="ar">›</span><span class="n">4</span></div><h3>Lamb Rib Chops</h3><p>Mutton Rack</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/mutton-loin-3.png" class="px" style="height:62px"><span class="ar">›</span><span class="n">4</span></div><h3>Lamb Loin Chops</h3><p>Mutton Loin</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/mutton-leg-3.png" class="px" style="height:76px"><span class="ar">›</span><span class="n">3</span></div><h3>Lamb Leg Steaks</h3><p>Mutton Leg</p></div>
+      <div class="card c"><div class="prim"><img src="sprites/venison-hind-3.png" class="px" style="height:76px"><span class="ar">›</span><span class="n">3</span></div><h3>Venison Steaks</h3><p>Venison Hindquarter</p></div>
+    </div>
+    <p class="note">Portions keep the primal's food, age and grade. Thaw a frozen primal first.</p>
+  </div>
+
+  <!-- ============================================================ 05 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">05</div><div><h2>The Cooking window</h2><p>Every dish, pot, stove and rack within reach, in one place.</p></div></div>
+    <div class="win">
+      <div class="bar1">Cooking</div>
+      <div class="tabs"><span class="tab">Cook</span><span class="tab on">On the Heat (2)</span><span class="tab">Recipes</span><span class="tab">Drying</span></div>
+      <div class="wbody">
+        <div class="app">Barbecue <span class="on">(on)</span>, 3 tiles</div>
+        <div class="irow">
+          <div><div class="iname">Ribeye Steak (Choice)</div><div class="isub">Barbecue · best: Medium rare to Medium</div></div>
+          <div class="bands">
+            <i style="background:#e98b8b">Rare</i><i class="best" style="background:#e7a07a">Med rare</i><i class="best" style="background:#d9b37a">Medium</i><i style="background:#b49579">Well</i><i style="background:#4a3a34;color:#e4cdb8">Burnt</i>
+            <div class="mark" style="left:37.5%"></div>
+          </div>
+          <div class="st g">Medium rare now</div>
+          <div class="btns"><div class="btn">Take Off</div></div>
+        </div>
+        <div class="app">Stove <span class="on">(on)</span>, 5 tiles</div>
+        <div class="irow">
+          <div><div class="iname">Pot of Stew</div><div class="isub">Stove</div></div>
+          <div><div class="prog"><div class="f" style="width:64%"></div><span>Cooking 64%</span></div></div>
+          <div class="st gr">Ready in 18 min</div>
+          <div class="btns"><div class="btn">Take Off</div><div class="btn">Add More</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid g4" style="margin-top:16px">
+      <div class="card c"><h3 class="gold">Cook</h3><p>every dish, ingredients from nearby fridges, Add to pot, and the hunger and calories it gives</p></div>
+      <div class="card c"><h3 class="gold">On the Heat</h3><p>everything cooking within 12 tiles, doneness bars and a burn warning</p></div>
+      <div class="card c"><h3 class="gold">Recipes</h3><p>saved named recipes that survive a reload, and what you are missing</p></div>
+      <div class="card c"><h3 class="gold">Drying</h3><p>racks and dehydrators near you, the time left, and Collect Ready</p></div>
+    </div>
+    <p class="note">Illustration, not a screenshot. Open it with a hotkey you set in Dazed Core's options.</p>
+  </div>
+
+  <!-- ============================================================ 06 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">06</div><div><h2>Dry food to last</h2><p>Put fresh food on a rack and it dries on its own.</p></div></div>
+    <div class="grid g3">
+      <div class="card c">
+        <div class="states"><figure><img src="sprites/tile-0.png" style="height:130px"><figcaption>empty</figcaption></figure><figure><img src="sprites/tile-4.png" style="height:130px"><figcaption>drying</figcaption></figure><figure><img src="sprites/tile-8.png" style="height:130px"><figcaption>done</figcaption></figure></div>
+        <h3>Wooden Drying Rack</h3><p>Carpentry 2: planks, long sticks, ripped sheets and nails</p>
+        <div class="chips"><span class="pill">20 slots</span></div>
+      </div>
+      <div class="card c">
+        <div class="states"><figure><img src="sprites/tile-12.png" style="width:120px"><figcaption>empty</figcaption></figure><figure><img src="sprites/tile-20.png" style="width:120px"><figcaption>done</figcaption></figure></div>
+        <h3>Ground Drying Rack</h3><p>no skill needed: long sticks, twine and ripped sheets</p>
+        <div class="chips"><span class="pill">20 slots</span><span class="pill">same speed</span></div>
+      </div>
+      <div class="card c">
+        <div class="states"><figure><img src="sprites/tile-24.png" style="height:96px"><figcaption>off</figcaption></figure><figure><img src="sprites/tile-29.png" style="height:96px"><figcaption>on</figcaption></figure></div>
+        <h3>Food Dehydrator</h3><p>found in kitchens and stores, runs on the grid, a generator or Dazed Power (500 W). Its hum doesn't draw zombies</p>
+        <div class="chips"><span class="pill">10 slots</span><span class="pill gold">3× speed</span></div>
+      </div>
+    </div>
+
+    <div class="foods">
+      <div class="card"><div class="days">1 day</div><div class="fgrid">
+        <div class="fd"><div class="ic"><img src="sprites/i-kale-chips.png" class="px" style="height:54px"></div><span>Kale Chips</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-greens.png" class="px" style="height:54px"></div><span>Dried Greens</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-mushrooms.png" class="px" style="height:30px"></div><span>Mushrooms</span></div>
+      </div></div>
+      <div class="card"><div class="days">2 days <small>most fruit and vegetables</small></div><div class="fgrid" style="grid-template-columns:repeat(5,1fr)">
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-apple-rings.png" class="px" style="width:66px"></div><span>Apple Rings</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-banana-chips.png" class="px" style="width:66px"></div><span>Banana Chips</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-peach.png" class="px" style="width:60px"></div><span>Peach</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-mango.png" class="px" style="width:60px"></div><span>Mango</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-pineapple.png" class="px" style="width:66px"></div><span>Pineapple</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-pear.png" class="px" style="width:60px"></div><span>Pear</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-carrot.png" class="px" style="width:66px"></div><span>Carrot</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-potato-slices.png" class="px" style="width:66px"></div><span>Potato Slices</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-onion-flakes.png" class="px" style="width:66px"></div><span>Onion Flakes</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-leek.png" class="px" style="width:66px"></div><span>Leek</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-pepper.png" class="px" style="height:58px"></div><span>Pepper</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-zucchini.png" class="px" style="width:66px"></div><span>Zucchini</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-eggplant.png" class="px" style="width:66px"></div><span>Eggplant</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-pumpkin.png" class="px" style="width:62px"></div><span>Pumpkin</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-corn.png" class="px" style="width:60px"></div><span>Corn</span></div>
+      </div></div>
+      <div class="card"><div class="days">3 days <small>juicy</small></div><div class="fgrid" style="grid-template-columns:repeat(2,1fr)">
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-cherries.png" class="px" style="width:60px"></div><span>Cherries</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-raisins.png" class="px" style="width:60px"></div><span>Raisins</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-dried-berries.png" class="px" style="width:60px"></div><span>Berries</span></div>
+        <div class="fd"><div class="ic"><img src="sprites/i-sun-dried-tomatoes.png" class="px" style="width:60px"></div><span>Sun-Dried Tomatoes</span></div>
+      </div></div>
+    </div>
+
+    <div class="grid g4" style="margin-top:16px">
+      <div class="card c"><div class="bigs">¼</div><p>the weight of the fresh food, same calories and nutrients</p></div>
+      <div class="card c"><div class="bigs">4 to 12 months</div><p>before it goes stale. Mushrooms keep a year</p></div>
+      <div class="card c"><div class="bigs">+1 XP</div><p>Cooking for every dried food you collect</p></div>
+      <div class="card c"><div class="bigs">22 foods</div><p>to eat as they are, or in stews, soups, salads and pies</p></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card c">
+        <div class="mini"><img src="sprites/big-trail.png" class="px" style="height:56px"><span class="pl">+</span><img src="sprites/big-mash.png" class="px" style="height:54px"><span class="ar">›</span><img src="sprites/big-leather.png" class="px" style="height:70px"></div>
+        <h3>Trail Mix and Fruit Leather</h3>
+        <p>3 dried fruit and a handful of nuts or seeds make a Trail Mix that cheers you up. Mash 3 ripe fruit in a bowl and dry it 3 days for Fruit Leather.</p>
+      </div>
+      <div class="card c">
+        <div class="mini"><img src="sprites/big-strips.png" class="px" style="height:88px"><span class="ar">›</span><img src="sprites/big-jerky.png" class="px" style="height:68px"></div>
+        <h3>Jerky from Butchery</h3>
+        <p>Make Jerky gives Salted Meat Strips. Dry them 2 days on a rack, faster in a dehydrator, or in Dazed Plumbing's smoker.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3 class="gold" style="text-align:center">Weather, with Dazed Climate</h3>
+      <div class="wx">
+        <span class="w p">paused</span><span>rain, snow, or below 0 °C</span>
+        <span class="w s">half speed</span><span>below 5 °C, or very humid</span>
+        <span class="w gg">25% faster</span><span>sunny and above 20 °C</span>
+        <span class="w n">normal</span><span>under a roof, or in a dehydrator</span>
+      </div>
+      <p class="note" style="margin-top:4px">Hardcore option, off by default: rain spoils food left on a rack. Without Climate, racks dry at a fixed speed.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ footer -->
+  <div class="foot">
+    <div class="card">
+      <div class="books">
+        <div class="row"><div class="art"><img src="sprites/beef-shortloin-3.png" class="px"></div><div><h3>Dazed Butchery</h3><p>Adds its cuts, grades, portioning and jerky to dry. Vanilla meat works without it.</p></div></div>
+        <div class="row"><div class="art"><img src="sprites/thermometer-3.png" class="px"></div><div><h3>Dazed Climate</h3><p>Hot food warms you, and the weather speeds or pauses outdoor racks.</p></div></div>
+        <div class="row"><div class="art"><img src="sprites/tile-29.png"></div><div><h3>Dazed Power and Plumbing</h3><p>The dehydrator runs on Power. Plumbing's smoker smokes cuts and dries jerky.</p></div></div>
+      </div>
+      <div class="facts">
+        <div><b>11</b><span>sandbox options, from mood bonus and drying speed to Jerky Needs Drying</span></div>
+        <div><b>22</b><span>dried foods, plus Trail Mix and Fruit Leather</span></div>
+        <div><b>Server</b><span>runs all drying, so racks keep working in multiplayer</span></div>
+      </div>
+      <p class="note">Builds on the game's own cooking, evolved recipes and timed actions. The window does nothing while it is closed.</p>
+      <div class="end">Build 42 · Built for multiplayer</div>
+    </div>
+  </div>
+
+</section>
+</body>
+</html>

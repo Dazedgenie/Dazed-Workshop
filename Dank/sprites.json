@@ -558,6 +558,54 @@
       "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_temp.png",
       "scale": 3,
       "filter": "nearest"
+    },
+    "sh-landrace": {
+      "png": "dazed-workshop/Dank/pots/sh-landrace.png",
+      "scale": 1.5
+    },
+    "sh-haze": {
+      "png": "dazed-workshop/Dank/pots/sh-haze.png",
+      "scale": 1.5
+    },
+    "sh-hybrid": {
+      "png": "dazed-workshop/Dank/pots/sh-hybrid.png",
+      "scale": 1.5
+    },
+    "sh-kush": {
+      "png": "dazed-workshop/Dank/pots/sh-kush.png",
+      "scale": 1.5
+    },
+    "sh-afghan": {
+      "png": "dazed-workshop/Dank/pots/sh-afghan.png",
+      "scale": 1.5
+    },
+    "sh-auto": {
+      "png": "dazed-workshop/Dank/pots/sh-auto.png",
+      "scale": 1.5
+    },
+    "sh-tree": {
+      "png": "dazed-workshop/Dank/pots/sh-tree.png",
+      "scale": 1.5
+    },
+    "co-green": {
+      "png": "dazed-workshop/Dank/pots/co-green.png",
+      "scale": 1.5
+    },
+    "co-purple": {
+      "png": "dazed-workshop/Dank/pots/co-purple.png",
+      "scale": 1.5
+    },
+    "co-frosty": {
+      "png": "dazed-workshop/Dank/pots/co-frosty.png",
+      "scale": 1.5
+    },
+    "co-gold": {
+      "png": "dazed-workshop/Dank/pots/co-gold.png",
+      "scale": 1.5
+    },
+    "co-dark": {
+      "png": "dazed-workshop/Dank/pots/co-dark.png",
+      "scale": 1.5
     }
   }
 }

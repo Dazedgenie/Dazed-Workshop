@@ -1,0 +1,392 @@
+<!doctype html>
+<!-- Dazed Power single-image poster. Render from the dazed-workshop root:
+     node _kit/render.mjs Power --page poster.html   -> Power/images/poster.jpg
+     Art: sprites/ (sprites.json), logo.png is the repo preview.png. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/poster.css">
+<style>
+@font-face { font-family: "Suite"; font-weight: 700; src: url(../_kit/fonts/source-sans-3-latin-700-normal.woff2); }
+@font-face { font-family: "Suite"; font-weight: 800; src: url(../_kit/fonts/source-sans-3-latin-800-normal.woff2); }
+
+.poster .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.poster .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.poster .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.poster .g5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.poster .g6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.flow .arrow svg { width: 44px; height: 18px; display: block; }
+.badge { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--gold); color: #241238; font-family: "Display"; font-size: 19px; margin-bottom: 8px; }
+.hero .flow .art { min-height: 200px; }
+.hero .flow .step p { color: var(--text); font-size: 15px; }
+.hero .foot-note { text-align: center; margin-top: 16px; font-size: 15.5px; color: var(--muted); }
+
+.src .art { min-height: 190px; }
+.src h3 { color: var(--gold); }
+.wide { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.wide .card { display: flex; align-items: center; gap: 18px; }
+.wide .card .pic { flex: none; display: flex; align-items: flex-end; gap: 8px; }
+
+.banks .card { padding: 16px 8px 14px; }
+.banks .art { min-height: 150px; }
+.banks h3 { font-size: 22px; }
+.banks .cap { font-size: 13.5px; }
+.ctrlrow { display: flex; justify-content: space-around; align-items: flex-end; }
+.ctrlrow .art { min-height: 150px; margin-bottom: 8px; }
+.ladder > div { font-size: 20px; padding: 12px 6px 10px; color: #241238; }
+.ladder > div small { display: block; font-family: "Body"; font-weight: 500; font-size: 13px; margin-top: 2px; }
+
+/* the analog charge board, drawn from the mod's own board art (colours from DP_BoardLayout.lua) */
+.boardcard { padding: 22px; }
+.board { position: relative; width: 776px; height: 470px; margin: 0 auto; border-radius: 10px; background: #3c4839; padding: 7px; font-family: "Suite"; }
+.board .face { position: absolute; inset: 7px; background: #e7ddc3; border-radius: 4px; }
+.board .tbar { position: absolute; left: 0; right: 0; top: 0; height: 44px; background: #364134; border-radius: 4px 4px 0 0; }
+.board .tbar .t { position: absolute; left: 18px; top: 9px; font-size: 22px; font-weight: 700; color: #ece5cc; letter-spacing: 1px; }
+.board .tbar .clock { position: absolute; right: 18px; top: 9px; font-size: 22px; font-weight: 700; color: #ece5cc; font-family: monospace; }
+.board .lamps { position: absolute; left: 18px; top: 56px; display: flex; gap: 18px; }
+.board .lamps div { display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 700; color: #2a2722; }
+.board .lamps img { width: 26px; height: 26px; }
+.dial { position: absolute; width: 232px; height: 232px; }
+.dial > img.face-img { position: absolute; inset: 0; width: 232px; height: 232px; }
+.dial svg { position: absolute; inset: 0; }
+.dial .needle { position: absolute; left: 116px; top: 109px; width: 104px; height: 14px; transform-origin: 8px 7px; margin-left: -8px; }
+.dial .hub { position: absolute; left: 104px; top: 104px; width: 24px; height: 24px; }
+.dial .read { position: absolute; left: 0; right: 0; top: 156px; text-align: center; font-size: 20px; font-weight: 700; color: #2a2722; }
+.dial .name { position: absolute; left: 0; right: 0; top: 240px; text-align: center; font-size: 19px; font-weight: 800; color: #2a2722; letter-spacing: 1px; }
+.bank { position: absolute; left: 520px; top: 100px; width: 90px; height: 258px; }
+.bank img.case { position: absolute; inset: 0; width: 90px; height: 258px; }
+.bank .segs { position: absolute; left: 13px; right: 13px; top: 22px; bottom: 14px; display: flex; flex-direction: column-reverse; gap: 4px; }
+.bank .segs i { flex: 1; border-radius: 2px; background: #33322f; }
+.bank .segs i.on { background: #79c56b; }
+.bank .lab { position: absolute; left: -20px; right: -20px; top: 266px; text-align: center; font-size: 17px; font-weight: 800; color: #2a2722; letter-spacing: .5px; white-space: nowrap; }
+.bankread { position: absolute; left: 636px; top: 104px; width: 116px; text-align: center; color: #2a2722; }
+.bankread .big { font-size: 46px; font-weight: 800; line-height: 1; }
+.bankread .k { font-size: 16px; font-weight: 800; letter-spacing: 1px; color: #746b5c; margin-top: 4px; }
+.bankread .net { font-size: 26px; font-weight: 800; color: #4a8f41; margin-top: 18px; line-height: 1; }
+.iso { position: absolute; left: 662px; top: 292px; text-align: center; }
+.iso img { width: 62px; height: auto; margin: 0 auto; }
+.iso .k { font-size: 14px; font-weight: 800; color: #2a2722; letter-spacing: .5px; margin-top: 4px; white-space: nowrap; margin-left: -24px; margin-right: -24px; }
+.strip { position: absolute; left: 18px; right: 150px; bottom: 16px; display: flex; gap: 22px; font-size: 17px; font-weight: 700; color: #2a2722; }
+.strip span b { color: #4a8f41; }
+.boardpts { margin-top: 18px; }
+.boardpts .card { padding: 14px 16px; }
+.boardpts h3 { font-size: 19px; color: var(--gold); }
+.boardpts p { font-size: 14.5px; }
+
+.gear .card { padding: 16px 12px 18px; }
+.gear .art { min-height: 160px; }
+.gear h3 { font-size: 21px; }
+.gear .g4 .card p { font-size: 14px; }
+
+.haz .art { min-height: 170px; }
+.haz .g4 h3 { color: var(--red); }
+.haz p.fix { color: var(--green); font-weight: 500; margin-top: 4px; }
+.almanac { display: flex; align-items: center; gap: 22px; margin-top: 16px; }
+.almanac img { flex: none; }
+
+.tiers .card { padding: 20px 10px; }
+.tiers .art { min-height: 260px; gap: 2px; }
+.tiers h3 { font-size: 30px; color: var(--gold); }
+
+.works .card { padding: 16px 14px; }
+.works .art { min-height: 110px; }
+.works h3 { font-size: 20px; color: var(--purple); }
+.works .card p { font-size: 14px; }
+
+.foot .books .row img { flex: none; }
+.foot .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.foot .facts .card { background: var(--card-hi); padding: 16px 18px; }
+.foot .facts h3 { font-size: 20px; color: var(--gold); }
+.foot .facts p { font-size: 14.5px; }
+</style>
+</head>
+<body>
+<section class="shot poster" id="poster">
+
+<!-- ============================================================ top -->
+<div class="top">
+  <img class="logo" src="logo.png" alt="Dazed Power">
+  <div class="tagline">Off-grid electricity for Project Zomboid</div>
+  <div class="kicker">Solar · Wind · Pedal · Water · Steam · Gas · Battery banks · Whole-house wiring</div>
+</div>
+
+<div class="card hi hero">
+  <div class="flow">
+    <div class="step">
+      <div class="badge">1</div>
+      <div class="art"><img src="sprites/array-w.png" style="height:170px"></div>
+      <h3>Solar array</h3><p>in the open, facing the sun</p>
+    </div>
+    <div class="arrow"><svg viewBox="0 0 44 18"><path d="M2 9h30" stroke="#f7bb2e" stroke-width="4" stroke-linecap="round"/><path d="M30 2l12 7-12 7z" fill="#f7bb2e"/></svg></div>
+    <div class="step">
+      <div class="badge">2</div>
+      <div class="art"><img src="sprites/bank-s.png" style="height:165px"></div>
+      <h3>Battery bank</h3><p>load it with car batteries</p>
+    </div>
+    <div class="arrow"><svg viewBox="0 0 44 18"><path d="M2 9h30" stroke="#f7bb2e" stroke-width="4" stroke-linecap="round"/><path d="M30 2l12 7-12 7z" fill="#f7bb2e"/></svg></div>
+    <div class="step">
+      <div class="badge">3</div>
+      <div class="art"><img src="sprites/ctrl-w.png" style="height:150px"></div>
+      <h3>Charge controller</h3><p>cable each part to it</p>
+    </div>
+    <div class="arrow"><svg viewBox="0 0 44 18"><path d="M2 9h30" stroke="#f7bb2e" stroke-width="4" stroke-linecap="round"/><path d="M30 2l12 7-12 7z" fill="#f7bb2e"/></svg></div>
+    <div class="step">
+      <div class="badge">4</div>
+      <div class="art"><img src="sprites/street-lamp.png" style="height:200px"></div>
+      <h3>Switch on</h3><p>and your base has power</p>
+    </div>
+  </div>
+  <div class="foot-note">Your first system in four steps. Right-click a part and pick <b>Connect</b> to run a cable.</div>
+</div>
+
+<!-- ============================================================ 01 making power -->
+<div class="sec src">
+  <div class="sec-h"><div class="num">01</div><div><h2>Making Power</h2><p>Seven ways to fill your batteries, sun or no sun.</p></div></div>
+  <div class="grid g3">
+    <div class="card c">
+      <div class="art"><img src="sprites/array-w.png" style="height:120px"><img src="sprites/tracker-w.png" style="height:185px"></div>
+      <h3>Solar</h3><p>Fixed arrays, trackers that follow the sun for up to 15% more, and a big 2x2 array. Snow, dust and wear cut output.</p>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/wind-w.png" style="height:190px"></div>
+      <h3>Wind</h3><p>Windmills turn to face the wind, blades spinning and creaking.</p>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/pedal-w.png" style="height:150px"></div>
+      <h3>Pedal</h3><p>Sit on it and ride. It makes power for as long as you keep pedalling.</p>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/hydro.png" style="height:170px"></div>
+      <h3>Water wheel</h3><p>A steady 350 W beside a river or lake. Slower in ice, stronger in rain.</p>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/steam-w.png" style="height:190px"></div>
+      <h3>Steam engine</h3><p>Burns fuel and drinks water for strong, steady power.</p>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/propane-w.png" style="height:140px"><img src="sprites/petrol-w.png" style="height:140px"></div>
+      <h3>Generators</h3><p>Propane or petrol. Set AUTO to start low and stop when full. Makeshift ones are pull-start.</p>
+    </div>
+  </div>
+  <div class="wide">
+    <div class="card">
+      <div class="pic">
+        <svg viewBox="0 0 150 110" width="130" height="96" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 70l8-22c2-6 6-9 12-9h50c6 0 10 3 13 8l12 20h16c6 0 9 4 9 9v12H14z" fill="#3b2a52" stroke="#c49cff" stroke-width="4"/>
+          <path d="M40 46h22v18H32zM70 46h18l10 18H70z" fill="#241638" stroke="#c49cff" stroke-width="3"/>
+          <circle cx="40" cy="88" r="12" fill="#241638" stroke="#c49cff" stroke-width="4"/>
+          <circle cx="112" cy="88" r="12" fill="#241638" stroke="#c49cff" stroke-width="4"/>
+          <path d="M126 12l-10 18h10l-6 16 16-22h-10l6-12z" fill="#f7bb2e"/>
+        </svg>
+      </div>
+      <div><h3>Car alternator</h3><p>A parked car with its engine running feeds up to <b>500 W</b> into the system.</p></div>
+    </div>
+    <div class="card">
+      <div class="pic"><img src="sprites/windsock.png" style="height:120px"><img src="sprites/vane.png" style="height:120px"></div>
+      <div><h3>Read the weather</h3><p>A <b>windsock</b> and a <b>weather vane</b> show how hard and which way it blows.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ 02 storing -->
+<div class="sec banks">
+  <div class="sec-h"><div class="num">02</div><div><h2>Storing &amp; Controlling It</h2><p>Battery banks hold the charge. A controller runs the show.</p></div></div>
+  <div class="grid g6">
+    <div class="card c"><div class="art"><img src="sprites/bank-m.png" style="height:96px"></div><h3>3 batteries</h3><div class="cap">Floor · Makeshift</div></div>
+    <div class="card c"><div class="art"><img src="sprites/bank-s.png" style="height:140px"></div><h3>6 batteries</h3><div class="cap">Floor · Salvaged</div></div>
+    <div class="card c"><div class="art"><img src="sprites/bank-w.png" style="height:145px"></div><h3>8 batteries</h3><div class="cap">Floor · Workshop</div></div>
+    <div class="card c"><div class="art"><img src="sprites/wall-m.png" style="height:130px"></div><h3>2 batteries</h3><div class="cap">Wall · Makeshift</div></div>
+    <div class="card c"><div class="art"><img src="sprites/wall-s.png" style="height:122px"></div><h3>3 batteries</h3><div class="cap">Wall · Salvaged</div></div>
+    <div class="card c"><div class="art"><img src="sprites/wall-w.png" style="height:124px"></div><h3>4 batteries</h3><div class="cap">Wall · Workshop</div></div>
+  </div>
+  <div class="note">Banks take car batteries. Cold lowers capacity, every cycle wears a cell, and a low-voltage disconnect protects them.</div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card c">
+      <h3 style="margin-bottom:12px">Charge controllers</h3>
+      <div class="ctrlrow">
+        <div><div class="art"><img src="sprites/ctrl-m.png" style="height:140px"></div><b>Makeshift</b><div class="cap">manages 8 parts</div></div>
+        <div><div class="art"><img src="sprites/ctrl-w.png" style="height:130px"></div><b>Workshop</b><div class="cap">manages 24 parts</div></div>
+      </div>
+    </div>
+    <div class="card c" style="display:flex;flex-direction:column;justify-content:center">
+      <h3>Load priority</h3>
+      <p style="margin:8px 0 16px">Tag each machine. As the batteries run down, Low is cut first.</p>
+      <div class="ladder">
+        <div style="background:var(--green)">Essential<small>runs longest</small></div>
+        <div style="background:var(--gold)">Normal<small>in between</small></div>
+        <div style="background:var(--red)">Low<small>cut first</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ 03 board -->
+<div class="sec">
+  <div class="sec-h"><div class="num">03</div><div><h2>The Charge Board</h2><p>Right-click the controller, System monitor. Every watt on one analog panel.</p></div></div>
+  <div class="card hi boardcard">
+    <div class="board">
+      <div class="face">
+        <div class="tbar"><div class="t">DAZED POWER · TYPE 7 MPPT CHARGE BOARD</div><div class="clock">14:20</div></div>
+        <div class="lamps">
+          <div><img src="sprites/b-lamp-off.png">BOOT</div>
+          <div><img src="sprites/b-lamp-green.png">SOURCE</div>
+          <div><img src="sprites/b-lamp-green.png">CHARGE</div>
+          <div><img src="sprites/b-lamp-green.png">LOAD</div>
+          <div><img src="sprites/b-lamp-off.png">EQUAL</div>
+          <div><img src="sprites/b-lamp-off.png">FAULT</div>
+        </div>
+        <div class="dial" data-f="0.65" data-full="4" style="left:22px;top:100px">
+          <img class="face-img" src="sprites/b-gauge-face.png">
+          <div class="read">2.6 kW</div>
+          <img class="needle" src="sprites/b-needle.png">
+          <img class="hub" src="sprites/b-hub.png">
+          <div class="name">SOURCES IN</div>
+        </div>
+        <div class="dial" data-f="0.30" data-full="4" style="left:272px;top:100px">
+          <img class="face-img" src="sprites/b-gauge-face.png">
+          <div class="read">1.2 kW</div>
+          <img class="needle" src="sprites/b-needle.png">
+          <img class="hub" src="sprites/b-hub.png">
+          <div class="name">LOAD OUT</div>
+        </div>
+        <div class="bank">
+          <img class="case" src="sprites/b-battery-case.png">
+          <div class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+          <div class="lab">BANK · 8 CELLS</div>
+        </div>
+        <div class="bankread">
+          <div class="big">78%</div><div class="k">CHARGE</div>
+          <div class="net">+1.4 kW</div><div class="k">NET</div>
+        </div>
+        <div class="iso"><img src="sprites/b-isolator-on.png"><div class="k">MAIN ISOLATOR</div></div>
+        <div class="strip"><span>RECEIVED TODAY <b>6.4 kWh</b></span><span>CIRCUITS 7</span></div>
+      </div>
+    </div>
+    <div class="grid g3 boardpts">
+      <div class="card"><h3>Two dials</h3><p>Sources in, load out, and the net between them.</p></div>
+      <div class="card"><h3>Every cell</h3><p>The bank cell by cell, with a worn-cell lamp.</p></div>
+      <div class="card"><h3>Today and before</h3><p>What came in today, plus a history chart.</p></div>
+      <div class="card"><h3>Every circuit</h3><p>Each machine on the system and what it draws.</p></div>
+      <div class="card"><h3>Main isolator</h3><p>One switch to cut the lot before you work on it.</p></div>
+      <div class="card"><h3>Generator card</h3><p>AUTO mode: start below one level, stop above another.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ 04 gear -->
+<div class="sec gear">
+  <div class="sec-h"><div class="num">04</div><div><h2>Buildings &amp; Gear</h2><p>Carry power further and plug more in.</p></div></div>
+  <div class="card hi row" style="gap:24px;margin-bottom:16px">
+    <div class="art" style="min-height:0"><img src="sprites/transformer.png" style="height:140px"></div>
+    <div>
+      <h3 class="gold" style="font-size:28px">Wire whole buildings</h3>
+      <p style="margin-top:6px">A <b>transformer</b> carries power across town and wires a whole building through Dazed Core's <b>Building Picker</b>. Its lights and appliances work as if the grid were still on, and bill your batteries.</p>
+    </div>
+  </div>
+  <div class="grid g4">
+    <div class="card c"><div class="art"><img src="sprites/bench.png" style="height:140px"></div><h3>Charger bench</h3><p>Tops up loose batteries. Any wired part charges a parked car nearby.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/fence.png" style="height:150px"></div><h3>Electric fence</h3><p>Knocks zombies down. Never hurts people.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/cooler.png" style="height:110px"></div><h3>Room cooler</h3><p>Every container in the room keeps food like a fridge.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/heater.png" style="height:116px"></div><h3>Space heater</h3><p>1500 W. Warms its room with Dazed Climate.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/garden-lamp.png" style="height:82px"><img src="sprites/street-lamp.png" style="height:150px"></div><h3>Solar lamps</h3><p>Garden and street lamps that light up through the night.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/gauge.png" style="height:150px"></div><h3>Wall gauge</h3><p>Shows the charge at a glance and opens the board read-only.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/array-xl.png" style="height:150px"></div><h3>Large array</h3><p>A 2x2 solar field for serious daytime power.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/array-snow.png" style="height:140px"></div><h3>Snow on panels</h3><p>Snow, dust and wear all cut what a solar panel makes.</p></div>
+  </div>
+</div>
+
+<!-- ============================================================ 05 hazards -->
+<div class="sec haz">
+  <div class="sec-h"><div class="num">05</div><div><h2>Weather &amp; Hazards</h2><p>Electricity bites back if you get careless.</p></div></div>
+  <div class="grid g4">
+    <div class="card c">
+      <div class="art"><img src="sprites/ctrl-m.png" style="height:140px"></div>
+      <h3>Live wiring</h3><p>Wiring a live system can burn your hand.</p><p class="fix">Switch it off first.</p>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/ctrl-w.png" style="height:100px"><img src="sprites/rod.png" style="height:165px"></div>
+      <h3>Lightning</h3><p>Storms can trip the isolator or damage the controller.</p><p class="fix">A grounding rod takes it.</p>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/bank-m.png" style="height:100px"></div>
+      <h3>Hydrogen</h3><p>A Makeshift bank charged hard in a closed room builds gas.</p><p class="fix">Open a window.</p>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/petrol-w.png" style="height:130px"></div>
+      <h3>Fumes</h3><p>A generator under a roof poisons the building.</p><p class="fix">Run it outside.</p>
+    </div>
+  </div>
+  <div class="card almanac">
+    <img src="sprites/almanac.png" class="px" style="width:150px">
+    <div><h3 class="gold">Knox County Almanac</h3><p style="margin-top:6px">Read the sky for a <b>30-day forecast</b>. Know when the sun, wind, rain and storms are coming before you plan your power.</p></div>
+  </div>
+</div>
+
+<!-- ============================================================ 06 tiers -->
+<div class="sec tiers">
+  <div class="sec-h"><div class="num">06</div><div><h2>Three Tiers</h2><p>Start with scrap, finish with a proper workshop build.</p></div></div>
+  <div class="grid g3">
+    <div class="card c"><div class="art"><img src="sprites/wind-m.png" style="height:240px"><img src="sprites/steam-m.png" style="height:150px"><img src="sprites/pedal-m.png" style="height:84px"></div><h3>Makeshift</h3><p>Every Electrician already knows these.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/wind-s.png" style="height:240px"><img src="sprites/steam-s.png" style="height:155px"><img src="sprites/pedal-s.png" style="height:88px"></div><h3>Salvaged</h3><p>Better output from parts you scavenge.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/wind-w.png" style="height:240px"><img src="sprites/steam-w.png" style="height:160px"><img src="sprites/pedal-w.png" style="height:88px"></div><h3>Workshop</h3><p>The best gear, from the advanced book.</p></div>
+  </div>
+  <div class="note">Anything over 30 kg is carried as parts and put together where it stands.</div>
+</div>
+
+<!-- ============================================================ 07 works with -->
+<div class="sec works">
+  <div class="sec-h"><div class="num">07</div><div><h2>Works With</h2><p>Plays nicely with the rest of the Dazed suite.</p></div></div>
+  <div class="grid g5">
+    <div class="card c"><div class="art"><img src="sprites/x-pump.png" style="height:100px"></div><h3>Plumbing</h3><p>Generators and boilers feed from piped tanks. Pumps and wells run off your power.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/heater.png" style="height:90px"></div><h3>Climate</h3><p>Heater and cooler change room heat. Batteries feel the cold.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/x-dehydrator.png" style="height:90px"></div><h3>Cooking</h3><p>The food dehydrator runs off your system.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/ctrl-w.png" style="height:90px"></div><h3>Essentials</h3><p>Bulk jobs leave your powered machines alone.</p></div>
+    <div class="card c"><div class="art"><img src="../PowerEV/sprites/v-cart.png" style="height:96px"></div><h3>Electric Vehicles</h3><p>Charge homemade EVs from your banks.</p></div>
+  </div>
+</div>
+
+<!-- ============================================================ footer -->
+<div class="foot">
+  <div class="card">
+    <div class="books">
+      <div class="row"><img src="sprites/manual.png" class="px" style="width:84px"><div><h3>Dazed Power Handbook</h3><p>Makeshift and Salvaged builds</p></div></div>
+      <div class="row"><img src="sprites/manual-adv.png" class="px" style="width:84px"><div><h3>Workshop Power Systems</h3><p>Workshop builds</p></div></div>
+      <div class="row"><img src="sprites/tracker-w.png" style="height:84px;margin:0 22px"><div><h3>Found solar rigs</h3><p>On houses around Knox County, plus barn and store loot</p></div></div>
+    </div>
+    <div class="facts">
+      <div class="card"><h3>14 sandbox options</h3><p>Array output, battery wear, lightning, cable cost, found gear and more. Or pick one preset (Easy, Standard, Realistic, Hardcore) on the Dazed Core page.</p></div>
+      <div class="card"><h3>Needs Dazed Core</h3><p>Safe to add mid-save. Replaces Off-Grid: Solar Power, so don't run both. The in-game Dazed Mod Suite Guide walks you through the rest.</p></div>
+    </div>
+    <div class="end">Build 42 · Built for multiplayer</div>
+  </div>
+</div>
+
+</section>
+
+<script>
+// Dial ticks and needles, as DP_BoardLayout.lua draws them.
+for (const d of document.querySelectorAll(".dial")) {
+  const D = 232, c = D / 2, ro = c - 13, full = +d.dataset.full, f = +d.dataset.f;
+  const at = (fr, r) => { const a = (225 - 270 * fr) * Math.PI / 180; return [c + r * Math.cos(a), c - r * Math.sin(a)]; };
+  let s = `<svg width="${D}" height="${D}" viewBox="0 0 ${D} ${D}">`;
+  for (let i = 0; i < 16; i++) {
+    const [x1, y1] = at(0.85 + 0.15 * i / 16, ro - 3), [x2, y2] = at(0.85 + 0.15 * (i + 1) / 16, ro - 3);
+    s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#bb2b22" stroke-width="5" opacity=".9"/>`;
+  }
+  for (let i = 0; i <= 20; i++) {
+    const major = i % 5 === 0;
+    const [x1, y1] = at(i / 20, ro), [x2, y2] = at(i / 20, ro - (major ? 13 : 7));
+    s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#2a2722" stroke-width="${major ? 2.6 : 1.3}"/>`;
+    if (major) {
+      const [tx, ty] = at(i / 20, ro - 27);
+      s += `<text x="${tx}" y="${ty + 6}" text-anchor="middle" font-family="Suite" font-weight="700" font-size="17" fill="#2a2722">${full * i / 20}</text>`;
+    }
+  }
+  s += `<text x="${c}" y="${c - 26}" text-anchor="middle" font-family="Suite" font-weight="700" font-size="15" fill="#746b5c">kW</text></svg>`;
+  d.querySelector(".face-img").insertAdjacentHTML("afterend", s);
+  d.querySelector(".needle").style.transform = `rotate(${-(225 - 270 * f)}deg)`;
+}
+</script>
+</body>
+</html>

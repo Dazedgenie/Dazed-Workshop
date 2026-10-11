@@ -1,0 +1,115 @@
+/* Dazed suite single-image posters: one tall 1000 px infographic per mod.
+   A mod's poster.html links this file (not suite.css) and holds one
+   <section class="shot poster" id="poster">. Render it with
+   `node _kit/render.mjs <Mod> --page poster.html` -> <Mod>/images/poster.png.
+
+   Look: deep purple page, gold display headings (Lilita One), Rubik body,
+   rounded purple cards, numbered section badges. */
+
+@font-face { font-family: "Display"; font-weight: 400; src: url(fonts/lilita-one-latin-400-normal.woff2); }
+@font-face { font-family: "Body"; font-weight: 400; src: url(fonts/rubik-latin-400-normal.woff2); }
+@font-face { font-family: "Body"; font-weight: 500; src: url(fonts/rubik-latin-500-normal.woff2); }
+@font-face { font-family: "Body"; font-weight: 700; src: url(fonts/rubik-latin-700-normal.woff2); }
+
+:root {
+  --bg: #170b25;
+  --card: #26133d;
+  --card-hi: #301a4c;
+  --line: #4a2f72;
+  --gold: #f7bb2e;
+  --ink: #f4ecff;
+  --text: #ddd0f0;
+  --muted: #a993c6;
+  --purple: #c49cff;
+  --green: #8fe07a;
+  --blue: #8cc8ff;
+  --red: #ff8a8a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--bg); }
+body { font-family: "Body", sans-serif; color: var(--text); }
+img { display: block; }
+img.px { image-rendering: pixelated; }
+b, strong { font-weight: 700; color: var(--ink); }
+
+.poster {
+  width: 1000px; padding: 48px 56px 56px; background: var(--bg);
+  font-size: 16px; line-height: 1.45;
+}
+
+/* ---------------------------------------------------------------- top */
+.top { text-align: center; }
+.top .logo { width: 300px; height: 300px; margin: 0 auto 28px; border-radius: 28px;
+  box-shadow: 0 0 60px rgba(180, 110, 255, .35); }
+.top .wordmark { font-family: "Display"; font-size: 84px; line-height: .95; color: var(--gold);
+  text-shadow: 0 0 40px rgba(247, 187, 46, .35); margin: 8px 0 20px; }
+.top .wordmark small { display: block; font-size: 40px; color: var(--purple); }
+.tagline { font-family: "Display"; font-size: 40px; line-height: 1.1; color: var(--gold); margin-bottom: 14px; }
+.kicker { font-weight: 500; font-size: 18px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text); margin-bottom: 32px; }
+
+/* ---------------------------------------------------------------- sections */
+.sec { margin-top: 56px; }
+.sec-h { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+.sec-h .num { flex: none; width: 60px; height: 60px; border-radius: 50%; background: var(--gold);
+  color: #241238; font-family: "Display"; font-size: 28px; display: grid; place-items: center; }
+.sec-h h2 { font-family: "Display"; font-weight: 400; font-size: 44px; line-height: 1; color: var(--gold); }
+.sec-h p { font-size: 18px; color: var(--text); margin-top: 4px; }
+
+h3 { font-family: "Display"; font-weight: 400; font-size: 24px; line-height: 1.15; color: var(--ink); }
+h4 { font-family: "Display"; font-weight: 400; font-size: 26px; color: var(--gold); text-align: center; margin: 28px 0 12px; }
+.sub { font-family: "Display"; font-size: 22px; color: var(--ink); margin: 24px 0 12px; }
+
+/* ---------------------------------------------------------------- cards and grids */
+.card { background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+.card.hi { background: var(--card-hi); border-color: var(--gold); }
+.card.c { text-align: center; }
+.card p, .note { font-size: 15.5px; color: var(--text); }
+.card h3 + p { margin-top: 8px; }
+.grid { display: grid; gap: 16px; }
+.g2 { grid-template-columns: repeat(2, 1fr); }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.g5 { grid-template-columns: repeat(5, 1fr); }
+.g6 { grid-template-columns: repeat(6, 1fr); }
+.art { display: flex; align-items: flex-end; justify-content: center; gap: 10px; min-height: 120px; margin-bottom: 12px; }
+.art.lg { min-height: 180px; }
+.art.sm { min-height: 64px; justify-content: flex-start; }
+.card.c .art.sm { justify-content: center; }
+.row { display: flex; align-items: center; gap: 14px; }
+.row .art { margin: 0; min-height: 0; flex: none; }
+.note { text-align: center; margin-top: 12px; color: var(--muted); }
+.cap { font-size: 14px; color: var(--muted); text-align: center; margin-top: 4px; }
+
+/* flow of steps with arrows */
+.flow { display: flex; align-items: flex-start; justify-content: space-between; }
+.flow .step { flex: 1; text-align: center; }
+.flow .step h3 { font-size: 20px; }
+.flow .step p { font-size: 14px; color: var(--muted); }
+.flow .arrow { flex: none; align-self: center; color: var(--gold); font-family: "Display"; font-size: 30px; padding: 0 4px; margin-bottom: 40px; }
+
+/* coloured labels */
+.gold { color: var(--gold); } .purple { color: var(--purple); } .green { color: var(--green); }
+.blue { color: var(--blue); } .red { color: var(--red); } .muted { color: var(--muted); }
+
+/* pills and graded bars */
+.pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.pill { font-weight: 500; font-size: 14px; padding: 5px 12px; border-radius: 999px;
+  background: #3a2160; color: var(--ink); border: 1px solid var(--line); }
+.pill.gold { background: var(--gold); color: #241238; border-color: var(--gold); }
+.ladder { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; }
+.ladder > div { font-family: "Display"; font-size: 22px; text-align: center; padding: 14px 6px; border-radius: 12px; color: var(--ink); }
+
+/* small key-value lists */
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 15px; }
+.kv dt { color: var(--gold); font-weight: 700; }
+
+/* bottom block */
+.foot { margin-top: 56px; }
+.foot .card { padding: 26px 28px; }
+.foot .books { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.foot .books .row h3 { font-family: "Body"; font-weight: 700; font-size: 15px; }
+.foot .books .row p { font-size: 14px; }
+.foot .end { font-family: "Display"; font-size: 30px; color: var(--gold); text-align: center; margin-top: 22px; }
+.foot .works { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }

@@ -3,6 +3,7 @@
 //
 //   node _kit/render.mjs Climate            # every shot
 //   node _kit/render.mjs Climate rooms ice  # only these ids
+//   node _kit/render.mjs Dank --page poster.html   # the single tall poster -> images/poster.jpg
 //
 // Needs Playwright for Node. It is found through $PLAYWRIGHT_MODULE, then a normal
 // require, then the global npm root. Browsers come from $PLAYWRIGHT_BROWSERS_PATH
@@ -12,15 +13,19 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import fs from "node:fs";
 
-const [modArg, ...only] = process.argv.slice(2);
+const args = process.argv.slice(2);
+let pageName = "page.html";
+const pi = args.indexOf("--page");
+if (pi >= 0) { pageName = args[pi + 1]; args.splice(pi, 2); }
+const [modArg, ...only] = args;
 if (!modArg) {
   console.error("usage: node _kit/render.mjs <ModFolder> [id ...]");
   process.exit(2);
 }
 const mod = path.resolve(modArg);
-const pageFile = path.join(mod, "page.html");
+const pageFile = path.join(mod, pageName);
 if (!fs.existsSync(pageFile)) {
-  console.error(`no page.html in ${mod}`);
+  console.error(`no ${pageName} in ${mod}`);
   process.exit(2);
 }
 if (!process.env.PLAYWRIGHT_BROWSERS_PATH && fs.existsSync("/opt/pw-browsers")) {
@@ -54,14 +59,14 @@ if (broken.length) {
   process.exit(1);
 }
 // Transparent page so rounded panel corners blend into Steam's own background.
-await page.addStyleTag({ content: "html, body { background: transparent !important }" });
+if (pageName === "page.html") await page.addStyleTag({ content: "html, body { background: transparent !important }" });
 
 let ids = await page.$$eval("section.shot", (els) => els.map((e) => e.id));
 if (only.length) ids = ids.filter((id) => only.includes(id));
 for (const id of ids) {
   const el = page.locator("#" + id);
   const box = await el.boundingBox();
-  const jpg = id === "banner";
+  const jpg = id === "banner" || id === "poster";
   const file = path.join(out, id + (jpg ? ".jpg" : ".png"));
   await el.screenshot(jpg ? { path: file, type: "jpeg", quality: 90 } : { path: file, omitBackground: true });
   const kb = Math.round(fs.statSync(file).size / 1024);

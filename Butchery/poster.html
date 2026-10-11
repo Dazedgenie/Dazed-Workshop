@@ -1,0 +1,330 @@
+<!doctype html>
+<!-- Dazed Butchery single-image poster. Render: node _kit/render.mjs Butchery --page poster.html
+     Facts follow Butchery/page.html (checked against the db9.1 Lua) and the suite feature list. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/poster.css">
+<style>
+  /* wordmark with the seven animals under it */
+  .herd { display: flex; align-items: flex-end; justify-content: center; gap: 10px; margin: 4px 0 30px; }
+  .herd img { filter: drop-shadow(0 6px 14px rgba(0,0,0,.45)); }
+
+  /* hero: cow diagram with primal tags */
+  .hero { display: grid; grid-template-columns: 540px 1fr; gap: 22px; align-items: center; }
+  .diag { position: relative; width: 540px; height: 354px; }
+  .diag img { width: 540px; height: 354px; }
+  .diag .tag { position: absolute; transform: translate(-50%, -50%); font-weight: 700; font-size: 15px; line-height: 1.05;
+    color: #fff; text-align: center; white-space: nowrap; padding: 2px 7px 3px; border-radius: 7px; background: rgba(20, 8, 34, .8); }
+  .hero .big { font-family: "Display"; font-size: 64px; line-height: 1; color: var(--gold); }
+  .hero .big + p { margin: 2px 0 16px; font-size: 16px; }
+
+  /* trace illustration */
+  .trace { position: relative; height: 270px; border-radius: 14px; overflow: hidden; border: 1.5px solid var(--line); }
+  .trace .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 45%; filter: brightness(.55); }
+  .trace svg { position: absolute; inset: 0; }
+  .trace .lb { position: absolute; font-size: 17px; font-weight: 700; color: #fff; text-shadow: 0 1px 3px #000, 0 0 6px #000; white-space: nowrap; }
+  .tracewrap { display: grid; grid-template-columns: 1.35fr 1fr; gap: 16px; }
+  .ticks { display: grid; gap: 12px; align-content: center; }
+  .ticks div { position: relative; padding-left: 26px; font-size: 16px; color: var(--ink); }
+  .ticks div::before { content: ""; position: absolute; left: 4px; top: 7px; width: 11px; height: 11px; border-radius: 50%; background: var(--gold); }
+  .ticks span { color: var(--muted); }
+
+  /* grades */
+  .ladder .t b { display: block; }
+  .ladder .t span { display: block; font-family: "Body"; font-size: 14px; font-weight: 500; color: #2b1544; }
+  .ladder .t { color: #1b0d2c; }
+  .mods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+  .mod { display: grid; grid-template-columns: 84px 1fr; align-items: center; gap: 10px;
+    background: var(--card); border: 1.5px solid var(--line); border-radius: 12px; padding: 9px 14px; }
+  .mod .v { font-family: "Display"; font-size: 26px; text-align: center; line-height: 1; }
+  .mod .v.cap { font-size: 21px; }
+  .mod .t { font-size: 15px; line-height: 1.3; color: var(--ink); }
+  .mod .t i { font-style: normal; color: var(--muted); }
+  .stat { font-family: "Display"; font-size: 34px; line-height: 1.05; color: var(--ink); margin: 2px 0 6px; }
+
+  /* animals */
+  .g7 { grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .g7 .card { padding: 12px 6px 12px; }
+  .g7 .art { min-height: 104px; margin-bottom: 8px; }
+  .kg { font-family: "Display"; font-size: 28px; line-height: 1; color: var(--gold); }
+  .kg small { font-size: 18px; color: var(--muted); }
+  .cuts .card { padding: 14px 8px 12px; }
+  .cuts .art { min-height: 92px; margin-bottom: 6px; }
+  .cuts h3 { font-size: 18px; }
+
+  /* field */
+  .flow .step .art { min-height: 110px; }
+  .badge { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--gold); color: #241238; font-family: "Display"; font-size: 17px; margin-bottom: 6px; }
+  .card.bad { border-color: #c26a8a; }
+  .card .lead { font-family: "Display"; font-size: 26px; line-height: 1.1; margin: 4px 0 6px; }
+
+  /* edge / spoil bars */
+  .bars { display: grid; gap: 8px; margin: 12px 0 12px; }
+  .bar { display: grid; grid-template-columns: 74px 1fr 46px; align-items: center; gap: 8px; font-size: 14px; }
+  .bar .tr { height: 16px; border-radius: 8px; background: #1b0d2c; border: 1px solid var(--line); overflow: hidden; }
+  .bar .f { height: 100%; border-radius: 8px; }
+  .bar .f.w { background: linear-gradient(90deg, #f7bb2e, #ff8a5c); }
+  .bar .f.c { background: linear-gradient(90deg, #6fb6ff, #a9dcff); }
+  .bar .f.e { background: linear-gradient(90deg, #a676ee, #d8b6ff); }
+  .bar .n { color: var(--muted); }
+  .bar .x { color: var(--ink); font-weight: 700; text-align: right; }
+
+  /* by-products */
+  .recipes { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .recipes .card { padding: 16px 10px 16px; }
+  .recipes .art { min-height: 96px; gap: 6px; }
+  .recipes h3 { font-size: 21px; }
+  .recipes p { font-size: 14.5px; }
+  .tie { display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; margin-top: 16px; }
+  .tie p { font-size: 16px; }
+
+  .foot .books .row .art img { height: 64px; }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+  .facts > div { text-align: center; background: var(--bg); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 10px; }
+  .facts b { display: block; font-family: "Display"; font-weight: 400; font-size: 30px; color: var(--gold); line-height: 1.1; }
+  .facts span { font-size: 14px; }
+</style>
+</head>
+<body>
+<section class="shot poster" id="poster">
+
+  <!-- ============================================================ top -->
+  <div class="top">
+    <div class="wordmark"><small>Dazed</small>Butchery</div>
+    <div class="herd">
+      <img src="sprites/coat-cow.png" style="height:124px">
+      <img src="sprites/coat-pig.png" style="height:84px">
+      <img src="sprites/coat-deer.png" style="height:130px">
+      <img src="sprites/coat-sheep.png" style="height:86px">
+      <img src="sprites/coat-turkey.png" style="height:80px">
+      <img src="sprites/coat-chicken.png" style="height:58px">
+      <img src="sprites/coat-rabbit.png" style="height:52px">
+    </div>
+    <div class="tagline">Cut-by-cut butchering for Project Zomboid</div>
+    <div class="kicker">Seven animals · trace every cut · hidden grades · field dressing · curing</div>
+  </div>
+
+  <div class="card hi hero">
+    <div class="diag">
+      <img src="sprites/diagram-cow.png">
+      <span class="tag" style="left:191px;top:99px">Chuck</span>
+      <span class="tag" style="left:271px;top:99px">Rib</span>
+      <span class="tag" style="left:344px;top:66px">Short<br>loin</span>
+      <span class="tag" style="left:401px;top:66px">Sirloin</span>
+      <span class="tag" style="left:482px;top:117px">Round</span>
+      <span class="tag" style="left:191px;top:193px">Brisket</span>
+      <span class="tag" style="left:271px;top:193px">Plate</span>
+      <span class="tag" style="left:371px;top:193px">Flank</span>
+      <span class="tag" style="left:371px;top:149px">Tenderloin</span>
+    </div>
+    <div>
+      <div class="big">41</div>
+      <p>primal cuts, plus offal, fat, scraps and cleaned intestines</p>
+      <p>No more one-click meat. Pick a primal on the carcass diagram, trace the cut with your own hand, and every piece comes out with a hidden grade.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ 01 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">01</div><div><h2>Trace every cut</h2><p>Your hand on the knife decides how good the meat is.</p></div></div>
+
+    <div class="card">
+      <div class="flow">
+        <div class="step"><div class="art sm" style="justify-content:center"><img src="sprites/coat-cow.png" style="height:64px"></div><h3>Hook and bleed</h3><p>cows, pigs, sheep and deer hang on a butcher hook</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="art sm" style="justify-content:center"><img src="sprites/coat-sheep.png" style="height:56px"></div><h3>Skin or pluck</h3><p>until then the body is one target</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="art sm" style="justify-content:center"><img src="sprites/diagram-pig.png" style="height:60px"></div><h3>Pick a primal</h3><p>on the carcass diagram</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="art sm" style="justify-content:center"><img src="sprites/beef-sirloin.png" class="px" style="height:64px"></div><h3>Trace it</h3><p>green marker to red marker</p></div>
+      </div>
+    </div>
+
+    <div class="tracewrap" style="margin-top:16px">
+      <div class="trace">
+        <img class="bg" src="sprites/meat-cow.png">
+        <svg viewBox="0 0 560 300" width="100%" height="100%" preserveAspectRatio="none">
+          <polyline points="40,150 196,110 364,190 520,150" stroke="rgba(255,255,255,.22)" stroke-width="40" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+          <polyline points="40,150 196,110 364,190 520,150" stroke="rgba(255,255,255,.9)" stroke-width="2.5" stroke-dasharray="10 8" fill="none"/>
+          <path d="M40 150 C70 140 95 150 120 132 S165 112 196 118 S240 125 262 148 S300 178 318 166 S345 192 372 196" stroke="rgb(140,13,13)" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <rect x="33" y="143" width="14" height="14" fill="rgb(51,217,51)"/>
+          <rect x="513" y="143" width="14" height="14" fill="rgb(230,38,38)"/>
+          <rect x="368" y="192" width="8" height="8" fill="#ffff33" stroke="#000" stroke-width="2"/>
+        </svg>
+        <span class="lb" style="left:14px;top:156px">start</span>
+        <span class="lb" style="left:470px;top:156px">end</span>
+        <span class="lb" style="left:110px;top:28px">clean band</span>
+        <span class="lb" style="left:300px;top:212px">the knife drifts</span>
+      </div>
+      <div class="card ticks">
+        <div>Stay in the clean band for a better grade.</div>
+        <div>Rushing makes the knife wander. <span>So does a worn or dull tool.</span></div>
+        <div>Go past the red marker and you cut into the next primal.</div>
+        <div>Chickens, turkeys and rabbits open from vanilla's Butcher option.</div>
+      </div>
+    </div>
+
+    <h4>The right tool for each primal</h4>
+    <div class="grid g3">
+      <div class="card c"><div class="art"><img src="sprites/beef-tenderloin.png" class="px" style="height:88px"><img src="sprites/beef-brisket.png" class="px" style="height:104px"></div><h3 class="gold">Knife</h3><p>brisket, plate, flank, round, sirloin and tenderloin</p></div>
+      <div class="card c"><div class="art"><img src="sprites/beef-rib.png" class="px" style="height:104px"><img src="sprites/beef-shank.png" class="px" style="height:112px"></div><h3 class="gold">Saw</h3><p>shanks, rib and short loin, through the bone</p></div>
+      <div class="card c"><div class="art"><img src="sprites/beef-chuck.png" class="px" style="height:108px"></div><h3 class="gold">Cleaver or hatchet</h3><p>the chuck. Cow tools shown; each animal has its own</p></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 02 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">02</div><div><h2>Every cut gets a grade</h2><p>A hidden score from 0 to 100 that follows the meat everywhere.</p></div></div>
+
+    <div class="ladder">
+      <div class="t" style="background:linear-gradient(180deg,#8c7aa6,#6f5e88)"><b>Poor</b><span>0 to 24</span></div>
+      <div class="t" style="background:linear-gradient(180deg,#b49ad6,#9478c0)"><b>Standard</b><span>25 to 44</span></div>
+      <div class="t" style="background:linear-gradient(180deg,#c6a2f4,#a676ee)"><b>Select</b><span>45 to 64</span></div>
+      <div class="t" style="background:linear-gradient(180deg,#d8b6ff,#b98af7)"><b>Choice</b><span>65 to 84</span></div>
+      <div class="t" style="background:linear-gradient(180deg,#ffe7a8,#f2c35e)"><b>Prime</b><span>85 and up</span></div>
+    </div>
+    <div class="pills" style="margin:14px 0 20px"><span class="pill">Butchering 2: you see the tier</span><span class="pill">Butchering 6: you see the number</span></div>
+
+    <div class="mods">
+      <div class="mod"><div class="v green">0-100</div><div class="t">Your trace sets it <i>(how clean, how far off)</i></div></div>
+      <div class="mod"><div class="v cap gold">max 75</div><div class="t">Not bled first</div></div>
+      <div class="mod"><div class="v green">+5</div><div class="t">Hung 12 hours on the hook <i>(large animals)</i></div></div>
+      <div class="mod"><div class="v cap gold">max 25</div><div class="t">Overcut by its neighbour <i>(and less meat)</i></div></div>
+      <div class="mod"><div class="v green">+5</div><div class="t">Young animal</div></div>
+      <div class="mod"><div class="v red">-40</div><div class="t">at most for age: <i>-1 an hour past 6 hours</i></div></div>
+      <div class="mod"><div class="v red">-15</div><div class="t">Road kill</div></div>
+      <div class="mod"><div class="v red">-15</div><div class="t">at most for a worn tool</div></div>
+    </div>
+
+    <h4>What a better grade gets you</h4>
+    <div class="grid g3">
+      <div class="card c"><p>meat kept from the primal</p><div class="stat">60% to 100%</div><p class="gold">the rest goes to scraps</p></div>
+      <div class="card c"><p>food values</p><div class="stat">×0.8 to ×1.2</div><p class="gold">poor cuts spoil sooner too</p></div>
+      <div class="card c"><p>Butchering XP</p><div class="stat">×0.5 to ×1.5</div><p class="gold">clean cuts level you faster</p></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 03 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">03</div><div><h2>Seven animals, real yields</h2><p>Meat from a full-size animal at grade 100. Offal, fat and scraps come on top.</p></div></div>
+    <div class="grid g7">
+      <div class="card c"><div class="art"><img src="sprites/coat-cow.png" style="height:92px"></div><div class="kg">220 <small>kg</small></div><p>cow</p></div>
+      <div class="card c"><div class="art"><img src="sprites/coat-pig.png" style="height:64px"></div><div class="kg">66 <small>kg</small></div><p>pig</p></div>
+      <div class="card c"><div class="art"><img src="sprites/coat-deer.png" style="height:100px"></div><div class="kg">27 <small>kg</small></div><p>deer</p></div>
+      <div class="card c"><div class="art"><img src="sprites/coat-sheep.png" style="height:72px"></div><div class="kg">25 <small>kg</small></div><p>sheep</p></div>
+      <div class="card c"><div class="art"><img src="sprites/coat-turkey.png" style="height:80px"></div><div class="kg">7 <small>kg</small></div><p>turkey</p></div>
+      <div class="card c"><div class="art"><img src="sprites/coat-chicken.png" style="height:76px"></div><div class="kg">1.75 <small>kg</small></div><p>chicken</p></div>
+      <div class="card c"><div class="art"><img src="sprites/coat-rabbit.png" style="height:76px"></div><div class="kg">1 <small>kg</small></div><p>rabbit</p></div>
+    </div>
+    <div class="sub" style="text-align:center">A few of the cuts you bring home</div>
+    <div class="grid g6 cuts">
+      <div class="card c"><div class="art"><img src="sprites/beef-short-loin.png" class="px" style="height:92px"></div><h3>Beef short loin</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/pork-belly.png" class="px" style="height:84px"></div><h3>Pork belly</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/mutton-rack.png" class="px" style="height:80px"></div><h3>Mutton rack</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/venison-backstrap.png" class="px" style="height:72px"></div><h3>Venison backstrap</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/turkey-breasts.png" class="px" style="height:80px"></div><h3>Turkey breasts</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/rabbit-saddle.png" class="px" style="height:68px"></div><h3>Rabbit saddle</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/heart.png" class="px" style="height:88px"></div><h3>Heart</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/liver.png" class="px" style="height:60px"></div><h3>Liver</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/tongue.png" class="px" style="height:84px"></div><h3>Tongue</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/giblets.png" class="px" style="height:84px"></div><h3>Giblets</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/intestines.png" class="px" style="height:52px"></div><h3>Intestines</h3></div>
+      <div class="card c"><div class="art"><img src="sprites/animal-fat.png" class="px" style="height:64px"></div><h3>Fat</h3></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 04 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">04</div><div><h2>Big game comes home in quarters</h2><p>Dress it where it fell, then haul it without bruising the meat.</p></div></div>
+    <div class="card">
+      <div class="flow">
+        <div class="step"><div class="badge">1</div><div class="art"><img src="sprites/heart.png" class="px" style="height:80px"><img src="sprites/liver.png" class="px" style="height:56px"><img src="sprites/kidney.png" class="px" style="height:56px"></div><h3>Field dress</h3><p>with a knife, on the ground. The offal comes out and the carcass keeps twice as long</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="badge">2</div><div class="art"><img src="sprites/venison-quarter-fore.png" class="px" style="height:96px"><img src="sprites/venison-quarter-hind.png" class="px" style="height:96px"><img src="sprites/venison-quarter-fore.png" class="px" style="height:96px"><img src="sprites/venison-quarter-hind.png" class="px" style="height:96px"></div><h3>Quarter</h3><p>with a saw: two forequarters, two hindquarters, and the hide</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="badge">3</div><div class="art"><img src="sprites/venison-hindquarter.png" class="px" style="height:96px"><img src="sprites/venison-backstrap.png" class="px" style="height:74px"></div><h3>Butcher at home</h3><p>right-click a quarter to cut its half of each primal</p></div>
+      </div>
+    </div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card c bad"><div class="art"><img src="sprites/beef-quarter-hind.png" class="px" style="height:104px"><img src="sprites/beef-quarter-fore.png" class="px" style="height:104px"></div><h3>Loose</h3><div class="lead red">-2 grade an hour</div><p>by hand, in a bag or in a car while you move, up to -10</p></div>
+      <div class="card c"><div class="art"><img src="sprites/hand-sled.png" class="px" style="height:52px"></div><h3>Butcher's Hand Sled</h3><div class="lead green">No bruising</div><p>drag it behind you, and the meat spoils at 75% speed</p></div>
+      <div class="card c"><div class="art"><img src="sprites/game-cart-kit.png" class="px" style="height:70px"></div><h3>Game Cart</h3><div class="lead green">No bruising</div><p>a rack trailer any vehicle can tow, with 4 hooks for quarters</p></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 05 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">05</div><div><h2>Edge, aging and weather</h2><p>Keep your blade sharp, age the best cuts and use the cold.</p></div></div>
+    <div class="grid g3">
+      <div class="card">
+        <h3 class="gold">Butcher's edge</h3>
+        <div class="bars">
+          <div class="bar"><span class="n">fresh</span><div class="tr"><div class="f e" style="width:100%"></div></div><span></span></div>
+          <div class="bar"><span class="n">after cuts</span><div class="tr"><div class="f e" style="width:45%"></div></div><span></span></div>
+          <div class="bar"><span class="n">honed</span><div class="tr"><div class="f e" style="width:72%"></div></div><span></span></div>
+        </div>
+        <p>Every cut dulls it a little, hard cuts more. Hone it on a whetstone: your Maintenance skill sets how sharp it comes back.</p>
+      </div>
+      <div class="card c">
+        <h3 class="gold">Dry-age</h3>
+        <div class="art" style="min-height:100px;margin:10px 0 8px"><img src="sprites/beef-rib.png" class="px" style="height:88px"><img src="sprites/beef-short-loin.png" class="px" style="height:96px"></div>
+        <div class="lead">+1 grade a day</div>
+        <p>up to +8 for a Choice or Prime cut kept in a fridge, then trimmed. It loses 1.5% weight a day. Frozen does not count.</p>
+      </div>
+      <div class="card">
+        <h3 class="gold">Cold keeps meat</h3>
+        <div class="bars">
+          <div class="bar"><span class="n">30 °C</span><div class="tr"><div class="f w" style="width:100%"></div></div><span class="x">×1.6</span></div>
+          <div class="bar"><span class="n">20 °C</span><div class="tr"><div class="f w" style="width:62%"></div></div><span class="x">×1.0</span></div>
+          <div class="bar"><span class="n">10 °C</span><div class="tr"><div class="f c" style="width:44%"></div></div><span class="x">×0.7</span></div>
+          <div class="bar"><span class="n">0 to 4 °C</span><div class="tr"><div class="f c" style="width:19%"></div></div><span class="x">×0.3</span></div>
+          <div class="bar"><span class="n">-2 °C</span><div class="tr"><div class="f c" style="width:4%"></div></div><span class="x">×0.05</span></div>
+        </div>
+        <p>Carcasses and quarters spoil by the temperature where they lie. A deer hung outside in winter keeps for days.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 06 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">06</div><div><h2>Nothing goes to waste</h2><p>Cure, render and grind the rest. The grade carries over.</p></div></div>
+    <div class="grid g4 recipes">
+      <div class="card c"><div class="art"><img src="sprites/pork-belly.png" class="px" style="height:72px"><img src="sprites/cured-bacon.png" class="px" style="height:80px"></div><h3>Cured bacon</h3><p>pork belly and salt</p></div>
+      <div class="card c"><div class="art"><img src="sprites/pork-ham.png" class="px" style="height:84px"><img src="sprites/cured-ham.png" class="px" style="height:88px"></div><h3>Cured ham</h3><p>pork ham and salt</p></div>
+      <div class="card c"><div class="art"><img src="sprites/venison-backstrap.png" class="px" style="height:56px"><img src="sprites/jerky.png" class="px" style="height:60px"></div><h3>Jerky</h3><p>a beef, mutton or venison cut and salt give 4</p></div>
+      <div class="card c"><div class="art"><img src="sprites/meat-scraps.png" class="px" style="height:62px"><img src="sprites/intestines.png" class="px" style="height:52px"></div><h3>Sausages</h3><p>3 mince, cleaned intestines and salt give 9</p></div>
+      <div class="card c"><div class="art"><img src="sprites/animal-fat.png" class="px" style="height:42px"><img src="sprites/pot-of-suet.png" class="px" style="height:60px"><img src="sprites/tallow.png" class="px" style="height:56px"></div><h3>Tallow</h3><p>render suet in a pot on any heat, strain 3 tallow</p></div>
+      <div class="card c"><div class="art"><img src="sprites/pork-fatback.png" class="px" style="height:52px"><img src="sprites/pot-of-pork-fat.png" class="px" style="height:60px"><img src="sprites/cracklings.png" class="px" style="height:36px"></div><h3>Lard</h3><p>render pork fat for 3 lard and 2 cracklings</p></div>
+      <div class="card c"><div class="art"><img src="sprites/tallow.png" class="px" style="height:84px"></div><h3>Candles and soap</h3><p>tallow or lard makes 2 candles or 2 lye soap</p></div>
+      <div class="card c"><div class="art"><img src="sprites/bone-meal.png" class="px" style="height:92px"></div><h3>Bone meal</h3><p>ground bones, then blood and bone fertilizer</p></div>
+    </div>
+    <div class="card hi tie">
+      <img src="sprites/salted-strips.png" class="px" style="height:96px">
+      <p><b>With Dazed Cooking:</b> Make Jerky gives <span class="gold">Salted Meat Strips</span> that dry into jerky in 2 days on a drying rack, faster in a food dehydrator, or in Dazed Plumbing's smoker.</p>
+      <img src="sprites/drying-rack.png" style="height:110px">
+    </div>
+  </div>
+
+  <!-- ============================================================ footer -->
+  <div class="foot">
+    <div class="card">
+      <div class="books">
+        <div class="row"><div class="art"><img src="sprites/beef-chuck.png" class="px"></div><div><h3>Four primal guides</h3><p>Beef, pork, lamb and game magazines steady your knife on their animals.</p></div></div>
+        <div class="row"><div class="art"><img src="sprites/cured-ham.png" class="px"></div><div><h3>Curing and Smoking Quarterly</h3><p>Teaches bacon, ham, sausages and jerky (or reach Cooking 6).</p></div></div>
+        <div class="row"><div class="art"><img src="sprites/meat-scraps.png" class="px"></div><div><h3>Butcher's Log</h3><p>Counts your cuts, Prime cuts, overcuts and best grade per animal.</p></div></div>
+      </div>
+      <div class="facts">
+        <div><b>52</b><span>sandbox options, down to turning the minigame off and grading by skill</span></div>
+        <div><b>5</b><span>magazines in loot. Cutting splashes blood, and an apron helps</span></div>
+        <div><b>MP</b><span>the server decides every cut, and a carcass is yours while you work it</span></div>
+      </div>
+      <p class="note">Works with Dazed Climate's room temperatures and Dazed Cooking's cut-by-cut cooking. Rats, raccoons and other mods' animals keep vanilla butchering.</p>
+      <div class="end">Build 42 · Built for multiplayer</div>
+    </div>
+  </div>
+
+</section>
+</body>
+</html>

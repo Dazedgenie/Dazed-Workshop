@@ -247,6 +247,25 @@
       "png": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/textures/Item_DazedPurifierFilter.png",
       "scale": 4,
       "filter": "nearest"
+    },
+    "pw-generator": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_37",
+      "scale": 1.6
+    },
+    "cl-insulation": {
+      "png": "DazedClimate/Contents/mods/DazedClimate/common/media/textures/Item_DazedPipeInsulation.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "dank-plant": {
+      "png": "DazedDank-Workshop/art/purple-green/art/sprites/p134.png",
+      "scale": 1.6
+    },
+    "db-rib": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BeefRib.png",
+      "scale": 4,
+      "filter": "nearest"
     }
   }
 }

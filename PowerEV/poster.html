@@ -1,0 +1,390 @@
+<!doctype html>
+<!-- Dazed Power: Electric Vehicles single-image poster. Render from the dazed-workshop root:
+     node _kit/render.mjs PowerEV --page poster.html   -> PowerEV/images/poster.jpg
+     Art: sprites/ and renders/ (the mod's own meshes, dash previews and icons); logo.png is the repo preview.png.
+     Numbers follow page.html, which was checked against the mod code. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/poster.css">
+<style>
+.poster .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.poster .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.poster .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.poster .g5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.flow .arrow svg { width: 44px; height: 18px; display: block; }
+.badge { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--gold); color: #241238; font-family: "Display"; font-size: 19px; margin-bottom: 8px; }
+.hero .flow .art { min-height: 190px; }
+.hero .flow .step p { color: var(--text); font-size: 15px; }
+.hero .foot-note { text-align: center; margin-top: 16px; font-size: 15.5px; color: var(--muted); }
+.test { display: inline-block; font-weight: 700; font-size: 14px; letter-spacing: .05em; text-transform: uppercase;
+  color: #241238; background: var(--purple); border-radius: 999px; padding: 4px 12px; margin-bottom: 28px; }
+
+.veh .art { min-height: 150px; }
+.veh .art img { max-width: 100%; }
+.veh h3 { color: var(--gold); }
+.veh .pills { margin-top: 10px; gap: 5px; flex-wrap: nowrap; }
+.veh .card { padding: 18px 12px; }
+.veh .pill { font-size: 12.5px; padding: 3px 9px; }
+
+.donors { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; align-items: end; }
+.donors .art { min-height: 84px; margin-bottom: 6px; }
+.donors .art img { width: 112px; }
+.donors b { display: block; text-align: center; font-size: 13px; line-height: 1.2; }
+.big { font-family: "Display"; font-size: 54px; line-height: 1; color: var(--gold); }
+.big small { font-size: 22px; color: var(--ink); margin-left: 6px; }
+
+.mag { padding: 14px 14px 16px; }
+.cover { height: 100px; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; display: flex; flex-direction: column;
+  justify-content: space-between; box-shadow: 0 4px 0 rgba(0,0,0,.35); border: 1.5px solid rgba(255,255,255,.25); }
+.cover .t { font-family: "Display"; font-size: 16px; line-height: 1.05; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+.cover .y { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.85); letter-spacing: 1px; }
+.mag ul { list-style: none; font-size: 14px; line-height: 1.3; color: var(--text); }
+.mag li { padding: 3px 0 3px 12px; position: relative; }
+.mag li::before { content: ""; position: absolute; left: 0; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+.ladder.wh > div { padding: 16px 6px 12px; color: #241238; font-size: 34px; }
+.ladder.wh > div small { display: block; font-family: "Body"; font-weight: 500; font-size: 14px; }
+.ladder.wh > div em { display: block; font-style: normal; font-family: "Display"; font-size: 20px; margin-bottom: 2px; }
+.kit .art { min-height: 110px; }
+
+.dash img { width: 100%; height: auto; border-radius: 10px; }
+.dash p { text-align: center; margin-top: 12px; }
+.bar { position: relative; height: 44px; border-radius: 12px; border: 1.5px solid var(--line); overflow: hidden; display: flex; }
+.bar div { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; white-space: nowrap; color: #241238; }
+.ax { position: relative; height: 22px; font-size: 13px; color: var(--muted); }
+.ax span { position: absolute; transform: translateX(-50%); top: 3px; }
+.meter { margin-top: 10px; }
+.meter .row2 { display: grid; grid-template-columns: 90px 1fr 46px; align-items: center; gap: 10px; font-size: 14.5px; margin-top: 8px; }
+.meter .track { height: 18px; border-radius: 6px; background: #3a2160; overflow: hidden; }
+.meter .track i { display: block; height: 100%; border-radius: 6px; }
+.kv { font-size: 15px; }
+.kv dd { color: var(--ink); }
+.card h3.gold + .kv, .card h3 + .kv { margin-top: 12px; }
+
+.chg .art { min-height: 150px; }
+.chg .w { font-family: "Display"; font-size: 30px; color: var(--gold); line-height: 1.1; }
+.tbl { display: grid; grid-template-columns: auto repeat(3, 1fr); gap: 8px 12px; font-size: 15px; margin-top: 12px; align-items: center; }
+.tbl .h { color: var(--gold); font-weight: 700; text-align: center; }
+.tbl .k { color: var(--ink); font-weight: 700; white-space: nowrap; }
+.tbl .v { text-align: center; background: #3a2160; border-radius: 8px; padding: 4px 0; color: var(--ink); }
+
+.sol .art, .imp .art { min-height: 150px; }
+.sol .art img, .imp .art img { max-width: 100%; }
+
+.snd { display: grid; grid-template-columns: auto 1fr auto; column-gap: 12px; row-gap: 6px; font-size: 14.5px; align-items: center; margin-top: 12px; }
+.snd .k { font-weight: 700; color: var(--ink); white-space: nowrap; }
+.snd .l { display: flex; gap: 3px; }
+.snd .l i { width: 9px; height: 16px; border-radius: 2px; background: #3a2160; }
+.snd .l i.on { background: var(--gold); }
+.flt h3 { color: var(--red); }
+
+.foot .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.foot .facts .card { background: var(--card-hi); padding: 16px 18px; }
+.foot .facts h3 { font-size: 20px; color: var(--gold); }
+.foot .facts p { font-size: 14.5px; }
+.foot .lineup img { max-height: 100px; width: auto !important; }
+.foot .lineup { display: flex; align-items: flex-end; justify-content: center; gap: 14px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+<section class="shot poster" id="poster">
+
+<!-- ============================================================ top -->
+<div class="top">
+  <img class="logo" src="logo.png" alt="Dazed Power: Electric Vehicles">
+  <div class="tagline">Homemade electric vehicles for Project Zomboid</div>
+  <div class="kicker">Garage conversions · Carts, tractor &amp; hauler · Battery packs · EV chargers · Roof solar · Trailers</div>
+  <div class="test">Test build 0.1.0 · Needs Dazed Core and Dazed Power</div>
+</div>
+
+<div class="card hi hero">
+  <div class="flow">
+    <div class="step">
+      <div class="badge">1</div>
+      <div class="art"><img src="sprites/v-cart.png" style="width:200px"></div>
+      <h3>Find or build one</h3><p>a club cart at a well-off house, or your own car converted</p>
+    </div>
+    <div class="arrow"><svg viewBox="0 0 44 18"><path d="M2 9h30" stroke="#f7bb2e" stroke-width="4" stroke-linecap="round"/><path d="M30 2l12 7-12 7z" fill="#f7bb2e"/></svg></div>
+    <div class="step">
+      <div class="badge">2</div>
+      <div class="art"><img src="sprites/bank-cabinet.png" style="height:150px"><img src="sprites/ch-work.png" style="height:150px"></div>
+      <h3>Charge it from Power</h3><p>a charger wired into your Dazed Power banks</p>
+    </div>
+    <div class="arrow"><svg viewBox="0 0 44 18"><path d="M2 9h30" stroke="#f7bb2e" stroke-width="4" stroke-linecap="round"/><path d="M30 2l12 7-12 7z" fill="#f7bb2e"/></svg></div>
+    <div class="step">
+      <div class="badge">3</div>
+      <div class="art"><img src="sprites/a-mower.png" style="width:220px"></div>
+      <h3>Drive and work</h3><p>quietly, with no petrol, and tow what you need</p>
+    </div>
+  </div>
+  <div class="foot-note">Everything here is built. Much of it is still waiting for its first proper test in game.</div>
+</div>
+
+<!-- ============================================================ 01 vehicles -->
+<div class="sec veh">
+  <div class="sec-h"><div class="num">01</div><div><h2>Six Electric Vehicles</h2><p>Found in the world or built from a magazine.</p></div></div>
+  <div class="grid g3">
+    <div class="card c">
+      <div class="art"><img src="sprites/v-cart.png" style="width:210px"></div>
+      <h3>Club Cart</h3><p>A golf cart, found or rebuilt from parts.</p>
+      <div class="pills"><span class="pill gold">22 km/h</span><span class="pill">3 batteries</span><span class="pill">2 seats</span></div>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/v-cart4.png" style="width:220px"></div>
+      <h3>Four-Seat Club Cart</h3><p>Found, or stretch a club cart yourself.</p>
+      <div class="pills"><span class="pill gold">20 km/h</span><span class="pill">8 batteries</span><span class="pill">4 seats</span></div>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/v-trak.png" style="width:210px"></div>
+      <h3>Elec-Trak</h3><p>A garden tractor from farm sheds that takes implements.</p>
+      <div class="pills"><span class="pill gold">11 km/h</span><span class="pill">3 batteries</span><span class="pill">1 seat</span></div>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/v-wedge.png" style="width:220px"></div>
+      <h3>Wedge Car</h3><p>Homemade on a stripped Dart or Horizon frame.</p>
+      <div class="pills"><span class="pill gold">60 km/h</span><span class="pill">4 batteries</span><span class="pill">2 seats</span></div>
+    </div>
+    <div class="card c">
+      <div class="art" style="align-items:center"><img src="sprites/i-toyatv.png" style="width:72px"><span class="gold" style="font-family:Display;font-size:26px">&rarr;</span><img src="sprites/v-atv.png" style="width:160px"></div>
+      <h3>Ride-On ATV</h3><p>A kids' battery quad on a pipe frame. Fits through doors.</p>
+      <div class="pills"><span class="pill gold">15 km/h</span><span class="pill">2 batteries</span><span class="pill">1 seat</span></div>
+    </div>
+    <div class="card c">
+      <div class="art"><img src="sprites/v-hauler.png" style="width:215px"></div>
+      <h3>Five-Wheel Hauler</h3><p>A rare find with a tipping bed and a hitch.</p>
+      <div class="pills"><span class="pill gold">18 km/h</span><span class="pill">6 batteries</span><span class="pill">2 seats</span></div>
+    </div>
+  </div>
+  <div class="note">Found on farms, at well-off houses, trailer parks and junkyards. Built ones roll out with an empty battery tray.</div>
+</div>
+
+<!-- ============================================================ 02 conversions -->
+<div class="sec">
+  <div class="sec-h"><div class="num">02</div><div><h2>Garage Conversion</h2><p>Put a battery pack in a car you already have.</p></div></div>
+  <div class="card hi">
+    <div class="donors">
+      <div><div class="art"><img src="sprites/d-dart.png"></div><b>Chevalier Dart</b></div>
+      <div><div class="art"><img src="sprites/d-horizon.png"></div><b>Masterson Horizon</b></div>
+      <div><div class="art"><img src="sprites/d-d6.png"></div><b>Chevalier D6</b></div>
+      <div><div class="art"><img src="sprites/d-valuline.png"></div><b>Franklin Valuline</b></div>
+      <div><div class="art"><img src="sprites/d-nyala.png"></div><b>Chevalier Nyala</b></div>
+      <div><div class="art"><img src="sprites/d-rancher.png"></div><b>Dash Rancher</b></div>
+      <div><div class="art"><img src="sprites/d-cerise.png"></div><b>Chevalier Cerise Wagon</b></div>
+    </div>
+    <p style="text-align:center;margin-top:16px">Right-click one of these seven from outside and pick <b>Convert to electric</b>. Needs the <i>Convert It!</i> magazine, Mechanics 5, Electrical 5 and Metalworking 3.</p>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card c"><div class="big">90<small>versions</small></div><h3 style="margin-top:8px">Silent electric twins</h3><p>Every livery of the seven, with police cars, taxis, rangers and work vans.</p></div>
+    <div class="card c"><div class="big">10<small>batteries</small></div><h3 style="margin-top:8px">A 120 V pack</h3><p>About three quarters of the donor's speed. No idle, no petrol.</p></div>
+    <div class="card c"><div class="big">100%<small>yours</small></div><h3 style="margin-top:8px">It stays your car</h3><p>Same paint, rust, parts, trunk contents and key. The old engine comes back as parts.</p></div>
+  </div>
+</div>
+
+<!-- ============================================================ 03 magazines -->
+<div class="sec">
+  <div class="sec-h"><div class="num">03</div><div><h2>Magazines &amp; Building</h2><p>Five magazines teach the builds. A wrench and a screwdriver do the rest.</p></div></div>
+  <div class="grid g5">
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#c0392b,#7b1f17)"><div class="t">Convert It!</div><div class="y">1993 · HOBBY</div></div>
+      <ul><li><b>Garage Conversion</b></li><li>Traction motor and controller</li><li>Better chargers</li><li>Salvaged and fold-out roof arrays</li><li>Battery trailer</li></ul>
+    </div>
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#3f8f4f,#1f4f2a)"><div class="t">Golf Cart Rebuild</div><div class="y">GROUNDSKEEPER</div></div>
+      <ul><li><b>Club Cart</b> on clear ground</li><li>Cart motor and controller</li><li><b>Stretch</b> a cart into a four-seater</li></ul>
+    </div>
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#d98a2b,#8a4e12)"><div class="t">Build Your Own Commuter Car</div><div class="y">1993 · HOBBY</div></div>
+      <ul><li><b>Wedge Car</b> on an emptied Dart or Horizon</li><li>Fold-out roof array</li></ul>
+    </div>
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#d0457f,#7a1f4a)"><div class="t">Kid Kart Hacks</div><div class="y">ELECTRONICS</div></div>
+      <ul><li><b>Ride-On ATV</b> from a kids' battery ATV</li><li>The toy turns up in toy stores, garages and sheds</li></ul>
+    </div>
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#4f7fbf,#253f6a)"><div class="t">Electric Tractor Owner's Manual</div><div class="y">FARM</div></div>
+      <ul><li><b>Mower deck</b>, <b>plough</b> and <b>front blade</b></li><li>Dump trailer</li></ul>
+    </div>
+  </div>
+  <div class="note"><b>Everyone already knows:</b> makeshift car battery, makeshift EV charger, makeshift roof array, utility trailer, insulated battery box, cell meter and pack balancer.</div>
+</div>
+
+<!-- ============================================================ 04 pack -->
+<div class="sec">
+  <div class="sec-h"><div class="num">04</div><div><h2>The Battery Pack</h2><p>Fill the pack with any mix of three kinds of battery.</p></div></div>
+  <div class="card">
+    <div class="ladder wh">
+      <div style="background:var(--purple)"><em>Makeshift</em>240 Wh<small>12 torch batteries, wears fast</small></div>
+      <div style="background:var(--gold)"><em>Car battery</em>720 Wh<small>any one you find</small></div>
+      <div style="background:var(--green)"><em>Heavy deep-cycle</em>1,400 Wh<small>lasts 3x as long, cuts top speed</small></div>
+    </div>
+    <p style="text-align:center;margin-top:14px">Mix kinds freely. Each battery keeps its own charge and health. Fit and pull them from the <b>Battery pack</b> menu.</p>
+  </div>
+  <div class="grid g3 kit" style="margin-top:16px">
+    <div class="card c"><div class="art"><img src="renders/icon-box.png" style="width:150px"></div><h3>Insulated box</h3><p>Halves the cold's range loss. At -10 °C the pack keeps 78%, not 55%.</p></div>
+    <div class="card c"><div class="art"><img src="renders/icon-balancer.png" style="width:170px"></div><h3>Pack balancer</h3><p>Evens the batteries out on charge and spares the weakest one half its wear.</p></div>
+    <div class="card c"><div class="art"><img src="renders/icon-meter.png" style="width:150px"></div><h3>Cell meter</h3><p>Volts, charge, health and heat for every battery, flagging WEAK, LOW and DEAD.</p></div>
+  </div>
+</div>
+
+<!-- ============================================================ 05 driving -->
+<div class="sec">
+  <div class="sec-h"><div class="num">05</div><div><h2>Driving &amp; the Dash</h2><p>The pack is the fuel tank. Watch it like one.</p></div></div>
+  <div class="card hi dash">
+    <img src="renders/dash-drive.png">
+    <p>A Dazed Power-style dash: charge, motor power, <b>TEMP</b> and a <b>RANGE</b> learned from how you really drive, with <b>LIMP</b>, <b>LOW</b>, <b>PLUG</b>, <b>COLD</b> and <b>HOT</b> lamps.</p>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card">
+      <h3>Low charge</h3>
+      <div class="bar" style="margin-top:12px"><div style="width:5%;background:var(--red)"></div><div style="width:10%;background:var(--gold)"></div><div style="flex:1;background:var(--green)">full power</div></div>
+      <div class="ax"><span style="left:15%">15%</span><span style="left:92%">100%</span></div>
+      <p style="margin-top:6px"><span class="gold">Below <b>15%</b></span> it runs at half power and half speed. Below <b>5%</b> it crawls. Flat, it stalls.</p>
+    </div>
+    <div class="card">
+      <h3>Cold cuts range</h3>
+      <div class="meter">
+        <div class="row2"><span>15 °C and up</span><div class="track"><i style="width:100%;background:var(--green)"></i></div><b>full</b></div>
+        <div class="row2"><span>0 °C</span><div class="track"><i style="width:73%;background:var(--blue)"></i></div><b>73%</b></div>
+        <div class="row2"><span>-10 °C</span><div class="track"><i style="width:55%;background:var(--blue)"></i></div><b>55%</b></div>
+      </div>
+      <p style="margin-top:10px">Set by the pack's own temperature.</p>
+    </div>
+    <div class="card">
+      <h3>Also on the pack</h3>
+      <dl class="kv">
+        <dt>Headlights</dt><dd>110 W</dd>
+        <dt>Heater</dt><dd>1,000 W</dd>
+        <dt>Radio</dt><dd>15 W</dd>
+        <dt>Implement</dt><dd>100 to 250 W</dd>
+      </dl>
+      <p style="margin-top:10px">Flat out uses more than a steady cruise.</p>
+    </div>
+  </div>
+  <div class="card c" style="margin-top:16px">
+    <h3>Rough range on a full pack</h3>
+    <div class="pills" style="margin-top:12px"><span class="pill">Four-Seat Club Cart <b class="gold">~68 km</b></span><span class="pill">Five-Wheel Hauler <b class="gold">~43 km</b></span><span class="pill">Ride-On ATV <b class="gold">~41 km</b></span><span class="pill">Garage Conversion <b class="gold">~40 km</b></span><span class="pill">Wedge Car <b class="gold">~32 km</b></span><span class="pill">Club Cart <b class="gold">~31 km</b></span><span class="pill">Elec-Trak <b class="gold">~20 km</b></span></div>
+    <p class="muted" style="margin-top:10px;font-size:14px">Every slot full of new car batteries, mild weather, at cruise.</p>
+  </div>
+</div>
+
+<!-- ============================================================ 06 charging -->
+<div class="sec chg">
+  <div class="sec-h"><div class="num">06</div><div><h2>Charging</h2><p>Plug into your wired Dazed Power system.</p></div></div>
+  <div class="grid g4">
+    <div class="card c"><div class="art"><img src="sprites/bank-cabinet.png" style="height:120px"><img src="sprites/bench.png" style="height:100px"></div><h3>Any wired part</h3><div class="w">600 W</div><p>the nearest within 10 tiles</p></div>
+    <div class="card c"><div class="art"><img src="sprites/ch-mk.png" style="height:140px"></div><h3>Makeshift</h3><div class="w">600 W</div><p>charger, Electrical 2, known to all</p></div>
+    <div class="card c"><div class="art"><img src="sprites/ch-salv.png" style="height:130px"></div><h3>Salvaged</h3><div class="w">1,200 W</div><p>charger, Electrical 4, Convert It!</p></div>
+    <div class="card c"><div class="art"><img src="sprites/ch-work.png" style="height:150px"></div><h3>Workshop</h3><div class="w">2,400 W</div><p>charger, Electrical 7, Convert It!</p></div>
+  </div>
+  <div class="note">Wire it in like the charging bench, park within 4 tiles and pick <b>Plug in charging lead</b>. It glows and hums while it works.</div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card hi dash" style="display:flex;flex-direction:column;justify-content:center">
+      <img src="renders/dash-charge.png">
+      <p>Parked on charge, the dash reads <b>FULL IN</b>, and <b>Sun</b> when a roof array is making power.</p>
+    </div>
+    <div class="card">
+      <h3>Empty to full</h3>
+      <div class="tbl">
+        <span></span><span class="h">600 W</span><span class="h">1,200 W</span><span class="h">2,400 W</span>
+        <span class="k">Club Cart</span><span class="v">3.6 h</span><span class="v">1.8 h</span><span class="v">0.9 h</span>
+        <span class="k">Wedge Car</span><span class="v">4.8 h</span><span class="v">2.4 h</span><span class="v">1.2 h</span>
+        <span class="k">Conversion</span><span class="v">12 h</span><span class="v">6 h</span><span class="v">3 h</span>
+      </div>
+      <p style="margin-top:12px" class="muted">New car batteries. Driving off pulls the lead.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ 07 roof solar -->
+<div class="sec sol">
+  <div class="sec-h"><div class="num">07</div><div><h2>Roof Solar</h2><p>Bolt an array on the roof and charge in the sun, even while you drive.</p></div></div>
+  <div class="grid g3">
+    <div class="card c"><div class="art"><img src="sprites/a-cart-mk.png" style="width:200px"></div><h3>Makeshift array</h3><p>Known to everyone. Club carts, wedge car and conversions.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/a-wedge-roof.png" style="width:220px"></div><h3>Salvaged array</h3><p>From Convert It! Club carts, wedge car and conversions.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/a-foldout.png" style="width:210px"></div><h3>Fold-out array</h3><p>Unfolds when parked for 3x the area. Wedge car and conversions.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>One clear day, summer / winter</h3>
+    <div class="tbl">
+      <span></span><span class="h">Makeshift</span><span class="h">Salvaged</span><span class="h">Fold-out</span>
+      <span class="k">Club Cart</span><span class="v">1.3 / 0.5 kWh</span><span class="v">1.7 / 0.6 kWh</span><span class="v">does not fit</span>
+      <span class="k">Wedge Car</span><span class="v">1.2 / 0.4 kWh</span><span class="v">1.5 / 0.6 kWh</span><span class="v">5.8 / 2.0 kWh</span>
+      <span class="k">Conversion</span><span class="v">1.4 / 0.5 kWh</span><span class="v">1.8 / 0.7 kWh</span><span class="v">6.8 / 2.4 kWh</span>
+    </div>
+    <p style="margin-top:12px" class="muted">Uses Dazed Power's own solar maths: sun, season, cloud and snow all count. Nothing at night or indoors. Power's Normal mode; Realistic gives less.</p>
+  </div>
+</div>
+
+<!-- ============================================================ 08 implements and trailers -->
+<div class="sec imp">
+  <div class="sec-h"><div class="num">08</div><div><h2>Implements &amp; Trailers</h2><p>Work the yard with the Elec-Trak and tow what you need.</p></div></div>
+  <div class="grid g3">
+    <div class="card c"><div class="art"><img src="sprites/a-mower.png" style="width:220px"></div><h3>Mower deck</h3><p>Cuts grass and weeds, never crops. 200 W while working.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/a-plough.png" style="width:210px"></div><h3>Furrow plough</h3><p>Digs vanilla furrows for any crop, Dazed Dank too. 250 W.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/a-blade.png" style="width:220px"></div><h3>Front blade</h3><p>Pushes glass, trash and rubble aside. 100 W.</p></div>
+  </div>
+  <div class="note">Lower one from the radial menu and drive at 8 km/h or slower.</div>
+  <div class="grid g3" style="margin-top:16px">
+    <div class="card c"><div class="art"><img src="sprites/t-utility.png" style="width:210px"></div><h3>Utility trailer</h3><p>A 100-unit trunk. Known to everyone.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/t-dump.png" style="width:190px"></div><h3>Dump trailer</h3><p>A steel tub that tips its load. From the Owner's Manual.</p></div>
+    <div class="card c"><div class="art"><img src="sprites/t-battery.png" style="width:200px"></div><h3>Battery trailer</h3><p>Six slots that join the towing EV's pack. From Convert It!</p></div>
+  </div>
+  <div class="note">Every EV has a hitch, and the hauler's bed tips like the dump trailer.</div>
+</div>
+
+<!-- ============================================================ 09 heat, faults, sound -->
+<div class="sec">
+  <div class="sec-h"><div class="num">09</div><div><h2>Heat, Faults &amp; Sound</h2><p>Motors that get hot, wear out and hum.</p></div></div>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Motor heat</h3>
+      <div class="bar" style="margin-top:12px"><div style="width:53%;background:var(--green)">normal</div><div style="width:30%;background:var(--gold)">cuts back</div><div style="flex:1;background:var(--red)">cutout</div></div>
+      <div class="ax"><span style="left:53%">100 °C</span><span style="left:83%">130 °C</span></div>
+      <p style="margin-top:6px">Hot days, heavy tows and a lowered plough heat it up. Past 100 °C it eases off. At 130 °C it stops until it cools to 70 °C.</p>
+    </div>
+    <div class="card">
+      <h3>Quiet, not silent</h3>
+      <div class="snd">
+        <span class="k">Ride-On ATV</span><span>a faint whir</span><span class="l"><i class="on"></i><i></i><i></i><i></i><i></i></span>
+        <span class="k">Club carts</span><span>soft whine, two ticks</span><span class="l"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+        <span class="k">Wedge, hauler</span><span>rising whine</span><span class="l"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <span class="k">Elec-Trak</span><span>gear whine</span><span class="l"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <span class="k">Conversion</span><span>traction whine</span><span class="l"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+      </div>
+      <p style="margin-top:8px" class="muted">No idle. The bars show how far zombies hear it.</p>
+    </div>
+  </div>
+  <div class="grid g4 flt" style="margin-top:16px">
+    <div class="card"><h3>Main fuse</h3><p>Can blow when the cutout opens. Electrical 1 and a wire.</p></div>
+    <div class="card"><h3>Contactor</h3><p>Burns now and then at the key. Electrical 3, scrap and wire.</p></div>
+    <div class="card"><h3>Brushes</h3><p>Wear out over about 1,200 km. Mechanics 2, Electrical 2.</p></div>
+    <div class="card"><h3>Junkyard EVs</h3><p>Flat, worn junkers. Strip the motor and controller for parts.</p></div>
+  </div>
+  <div class="note">Mend faults from <b>Battery pack › Repair motor</b> with the motor off.</div>
+</div>
+
+<!-- ============================================================ footer -->
+<div class="foot">
+  <div class="card">
+    <div class="lineup">
+      <img src="sprites/v-atv.png" style="width:110px">
+      <img src="sprites/v-cart.png" style="width:130px">
+      <img src="sprites/d-dart.png" style="width:150px">
+      <img src="sprites/a-wedge-roof.png" style="width:150px">
+      <img src="sprites/v-trak.png" style="width:130px">
+      <img src="sprites/v-hauler.png" style="width:130px">
+    </div>
+    <div class="facts">
+      <div class="card"><h3>Needs</h3><p>Dazed Core 1.7.0 or later and Dazed Power. Safe to add mid-save: found EVs spawn in areas you haven't explored yet.</p></div>
+      <div class="card"><h3>Sandbox</h3><p>No options of its own. Roof solar follows Dazed Power's output setting, so Power's presets cover it.</p></div>
+      <div class="card"><h3>Works with</h3><p>Charges from your Dazed Power system, and Dazed Dank crops grow in the plough's furrows.</p></div>
+    </div>
+    <div class="end">Build 42 · Built for multiplayer</div>
+  </div>
+</div>
+
+</section>
+</body>
+</html>

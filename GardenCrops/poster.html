@@ -1,0 +1,235 @@
+<!doctype html>
+<!-- Dazed Dank: Garden Crops single-image poster: node _kit/render.mjs GardenCrops --page poster.html -> images/poster.jpg
+     Facts follow GardenCrops/page.html and description.bbcode (Dank's CannabisVanillaCrops.lua, the add-on's GardenCrops.lua).
+     A .pot is a plant standing in one of Dank's containers; offsets are copied from page.html, zoom sizes the pot. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/poster.css">
+<style>
+  .pot { position: relative; flex: none; }
+  .pot img { position: absolute; }
+  .crew { display: flex; align-items: flex-end; justify-content: center; gap: 18px; margin: 6px 0 26px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center; }
+  .stats .n { font-family: "Display"; font-size: 64px; line-height: 1; color: var(--gold); }
+  .stats h3 { margin-top: 6px; }
+  .stats p { font-size: 15px; margin-top: 4px; }
+  .where .art { min-height: 200px; gap: 14px; }
+  .where .n { font-family: "Display"; font-size: 46px; line-height: 1; color: var(--gold); text-align: center; }
+  .where h3 { text-align: center; font-size: 28px; margin-bottom: 10px; }
+  .where p { text-align: center; }
+  .soil .pill { font-size: 15px; }
+  .greyed { display: inline-block; margin-top: 12px; padding: 6px 14px; border-radius: 10px; border: 1.5px dashed var(--line);
+    background: #1d0f30; color: var(--muted); font-weight: 500; font-size: 15px; }
+  .flow .art { min-height: 150px; margin-bottom: 8px; }
+  .flow .arrow { margin-bottom: 70px; }
+  .speed { display: grid; gap: 12px; margin-top: 4px; }
+  .speed .r { display: grid; grid-template-columns: 110px 1fr 70px; align-items: center; gap: 14px; }
+  .speed .r span { font-family: "Display"; font-size: 22px; color: var(--ink); }
+  .speed .r b { font-family: "Display"; font-weight: 400; font-size: 24px; text-align: right; }
+  .speed .bar { height: 26px; border-radius: 99px; background: #1d0f30; overflow: hidden; border: 1px solid var(--line); }
+  .speed .bar i { display: block; height: 100%; border-radius: 99px; }
+  .cond { display: flex; align-items: flex-end; justify-content: space-between; text-align: center; }
+  .cond img { height: 170px; margin: 0 auto 8px; }
+  .cond .arrow { font-family: "Display"; font-size: 30px; color: var(--gold); align-self: center; margin-bottom: 30px; }
+  .cond h3 { font-size: 20px; }
+  .indoor .art { min-height: 190px; gap: 16px; }
+  .indoor h3 { font-size: 26px; }
+  .indoor p { margin-top: 8px; }
+  .crops { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .crops .card { padding: 12px 6px 10px; text-align: center; }
+  .crops .art { min-height: 150px; margin-bottom: 6px; }
+  .crops .art img { max-height: 150px; }
+  .crops h3 { font-size: 17px; }
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; }
+  .facts .row { align-items: flex-start; }
+  .facts .row .art { width: 64px; justify-content: center; }
+  .facts p { font-size: 15px; }
+  .hyd .pill { background: #24402a; border-color: #3f7a45; }
+  .soil .pill { font-size: 14.5px; }
+</style>
+</head>
+<body>
+<section class="shot poster" id="poster">
+
+  <div class="top">
+    <div class="wordmark"><small>Dazed Dank</small>Garden Crops</div>
+    <div class="crew">
+      <div class="pot" style="width:164px;height:386px;zoom:0.62"><img src="sprites/bag-large.png" style="left:0px;top:232px"><img src="sprites/sunflower.png" style="left:22px;top:0px"></div>
+      <div class="pot" style="width:138px;height:202px;zoom:0.62"><img src="sprites/dwc.png" style="left:12px;top:78px"><img src="sprites/lettuce.png" style="left:0px;top:0px"></div>
+      <div class="pot" style="width:190px;height:270px;zoom:0.62"><img src="sprites/rdwc.png" style="left:0px;top:146px"><img src="sprites/jalapeno.png" style="left:68px;top:0px"></div>
+      <div class="pot" style="width:158px;height:386px;zoom:0.62"><img src="sprites/dwc-xl.png" style="left:2px;top:230px"><img src="sprites/tomato.png" style="left:0px;top:0px"></div>
+      <div class="pot" style="width:244px;height:282px;zoom:0.62"><img src="sprites/flood.png" style="left:0px;top:94px"><img src="sprites/basil.png" style="left:62px;top:0px"></div>
+      <div class="pot" style="width:204px;height:248px;zoom:0.62"><img src="sprites/bag-xl.png" style="left:0px;top:56px"><img src="sprites/kale.png" style="left:42px;top:0px"></div>
+      <div class="pot" style="width:124px;height:238px;zoom:0.62"><img src="sprites/bag-small.png" style="left:0px;top:130px"><img src="sprites/marigold.png" style="left:2px;top:0px"></div>
+    </div>
+    <div class="tagline">Vanilla crops in Dank's grow bags and hydroponics</div>
+    <div class="kicker">55 crops · Grow bags · DWC · RDWC · Flood tables · Build 42 · Multiplayer</div>
+  </div>
+
+  <div class="card">
+    <div class="stats">
+      <div><div class="n">55</div><h3>crops in grow bags</h3><p>Every vanilla crop, from tomatoes to wheat.</p></div>
+      <div><div class="n">37</div><h3>crops in hydro</h3><p>Herbs, greens, tomatoes, peppers, flowers and more.</p></div>
+      <div><div class="n">15%</div><h3>faster in hydro</h3><p>Each growth step takes 15% less time.</p></div>
+    </div>
+    <p class="note" style="color:var(--text)">An add-on for Dazed Dank. Tomatoes, lettuce, herbs and the rest grow by vanilla's own rules, in Dank's containers.</p>
+  </div>
+
+  <!-- 01 where -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">01</div><div><h2>Which Crops Go Where</h2><p>Every crop grows in a bag. Most of them grow in hydro too.</p></div></div>
+    <div class="grid g2 where">
+      <div class="card">
+        <h3>Grow bags</h3>
+        <div class="art">
+          <div class="pot" style="width:124px;height:230px;zoom:0.72"><img src="sprites/bag-small.png" style="left:0px;top:122px"><img src="sprites/potato.png" style="left:2px;top:0px"></div>
+          <div class="pot" style="width:164px;height:210px;zoom:0.72"><img src="sprites/bag-large.png" style="left:0px;top:56px"><img src="sprites/carrot.png" style="left:24px;top:0px"></div>
+          <div class="pot" style="width:204px;height:294px;zoom:0.72"><img src="sprites/bag-xl.png" style="left:0px;top:102px"><img src="sprites/watermelon.png" style="left:42px;top:0px"></div>
+        </div>
+        <div class="n">all 55</div>
+        <p>Small, Large and XL Grow Bags, filled with potting soil first, as for cannabis.</p>
+      </div>
+      <div class="card hi">
+        <h3>Hydro</h3>
+        <div class="art" style="gap:6px">
+          <div class="pot" style="width:138px;height:360px;zoom:0.55"><img src="sprites/dwc.png" style="left:12px;top:236px"><img src="sprites/tomato.png" style="left:0px;top:0px"></div>
+          <div class="pot" style="width:158px;height:228px;zoom:0.55"><img src="sprites/dwc-xl.png" style="left:2px;top:72px"><img src="sprites/kale.png" style="left:0px;top:0px"></div>
+          <div class="pot" style="width:190px;height:202px;zoom:0.55"><img src="sprites/rdwc.png" style="left:0px;top:78px"><img src="sprites/lettuce.png" style="left:68px;top:0px"></div>
+          <div class="pot" style="width:244px;height:246px;zoom:0.55"><img src="sprites/flood.png" style="left:0px;top:58px"><img src="sprites/mint.png" style="left:62px;top:0px"></div>
+        </div>
+        <div class="n">37 of them</div>
+        <p>DWC and XL DWC buckets, RDWC sites and flood tables, with rockwool or clay pebbles in and water in the reservoir.</p>
+      </div>
+    </div>
+
+    <div class="card c soil hyd" style="margin-top:16px">
+      <h3 style="margin-bottom:12px" class="green">Hydro or grow bag: 37 crops</h3>
+      <div class="pills">
+        <span class="pill">basil</span><span class="pill">bell peppers</span><span class="pill">black sage</span><span class="pill">broadleaf plantain</span><span class="pill">broccoli</span><span class="pill">cabbages</span><span class="pill">cauliflower</span><span class="pill">chamomile</span><span class="pill">chives</span><span class="pill">cilantro</span><span class="pill">comfrey</span><span class="pill">common mallow</span><span class="pill">cucumbers</span><span class="pill">green peas</span><span class="pill">habaneros</span><span class="pill">hemp</span><span class="pill">hops</span><span class="pill">jalapeños</span><span class="pill">kale</span><span class="pill">lavender</span><span class="pill">lemongrass</span><span class="pill">lettuce</span><span class="pill">marigolds</span><span class="pill">mint</span><span class="pill">oregano</span><span class="pill">parsley</span><span class="pill">poppies</span><span class="pill">rosemary</span><span class="pill">roses</span><span class="pill">sage</span><span class="pill">soybeans</span><span class="pill">spinach</span><span class="pill">strawberries</span><span class="pill">sunflowers</span><span class="pill">thyme</span><span class="pill">tobacco</span><span class="pill">tomatoes</span>
+      </div>
+    </div>
+
+    <div class="card c soil" style="margin-top:16px">
+      <h3 style="margin-bottom:12px">Needs soil: grow bags only</h3>
+      <div class="pills">
+        <span class="pill">potatoes</span><span class="pill">sweet potatoes</span><span class="pill">carrots</span><span class="pill">radishes</span><span class="pill">sugar beets</span><span class="pill">turnips</span>
+        <span class="pill">onions</span><span class="pill">garlic</span><span class="pill">wild garlic</span><span class="pill">leeks</span><span class="pill">pumpkins</span><span class="pill">watermelons</span>
+        <span class="pill">corn</span><span class="pill">zucchini</span><span class="pill">wheat</span><span class="pill">barley</span><span class="pill">rye</span><span class="pill">flax</span>
+      </div>
+      <p style="margin-top:12px">Root, bulb, sprawling and grain crops. In hydro their Sow Seed row is greyed out:</p>
+      <div class="greyed">This crop needs soil: use a grow bag</div>
+    </div>
+  </div>
+
+  <!-- 02 grow -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">02</div><div><h2>How They Grow</h2><p>Vanilla's rules, in Dank's containers.</p></div></div>
+    <div class="card">
+      <div class="flow">
+        <div class="step"><div class="art"><img src="sprites/bag-small.png" style="height:84px"></div><h3>Sow Seed</h3><p>lists the seeds you carry that can grow there</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="art"><div class="pot" style="width:164px;height:322px;zoom:0.46"><img src="sprites/bag-large.png" style="left:0px;top:168px"><img src="sprites/pepper.png" style="left:22px;top:0px"></div></div><h3>Bag: water by hand</h3><p>like a vanilla plot</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="art"><div class="pot" style="width:190px;height:228px;zoom:0.6"><img src="sprites/rdwc.png" style="left:0px;top:104px"><img src="sprites/spinach.png" style="left:68px;top:0px"></div></div><h3>Hydro: it drinks</h3><p>about 0.3 L an hour from the reservoir</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="art"><img src="sprites/strawberry.png" style="height:80px"></div><h3>Harvest</h3><p>pick it as in a vanilla plot</p></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="speed">
+        <div class="r"><span>Grow bag</span><div class="bar"><i style="width:100%;background:linear-gradient(90deg,#6d5a8a,#9b88b8)"></i></div><b class="muted">100%</b></div>
+        <div class="r"><span>Hydro</span><div class="bar"><i style="width:85%;background:linear-gradient(90deg,#c98a12,#f7bb2e)"></i></div><b class="gold">85%</b></div>
+      </div>
+      <p class="note">Time for each growth step. A hydro plant stays watered while the reservoir holds water (on a flood table, while the rockwool is wet), and dries out when it runs dry.</p>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3 style="color:var(--gold);text-align:center;margin-bottom:14px">Every condition, every stage</h3>
+      <div class="cond">
+        <div><img src="sprites/tomato.png"><h3 class="green">Healthy</h3></div>
+        <div class="arrow">›</div>
+        <div><img src="sprites/tomato-sick.png"><h3 class="gold">Sick</h3></div>
+        <div class="arrow">›</div>
+        <div><img src="sprites/tomato-dying.png"><h3 class="red">Dying</h3></div>
+        <div class="arrow">›</div>
+        <div><img src="sprites/tomato-dead.png"><h3 class="muted">Dead</h3></div>
+      </div>
+      <p class="note">Each stage has its healthy, sick, dying and dead plant, so you can see how it's doing at a glance.</p>
+    </div>
+  </div>
+
+  <!-- 03 harvest and indoors -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">03</div><div><h2>Harvest &amp; Grow Inside</h2><p>Pick it, sow again, keep it going indoors.</p></div></div>
+    <div class="grid g2 indoor">
+      <div class="card">
+        <div class="art">
+          <div class="pot" style="width:164px;height:182px;zoom:0.8"><img src="sprites/bag-large.png" style="left:0px;top:28px"><img src="sprites/cabbage.png" style="left:22px;top:0px"></div>
+          <span class="gold" style="font-family:Display;font-size:34px;align-self:center">›</span>
+          <img src="sprites/bag-large.png" style="height:123px">
+        </div>
+        <h3>Harvest, then sow</h3>
+        <p>A one-time crop leaves the container empty and ready to sow again. Regrowing crops keep going after you pick them, and a plant that rots away empties it too.</p>
+      </div>
+      <div class="card hi">
+        <div class="art">
+          <img src="sprites/lamp.png" style="height:180px">
+          <div class="pot" style="width:138px;height:202px;zoom:0.7"><img src="sprites/dwc.png" style="left:12px;top:78px"><img src="sprites/lettuce.png" style="left:0px;top:0px"></div>
+          <div class="pot" style="width:124px;height:218px;zoom:0.7"><img src="sprites/bag-small.png" style="left:0px;top:110px"><img src="sprites/basil.png" style="left:2px;top:0px"></div>
+        </div>
+        <h3>Kill Crops Grown Inside</h3>
+        <p>With vanilla's sandbox option on, a powered grow lamp that reaches the plant, or a Dank grow room, keeps it alive indoors.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 plants -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">04</div><div><h2>The Plants</h2><p>Each crop drawn as one plant, without vanilla's furrow.</p></div></div>
+    <div class="crops">
+      <div class="card"><div class="art"><img src="sprites/tomato.png"></div><h3>Tomato</h3></div>
+      <div class="card"><div class="art"><img src="sprites/sunflower.png"></div><h3>Sunflower</h3></div>
+      <div class="card"><div class="art"><img src="sprites/pepper.png"></div><h3>Bell pepper</h3></div>
+      <div class="card"><div class="art"><img src="sprites/lavender.png"></div><h3>Lavender</h3></div>
+      <div class="card"><div class="art"><img src="sprites/cauliflower.png" style="height:100px"></div><h3>Cauliflower</h3></div>
+      <div class="card"><div class="art"><img src="sprites/roses.png"></div><h3>Roses</h3></div>
+      <div class="card"><div class="art"><img src="sprites/wheat.png"></div><h3>Wheat</h3></div>
+      <div class="card"><div class="art"><img src="sprites/chamomile.png"></div><h3>Chamomile</h3></div>
+      <div class="card"><div class="art"><img src="sprites/lettuce.png" style="height:110px"></div><h3>Lettuce</h3></div>
+      <div class="card"><div class="art"><img src="sprites/marigold.png"></div><h3>Marigold</h3></div>
+      <div class="card"><div class="art"><img src="sprites/hops.png"></div><h3>Hops</h3></div>
+      <div class="card"><div class="art"><img src="sprites/strawberry.png" style="height:96px"></div><h3>Strawberry</h3></div>
+      <div class="card"><div class="art"><img src="sprites/tobacco.png"></div><h3>Tobacco</h3></div>
+      <div class="card"><div class="art"><img src="sprites/basil.png"></div><h3>Basil</h3></div>
+      <div class="card"><div class="art"><img src="sprites/corn.png"></div><h3>Corn</h3></div>
+      <div class="card"><div class="art"><img src="sprites/poppies.png"></div><h3>Poppies</h3></div>
+      <div class="card"><div class="art"><img src="sprites/cabbage.png" style="height:96px"></div><h3>Cabbage</h3></div>
+      <div class="card"><div class="art"><img src="sprites/jalapeno.png"></div><h3>Jalapeño</h3></div>
+      <div class="card"><div class="art"><img src="sprites/kale.png" style="height:110px"></div><h3>Kale</h3></div>
+      <div class="card"><div class="art"><img src="sprites/rosemary.png"></div><h3>Rosemary</h3></div>
+      <div class="card"><div class="art"><img src="sprites/peas.png"></div><h3>Green peas</h3></div>
+      <div class="card"><div class="art"><img src="sprites/garlic.png"></div><h3>Garlic</h3></div>
+      <div class="card"><div class="art"><img src="sprites/cucumber.png"></div><h3>Cucumber</h3></div>
+      <div class="card"><div class="art"><img src="sprites/mint.png" style="height:110px"></div><h3>Mint</h3></div>
+    </div>
+    <p class="note">55 vanilla crops, cut from Project Zomboid's own crop art · every growth stage and condition</p>
+  </div>
+
+  <!-- footer -->
+  <div class="foot">
+    <div class="card">
+      <div class="facts">
+        <div class="row"><div class="art"><img src="sprites/rdwc-control.png" style="height:48px"></div><p><b>Needs Dazed Dank</b> 0.56 or later. Dank does the growing; this add-on says which crops go where and supplies the plants.</p></div>
+        <div class="row"><div class="art"><img src="sprites/bag-small.png" style="height:48px"></div><p><b>Cannabis grows the same</b> either way. Without the add-on, Dank's containers take cannabis only.</p></div>
+        <div class="row"><div class="art"><img src="sprites/potato.png" style="height:52px"></div><p><b>Vanilla crops only.</b> Crops from other mods have no plant here and can't go in Dank's containers.</p></div>
+        <div class="row"><div class="art"><img src="sprites/flood.png" style="height:40px"></div><p><b>Nothing to set up.</b> No new items or recipes: sow straight into the bags and hydro you already have.</p></div>
+      </div>
+      <div class="end">Build 42 · Built for multiplayer</div>
+    </div>
+  </div>
+
+</section>
+</body>
+</html>

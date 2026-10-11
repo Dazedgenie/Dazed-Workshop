@@ -278,6 +278,16 @@
     "b-wheel": {
       "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/wheel.png",
       "scale": 1
+    },
+    "x-dehydrator": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_29",
+      "scale": 2
+    },
+    "x-pump": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_181",
+      "scale": 2.5
     }
   }
 }

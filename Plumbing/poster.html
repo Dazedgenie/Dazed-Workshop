@@ -1,0 +1,317 @@
+<!doctype html>
+<!-- Dazed Plumbing single-image poster (0.16.2).  node _kit/render.mjs Plumbing --page poster.html
+     Facts from page.html / description.bbcode and the code: DUP_Model (NOMINAL capacities, TIER_SPEC
+     salvaged 80% cap leaks below 60, crafted leaks below 35), DUP_DrilledWells (15 L/min),
+     DUP_Sprinklers (radius 3), DUP_Smokers (8 h, 6x), DUP_Digesters (half below 10 C, stops below 0),
+     DUP_Loot (where salvaged tanks and mains turn up), sandbox-options.txt (3 options). -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/poster.css">
+<style>
+  :root { --water: #4d8ff7; --propane: #ececf2; --petrol: #e64545; }
+  .sw { display: inline-block; width: 16px; height: 16px; border-radius: 50%; vertical-align: -1px; margin-right: 8px; }
+  .sw.water { background: var(--water); box-shadow: 0 0 8px rgba(77, 143, 247, .8); }
+  .sw.propane { background: var(--propane); box-shadow: 0 0 8px rgba(236, 236, 242, .6); }
+  .sw.petrol { background: var(--petrol); box-shadow: 0 0 8px rgba(230, 69, 69, .8); }
+
+  /* hero: ground to tap */
+  .hero .flow .step .art { min-height: 150px; margin-bottom: 10px; align-items: flex-end; }
+  .hero .flow .arrow { margin-bottom: 70px; }
+  .hero .flow .step p { padding: 0 2px; }
+  svg.house { display: block; }
+
+  /* tanks */
+  .fluid .art { min-height: 170px; }
+  .fluid h3 { margin-bottom: 2px; }
+  .sizes { display: grid; grid-template-columns: 150px repeat(3, 1fr); gap: 0; align-items: end; }
+  .sizes .hd { font-family: "Display"; font-size: 22px; color: var(--gold); text-align: center; padding-bottom: 6px; }
+  .sizes .art { min-height: 0; margin: 0 0 8px; }
+  .sizes .lbl { font-family: "Display"; font-size: 20px; color: var(--ink); align-self: center; }
+  .sizes .val { text-align: center; font-weight: 700; font-size: 17px; color: var(--ink); padding: 6px 0; border-top: 1px solid var(--line); }
+  .sizes .lbl.v { padding: 6px 0; border-top: 1px solid var(--line); font-size: 18px; }
+  .tier .row { align-items: flex-end; gap: 18px; }
+  .tier ul { list-style: none; }
+  .tier li { font-size: 15px; padding-left: 16px; position: relative; margin-top: 4px; }
+  .tier li::before { content: ""; position: absolute; left: 0; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+  .mini .card { padding: 16px 16px 18px; }
+  .mini h3 { font-size: 20px; }
+  .mini p { font-size: 14.5px; }
+  .ic { font-family: "Display"; font-size: 30px; line-height: 1; margin-bottom: 8px; }
+
+  /* pipes */
+  .line { display: grid; grid-template-columns: 120px 1fr 120px; align-items: center; height: 120px; }
+  .line .end { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 120px; }
+  .line .end .cap { margin-top: 2px; color: var(--text); font-weight: 500; }
+  .run { position: relative; height: 100px; margin: 0 14px; }
+  .run .pipe { position: absolute; left: 0; right: 0; top: 54px; height: 16px; border-radius: 8px; }
+  .run .pipe.water { background: linear-gradient(180deg, #7fb0ff, var(--water) 55%, #2f69c9); box-shadow: 0 0 14px rgba(77, 143, 247, .55); }
+  .run .pipe.propane { background: linear-gradient(180deg, #fff, var(--propane) 55%, #b9b9c6); box-shadow: 0 0 14px rgba(236, 236, 242, .4); }
+  .run .pipe.petrol { background: linear-gradient(180deg, #ff7f7f, var(--petrol) 55%, #a92b2b); box-shadow: 0 0 14px rgba(230, 69, 69, .55); }
+  .run .lab { position: absolute; left: 0; right: 0; top: 8px; text-align: center; font-family: "Display"; font-size: 24px; color: var(--ink); }
+  .run .valve { position: absolute; left: 50%; top: 36px; height: 52px; transform: translateX(-50%); }
+  .run .tee { position: absolute; top: 62px; width: 4px; height: 38px; border-radius: 2px; }
+
+  /* water */
+  .main-card { display: grid; grid-template-columns: 300px 1fr; gap: 22px; align-items: center; }
+  .main-card .art { margin: 0; min-height: 0; gap: 4px; }
+  .keys { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .keys span { font-size: 13.5px; font-weight: 500; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: #1d1030; }
+  .w3 .art { min-height: 160px; }
+  .sched { display: flex; justify-content: center; gap: 5px; margin-top: 10px; flex-wrap: wrap; }
+  .sched span { font-size: 13px; font-weight: 500; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); background: #3a2160; color: var(--ink); }
+  .sched span.on { background: var(--water); border-color: #8fb8ff; color: #fff; }
+  .rainrow { display: grid; grid-template-columns: 170px 1fr; gap: 20px; align-items: center; }
+  .rainrow .art { margin: 0; min-height: 0; gap: 6px; }
+  .rainrow ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; }
+  .rainrow li { font-size: 15px; }
+  .rainrow li b { display: block; font-family: "Display"; font-weight: 400; font-size: 19px; color: var(--ink); }
+
+  /* fuel */
+  .f3 .art { min-height: 170px; }
+  .f3 ul { list-style: none; text-align: left; margin-top: 10px; }
+  .f3 li { font-size: 15px; padding-left: 16px; position: relative; margin-top: 4px; }
+  .f3 li::before { content: ""; position: absolute; left: 0; top: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+  .big { font-family: "Display"; font-size: 46px; line-height: 1; color: var(--gold); }
+  .stat { text-align: center; }
+  .stat p { font-size: 14px; color: var(--muted); }
+  .temp { display: grid; grid-template-columns: 1fr 1.2fr 1.6fr; gap: 8px; }
+  .temp > div { font-family: "Display"; font-size: 20px; text-align: center; padding: 12px 6px; border-radius: 12px; color: var(--ink); }
+  .temp small { display: block; font-family: "Body"; font-size: 13.5px; font-weight: 500; opacity: .9; }
+
+  /* works with */
+  .ww .card { display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: center; }
+  .ww .art { margin: 0; min-height: 0; gap: 4px; }
+  .ww h3 { font-size: 22px; }
+  .ww p { font-size: 14.5px; }
+
+  /* foot */
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .facts .row { align-items: flex-start; }
+  .facts .row .art { width: 64px; justify-content: center; }
+  .facts h3 { font-family: "Body"; font-weight: 700; font-size: 15px; }
+  .facts p { font-size: 14px; }
+  .foot .find { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); text-align: center; font-size: 15px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- small isometric house, as Core/page.html; colour from currentColor -->
+    <symbol id="i-house" viewBox="0 0 160 150">
+      <path d="M80 140L10 105V60L80 95Z" fill="currentColor" fill-opacity=".55" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M80 140L150 105V60L80 95Z" fill="currentColor" fill-opacity=".35" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M10 60L45 18L115 18L150 60L80 95Z" fill="#241638" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M45 18L80 58L115 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" opacity=".7"/>
+      <path d="M30 96l14 7v-18l-14-7zM104 103l18-9v-16l-18 9z" fill="#120a1d" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<section class="shot poster" id="poster">
+
+  <div class="top">
+    <img class="logo" src="logo.png">
+    <div class="tagline">Running water after the shutoff</div>
+    <div class="kicker">Tanks &bull; pipes &bull; pumps &bull; water main &bull; fuel &bull; Build 42 &bull; Multiplayer</div>
+  </div>
+
+  <!-- hero: ground water to a working house -->
+  <div class="card hero">
+    <div class="flow">
+      <div class="step"><div class="art"><img src="sprites/hand-pump.png" style="height:140px"></div><h3>Pump it</h3><p>ground water, rain or a well</p></div>
+      <div class="arrow">&rsaquo;</div>
+      <div class="step"><div class="art"><img src="sprites/purifier.png" style="height:120px"></div><h3>Clean it</h3><p>through a purifier</p></div>
+      <div class="arrow">&rsaquo;</div>
+      <div class="step"><div class="art"><img src="sprites/xl-water.png" style="height:118px"></div><h3>Store it</h3><p>in a tank you built</p></div>
+      <div class="arrow">&rsaquo;</div>
+      <div class="step"><div class="art"><img src="sprites/main.png" style="height:104px"></div><h3>Pipe it</h3><p>to a water main</p></div>
+      <div class="arrow">&rsaquo;</div>
+      <div class="step"><div class="art"><svg class="house" width="120" height="112" style="color:#4d8ff7"><use href="#i-house"/></svg></div><h3>Turn a tap</h3><p>the whole house runs</p></div>
+    </div>
+    <p class="note" style="margin-top:4px">Store water, propane and petrol, pipe them where you need them, and bring a house's sinks, baths, showers and toilets back to life.</p>
+  </div>
+
+  <!-- ============================================================ 01 tanks -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">01</div><div><h2>Tanks</h2><p>Three fluids, three sizes, two tiers: 18 tanks in all.</p></div></div>
+
+    <div class="grid g3 fluid">
+      <div class="card c"><div class="art"><img src="sprites/xl-water.png" style="height:150px"></div><h3 class="blue"><span class="sw water"></span>Water</h3><p>Drink, wash, cook and water crops. Fills from pumps, rain and wells.</p></div>
+      <div class="card c"><div class="art"><img src="sprites/xl-propane.png" style="height:150px"></div><h3><span class="sw propane"></span>Propane</h3><p>Feeds generators and the smoker. Make your own in a biogas digester.</p></div>
+      <div class="card c"><div class="art"><img src="sprites/xl-petrol.png" style="height:160px"></div><h3 class="red"><span class="sw petrol"></span>Petrol</h3><p>Fuel for generators, cans and parked cars through a fuel pump.</p></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="sizes">
+        <div></div><div class="hd">Small</div><div class="hd">Large</div><div class="hd">Extra-large</div>
+        <div></div>
+        <div class="art"><img src="sprites/small-water.png" style="height:96px"></div>
+        <div class="art"><img src="sprites/large-water.png" style="height:112px"></div>
+        <div class="art"><img src="sprites/xl-water.png" style="height:124px"></div>
+        <div class="lbl v"><span class="sw water"></span>Water</div><div class="val">200 L</div><div class="val">1,000 L</div><div class="val">2,000 L</div>
+        <div class="lbl v"><span class="sw petrol"></span>Petrol</div><div class="val">200 L</div><div class="val">1,000 L</div><div class="val">2,000 L</div>
+        <div class="lbl v"><span class="sw propane"></span>Propane</div><div class="val">45 kg</div><div class="val">200 kg</div><div class="val">400 kg</div>
+      </div>
+    </div>
+
+    <div class="grid g2 tier" style="margin-top:16px">
+      <div class="card">
+        <div class="row"><div class="art"><img src="sprites/small-water-salv.png" style="height:96px"></div>
+          <div><h3>Salvaged</h3><ul><li>Found in garages, barns and fuel stores</li><li>Or rigged from scrap metal and duct tape</li><li>Holds 80%, leaks below 60% condition</li></ul></div></div>
+      </div>
+      <div class="card hi">
+        <div class="row"><div class="art"><img src="sprites/small-water.png" style="height:96px"></div>
+          <div><h3 class="gold">Crafted</h3><ul><li>Welded from sheet metal and pipe</li><li>Holds its full amount</li><li>Leaks only below 35% condition</li></ul></div></div>
+      </div>
+    </div>
+
+    <div class="grid g4 mini" style="margin-top:16px">
+      <div class="card"><div class="ic blue">&#8645;</div><h3>Pour and take</h3><p>Fill bottles, cans and buckets, or pour back in.</p></div>
+      <div class="card"><div class="ic gold">&#9874;</div><h3>Patch and rename</h3><p>Fix leaks before they drain you dry. Name every tank.</p></div>
+      <div class="card"><div class="ic red">&#9888;</div><h3>Fire is bad news</h3><p>Propane and petrol tanks explode and burn near flames.</p></div>
+      <div class="card"><div class="ic"><svg width="34" height="30" viewBox="0 0 34 30"><path d="M3 26A14 14 0 0 1 31 26" fill="none" stroke="#c49cff" stroke-width="3.5" stroke-linecap="round"/><path d="M17 26L25 12" stroke="#f4ecff" stroke-width="3" stroke-linecap="round"/><circle cx="17" cy="26" r="3" fill="#f4ecff"/></svg></div><h3>Gauge window</h3><p>Level, quality and what feeds and draws from it.</p></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 02 pipes -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">02</div><div><h2>Pipes</h2><p>Colour-coded lines that never mix.</p></div></div>
+
+    <div class="card">
+      <div class="line">
+        <div class="end"><img src="sprites/large-water.png" style="height:90px"></div>
+        <div class="run"><div class="lab blue">Water</div><div class="pipe water"></div><img class="valve" src="sprites/valve.png"></div>
+        <div class="end"><img src="sprites/main.png" style="height:82px"><div class="cap">Water main</div></div>
+      </div>
+      <div class="line">
+        <div class="end"><img src="sprites/large-propane.png" style="height:90px"></div>
+        <div class="run"><div class="lab">Propane</div><div class="pipe propane"></div><img class="valve" src="sprites/valve.png"></div>
+        <div class="end"><img src="sprites/smoker.png" style="height:86px"><div class="cap">Smoker</div></div>
+      </div>
+      <div class="line">
+        <div class="end"><img src="sprites/large-petrol.png" style="height:96px"></div>
+        <div class="run"><div class="lab red">Petrol</div><div class="pipe petrol"></div><img class="valve" src="sprites/valve.png"></div>
+        <div class="end"><img src="sprites/fuel-hand.png" style="height:80px"><div class="cap">Fuel pump</div></div>
+      </div>
+    </div>
+
+    <h4>Laying a line</h4>
+    <div class="card">
+      <div class="flow">
+        <div class="step"><div class="art sm" style="justify-content:center"><img src="sprites/i-pipe.png" class="px" style="height:56px"></div><h3>Weld pipe</h3><p>pipe sections from metal pipe</p></div>
+        <div class="arrow">&rsaquo;</div>
+        <div class="step"><div class="art sm" style="justify-content:center"><img src="sprites/elec-pump.png" style="height:64px"></div><h3>Right-click a machine</h3><p>and choose its line</p></div>
+        <div class="arrow">&rsaquo;</div>
+        <div class="step"><div class="art sm" style="justify-content:center"><img src="sprites/small-water.png" style="height:64px"></div><h3>Pipe to a tank</h3><p>the run lays itself</p></div>
+        <div class="arrow">&rsaquo;</div>
+        <div class="step"><div class="art sm" style="justify-content:center"><img src="sprites/pipe-t.png" style="height:64px"></div><h3>Branch out</h3><p>runs that meet join with a T</p></div>
+      </div>
+    </div>
+
+    <div class="grid g3 mini" style="margin-top:16px">
+      <div class="card"><div class="row"><div class="art"><img src="sprites/i-valve.png" class="px" style="height:46px"></div><h3>Shut-off valves</h3></div><p style="margin-top:8px">Close any line in one click. One line can feed many tanks and machines.</p></div>
+      <div class="card"><div class="row"><div class="art"><img src="sprites/pipe-straight.png" style="height:50px"></div><h3>Indoors and out</h3></div><p style="margin-top:8px">Overhead inside. On the ground outside, where zombies and cars wear them down.</p></div>
+      <div class="card"><div class="row"><div class="art"><img src="sprites/pipe-cross.png" style="height:50px"></div><h3>Cut and mend</h3></div><p style="margin-top:8px">Re-route a run or weld a worn one back to full. A pipe wrench is needed by default.</p></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 03 running water -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">03</div><div><h2>Running Water</h2><p>Bring a whole house's taps back to life.</p></div></div>
+
+    <div class="card hi main-card">
+      <div class="art"><img src="sprites/main.png" style="height:150px"><svg class="house" width="140" height="131" style="color:#33cc66"><use href="#i-house"/></svg></div>
+      <div>
+        <h3 class="gold">The water main</h3>
+        <p style="margin-top:8px">Stand it outside a house, pipe it to a water tank and pick the building in Dazed Core's <b>Building Picker</b>. Once the town water is off, every <b>sink, bath, shower, toilet and washer</b> inside runs from your tank.</p>
+        <div class="keys"><span class="green">Green: served</span><span class="gold">Yellow: click to add</span><span class="blue">Blue: click to remove</span><span class="red">Red: out of reach</span></div>
+      </div>
+    </div>
+
+    <div class="grid g3 w3" style="margin-top:16px">
+      <div class="card c"><div class="art"><img src="sprites/hand-pump.png" style="height:150px"><img src="sprites/elec-pump.png" style="height:84px"></div><h3>Water pumps</h3><p>Hand or electric. Stand one on bare ground and it pumps ground water into a tank.</p></div>
+      <div class="card c"><div class="art"><img src="sprites/well.png" style="height:140px"></div><h3>Drilled well</h3><p>About <b>15 L of clean water a minute</b>, wired to Dazed Power.</p></div>
+      <div class="card c"><div class="art"><img src="sprites/purifier.png" style="height:150px"><img src="sprites/i-filter.png" class="px" style="height:62px"></div><h3>Purifier</h3><p>Cleans dirty water on its way in. Fast with a <b>filter cartridge</b> fitted.</p></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card rainrow" style="grid-column: span 2">
+        <div class="art"><img src="sprites/downspout.png" style="height:170px"><img src="sprites/small-water.png" style="height:88px"></div>
+        <div>
+          <h3>Catch the rain</h3>
+          <ul style="margin-top:10px">
+            <li><b>Open tanks</b>catch whatever falls on them</li>
+            <li><b>Roof runoff</b>a barrel by a building takes from its roof</li>
+            <li><b>Downspouts</b>feed a tank from the whole roof</li>
+            <li><b>Rain barrels</b>pipe vanilla barrels into the line</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card c">
+        <div class="art"><img src="sprites/sprinkler.png" style="height:118px"></div>
+        <h3>Garden sprinklers</h3><p>Water thirsty crops within 3 squares, on a schedule.</p>
+        <div class="sched"><span class="on">Always</span><span>Dawn</span><span>Evening</span><span>Night</span><span>Skip when raining</span></div>
+      </div>
+      <div class="card c">
+        <div class="art"><img src="sprites/large-water.png" style="height:104px"><img src="sprites/pipe-straight.png" style="height:70px"></div>
+        <h3>Taps</h3><p>Pipe one sink, bath, shower, toilet or washer straight to a tank, no main needed. Tainted water stays tainted, so purify first.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 04 fuel, gas, smoke -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">04</div><div><h2>Fuel, Gas &amp; Smoke</h2><p>Your own filling station and smokehouse.</p></div></div>
+
+    <div class="grid g3 f3">
+      <div class="card c"><div class="art"><img src="sprites/fuel-hand.png" style="height:140px"><img src="sprites/fuel-elec.png" style="height:140px"></div><h3>Fuel pumps</h3>
+        <ul><li>Refuel a parked car</li><li>Fill petrol cans</li><li>From a piped petrol tank</li><li>Hand-cranked or electric</li></ul></div>
+      <div class="card c"><div class="art"><img src="sprites/digester.png" style="height:150px"></div><h3>Biogas digester</h3>
+        <ul><li>Feed it rotten food and manure</li><li>Slowly makes propane</li><li>Piped to a propane tank</li><li>No power needed</li></ul></div>
+      <div class="card c"><div class="art"><img src="sprites/smoker.png" style="height:160px"></div><h3>Smoker</h3>
+        <ul><li>A propane-fired drum</li><li>Smokes raw meat and fish</li><li>Butchery cuts too</li><li>Dries jerky strips</li></ul></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card stat"><div class="big">8 h</div><p>in the smoker and raw meat or fish comes out smoked</p></div>
+      <div class="card stat"><div class="big">6&times;</div><p>longer before smoked meat spoils</p></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3 style="margin-bottom:12px">The digester likes it warm</h3>
+      <div class="temp">
+        <div style="background:#3a4f8a">Stops<small>below 0 &deg;C</small></div>
+        <div style="background:#7a5aa8">Half speed<small>0 to 10 &deg;C</small></div>
+        <div style="background:#c99a22;color:#241238">Full speed<small>above 10 &deg;C</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 05 works with -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">05</div><div><h2>Better Together</h2><p>Plumbing plugs into the rest of the Dazed suite.</p></div></div>
+    <div class="grid g2 ww">
+      <div class="card"><div class="art"><img src="sprites/pw-generator.png" style="height:96px"></div><div><h3 class="gold">Dazed Power</h3><p>Generators burn straight from a propane or petrol tank, steam engines stay topped up, and pumps, purifier, well and electric fuel pump run off your controller.</p></div></div>
+      <div class="card"><div class="art"><img src="sprites/cl-insulation.png" class="px" style="height:70px"></div><div><h3 class="blue">Dazed Climate</h3><p>Pipes and tanks freeze in the cold, and insulation slows it. A tank frozen over 80% full can crack and leak until welded.</p></div></div>
+      <div class="card"><div class="art"><img src="sprites/dank-plant.png" style="height:110px"></div><div><h3 class="green">Dazed Dank</h3><p>Pipe a hydro reservoir to a water tank to fill it and keep it topped up.</p></div></div>
+      <div class="card"><div class="art"><img src="sprites/db-rib.png" class="px" style="height:70px"></div><div><h3 class="red">Butchery &amp; Cooking</h3><p>The smoker smokes Butchery's cuts and dries jerky strips.</p></div></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ foot -->
+  <div class="foot">
+    <div class="card">
+      <div class="facts">
+        <div class="row"><div class="art"><img src="sprites/i-pipe.png" class="px" style="height:44px"></div><div><h3>Welding recipes</h3><p>Tanks, pumps, pipes and machines, from Welding 1 up to 7 for the biggest tanks.</p></div></div>
+        <div class="row"><div class="art"><img src="sprites/i-valve.png" class="px" style="height:46px"></div><div><h3>3 sandbox options</h3><p>Water main reach and flow, and whether pipe work needs a wrench. Or one Core preset.</p></div></div>
+        <div class="row"><div class="art"><img src="sprites/i-filter.png" class="px" style="height:58px"></div><div><h3>Needs Dazed Core</h3><p>Safe to add mid-save. A Plumbing tab in the Dazed Mod Suite Guide.</p></div></div>
+      </div>
+      <div class="find">Find salvaged tanks in garages, metalwork shops, farms, barns, camping stores and fuel storage. Water mains turn up with plumbing and hardware stock.</div>
+      <div class="end">Build 42 &middot; Built for multiplayer</div>
+    </div>
+  </div>
+
+</section>
+</body>
+</html>

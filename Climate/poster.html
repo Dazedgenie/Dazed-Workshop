@@ -1,0 +1,331 @@
+<!doctype html>
+<!-- Dazed Climate single-image poster:  node _kit/render.mjs Climate --page poster.html  -> images/poster.jpg -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/poster.css">
+<style>
+  .frost { filter: drop-shadow(0 0 5px rgba(170, 225, 255, .9)) drop-shadow(0 0 1px #e6f6ff) saturate(.85); }
+  .top .spr { display: flex; align-items: flex-end; justify-content: center; gap: 18px; margin: 4px 0 26px; }
+
+  /* row tunnel beds: a crop sprite under the tunnel sprite */
+  .bed { position: relative; }
+  .bed .t { position: absolute; }
+  .bed .t img { position: absolute; }
+
+  /* hero */
+  .hero .art { min-height: 150px; }
+  .hero h3 { font-size: 21px; color: var(--gold); }
+  .hero .cap { font-size: 14px; }
+
+  /* climates */
+  .clim .head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .clim .head img { height: 64px; }
+  .clim .head h3 { font-size: 30px; }
+  .clim .head p { margin: 0; color: var(--muted); font-size: 15px; }
+  .scale { position: relative; height: 66px; border-radius: 10px; background: #1c0e2e; border: 1.5px solid var(--line); margin: 6px 0 8px; }
+  .scale .z { position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(160, 220, 255, .55); }
+  .scale .b { position: absolute; height: 20px; border-radius: 6px; }
+  .scale .wd { top: 9px; background: linear-gradient(90deg, #9a5cf0, #d0a4ff); }
+  .scale .sn { top: 36px; background: linear-gradient(90deg, #6fb3ff, #a8d8ff); }
+  .axis { position: relative; height: 18px; font-size: 13px; color: var(--muted); }
+  .axis span { position: absolute; transform: translateX(-50%); }
+  .stat { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; }
+  .big { font-family: "Display"; font-size: 46px; line-height: 1; color: var(--blue); }
+  .legend { display: flex; gap: 22px; justify-content: center; margin-top: 14px; font-size: 15px; color: var(--muted); }
+  .legend i { display: inline-block; width: 26px; height: 12px; border-radius: 4px; margin-right: 8px; vertical-align: middle; }
+
+  /* bars */
+  .bars { display: grid; gap: 9px; margin-top: 14px; }
+  .bar { position: relative; height: 34px; border-radius: 9px; background: #1c0e2e; border: 1px solid var(--line); overflow: hidden; }
+  .bar .f { position: absolute; left: 0; top: 0; bottom: 0; background: linear-gradient(90deg, #d88a1c, var(--gold)); }
+  .bar.ice .f { background: linear-gradient(90deg, #4f8fd6, var(--blue)); }
+  .bar .in { position: absolute; left: 12px; top: 0; line-height: 34px; font-weight: 700; font-size: 15px; color: #241238; }
+  .bar .tl { position: absolute; right: 12px; top: 0; line-height: 34px; font-size: 14px; color: var(--muted); }
+  .card .foot-note { margin-top: 12px; text-align: center; color: var(--gold); font-weight: 500; font-size: 15px; }
+
+  /* crop frost */
+  .stage { display: flex; align-items: flex-end; justify-content: center; gap: 8px; height: 180px; margin-bottom: 12px; }
+  .stage .arr { color: var(--gold); font-family: "Display"; font-size: 28px; align-self: center; }
+  .chips { display: flex; gap: 6px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+  .chip { font-size: 13.5px; font-weight: 500; padding: 4px 10px; border-radius: 999px; background: #3a2160; color: var(--ink); }
+  .chip.k { background: #4a2140; color: var(--red); }
+
+  /* tunnels */
+  .tun { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; align-items: center; }
+  .stat4 .big { font-size: 36px; color: var(--gold); }
+  .stat4 h3 { font-size: 19px; margin-top: 8px; }
+  .stat4 p { font-size: 14px; color: var(--muted); }
+
+  .flow.tight .arrow { margin-bottom: 0; }
+  /* ice */
+  .ice-art { height: 170px; }
+
+  /* frostbite flow icons */
+  .flow .ic { height: 76px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px; }
+  .warn { border-color: #8a3a5a; background: #2e1430; }
+
+  .suite > div { background: #1f0f33; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; text-align: center; }
+  .suite h3 { font-size: 20px; }
+  .suite p { font-size: 14px; margin-top: 2px; }
+</style>
+</head>
+<body>
+<section class="shot poster" id="poster">
+
+  <!-- ================================================================ top -->
+  <div class="top">
+    <div class="wordmark"><small>Dazed</small>Climate</div>
+    <div class="spr">
+      <img src="sprites/tomato.png" style="height:150px">
+      <img src="sprites/heater.png" style="height:104px">
+      <img src="sprites/tank-water.png" class="frost" style="height:120px">
+      <img src="sprites/thermometer.png" class="px" style="height:100px">
+      <div class="bed" style="width:150px;height:108px"><div class="t" style="left:0;top:0"><img src="sprites/cabbage.png" style="left:37px;top:26px;width:80px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:150px"></div></div>
+      <img src="sprites/pipe-t.png" class="frost" style="height:110px">
+      <img src="sprites/cabbage-dead.png" class="frost" style="height:62px">
+    </div>
+    <div class="tagline">Winters that actually bite</div>
+    <div class="kicker">Two climates · Room temperatures · Crop frost · Row tunnels · Frozen pipes · Build 42</div>
+  </div>
+
+  <div class="card hero">
+    <div class="grid g5">
+      <div class="c"><div class="art"><img src="sprites/heater.png" style="height:110px"></div><h3>Warm rooms</h3><div class="cap">walls hold the heat</div></div>
+      <div class="c"><div class="art"><img src="sprites/tomato-dead.png" class="frost" style="height:150px"></div><h3>Crop frost</h3><div class="cap">cover them or lose them</div></div>
+      <div class="c"><div class="art"><div class="bed" style="width:160px;height:112px"><div class="t" style="left:0;top:0"><img src="sprites/lettuce.png" style="left:39px;top:4px;width:85px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:160px"></div></div></div><h3>Row tunnels</h3><div class="cap">grow through winter</div></div>
+      <div class="c"><div class="art"><img src="sprites/pipe-t.png" class="frost" style="height:112px"></div><h3>Frozen pipes</h3><div class="cap">with Dazed Plumbing</div></div>
+      <div class="c"><div class="art"><img src="sprites/thermometer.png" class="px" style="height:100px"></div><h3>Thermometer</h3><div class="cap">read where you stand</div></div>
+    </div>
+    <p class="note" style="color:var(--text)">Vanilla winters are mild. Here what you wear, where you shelter and how you heat it decide whether you get through.</p>
+  </div>
+
+  <!-- ================================================================ 01 climates
+       scale -40 .. +10 °C over the bar width: x% = (t + 40) * 2 -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">01</div><div><h2>Two climates</h2><p>Pick how hard winter bites.</p></div></div>
+    <div class="grid g2">
+      <div class="card clim">
+        <div class="head"><img src="sprites/thermometer.png" class="px"><div><h3>Realism</h3><p>Kentucky weather</p></div></div>
+        <div class="axis"><span style="left:0%">-40</span><span style="left:20%">-30</span><span style="left:40%">-20</span><span style="left:60%">-10</span><span style="left:80%">0</span><span style="left:100%">+10</span></div>
+        <div class="scale"><div class="z" style="left:80%"></div>
+          <div class="b wd" style="left:72%;width:18%"></div>
+          <div class="b sn" style="left:40%;width:20%"></div>
+        </div>
+        <p>Winter nights about <b>-4 °C</b>, days about <b>5 °C</b>. Cold snaps down to <b>-10 to -20 °C</b>.</p>
+        <div class="stat"><span class="muted">frost nights a year</span><span class="big">~80</span></div>
+      </div>
+      <div class="card clim">
+        <div class="head"><img src="sprites/thermometer.png" class="px"><div><h3>Harsh Reality</h3><p>Deep northern winters</p></div></div>
+        <div class="axis"><span style="left:0%">-40</span><span style="left:20%">-30</span><span style="left:40%">-20</span><span style="left:60%">-10</span><span style="left:80%">0</span><span style="left:100%">+10</span></div>
+        <div class="scale"><div class="z" style="left:80%"></div>
+          <div class="b wd" style="left:46%;width:20%"></div>
+          <div class="b sn" style="left:1%;width:29%"></div>
+        </div>
+        <p>Winter nights about <b>-17 °C</b>, days about <b>-7 °C</b>. Arctic outbreaks down to <b>-25 to -40 °C</b>.</p>
+        <div class="stat"><span class="muted">frost nights a year</span><span class="big">~170</span></div>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i style="background:linear-gradient(90deg,#9a5cf0,#d0a4ff)"></i>winter night to day (°C)</span>
+      <span><i style="background:linear-gradient(90deg,#6fb3ff,#a8d8ff)"></i>cold snaps</span>
+    </div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card c"><h3>It moves</h3><p>Nights and days swing, days wander, and cold snaps and warm spells drift over several days.</p></div>
+      <div class="card c"><h3>Everyone shares it</h3><p>Every player on a server sees the same weather.</p></div>
+      <div class="card c"><h3>Or switch it off</h3><p>Pick <b>Vanilla</b> to turn the whole mod off. Shift winter and summer to taste.</p></div>
+    </div>
+  </div>
+
+  <!-- ================================================================ 02 rooms -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">02</div><div><h2>Rooms</h2><p>Every room near you keeps its own temperature.</p></div></div>
+    <div class="grid g2">
+      <div class="card">
+        <h3>Walls hold the heat</h3>
+        <div class="bars">
+          <div class="bar"><div class="f" style="width:100%"></div><div class="in">Brick and stone</div></div>
+          <div class="bar"><div class="f" style="width:86%"></div><div class="in">Log</div></div>
+          <div class="bar"><div class="f" style="width:50%"></div><div class="in">Plank and siding</div></div>
+          <div class="bar"><div class="f" style="width:15%"></div><div class="in" style="left:calc(15% + 12px);color:var(--ink)">Sheet metal</div><div class="tl">hardly at all</div></div>
+        </div>
+        <div class="foot-note">Basements stay near 10 °C</div>
+      </div>
+      <div class="card">
+        <h3>Heat comes from</h3>
+        <div class="bars">
+          <div class="bar"><div class="f" style="width:100%"></div><div class="in">Lit fireplace or wood stove</div></div>
+          <div class="bar"><div class="f" style="width:45%"></div><div class="in">Barbecue</div></div>
+          <div class="bar"><div class="f" style="width:27%"></div><div class="in">Stove</div><div class="tl">a working one</div></div>
+          <div class="bar"><div class="f" style="width:22%"></div><div class="in">Sun</div><div class="tl">through the windows</div></div>
+        </div>
+        <div class="foot-note">Greenhouses catch a lot more sun</div>
+      </div>
+    </div>
+    <div class="grid g4" style="margin-top:16px">
+      <div class="card"><h3>Open windows</h3><p>Open or broken windows and doors let heat out. <span class="gold">Barricaded, much less.</span></p></div>
+      <div class="card"><h3>The grid</h3><p>Until the power goes off, houses keep heating and AC at <span class="gold">18 to 25 °C</span>.</p></div>
+      <div class="card"><h3>Feel it</h3><p>A room warmer than outside <span class="gold">warms you</span> while you stand in it.</p></div>
+      <div class="card c"><div class="art sm"><img src="sprites/heater.png" style="height:62px"><img src="sprites/cooler.png" style="height:70px"></div><h3>Dazed Power</h3><p>space heater and room cooler</p></div>
+    </div>
+  </div>
+
+  <!-- ================================================================ 03 crop frost -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">03</div><div><h2>Frost on crops</h2><p>Outdoor crops are hurt below their frost line and killed by hard frost.</p></div></div>
+    <div class="grid g3">
+      <div class="card c">
+        <div class="stage"><img src="sprites/tomato.png" style="height:170px"><span class="arr">›</span><img src="sprites/tomato-dead.png" class="frost" style="height:170px"></div>
+        <h3 class="red">Tender</h3><p>tomato, pepper, corn, pumpkin</p>
+        <div class="chips"><span class="chip">hurt below 0 °C</span><span class="chip k">dead at -2</span></div>
+      </div>
+      <div class="card c">
+        <div class="stage"><img src="sprites/lettuce.png" style="height:110px"><span class="arr">›</span><img src="sprites/lettuce-dead.png" class="frost" style="height:110px"></div>
+        <h3 class="purple">Half-hardy</h3><p>lettuce, broccoli, carrots, onion, peas</p>
+        <div class="chips"><span class="chip">hurt below -2 °C</span><span class="chip k">dead at -5</span></div>
+      </div>
+      <div class="card c">
+        <div class="stage"><img src="sprites/cabbage.png" style="height:96px"><span class="arr">›</span><img src="sprites/cabbage-dead.png" class="frost" style="height:96px"></div>
+        <h3 class="green">Hardy</h3><p>cabbage, kale, spinach, garlic, wheat</p>
+        <div class="chips"><span class="chip">hurt below -5 °C</span><span class="chip k">dead at -10</span></div>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card hi"><h3>Cover plant against frost</h3><p>Right-click a crop with a sheet, tarp or blanket and keep it <b>4 °C warmer</b>.</p></div>
+      <div class="card"><h3>Indoors is safe</h3><p>Crops indoors and in a greenhouse never feel the frost.</p></div>
+    </div>
+  </div>
+
+  <!-- ================================================================ 04 row tunnels -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">04</div><div><h2>Row tunnels</h2><p>Plastic over hoops: grow through the winter.</p></div></div>
+    <div class="card">
+      <div class="flow tight">
+        <div class="step"><h3>Right-click a plot</h3><p>Put up a row tunnel</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><h3>Plastic</h3><p>a tarp, or 3 garbage bags</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><h3>Hoops</h3><p>3 sticks or branches</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><h3>Line them up</h3><p>side by side into one bed</p></div>
+      </div>
+    </div>
+    <div class="card hi tun" style="margin-top:16px">
+      <div class="bed" style="width:430px;height:252px;margin:0 auto">
+        <div class="t" style="left:0;top:0"><img src="sprites/cabbage.png" style="left:46px;top:33px;width:100px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:190px"></div>
+        <div class="t" style="left:120px;top:60px"><img src="sprites/lettuce.png" style="left:46px;top:5px;width:100px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:190px"></div>
+        <div class="t" style="left:240px;top:120px"><img src="sprites/cabbage.png" style="left:46px;top:33px;width:100px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:190px"></div>
+      </div>
+      <div>
+        <h3 class="gold" style="font-size:28px">A bed that lasts</h3>
+        <p style="margin-top:8px">Put one up beside another and it runs along the row. A tunnel stays up between crops, like a real one. Take it down from the same menu.</p>
+      </div>
+    </div>
+    <div class="grid g4 stat4" style="margin-top:16px">
+      <div class="card c"><div class="big">+4 °C</div><h3>At night</h3><p>under the plastic</p></div>
+      <div class="card c"><div class="big">+14 °C</div><h3>Clear noon</h3><p>at most, in full sun</p></div>
+      <div class="card c"><div class="big">Oct-Apr</div><h3>No winter penalty</h3><p>or out-of-season one</p></div>
+      <div class="card c"><div class="big">By hand</div><h3>Water it yourself</h3><p>rain can't reach it</p></div>
+    </div>
+  </div>
+
+  <!-- ================================================================ 05 ice -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">05</div><div><h2>Ice</h2><p>With Dazed Plumbing, below freezing, water stops moving.</p></div></div>
+    <div class="grid g3">
+      <div class="card c">
+        <div class="art ice-art"><img src="sprites/pipe-t.png" class="frost" style="height:140px"><img src="sprites/insulation.png" class="px" style="height:60px;margin-bottom:10px"></div>
+        <h3>Pipes</h3><p>Freeze in about 3 hours at -5 °C and pass nothing until they thaw. <span class="gold">Pipe Insulation Wrap slows it fourfold.</span></p>
+      </div>
+      <div class="card c">
+        <div class="art ice-art"><img src="sprites/tank-water.png" class="frost" style="height:160px"><img src="sprites/drum.png" class="frost" style="height:104px"></div>
+        <h3>Water tanks</h3><p>The bigger, the slower. <span class="gold">Frozen over 80% full, one may crack</span> and leak until you weld it.</p>
+      </div>
+      <div class="card c">
+        <div class="art ice-art"><img src="sprites/tank-propane.png" style="height:145px"><img src="sprites/tank-petrol.png" style="height:145px"></div>
+        <h3>Fuel</h3><p>Petrol and propane <span class="gold">never freeze</span> and keep flowing all winter.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="row">
+        <div class="art"><img src="sprites/insulation.png" class="px" style="height:56px"></div>
+        <p><b>Pipe Insulation Wrap</b> turns up in plumbing and hardware stock, or make it from ripped sheets and duct tape.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ 06 thermometer, radio, cold storage -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">06</div><div><h2>Know the cold</h2><p>A thermometer, radio forecasts and cold rooms that keep food.</p></div></div>
+    <div class="grid g2">
+      <div class="card c">
+        <div class="art"><img src="sprites/thermometer.png" class="px" style="height:116px"></div>
+        <h3>Dial Thermometer</h3><p>Reads the temperature where you stand. Found in kitchens, garages and tool, camping, farm and garden stores.</p>
+      </div>
+      <div class="card c">
+        <div class="art">
+          <svg viewBox="0 0 120 120" width="120" height="120" fill="none" stroke-linecap="round">
+            <rect x="14" y="44" width="92" height="62" rx="10" fill="#3b2a52" stroke="#a676ee" stroke-width="4"/>
+            <path d="M30 44L84 14" stroke="#cdb6f2" stroke-width="4"/>
+            <circle cx="42" cy="75" r="17" fill="#241638" stroke="#cdb6f2" stroke-width="3"/>
+            <path d="M33 70h18M33 77h18M33 84h18" stroke="#8d74b5" stroke-width="2.5"/>
+            <rect x="68" y="60" width="28" height="12" rx="3" fill="#bfe6ff"/>
+            <circle cx="82" cy="89" r="7" fill="#b47cf7"/>
+          </svg>
+        </div>
+        <h3>Emergency radio</h3><p>Today's and tomorrow's temperatures, with frost advisories and cold-weather warnings.</p>
+      </div>
+    </div>
+    <h4>Cold rooms keep food</h4>
+    <div class="ladder">
+      <div style="background:#2d4f7a">Frozen<br><span style="font-family:Body;font-size:14px;color:var(--text)">almost no ageing</span></div>
+      <div style="background:#4f6fb0">0 to 4 °C<br><span style="font-family:Body;font-size:14px;color:var(--text)">about fridge speed</span></div>
+      <div style="background:#6e4fa8">Below 15 °C<br><span style="font-family:Body;font-size:14px;color:var(--text)">slower</span></div>
+      <div style="background:var(--gold);color:#241238">15 °C and up<br><span style="font-family:Body;font-size:14px">normal</span></div>
+    </div>
+    <p class="note">A cellar or an unheated room in winter becomes a larder.</p>
+  </div>
+
+  <!-- ================================================================ 07 frostbite -->
+  <div class="sec">
+    <div class="sec-h"><div class="num">07</div><div><h2>Frostbite</h2><p>Off by default. Turn it on for the full survival winter.</p></div></div>
+    <div class="card">
+      <div class="flow">
+        <div class="step">
+          <div class="ic"><svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="#bfe6ff" stroke-width="4.5" stroke-linecap="round"><path d="M32 6v52M9.5 19l45 26M9.5 45l45-26"/><path d="M25 10l7 7 7-7M25 54l7-7 7 7M9 27l9.5-2.5L16 15M48 49l-2.5-9.5L55 37M9 37l9.5 2.5L16 49M48 15l-2.5 9.5L55 27"/></svg></div>
+          <h3>Cold hands, feet</h3><p>gloves, boots and wet clothes matter</p>
+        </div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="ic"><span class="big" style="color:var(--blue);font-size:44px">1</span></div><h3>Frostnip</h3><p>heals once you're warm</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="ic"><span class="big" style="color:var(--purple);font-size:44px">2</span></div><h3>Frostbite</h3><p>needs warmth and a bandage</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><div class="ic"><span class="big" style="color:var(--red);font-size:44px">3</span></div><h3>Lost for good</h3><p>a finger or a toe, if left cold</p></div>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card warn"><h3 class="red">Left bare, it gets worse</h3><p>Unbandaged frostbite can blister open and get infected. It all shows in the Health panel.</p></div>
+      <div class="card"><h3>Every loss counts</h3><p>Each lost finger slows your actions. Each lost toe slows your walking.</p></div>
+    </div>
+  </div>
+
+  <!-- ================================================================ footer -->
+  <div class="foot">
+    <div class="card">
+      <h3 class="gold" style="text-align:center;font-size:26px;margin-bottom:18px">Works with the Dazed suite</h3>
+      <div class="grid g3 suite">
+        <div><h3 class="gold">Dazed Plumbing</h3><p>frozen pipes and tanks</p></div>
+        <div><h3 class="gold">Dazed Power</h3><p>rooms its cooler chills are skipped</p></div>
+        <div><h3 class="gold">Dazed Dank</h3><p>cannabis feels the frost too</p></div>
+        <div><h3 class="gold">Dazed Butchery</h3><p>carcasses spoil and dry-age by room temperature</p></div>
+        <div><h3 class="gold">Dazed Cooking</h3><p>hot food and drinks warm you</p></div>
+        <div><h3 class="gold">Dazed Core</h3><p>required; its presets set the climate</p></div>
+      </div>
+      <p class="note" style="color:var(--text);margin-top:20px">Add it to a running save. Tune it all with <b>16 sandbox options</b>, including Celsius or Fahrenheit through Dazed Core.</p>
+      <div class="end">Build 42 · Built for multiplayer</div>
+    </div>
+  </div>
+
+</section>
+</body>
+</html>
