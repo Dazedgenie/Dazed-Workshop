@@ -1,0 +1,563 @@
+{
+  "repos": "/home/claude",
+  "sprites": {
+    "st-seedling": {
+      "png": "dazed-workshop/Dank/pots/st-seedling.png",
+      "scale": 1.5
+    },
+    "st-veg": {
+      "png": "dazed-workshop/Dank/pots/st-veg.png",
+      "scale": 1.5
+    },
+    "st-pre": {
+      "png": "dazed-workshop/Dank/pots/st-pre.png",
+      "scale": 1.5
+    },
+    "st-flower": {
+      "png": "dazed-workshop/Dank/pots/st-flower.png",
+      "scale": 1.5
+    },
+    "st-ripe": {
+      "png": "dazed-workshop/Dank/pots/st-ripe.png",
+      "scale": 1.5
+    },
+    "s-knox": {
+      "png": "dazed-workshop/Dank/pots/s-knox.png",
+      "scale": 1.5
+    },
+    "s-muldraugh": {
+      "png": "dazed-workshop/Dank/pots/s-muldraugh.png",
+      "scale": 1.5
+    },
+    "s-rosewood": {
+      "png": "dazed-workshop/Dank/pots/s-rosewood.png",
+      "scale": 1.5
+    },
+    "s-riverside": {
+      "png": "dazed-workshop/Dank/pots/s-riverside.png",
+      "scale": 1.5
+    },
+    "s-westpoint": {
+      "png": "dazed-workshop/Dank/pots/s-westpoint.png",
+      "scale": 1.5
+    },
+    "s-marchridge": {
+      "png": "dazed-workshop/Dank/pots/s-marchridge.png",
+      "scale": 1.5
+    },
+    "s-male": {
+      "png": "dazed-workshop/Dank/pots/s-male.png",
+      "scale": 1.5
+    },
+    "s-purple": {
+      "png": "dazed-workshop/Dank/pots/s-purple.png",
+      "scale": 1.5
+    },
+    "p-ground": {
+      "png": "dazed-workshop/Dank/pots/p-ground.png",
+      "scale": 1.5
+    },
+    "p-small": {
+      "png": "dazed-workshop/Dank/pots/p-small.png",
+      "scale": 1.5
+    },
+    "p-large": {
+      "png": "dazed-workshop/Dank/pots/p-large.png",
+      "scale": 1.5
+    },
+    "p-xlbag": {
+      "png": "dazed-workshop/Dank/pots/p-xlbag.png",
+      "scale": 1.5
+    },
+    "p-dwc": {
+      "png": "dazed-workshop/Dank/pots/p-dwc.png",
+      "scale": 1.5
+    },
+    "p-rdwc": {
+      "png": "dazed-workshop/Dank/pots/p-rdwc.png",
+      "scale": 1.5
+    },
+    "p-ebb": {
+      "png": "dazed-workshop/Dank/pots/p-ebb.png",
+      "scale": 1.5
+    },
+    "b-1": {
+      "png": "dazed-workshop/Dank/pots/b-1.png",
+      "scale": 1.5
+    },
+    "b-2": {
+      "png": "dazed-workshop/Dank/pots/b-2.png",
+      "scale": 1.5
+    },
+    "b-3": {
+      "png": "dazed-workshop/Dank/pots/b-3.png",
+      "scale": 1.5
+    },
+    "b-4": {
+      "png": "dazed-workshop/Dank/pots/b-4.png",
+      "scale": 1.5
+    },
+    "b-5": {
+      "png": "dazed-workshop/Dank/pots/b-5.png",
+      "scale": 1.5
+    },
+    "b-6": {
+      "png": "dazed-workshop/Dank/pots/b-6.png",
+      "scale": 1.5
+    },
+    "b-7": {
+      "png": "dazed-workshop/Dank/pots/b-7.png",
+      "scale": 1.5
+    },
+    "mother": {
+      "png": "dazed-workshop/Dank/pots/mother.png",
+      "scale": 1.5
+    },
+    "lamp-basic": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_197",
+      "scale": 1.5
+    },
+    "lamp-pro": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_198",
+      "scale": 1.5
+    },
+    "lamp-lbasic": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "layers": [
+        [
+          "dazeddank_plants_01_214",
+          0,
+          0
+        ],
+        [
+          "dazeddank_plants_01_215",
+          -64,
+          32
+        ]
+      ],
+      "scale": 1.2
+    },
+    "lamp-lpro": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "layers": [
+        [
+          "dazeddank_plants_01_222",
+          0,
+          0
+        ],
+        [
+          "dazeddank_plants_01_223",
+          -64,
+          32
+        ],
+        [
+          "dazeddank_plants_01_224",
+          -128,
+          64
+        ]
+      ],
+      "scale": 1.0
+    },
+    "flood-basic": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_234",
+      "scale": 1.5
+    },
+    "flood-pro": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_235",
+      "scale": 1.5
+    },
+    "barrel": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_236",
+      "scale": 1.5
+    },
+    "rack": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "layers": [
+        [
+          "dazeddank_plants_01_206",
+          0,
+          0
+        ],
+        [
+          "dazeddank_plants_01_207",
+          -64,
+          32
+        ]
+      ],
+      "scale": 1.3
+    },
+    "bag-large": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_204",
+      "scale": 1.5
+    },
+    "dwc": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_plants_01.pack",
+      "sprite": "dazeddank_plants_01_372",
+      "scale": 1.5
+    },
+    "dwc-xl": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_hydro_01.pack",
+      "sprite": "dazeddank_hydro_01_348",
+      "scale": 1.5
+    },
+    "rdwc-control": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_hydro_01.pack",
+      "sprite": "dazeddank_hydro_01_113",
+      "scale": 1.5
+    },
+    "flood-res": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_hydro_01.pack",
+      "sprite": "dazeddank_hydro_01_234",
+      "scale": 1.5
+    },
+    "panel": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_rooms_01.pack",
+      "sprite": "dazeddank_rooms_01_0",
+      "scale": 2.2,
+      "crop": [
+        70,
+        80,
+        116,
+        136
+      ]
+    },
+    "exhaust": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_rooms_01.pack",
+      "sprite": "dazeddank_rooms_01_8",
+      "scale": 2.0,
+      "crop": [
+        60,
+        40,
+        120,
+        102
+      ]
+    },
+    "intake": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_rooms_01.pack",
+      "sprite": "dazeddank_rooms_01_12",
+      "scale": 2.0,
+      "crop": [
+        60,
+        40,
+        120,
+        102
+      ]
+    },
+    "heater": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_rooms_01.pack",
+      "sprite": "dazeddank_rooms_01_20",
+      "scale": 2.0,
+      "crop": [
+        60,
+        46,
+        120,
+        98
+      ]
+    },
+    "dehum": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_rooms_01.pack",
+      "sprite": "dazeddank_rooms_01_24",
+      "scale": 2.0,
+      "crop": [
+        60,
+        44,
+        120,
+        101
+      ]
+    },
+    "humid": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_rooms_01.pack",
+      "sprite": "dazeddank_rooms_01_28",
+      "scale": 2.0,
+      "crop": [
+        60,
+        38,
+        120,
+        98
+      ]
+    },
+    "ac": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_rooms_01.pack",
+      "sprite": "dazeddank_rooms_01_32",
+      "scale": 2.0,
+      "crop": [
+        50,
+        40,
+        125,
+        113
+      ]
+    },
+    "circ": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_rooms_01.pack",
+      "sprite": "dazeddank_rooms_01_36",
+      "scale": 2.0,
+      "crop": [
+        60,
+        46,
+        110,
+        90
+      ]
+    },
+    "drip": {
+      "pack": "DazedDank/Contents/mods/DazedDank/42/media/texturepacks/dazeddank_rooms_01.pack",
+      "sprite": "dazeddank_rooms_01_40",
+      "scale": 1.5
+    },
+    "i-BloomNutrients": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_BloomNutrients.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-VegNutrients": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_VegNutrients.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-Blunt": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_Blunt.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-HalfSmokedBlunt": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_HalfSmokedBlunt.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-CannabisBud": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_CannabisBud.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-CannabisCutting": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_CannabisCutting.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-RootedCannabisCutting": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_RootedCannabisCutting.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-CannabisSeed": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_CannabisSeed.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-ClayPebbles": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_ClayPebbles.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-CloningDome": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_CloningDome.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-ControlledEnvMagazine": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_ControlledEnvMagazine.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-CuredFanLeaf": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_CuredFanLeaf.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-DriedFanLeaf": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_DriedFanLeaf.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-FanLeaf": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_FanLeaf.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-CuringJar": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_CuringJar.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-DriedHybridPlant": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_DriedHybridPlant.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-WetIndicaPlant": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_WetIndicaPlant.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-DryingFan": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_DryingFan.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-GrowRoomPanel": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_GrowRoomPanel.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-GrowersHandbook": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_GrowersHandbook.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-HydroMagazine": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_HydroMagazine.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-Joint": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_Joint.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-LightTimer": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_LightTimer.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-RockwoolCube": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_RockwoolCube.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-RollingPapers": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_RollingPapers.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-RootingGel": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_RootingGel.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-SmokingPipe": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_SmokingPipe.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-GrowBagLarge": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_GrowBagLarge.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-FloodTimer": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_FloodTimer.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-ExhaustFan": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_ExhaustFan.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-Heater": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_Heater.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-DripTank": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_DripTank.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "prof-breeder": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/profession_dd_breeder.png",
+      "scale": 1.5,
+      "filter": "nearest"
+    },
+    "prof-budtender": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/profession_dd_budtender.png",
+      "scale": 1.5,
+      "filter": "nearest"
+    },
+    "prof-cultivationtech": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/profession_dd_cultivationtech.png",
+      "scale": 1.5,
+      "filter": "nearest"
+    },
+    "trait-greenthumb": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/traits/trait_greenthumb.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "trait-trimhand": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/traits/trait_trimhand.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "trait-chronic": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/traits/trait_chronic.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "trait-lightweight": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/traits/trait_lightweight.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "ui-lights": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_lights.png",
+      "scale": 1
+    },
+    "ui-temp": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_temp.png",
+      "scale": 1
+    },
+    "ui-humid": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_humid.png",
+      "scale": 1
+    },
+    "ui-seal": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_seal.png",
+      "scale": 1
+    },
+    "ui-plants": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_plants.png",
+      "scale": 1
+    },
+    "ui-tank": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_tank.png",
+      "scale": 1
+    },
+    "ui-fan": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_fan.png",
+      "scale": 1
+    },
+    "ui-tank-back": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/tank_back.png",
+      "scale": 0.5
+    },
+    "ui-tank-front": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/tank_front.png",
+      "scale": 0.5
+    },
+    "i-IntakeFan": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_IntakeFan.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-Dehumidifier": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/Item_Dehumidifier.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "c-sown": {
+      "png": "dazed-workshop/Dank/pots/c-sown.png",
+      "scale": 1.5
+    },
+    "ui-temp-big": {
+      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_temp.png",
+      "scale": 3,
+      "filter": "nearest"
+    }
+  }
+}

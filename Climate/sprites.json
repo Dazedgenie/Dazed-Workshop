@@ -113,6 +113,16 @@
       "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
       "sprite": "dazedplumb_01_151",
       "scale": 2.5
+    },
+    "tunnel-x": {
+      "pack": "DazedClimate/Contents/mods/DazedClimate/common/media/texturepacks/dazedclimate.pack",
+      "sprite": "dazedclimate_tunnel_01_0",
+      "scale": 2.5
+    },
+    "tunnel-y": {
+      "pack": "DazedClimate/Contents/mods/DazedClimate/common/media/texturepacks/dazedclimate.pack",
+      "sprite": "dazedclimate_tunnel_01_1",
+      "scale": 2.5
     }
   }
 }

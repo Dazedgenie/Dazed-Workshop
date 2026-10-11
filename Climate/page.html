@@ -63,6 +63,25 @@
 
   /* cold storage */
   .cold { display: grid; grid-template-columns: 330px 300px 1fr; gap: 14px; }
+  /* row tunnels: crop sprites under the tunnel sprite, placed by their tile offsets (tunnel 6,172 / crop 34,y) */
+  .bed { position: relative; width: 570px; height: 335px; margin: 0 auto; }
+  .bed .t { position: absolute; }
+  .bed .t img { position: absolute; }
+  #banner .bed::after { display: none; }
+  .bed::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 520px; height: 40px; transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(165, 90, 255, .5), rgba(165, 90, 255, 0) 70%); }
+  .menu { background: rgba(12, 6, 22, .94); border: 1.5px solid #6c40b8; border-radius: 10px; padding: 6px 0;
+    text-align: left; font-size: 24px; line-height: 1.2; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); }
+  .menu .it { padding: 8px 20px; color: var(--ink); white-space: nowrap; }
+  .menu .it.dim { color: #7f6b9c; }
+  .menu .it.hi { background: linear-gradient(90deg, #8f4be6, #6a34bf); color: #fff; font-weight: 600; }
+  .mat { display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center; font-size: 24px; color: var(--ink); text-align: left; }
+  .mat .k { font-weight: 700; color: var(--accent); }
+  .stat4 .card { padding: 18px 14px; }
+  .stat4 .big { font-weight: 800; font-size: 50px; line-height: 1; color: #ffcf6b; }
+  .stat4 .big.c { color: #a8d8ff; }
+  .stat4 h4 { font-size: 26px; margin: 10px 0 4px; }
+  .stat4 .sub { font-size: 20px; }
 </style>
 </head>
 <body>
@@ -76,6 +95,7 @@
     <span class="pill">Two climates</span>
     <span class="pill">Room temperatures</span>
     <span class="pill">Crop frost</span>
+    <span class="pill">Row tunnels</span>
     <span class="pill">Frozen pipes</span>
     <span class="pill">Cold storage</span>
     <span class="pill">Frostbite</span>
@@ -83,13 +103,13 @@
   <div class="row">
     <div class="spr"><img src="sprites/tomato.png" style="height:230px"></div>
     <div class="spr"><img src="sprites/heater.png" style="height:150px"></div>
-    <div class="spr"><img src="sprites/tank-water.png" class="frost" style="height:215px"></div>
+    <div class="spr"><img src="sprites/tank-water.png" class="frost" style="height:185px"></div>
     <div class="spr"><img src="sprites/pipe-t.png" class="frost" style="height:170px"></div>
     <div class="spr"><img src="sprites/thermometer.png" class="px" style="height:165px"></div>
     <div class="spr"><img src="sprites/insulation.png" class="px" style="height:84px"></div>
-    <div class="spr"><img src="sprites/drum.png" class="frost" style="height:160px"></div>
+    <div class="spr"><div class="bed" style="width:196px;height:141px;margin:0"><div class="t" style="left:0;top:0"><img src="sprites/cabbage.png" style="left:48px;top:34px;width:104px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:196px"></div></div></div>
     <div class="spr"><img src="sprites/cooler.png" style="height:180px"></div>
-    <div class="spr"><img src="sprites/cabbage-dead.png" class="frost" style="height:104px"></div>
+    <div class="spr"><img src="sprites/cabbage-dead.png" class="frost" style="height:90px"></div>
   </div>
 </section>
 
@@ -115,14 +135,19 @@
   <div class="num">03</div><h2>Frost on crops</h2><div class="rule"></div>
 </section>
 
+<section class="shot hdr" id="h-tunnels">
+  <div class="tile"><img src="sprites/tunnel-x.png" style="width:92px;height:auto"></div>
+  <div class="num">04</div><h2>Row tunnels</h2><div class="rule"></div>
+</section>
+
 <section class="shot hdr" id="h-ice">
   <div class="tile"><img src="sprites/insulation.png" class="px" style="width:84px;height:auto"></div>
-  <div class="num">04</div><h2>Ice (with Dazed Plumbing)</h2><div class="rule"></div>
+  <div class="num">05</div><h2>Ice (with Dazed Plumbing)</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-thermo">
   <div class="tile"><img src="sprites/thermometer.png" class="px" style="height:80px"></div>
-  <div class="num">05</div><h2>Thermometer, radio and cold storage</h2><div class="rule"></div>
+  <div class="num">06</div><h2>Thermometer, radio and cold storage</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-frostbite">
@@ -132,22 +157,22 @@
       <path d="M25 10l7 7 7-7M25 54l7-7 7 7M9 27l9.5-2.5L16 15M48 49l-2.5-9.5L55 37M9 37l9.5 2.5L16 49M48 15l-2.5 9.5L55 27"/>
     </svg>
   </div>
-  <div class="num">06</div><h2>Frostbite (off by default)</h2><div class="rule"></div>
+  <div class="num">07</div><h2>Frostbite (off by default)</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-sandbox">
   <div class="tile"><img src="sprites/heater-off.png" style="height:80px"></div>
-  <div class="num">07</div><h2>Sandbox options</h2><div class="rule"></div>
+  <div class="num">08</div><h2>Sandbox options</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-compat">
   <div class="tile"><img src="sprites/pipe-t.png" style="width:78px;height:auto"></div>
-  <div class="num">08</div><h2>Compatibility</h2><div class="rule"></div>
+  <div class="num">09</div><h2>Compatibility</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-help">
   <div class="tile"><img src="sprites/drum.png" style="height:80px"></div>
-  <div class="num">09</div><h2>Bugs and help</h2><div class="rule"></div>
+  <div class="num">10</div><h2>Bugs and help</h2><div class="rule"></div>
 </section>
 
 <!-- =============================================================== climates
@@ -276,6 +301,38 @@
       <h4>Indoors is safe</h4>
       <div class="sub">Crops indoors and in a greenhouse<br><span class="accent">never feel the frost.</span></div>
     </div>
+  </div>
+</section>
+
+<!-- =============================================================== row tunnels (0.5.0)
+     DCl_Tunnels / DCl_Frost.tunnelBonus: +4 °C at night, up to +14 °C in clear noon sun; October to April crops under
+     one skip the game's winter and out-of-season penalties; rain doesn't reach it. A tarp or 3 garbage bags plus
+     3 long sticks, wooden sticks or branches. Tunnels beside a row run along it. -->
+<section class="shot panel" id="tunnels">
+  <div class="ptitle">Plastic over hoops: grow through the winter</div>
+  <div class="grid" style="grid-template-columns:1.45fr 1fr">
+    <div class="card">
+      <div class="bed">
+    <div class="t" style="left:15px;top:8px"><img src="sprites/cabbage.png" style="left:62px;top:44px;width:134px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:253px"></div>
+    <div class="t" style="left:156px;top:78px"><img src="sprites/lettuce.png" style="left:62px;top:7px;width:134px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:253px"></div>
+    <div class="t" style="left:297px;top:149px"><img src="sprites/cabbage.png" style="left:62px;top:44px;width:134px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:253px"></div>
+      </div>
+      <h4 style="margin-top:10px">Tunnels line up into a bed</h4>
+      <div class="sub">Put one up beside another and it runs along the row.<br><span class="accent">It stays up between crops, like a real one.</span></div>
+    </div>
+    <div class="card list" style="display:flex;flex-direction:column;gap:22px;justify-content:center">
+      <h4 style="margin-bottom:0">Right-click a farm plot</h4>
+      <div class="menu" style="width:360px;margin:0 auto"><div class="it dim">Water</div><div class="it hi">Put up a row tunnel</div></div>
+      <div class="mat"><div class="k">Plastic</div><div>a tarp, or 3 garbage bags</div></div>
+      <div class="mat"><div class="k">Hoops</div><div>3 sticks or branches</div></div>
+      <div class="sub" style="text-align:center">Take it down from the same menu</div>
+    </div>
+  </div>
+  <div class="grid cols-4 stat4" style="margin-top:14px">
+    <div class="card"><div class="big c">+4 °C</div><h4>At night</h4><div class="sub">under the plastic</div></div>
+    <div class="card"><div class="big">+14 °C</div><h4>Clear noon</h4><div class="sub">at most, in full sun</div></div>
+    <div class="card"><div class="big c" style="font-size:44px;line-height:50px">Oct to Apr</div><h4>No winter penalty</h4><div class="sub">or out-of-season one</div></div>
+    <div class="card"><div class="big c" style="font-size:44px;line-height:50px">By hand</div><h4>Water it yourself</h4><div class="sub">rain can't reach it</div></div>
   </div>
 </section>
 

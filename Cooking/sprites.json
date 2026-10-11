@@ -300,6 +300,226 @@
       "png": "DazedClimate/Contents/mods/DazedClimate/common/media/textures/Item_DazedThermometer.png",
       "scale": 3,
       "filter": "nearest"
+    },
+    "tile-0": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_0",
+      "scale": 2
+    },
+    "tile-4": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_4",
+      "scale": 2
+    },
+    "tile-8": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_8",
+      "scale": 2
+    },
+    "tile-12": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_12",
+      "scale": 2
+    },
+    "tile-16": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_16",
+      "scale": 2
+    },
+    "tile-20": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_20",
+      "scale": 2
+    },
+    "tile-24": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_24",
+      "scale": 2
+    },
+    "tile-29": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_29",
+      "scale": 2
+    },
+    "i-banana-chips": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_BananaChips.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-apple-rings": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedAppleRings.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-berries": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedBerries.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-carrot": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedCarrot.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-cherries": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedCherries.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-corn": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedCorn.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-eggplant": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedEggplant.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-greens": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedGreens.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-leek": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedLeek.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-mango": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedMango.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-mushrooms": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedMushrooms.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-peach": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedPeach.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-pear": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedPear.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-pepper": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedPepper.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-pineapple": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedPineapple.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-potato-slices": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedPotatoSlices.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-pumpkin": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedPumpkin.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-dried-zucchini": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedZucchini.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-fruit-leather": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_FruitLeather.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-kale-chips": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_KaleChips.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-onion-flakes": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_OnionFlakes.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-raisins": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_Raisins.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-salted-meat-strips": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_SaltedMeatStrips.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-sun-dried-tomatoes": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_SunDriedTomatoes.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "i-trail-mix": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_TrailMix.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "jerky": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_Jerky.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "big-strips": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_SaltedMeatStrips.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "big-trail": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_TrailMix.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "big-leather": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_FruitLeather.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "big-mash": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_FruitLeatherMash.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "big-apple": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedAppleRings.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "big-mango": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedMango.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "big-raisins": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_Raisins.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "big-jerky": {
+      "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_Jerky.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "hdr-apple": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_DriedAppleRings.png",
+      "scale": 3,
+      "filter": "nearest"
+    },
+    "rack-1": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_4",
+      "scale": 1
     }
   }
 }

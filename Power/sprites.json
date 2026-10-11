@@ -1,0 +1,283 @@
+{
+  "repos": "/home/claude",
+  "sprites": {
+    "wind-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_456",
+      "scale": 1.5
+    },
+    "wind-s": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_440",
+      "scale": 1.5
+    },
+    "wind-m": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_424",
+      "scale": 1.5
+    },
+    "pedal-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_416",
+      "scale": 1.5
+    },
+    "pedal-s": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_408",
+      "scale": 1.5
+    },
+    "pedal-m": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_400",
+      "scale": 1.5
+    },
+    "array-xl": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "layers": [
+        [
+          "dazedpower_01_169",
+          0,
+          0
+        ],
+        [
+          "dazedpower_01_173",
+          64,
+          32
+        ],
+        [
+          "dazedpower_01_177",
+          -64,
+          32
+        ],
+        [
+          "dazedpower_01_181",
+          0,
+          64
+        ]
+      ],
+      "scale": 1.5
+    },
+    "array-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_24",
+      "scale": 1.5
+    },
+    "tracker-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_60",
+      "scale": 1.5
+    },
+    "array-snow": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_28",
+      "scale": 1.5
+    },
+    "bank-m": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_228",
+      "scale": 1.5
+    },
+    "bank-s": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_256",
+      "scale": 1.5
+    },
+    "bank-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_292",
+      "scale": 1.5
+    },
+    "wall-m": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_304",
+      "scale": 1.5
+    },
+    "wall-s": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_320",
+      "scale": 1.5
+    },
+    "wall-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_340",
+      "scale": 1.5
+    },
+    "ctrl-m": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_348",
+      "scale": 1.5
+    },
+    "ctrl-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_357",
+      "scale": 1.5
+    },
+    "transformer": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_361",
+      "scale": 1.5
+    },
+    "garden-lamp": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_380",
+      "scale": 1.5
+    },
+    "street-lamp": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_396",
+      "scale": 1.5
+    },
+    "street-lamp-m": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_388",
+      "scale": 1.5
+    },
+    "steam-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_0",
+      "scale": 1.5
+    },
+    "steam-s": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_492",
+      "scale": 1.5
+    },
+    "steam-m": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_01_476",
+      "scale": 1.5
+    },
+    "propane-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_52",
+      "scale": 1.5
+    },
+    "petrol-w": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_88",
+      "scale": 1.5
+    },
+    "petrol-s": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_72",
+      "scale": 1.5
+    },
+    "propane-m": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_28",
+      "scale": 1.5
+    },
+    "windsock": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_16",
+      "scale": 1.5
+    },
+    "vane": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_20",
+      "scale": 1.5
+    },
+    "gauge": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_96",
+      "scale": 1.5
+    },
+    "rod": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_112",
+      "scale": 1.5
+    },
+    "bench": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_116",
+      "scale": 1.5
+    },
+    "hydro": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_124",
+      "scale": 1.5
+    },
+    "fence": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_136",
+      "scale": 1.5
+    },
+    "cooler": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_140",
+      "scale": 1.5
+    },
+    "heater": {
+      "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
+      "sprite": "dazedpower_02_152",
+      "scale": 1.5
+    },
+    "almanac": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/textures/Item_DazedAlmanac.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "manual": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/textures/Item_DazedPowerManual.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "manual-adv": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/textures/Item_DazedPowerManualAdv.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "b-gauge-face": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/gauge_face.png",
+      "scale": 1
+    },
+    "b-needle": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/needle.png",
+      "scale": 1
+    },
+    "b-hub": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/hub.png",
+      "scale": 1
+    },
+    "b-battery-case": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/battery_case.png",
+      "scale": 1
+    },
+    "b-isolator-on": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/isolator_on.png",
+      "scale": 1
+    },
+    "b-isolator-off": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/isolator_off.png",
+      "scale": 1
+    },
+    "b-lamp-green": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/lamp_green.png",
+      "scale": 1
+    },
+    "b-lamp-amber": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/lamp_amber.png",
+      "scale": 1
+    },
+    "b-lamp-red": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/lamp_red.png",
+      "scale": 1
+    },
+    "b-lamp-off": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/lamp_off.png",
+      "scale": 1
+    },
+    "b-toggle-up": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/toggle_up.png",
+      "scale": 1
+    },
+    "b-toggle-down": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/toggle_down.png",
+      "scale": 1
+    },
+    "b-wheel": {
+      "png": "DazedPower/Contents/mods/DazedPower/common/media/ui/DazedPower/Board/wheel.png",
+      "scale": 1
+    }
+  }
+}

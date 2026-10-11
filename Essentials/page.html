@@ -99,6 +99,24 @@
   .sk .t { color: var(--muted); text-align: left; white-space: nowrap; }
   .sk .bar { height: 44px; }
   .sk .ghost { position: absolute; left: 3px; top: 3px; bottom: 3px; border-radius: 7px; border: 2px dashed rgba(220, 190, 255, .7); }
+  /* bandages, belt and bags */
+  .gear2 .card, .gear3 .card { display: flex; flex-direction: column; align-items: center; }
+  .gear2 .art { height: 150px; gap: 10px; align-items: center; }
+  .gear3 .art { height: 140px; gap: 6px; align-items: center; }
+  .gear2 .menu { width: 400px; margin: 14px auto 12px; }
+  .gear .to { font-size: 60px; font-weight: 700; color: #c592ff; position: relative; z-index: 1; }
+  .gear .chips { margin-top: 12px; }
+  .gear .chip { font-size: 19px; padding: 4px 12px; }
+  .gear3 h4 { font-size: 30px; }
+  .gear3 .sub { font-size: 21px; }
+  .key { display: inline-block; min-width: 48px; padding: 4px 12px; border-radius: 8px; border: 2px solid #cdb6f2;
+    border-bottom-width: 5px; background: #2a1c3d; color: #f6efff; font-weight: 700; font-size: 24px; }
+  .btns { position: relative; z-index: 1; display: flex; gap: 8px; align-items: center; }
+  .btns .b { width: 78px; height: 78px; border-radius: 8px; background: rgba(12, 6, 22, .9); border: 1.5px solid #6c40b8;
+    display: flex; align-items: center; justify-content: center; }
+  .btns .b.new { border: 2.5px solid #c592ff; background: #3a2160; box-shadow: 0 0 14px rgba(197, 146, 255, .55); }
+  .btns .b.new::after { content: "+"; position: absolute; margin: -60px -60px 0 0; width: 22px; height: 22px; border-radius: 50%;
+    background: #8f4be6; color: #fff; font-weight: 700; font-size: 18px; line-height: 21px; text-align: center; }
 </style>
 </head>
 <body>
@@ -257,6 +275,67 @@
       <path d="M32 36v10" stroke="#1a0f29" stroke-width="4" stroke-linecap="round"/>
       <path d="M48 6l8 8M56 6l-8 8" stroke="#ff9a8a" stroke-width="3" stroke-linecap="round"/>
     </symbol>
+    <symbol id="i-bandage" viewBox="0 0 64 64">
+      <g transform="rotate(-35 32 32)">
+        <rect x="4" y="22" width="56" height="20" rx="10" fill="#f1e6d6" stroke="#1a0f29" stroke-width="2"/>
+        <rect x="22" y="22" width="20" height="20" fill="#e2cfb2"/>
+        <path d="M22 22V42M42 22V42" stroke="#1a0f29" stroke-width="1.5"/>
+        <g fill="#c9b499"><circle cx="27" cy="28" r="1.3"/><circle cx="32" cy="32" r="1.3"/><circle cx="37" cy="28" r="1.3"/><circle cx="27" cy="36" r="1.3"/><circle cx="37" cy="36" r="1.3"/></g>
+      </g>
+    </symbol>
+    <symbol id="i-bandage-dirty" viewBox="0 0 64 64">
+      <g transform="rotate(-35 32 32)">
+        <rect x="4" y="22" width="56" height="20" rx="10" fill="#b9a68a" stroke="#1a0f29" stroke-width="2"/>
+        <rect x="22" y="22" width="20" height="20" fill="#9c8467"/>
+        <path d="M22 22V42M42 22V42" stroke="#1a0f29" stroke-width="1.5"/>
+        <path d="M25 27Q31 24 36 29Q40 34 34 37Q28 39 26 34Z" fill="#9b3a32" opacity=".85"/>
+        <path d="M46 28Q50 27 51 31Q50 35 47 34Z" fill="#6e5a43"/>
+      </g>
+    </symbol>
+    <symbol id="i-bottle" viewBox="0 0 64 64">
+      <rect x="26" y="3" width="12" height="8" rx="1.5" fill="#e2675a" stroke="#1a0f29" stroke-width="1.5"/>
+      <path d="M27 11H37V18Q47 22 47 31V56Q47 61 42 61H22Q17 61 17 56V31Q17 22 27 18Z" fill="#cfe9ff" fill-opacity=".55" stroke="#1a0f29" stroke-width="2"/>
+      <path d="M18.5 36H45.5V56Q45.5 59.5 42 59.5H22Q18.5 59.5 18.5 56Z" fill="#9fd8ff" opacity=".55"/>
+      <rect x="20" y="30" width="24" height="16" rx="2" fill="#f6efff" stroke="#1a0f29" stroke-width="1.2"/>
+      <path d="M32 33V43M27 38H37" stroke="#e2675a" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-flashlight" viewBox="0 0 64 64">
+      <g transform="rotate(-30 32 32)">
+        <path d="M44 22L62 14V50L44 42Z" fill="#ffe08a" opacity=".35"/>
+        <rect x="6" y="25" width="28" height="14" rx="3" fill="#3b3550" stroke="#1a0f29" stroke-width="1.8"/>
+        <path d="M34 23H40L46 19V45L40 41H34Z" fill="#6b6582" stroke="#1a0f29" stroke-width="1.8" stroke-linejoin="round"/>
+        <rect x="45" y="19" width="3" height="26" rx="1" fill="#fff4c2"/>
+        <rect x="16" y="28" width="7" height="8" rx="1.5" fill="#e2675a"/>
+        <path d="M9 29v6M12 29v6" stroke="#5d5774" stroke-width="1.6"/>
+      </g>
+    </symbol>
+    <symbol id="i-belt" viewBox="0 0 64 64">
+      <path d="M2 24Q32 32 62 24V36Q32 44 2 36Z" fill="#7a5233" stroke="#1a0f29" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M4 30Q32 37 60 30" fill="none" stroke="#a6774f" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <rect x="24" y="24" width="16" height="17" rx="2.5" fill="none" stroke="#e0c27a" stroke-width="3.5"/>
+      <path d="M32 30V36" stroke="#e0c27a" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-swap" viewBox="0 0 64 64">
+      <path d="M10 22H46" fill="none" stroke="#c592ff" stroke-width="5" stroke-linecap="round"/>
+      <path d="M38 12L50 22L38 32" fill="none" stroke="#c592ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M54 44H18" fill="none" stroke="#f6efff" stroke-width="5" stroke-linecap="round"/>
+      <path d="M26 34L14 44L26 54" fill="none" stroke="#f6efff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-axe" viewBox="0 0 64 64">
+      <g transform="rotate(-30 32 32)">
+        <rect x="29" y="8" width="6" height="54" rx="3" fill="#b98a5a" stroke="#1a0f29" stroke-width="1.5"/>
+        <path d="M33 6Q48 6 52 2Q55 14 52 26Q47 20 33 20Z" fill="#c9d2e3" stroke="#1a0f29" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M52 3Q55 14 52 25" fill="none" stroke="#f6f9ff" stroke-width="2"/>
+      </g>
+    </symbol>
+    <symbol id="i-rifle" viewBox="0 0 64 64">
+      <g transform="rotate(-35 32 32)">
+        <path d="M2 30H44V36H30L26 40H20L18 36H2Z" fill="#4a4558" stroke="#1a0f29" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M2 31H62V34H2Z" fill="#6b6582" stroke="#1a0f29" stroke-width="1.2"/>
+        <path d="M44 30H58L62 44Q54 46 48 40L44 36Z" fill="#8a5d3b" stroke="#1a0f29" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="20" y="26" width="12" height="4" rx="1" fill="#2c2840" stroke="#1a0f29" stroke-width="1"/>
+      </g>
+    </symbol>
   </defs>
 </svg>
 
@@ -266,22 +345,24 @@
   <div class="sub">Common-sense quality of life for Project Zomboid Build 42</div>
   <div class="pills">
     <span class="pill">Crowbar prying</span>
-    <span class="pill">Leverage minigame</span>
     <span class="pill">Tool return</span>
     <span class="pill">Can opening</span>
     <span class="pill">Burn all</span>
     <span class="pill">Rip all</span>
     <span class="pill">The mirror</span>
+    <span class="pill">Bandages</span>
+    <span class="pill">Bags in bags</span>
   </div>
   <div class="row">
-    <div class="spr"><svg class="ic" width="165" height="165"><use href="#i-crowbar"/></svg></div>
-    <div class="spr"><svg class="ic" width="160" height="160"><use href="#i-door"/></svg></div>
-    <div class="spr"><svg class="ic" width="160" height="160"><use href="#i-car"/></svg></div>
-    <div class="spr"><svg class="ic" width="125" height="125"><use href="#i-can"/></svg></div>
-    <div class="spr"><svg class="ic" width="125" height="125"><use href="#i-lighter"/></svg></div>
-    <div class="spr"><svg class="ic" width="135" height="135"><use href="#i-shirt"/></svg></div>
-    <div class="spr"><svg class="ic" width="180" height="180"><use href="#i-mirror"/></svg></div>
-    <div class="spr"><svg class="ic" width="130" height="130"><use href="#i-bag"/></svg></div>
+    <div class="spr"><svg class="ic" width="148" height="148"><use href="#i-crowbar"/></svg></div>
+    <div class="spr"><svg class="ic" width="142" height="142"><use href="#i-door"/></svg></div>
+    <div class="spr"><svg class="ic" width="142" height="142"><use href="#i-car"/></svg></div>
+    <div class="spr"><svg class="ic" width="110" height="110"><use href="#i-can"/></svg></div>
+    <div class="spr"><svg class="ic" width="112" height="112"><use href="#i-lighter"/></svg></div>
+    <div class="spr"><svg class="ic" width="120" height="120"><use href="#i-shirt"/></svg></div>
+    <div class="spr"><svg class="ic" width="112" height="112"><use href="#i-bandage"/></svg></div>
+    <div class="spr"><svg class="ic" width="164" height="164"><use href="#i-mirror"/></svg></div>
+    <div class="spr"><svg class="ic" width="116" height="116"><use href="#i-bag"/></svg></div>
   </div>
 </section>
 
@@ -319,17 +400,21 @@
   <div class="tile"><svg class="ic"><use href="#i-mirror"/></svg></div>
   <div class="num">07</div><h2>The mirror</h2><div class="rule"></div>
 </section>
+<section class="shot hdr" id="h-gear">
+  <div class="tile"><svg class="ic"><use href="#i-bandage"/></svg></div>
+  <div class="num">08</div><h2>Bandages, belt and bags</h2><div class="rule"></div>
+</section>
 <section class="shot hdr" id="h-sandbox">
   <div class="tile"><svg class="ic"><use href="#i-gear"/></svg></div>
-  <div class="num">08</div><h2>Sandbox options</h2><div class="rule"></div>
+  <div class="num">09</div><h2>Sandbox options</h2><div class="rule"></div>
 </section>
 <section class="shot hdr" id="h-compat">
   <div class="tile"><svg class="ic"><use href="#i-puzzle"/></svg></div>
-  <div class="num">09</div><h2>Compatibility</h2><div class="rule"></div>
+  <div class="num">10</div><h2>Compatibility</h2><div class="rule"></div>
 </section>
 <section class="shot hdr" id="h-help">
   <div class="tile"><svg class="ic"><use href="#i-help"/></svg></div>
-  <div class="num">10</div><h2>Bugs and help</h2><div class="rule"></div>
+  <div class="num">11</div><h2>Bugs and help</h2><div class="rule"></div>
 </section>
 
 <!-- =============================================================== prying
@@ -570,6 +655,52 @@
     </div>
   </div>
   <div class="note">Skills you already have more of stay as they are<span class="dot">·</span>one save per account in multiplayer, one per player in split screen</div>
+</section>
+
+<!-- =============================================================== bandages, belt and bags (1.2.0)
+     DE_Bandage / DE_BandageMenu: right-click a clean bandage, vanilla ISApplyBandage remove + apply per dirty part.
+     DE_Sterilize: BandageDirty / RippedSheetsDirty -> sterilized, rubbing alcohol or a 40% spirit, 50 ml each (10..200).
+     DE_Belt: flashlights take any hotbar slot a walkie-talkie takes. DE_BackSwap: Back slot swap, key unbound.
+     DE_NestedBags: a button per packed bag, NestedBagsDepth 2 by default (1..4). Counts in the menus are an example. -->
+<section class="shot panel gear" id="gear">
+  <div class="ptitle">Small chores, one click</div>
+  <div class="grid cols-2 gear2">
+    <div class="card">
+      <div class="art"><svg class="ic" width="104" height="104"><use href="#i-bandage-dirty"/></svg><span class="to">→</span><svg class="ic" width="104" height="104"><use href="#i-bandage"/></svg></div>
+      <h4>Replace dirty bandages</h4>
+      <div class="menu"><div class="it dim">Apply bandage</div><div class="it hi">Replace dirty bandages (3)</div></div>
+      <div class="sub">Right-click a clean bandage: every dirty one you wear<br>comes off and a clean one goes on.<br><span class="accent">Vanilla's own bandaging · you keep the dirty ones</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><svg class="ic" width="96" height="96"><use href="#i-bandage-dirty"/></svg><svg class="ic" width="86" height="86"><use href="#i-rags"/></svg><span class="to">+</span><svg class="ic" width="112" height="112"><use href="#i-bottle"/></svg></div>
+      <h4>Clean with alcohol</h4>
+      <div class="menu"><div class="it dim">Drop</div><div class="it hi">Clean with alcohol (4)</div></div>
+      <div class="sub">Right-click a dirty bandage or rag: it comes out<br>sterilized in one step, no washing first.</div>
+      <div class="chips"><span class="chip">Rubbing alcohol</span><span class="chip">Vodka, whiskey, rum...</span><span class="chip">50 ml each</span></div>
+    </div>
+  </div>
+  <div class="grid cols-3 gear3" style="margin-top:14px">
+    <div class="card">
+      <div class="art"><svg class="ic" width="150" height="150" style="margin-right:-44px"><use href="#i-belt"/></svg><svg class="ic" width="104" height="104" style="margin-top:56px;transform:rotate(60deg)"><use href="#i-flashlight"/></svg></div>
+      <h4>Flashlight on your belt</h4>
+      <div class="sub">Hangs in any belt slot<br><span class="accent">a walkie-talkie fits</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><svg class="ic" width="112" height="112"><use href="#i-axe"/></svg><svg class="ic" width="62" height="62"><use href="#i-swap"/></svg><svg class="ic" width="132" height="132"><use href="#i-rifle"/></svg></div>
+      <h4>Swap hands and back</h4>
+      <div class="sub">One <span class="key">key</span> or a right-click<br><span class="accent">unbound until you set it</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><div class="btns">
+        <div class="b"><svg class="ic" width="56" height="56"><use href="#i-shirt"/></svg></div>
+        <div class="b"><svg class="ic" width="58" height="58"><use href="#i-bag"/></svg></div>
+        <div class="b new"><svg class="ic" width="50" height="50"><use href="#i-bag"/></svg></div>
+      </div></div>
+      <h4>Bags inside bags</h4>
+      <div class="sub">A packed bag gets its own<br><span class="accent">inventory button</span></div>
+    </div>
+  </div>
+  <div class="note">Each has its own sandbox switch, all on by default<span class="dot">·</span>bind the swap key in Options &gt; Mods &gt; Dazed Core</div>
 </section>
 
 <script>

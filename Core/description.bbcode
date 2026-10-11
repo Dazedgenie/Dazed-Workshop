@@ -21,12 +21,15 @@ It does nothing on its own. Every Dazed mod loads it first.
 You will never open Dazed Core directly, but you will feel it in every Dazed mod:
 
 [list]
-[*][b]Heavy parts[/b] – anything over 30 kg (big tanks, solar arrays, controllers) is carried as parts, (1/2) and (2/2), just like a vanilla bed or shelving. Placing needs every part on you.
-[*][b]Building Picker[/b] – click houses, basements or structures you built yourself to serve them with power or water. Green is served, yellow adds, blue removes, red is out of reach. Made to work on dedicated servers too.
-[*][b]One sandbox preset[/b] – Custom, Easy, Standard, Realistic or Hardcore sets every Dazed mod's options at once from a single Dazed Core page in the sandbox options.
-[*][b]Dazed Mod Suite Guide[/b] – a book button at the foot of the left sidebar opens an in-game guide with a tab for each Dazed mod you have enabled.
-[*][b]Shared options page[/b] – all Dazed tick boxes live under one “Dazed Core” entry in the Mods options tab.
-[*][b]Server sync[/b] – the server is the authority, clients stay in step, and a line above your head tells you why something was refused.
+[*][b]Heavy parts:[/b] anything over 30 kg (big tanks, solar arrays, controllers) is carried as parts, (1/2) and (2/2), just like a vanilla bed or shelving. Placing needs every part on you.
+[*][b]Building Picker:[/b] click houses, basements or structures you built yourself to serve them with power or water. Green is served, yellow adds, blue removes, red is out of reach.
+[*][b]One sandbox preset:[/b] Custom, Easy, Standard, Realistic or Hardcore on the Dazed Core sandbox page sets the options of Power, Plumbing, Climate and Essentials at once.
+[*][b]Dazed Mod Suite Guide:[/b] a book button at the foot of the left sidebar opens an in-game guide, with tabs for Basics, Power, Plumbing, Butchery, Cooking and Dank when those mods are on.
+[*][b]Shared options page:[/b] every Dazed tick box and key lives under one "Dazed Core" entry in the Mods options tab.
+[*][b]Temperatures:[/b] one setting (game setting, Celsius or Fahrenheit) that Climate, Dank, the EVs and the thermometer all follow.
+[*][b]Plays nice:[/b] a Dazed feature steps aside when another mod you run already does the same job.
+[*][b]Debug spawn:[/b] in debug mode or for server staff, a "Dazed debug" right-click menu spawns a mod's whole item set for testing.
+[*][b]Server sync:[/b] the server is the authority, clients stay in step, and a line above your head tells you why something was refused.
 [/list]
 [img]https://raw.githubusercontent.com/Dazedgenie/Dazed-Workshop/main/Core/images/picker.png[/img]
 [img]https://raw.githubusercontent.com/Dazedgenie/Dazed-Workshop/main/Core/images/settings.png[/img]
@@ -36,20 +39,21 @@ You will never open Dazed Core directly, but you will feel it in every Dazed mod
 [h2]The Dazed suite[/h2]
 [img]https://raw.githubusercontent.com/Dazedgenie/Dazed-Workshop/main/Core/images/suite.png[/img]
 [list]
-[*][b]Dazed Power[/b] – solar, wind, steam and gas generators feeding battery banks, with a controller monitor and cabled buildings
-[*][b]Dazed Power: Electric Vehicles[/b] – homemade 1993 electric vehicles built from car batteries and charged from your Power system
-[*][b]Dazed Plumbing[/b] – tanks, pipes, pumps, wells, rain collection, purifiers and a water main that brings a whole house back to life
-[*][b]Dazed Dank[/b] – realistic cannabis growing: strains, grow rooms, hydro, drying, curing and smoking
-[*][b]Dazed Climate[/b] – a temperature overhaul: real winters, rooms that hold heat, frost on crops and freezing pipes
-[*][b]Dazed Butchery[/b] – pick a primal from the carcass and trace every cut yourself; hidden grades, field dressing, dry-aging
-[*][b]Dazed Cooking[/b] – every cut has a best method and a best doneness; cook it right and your survivor feels it
-[*][b]Dazed Essentials[/b] – common-sense quality of life, every feature a sandbox switch
+[*][b]Dazed Power[/b]: solar, wind, steam and gas generators feeding battery banks, with a controller and cabled buildings
+[*][b]Dazed Power: Electric Vehicles[/b]: homemade 1993 electric vehicles built from car batteries and charged from your Power system
+[*][b]Dazed Plumbing[/b]: tanks, pipes, pumps, wells, rain collection, purifiers and a water main that brings a whole house back to life
+[*][b]Dazed Dank[/b]: realistic cannabis growing: strains, grow rooms, hydro, drying, curing and smoking
+[*][b]Dazed Dank: Garden Crops[/b]: grow vanilla crops in Dank's grow bags and hydro
+[*][b]Dazed Butchery[/b]: pick a primal from the carcass and trace every cut yourself; hidden grades, field dressing, dry-aging
+[*][b]Dazed Cooking[/b]: every cut has a best method and a best doneness; cook it right and your survivor feels it
+[*][b]Dazed Climate[/b]: a temperature overhaul: real winters, rooms that hold heat, frost on crops, row tunnels and freezing pipes
+[*][b]Dazed Essentials[/b]: common-sense quality of life, every feature a sandbox switch
 [/list]
 
 [hr][/hr]
 
 [img]https://raw.githubusercontent.com/Dazedgenie/Dazed-Workshop/main/Core/images/h-authors.png[/img]
-Dazed Core is a library other mods can build on: a power registry (register a provider or a load and ask [i]isPowered(obj)[/i] about any object), building and reach resolution, synced ModData tables, a client-to-authority request layer with rate limits, mod detection so features can yield to another mod, schema migration, and a shared Error Magnifier report. Full API notes and headless tests are in the GitHub repo.
+Dazed Core is a library other mods can build on: a power registry (register a provider or a load and ask [i]isPowered(obj)[/i] about any object), building and reach resolution, synced ModData tables, a client-to-authority request layer with rate limits, mod detection so features can yield to another mod, schema migration, one temperature lookup for every mod, 20 shared part tags (motors, compressors, copper tubing, wiring harnesses and more) that any Dazed recipe can name, a debug spawn menu mods add item sets to, and a shared Error Magnifier report. Full API notes and headless tests are in the GitHub repo.
 
 [url=https://github.com/Dazedgenie/DazedCore]Source on GitHub[/url]
 
@@ -70,4 +74,4 @@ Post in the Discussions tab or open an issue on GitHub. Please include your game
 [h2]Credits and licence[/h2]
 The building resolver and Building Picker are adapted from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3789425624]Off-Grid: Solar Power[/url] by cakcan, with the author's licence (CC BY-NC-SA 4.0). Dazed Core is released under the same licence. Sprite tooling from pz-sprite-forge (MIT).
 
-[i]Mod ID: DazedCore · Version 1.6.0[/i]
+[i]Mod ID: DazedCore · Version 1.7.0[/i]

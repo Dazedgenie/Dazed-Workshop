@@ -2,110 +2,161 @@
 <!-- Dazed Power: Electric Vehicles Workshop art. Each <section class="shot" id="x"> renders to images/x.png
      (banner -> banner.jpg):  node _kit/render.mjs PowerEV   (from the workshop-art root).
      Sprites come from sprites.json:  python3 _kit/sprites.py PowerEV
-     Vehicle, charger and makeshift-battery pictures are the mod's concept renders
-     (/mnt/project-files/electric-vehicles/art); banks, bench and controller are Dazed Power's own tiles.
-     Numbers are from the mod code: EV_Model.lua (cells, kinds, limp/crawl, cold factor, accessories),
-     EV_Server.lua (600 W lead), EV_Actions/EV_Build/EV_BuildWedge (skills, parts). -->
+     renders/: the mod's own game meshes (models_X + textures/Vehicles on main), rendered on a transparent ground by
+     the repo's tools/<vehicle>/build_model.py preview cameras and tools/addons (wheels are the tools' plain stand-ins);
+     icon-*.png from tools/icons/render_icons.py (the 256 px source of the 32 px item icons); dash-*.png from
+     EV_DashLayout.build through tools/preview/dash_preview.py with Power's board textures.
+     Donor cars are vanilla B42 models (project electric-vehicles/donor-cars). The chargers are the mod's own tiles
+     (dazedpowerev_01, lamp lit); banks, bench and controller are Dazed Power's tiles. The makeshift battery is the
+     one concept render left: in game it uses vanilla's car battery icon.
+     Numbers are from the mod code: EV_Model.lua (KINDS, CELLS, limp/crawl, cold, HEAT, FAULTS, BAL, box),
+     EV_Charger.lua (600/1200/2400 W, 4 tiles), EV_Server.lua (600 W lead, 10 tiles), EV_Solar/README (clear-day kWh),
+     EV_Implements (draws, 8 km/h), EV_Trailers, EV_Salvage, EV_Motor (loudness), EV_Spawns, EV_Loot. -->
 <html>
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="../_kit/suite.css">
 <style>
-  /* concept renders carry a soft baked shadow: fade their crop edges into the panel */
+  /* the one concept render: fade its crop edges into the panel */
   img.r { -webkit-mask-image:
       linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%),
       linear-gradient(180deg, transparent 0, #000 6%, #000 92%, transparent 100%);
     -webkit-mask-composite: source-in; mask-composite: intersect; }
 
-  /* banner: a longer title than the others, so a little smaller */
+  /* banner */
   #banner .title { font-size: 136px; letter-spacing: 3px; top: 80px; }
   #banner .sub { top: 232px; }
   #banner .pills { top: 294px; }
-  #banner .row { left: 24px; right: 24px; height: 236px; }
-  #banner .spr::after { width: 210px; }
+  #banner .row { left: 14px; right: 14px; height: 236px; }
+  #banner .spr::after { width: 190px; }
 
   .hdr .tile svg { width: 76px; height: 76px; }
-  .hdr .tile img.r { -webkit-mask-image: none; }
 
-  /* vehicles */
-  .veh { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .veh .art { height: 196px; margin-bottom: 14px; }
-  .veh .art img { max-width: 250px; max-height: 186px; width: auto !important; height: auto !important; }
-  .veh h4 { font-size: 31px; white-space: nowrap; }
-  .veh .art::after { width: 230px; }
-  .chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  .chip { font-size: 21px; font-weight: 600; padding: 5px 13px; border-radius: 999px; border: 1.5px solid #6d43b5;
+  .chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+  .chip { font-size: 20px; font-weight: 600; padding: 4px 12px; border-radius: 999px; border: 1.5px solid #6d43b5;
     background: var(--well); color: var(--lilac); white-space: nowrap; line-height: 1.2; }
   .chip.hot { border-color: #b98af7; color: var(--ink); }
-  .chip.go { border-color: #6fcf8f; color: #c9f5d6; }
-  .donors { display: flex; justify-content: center; flex-wrap: nowrap; gap: 6px; margin-top: 10px; }
-  .donors .chip { font-size: 19px; padding: 5px 10px; }
-  .card.wide { padding: 16px 20px 18px; }
-  .card.wide h4 { font-size: 28px; margin-bottom: 4px; }
   .fine { text-align: center; font-size: 19px; color: var(--muted); margin-top: 12px; font-style: italic; }
+  .card.list { text-align: left; padding: 18px 22px 20px; }
+  .card.list h4 { text-align: center; font-size: 28px; margin-bottom: 12px; }
+  .card.list .foot { margin-top: 10px; text-align: center; }
+  .wrow { display: grid; grid-template-columns: 1fr auto; column-gap: 14px; font-size: 22px; padding: 6px 0; border-bottom: 1px solid rgba(160, 110, 230, .25); }
+  .wrow:last-child { border-bottom: 0; }
+  .wrow b { color: var(--ink); }
+  .wrow span { color: var(--lilac); text-align: right; }
+  .big { font-weight: 800; font-size: 48px; line-height: 1; color: var(--ink); }
+  .big small { font-size: 25px; font-weight: 700; color: var(--lilac); margin-left: 4px; }
+  .art img { width: auto; height: auto; }
 
-  /* building */
-  .mag { font-style: italic; font-weight: 700; font-size: 25px; color: var(--accent); margin-bottom: 4px; }
-  .act { display: inline-block; margin: 6px 0 4px; font-size: 22px; font-weight: 700; color: #1b0d2c;
-    background: linear-gradient(90deg, #c592ff, #9a5cf0); border-radius: 8px; padding: 5px 14px; }
-  .parts { text-align: left; margin: 12px 4px 0; font-size: 21px; line-height: 1.4; color: var(--muted); }
-  .parts b { color: var(--ink); font-weight: 600; }
-  .bld .art { height: 176px; margin-bottom: 12px; }
-  .bld .art::after { width: 220px; }
-  .bld .art img { max-height: 166px; max-width: 300px; width: auto !important; height: auto !important; }
+  /* vehicles */
+  .veh { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .veh .chip { font-size: 18px; padding: 4px 10px; }
+  .veh .chips { gap: 6px; flex-wrap: nowrap; }
+  .veh .art { height: 190px; margin-bottom: 10px; }
+  .veh .art img { max-width: 330px; max-height: 186px; }
+  .veh .art::after { width: 260px; }
+  .veh h4 { font-size: 30px; margin-bottom: 4px; white-space: nowrap; }
+
+  /* conversions */
+  .donors { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .donor { text-align: center; }
+  .donor .art { height: 118px; margin-bottom: 6px; }
+  .donor .art img { max-width: 160px; max-height: 112px; }
+  .donor .art::after { width: 140px; }
+  .donor b { display: block; font-size: 19px; color: var(--ink); line-height: 1.2; }
+  .conv3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+
+  /* magazines */
+  .mags { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .mag { text-align: left; padding: 14px 14px 16px; }
+  .cover { height: 104px; border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; display: flex; flex-direction: column;
+    justify-content: space-between; box-shadow: 0 4px 0 rgba(0,0,0,.35); border: 1.5px solid rgba(255,255,255,.25); }
+  .cover .t { font-weight: 800; font-size: 22px; line-height: 1.05; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+  .cover .y { font-size: 15px; font-weight: 700; color: rgba(255,255,255,.85); letter-spacing: 1px; }
+  .mag ul { list-style: none; font-size: 19px; line-height: 1.3; color: var(--muted); }
+  .mag li { padding: 3px 0 3px 14px; position: relative; }
+  .mag li::before { content: ""; position: absolute; left: 0; top: 11px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .mag li b { color: var(--ink); font-weight: 600; }
+  .known { margin-top: 14px; padding: 16px 18px; }
+  .known h4 { font-size: 26px; margin-bottom: 4px; }
+  .known .chip { font-size: 18px; padding: 4px 10px; }
+  .known .chips { gap: 6px; flex-wrap: nowrap; }
 
   /* pack */
-  .bat .art { height: 150px; margin-bottom: 12px; }
-  .big { font-weight: 800; font-size: 50px; line-height: 1; color: var(--ink); }
-  .big small { font-size: 26px; font-weight: 700; color: var(--lilac); margin-left: 4px; }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .card.list { text-align: left; padding: 18px 22px 20px; }
-  .card.list h4 { text-align: center; font-size: 29px; margin-bottom: 14px; }
-  .card.list .foot { margin-top: 12px; text-align: center; }
-  .bar .in.out { color: var(--ink); }
+  .bat .art { height: 140px; margin-bottom: 10px; }
+  .bat .art img { max-height: 140px; max-width: 220px; }
+  .bat h4 { font-size: 28px; margin-bottom: 6px; }
+  .kit { display: grid; grid-template-columns: 124px minmax(0, 1fr); gap: 14px; align-items: center; text-align: left; padding: 14px 16px; }
+  .kit .art { height: 110px; margin: 0; }
+  .kit .art img { max-height: 104px; max-width: 116px; }
+  .kit .art::after { width: 110px; }
+  .kit h4 { font-size: 25px; margin-bottom: 4px; }
+  .kit .sub { font-size: 19px; line-height: 1.3; }
 
   /* driving */
-  .drv { display: grid; grid-template-columns: 600px 1fr; gap: 14px; }
-  .dashcard { padding: 18px 18px 14px; }
-  .dashcard img { margin: 0 auto; border-radius: 10px; box-shadow: 0 0 0 1.5px #6c40b8; }
-  .rng { display: grid; grid-template-columns: 1fr auto; row-gap: 10px; column-gap: 12px; align-items: center; font-size: 24px; }
-  .rng .v { font-weight: 800; font-size: 28px; color: var(--ink); text-align: right; }
+  .drv { display: grid; grid-template-columns: 604px 1fr; gap: 14px; }
+  .dashcard { padding: 16px 16px 12px; display: flex; flex-direction: column; justify-content: center; }
+  .dashcard img { display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 0 0 1.5px #6c40b8; }
+  .rng { display: grid; grid-template-columns: 1fr auto; row-gap: 5px; column-gap: 12px; align-items: center; font-size: 22px; }
+  .rng .v { font-weight: 800; font-size: 23px; color: var(--ink); text-align: right; }
   .rng .k { color: var(--lilac); }
-  .soc { position: relative; height: 54px; border-radius: 12px; border: 1.5px solid #6c40b8; background: var(--well); overflow: hidden; display: flex; }
-  .soc div { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 21px; white-space: nowrap; }
+  .soc { position: relative; height: 50px; border-radius: 12px; border: 1.5px solid #6c40b8; background: var(--well); overflow: hidden; display: flex; }
+  .soc div { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px; white-space: nowrap; }
   .soc .z0 { width: 5%; background: #d0524f; }
   .soc .z1 { width: 10%; background: #e6a23c; color: #2b1544; }
   .soc .z2 { flex: 1; background: linear-gradient(90deg, var(--fill-b), var(--fill-a)); color: #1b0d2c; }
-  .socax { position: relative; height: 26px; font-size: 19px; color: var(--muted); }
-  .socax span { position: absolute; transform: translateX(-50%); top: 4px; }
-  .keys { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px; }
-  .key { font-size: 20px; color: var(--muted); line-height: 1.3; text-align: center; }
-  .key b { display: block; font-size: 22px; color: var(--ink); }
-  .key i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
-  .wrow { display: grid; grid-template-columns: 1fr auto; font-size: 23px; padding: 7px 0; border-bottom: 1px solid rgba(160, 110, 230, .25); }
-  .wrow:last-child { border-bottom: 0; }
-  .wrow b { color: var(--ink); }
-  .wrow span { color: var(--lilac); }
+  .socax { position: relative; height: 24px; font-size: 18px; color: var(--muted); }
+  .socax span { position: absolute; transform: translateX(-50%); top: 3px; }
+  .keys { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 6px; }
+  .key { font-size: 19px; color: var(--muted); line-height: 1.3; text-align: center; }
+  .key b { display: block; font-size: 21px; color: var(--ink); }
+  .key i { display: inline-block; width: 13px; height: 13px; border-radius: 50%; margin-right: 6px; }
+  .bars.sm .bar { height: 40px; }
+  .bars.sm .bar .in, .bars.sm .bar .tail { font-size: 21px; }
 
   /* charging */
-  .flow { display: grid; grid-template-columns: 300px 1fr 330px; align-items: end; gap: 6px; height: 240px; padding: 0 10px; }
-  .flow .src, .flow .dst { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 100%; }
-  .flow .src::after, .flow .dst::after { content: ""; position: absolute; left: 50%; bottom: -10px; width: 240px; height: 26px;
-    transform: translateX(-50%); background: radial-gradient(ellipse at center, rgba(165, 90, 255, .55), rgba(165, 90, 255, 0) 70%); }
-  .flow img { position: relative; z-index: 1; }
-  .lead { align-self: end; text-align: center; margin-bottom: 6px; }
-  .lead svg { display: block; margin: 0 auto 6px; }
-  .lead .w { font-weight: 800; font-size: 54px; line-height: 1; color: #ffd36b; text-shadow: 0 0 14px rgba(255, 200, 90, .35); }
-  .lead .sub { margin-top: 4px; }
-  .ct { display: grid; grid-template-columns: auto 1fr 76px; align-items: center; column-gap: 16px; row-gap: 16px; margin-top: 4px; }
-  .ct .k { font-size: 24px; font-weight: 700; color: var(--ink); white-space: nowrap; }
-  .ct .v { font-size: 25px; font-weight: 800; color: var(--ink); text-align: right; }
-  .ct .t { height: 22px; border-radius: 11px; background: var(--well); border: 1.5px solid #6c40b8; overflow: hidden; }
-  .ct .t i { display: block; height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--fill-b), var(--fill-a)); }
-  .chg { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
-  .bench { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 16px; text-align: left; }
-  .bench .art { height: 160px; margin: 0; }
-  .bench h4 { font-size: 29px; margin-bottom: 6px; }
+  .grades { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .grades .art { height: 170px; margin-bottom: 8px; }
+  .grades .art img { max-height: 166px; }
+  .grades h4 { font-size: 25px; margin-bottom: 4px; }
+  .w { font-weight: 800; font-size: 44px; line-height: 1; color: #ffd36b; text-shadow: 0 0 14px rgba(255, 200, 90, .35); margin: 4px 0 6px; }
+  .src { display: flex; align-items: flex-end; justify-content: center; gap: 4px; }
+  .chg2 { display: grid; grid-template-columns: 604px 1fr; gap: 14px; margin-top: 14px; }
+  .ct { display: grid; grid-template-columns: auto 1fr 1fr 1fr; column-gap: 10px; row-gap: 8px; align-items: center; font-size: 21px; }
+  .ct .h { font-weight: 700; color: #ffd36b; text-align: right; font-size: 20px; }
+  .ct .k { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .ct .v { color: var(--lilac); text-align: right; font-weight: 700; }
+
+  /* solar */
+  .sol .art { height: 200px; margin-bottom: 10px; }
+  .sol .art img { max-height: 196px; max-width: 350px; }
+  .sol .art::after { width: 280px; }
+  .sol h4 { font-size: 28px; margin-bottom: 4px; }
+  .kwh { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; column-gap: 12px; row-gap: 6px; font-size: 21px; align-items: center; }
+  .kwh .h { font-weight: 700; color: #ffd36b; text-align: center; }
+  .kwh .k { font-weight: 600; color: var(--ink); }
+  .kwh .v { color: var(--lilac); text-align: center; }
+
+  /* towing */
+  .imp .art { height: 170px; margin-bottom: 8px; }
+  .imp .art img { max-height: 166px; max-width: 340px; }
+  .imp .art::after { width: 260px; }
+  .imp h4 { font-size: 27px; margin-bottom: 4px; }
+  .sec { font-weight: 700; font-size: 25px; color: var(--lilac); text-align: center; margin: 18px 0 12px; }
+
+  /* faults */
+  .heat { position: relative; height: 50px; border-radius: 12px; border: 1.5px solid #6c40b8; overflow: hidden; display: flex; }
+  .heat div { display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 19px; white-space: nowrap; color: #1b0d2c; }
+  .heatax { position: relative; height: 26px; font-size: 18px; color: var(--muted); }
+  .heatax span { position: absolute; transform: translateX(-50%); top: 3px; }
+  .flt h4 { font-size: 25px; margin-bottom: 4px; }
+  .flt .sub { font-size: 19px; line-height: 1.3; }
+  .snd { display: grid; grid-template-columns: auto 1fr auto; column-gap: 12px; row-gap: 4px; font-size: 20px; align-items: center; }
+  .snd .k { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .snd .v { color: var(--muted); }
+  .snd .l { display: flex; gap: 3px; }
+  .snd .l i { width: 9px; height: 16px; border-radius: 2px; background: #3a2358; }
+  .snd .l i.on { background: linear-gradient(180deg, var(--fill-a), var(--fill-b)); }
 </style>
 </head>
 <body>
@@ -116,26 +167,26 @@
   <div class="sub">Homemade 1993 electric vehicles for Project Zomboid Build 42</div>
   <div class="pills">
     <span class="pill">Garage conversions</span>
-    <span class="pill">Club Cart</span>
-    <span class="pill">Elec-Trak</span>
-    <span class="pill">Wedge car</span>
+    <span class="pill">Carts, tractor, hauler</span>
     <span class="pill">Battery packs</span>
-    <span class="pill">Charge from Dazed Power</span>
+    <span class="pill">EV chargers</span>
+    <span class="pill">Roof solar</span>
+    <span class="pill">Trailers</span>
   </div>
   <div class="row">
-    <div class="spr"><img src="sprites/conv.png" class="r" style="height:186px"></div>
-    <div class="spr"><img src="sprites/bank-cabinet.png" style="height:142px"></div>
-    <div class="spr"><img src="sprites/cart.png" class="r" style="height:200px"></div>
-    <div class="spr"><img src="sprites/bench.png" style="height:124px"></div>
-    <div class="spr"><img src="sprites/trak.png" class="r" style="height:168px"></div>
-    <div class="spr"><img src="sprites/wedge-lead.png" class="r" style="height:178px"></div>
+    <div class="spr"><img src="sprites/d-dart.png" style="height:140px"></div>
+    <div class="spr"><img src="sprites/ch-work.png" style="height:150px"></div>
+    <div class="spr"><img src="sprites/a-cart-salv.png" style="height:190px"></div>
+    <div class="spr"><img src="sprites/a-mower.png" style="height:148px"></div>
+    <div class="spr"><img src="sprites/v-hauler.png" style="height:150px"></div>
+    <div class="spr"><img src="sprites/a-foldout.png" style="height:176px"></div>
   </div>
 </section>
 
 <!-- =============================================================== section headers -->
 <section class="shot hdr" id="h-build">
-  <div class="tile"><img src="sprites/cart.png" style="width:90px;height:auto"></div>
-  <div class="num">01</div><h2>What’s in this build</h2><div class="rule"></div>
+  <div class="tile"><img src="sprites/v-cart.png" style="width:96px;height:auto"></div>
+  <div class="num">01</div><h2>The vehicles</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-building">
@@ -145,11 +196,11 @@
       <path d="M44 38l-6 12h8l-6 12" stroke="#ffd36b" stroke-width="4"/>
     </svg>
   </div>
-  <div class="num">02</div><h2>Building them</h2><div class="rule"></div>
+  <div class="num">02</div><h2>Magazines and building</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-pack">
-  <div class="tile"><img src="sprites/makeshift.png" style="width:84px;height:auto"></div>
+  <div class="tile"><img src="sprites/i-meter.png" style="width:84px;height:auto"></div>
   <div class="num">03</div><h2>Batteries and the pack</h2><div class="rule"></div>
 </section>
 
@@ -163,113 +214,190 @@
       <circle cx="32" cy="46" r="5" fill="#ddc6ff"/>
     </svg>
   </div>
-  <div class="num">04</div><h2>Driving</h2><div class="rule"></div>
+  <div class="num">04</div><h2>Driving and the dash</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-charging">
-  <div class="tile"><img src="sprites/bench.png" style="height:80px"></div>
+  <div class="tile"><img src="sprites/ch-salv.png" style="height:84px;width:auto"></div>
   <div class="num">05</div><h2>Charging</h2><div class="rule"></div>
 </section>
 
+<section class="shot hdr" id="h-solar">
+  <div class="tile"><img src="sprites/a-cart-salv.png" style="width:96px;height:auto"></div>
+  <div class="num">06</div><h2>Roof solar</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-towing">
+  <div class="tile"><img src="sprites/a-plough.png" style="width:96px;height:auto"></div>
+  <div class="num">07</div><h2>Implements and trailers</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-faults">
+  <div class="tile">
+    <svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="25" y="8" width="14" height="36" rx="7" stroke="#ddc6ff" stroke-width="4"/>
+      <circle cx="32" cy="50" r="9" fill="#ff7a6b" stroke="#ddc6ff" stroke-width="4"/>
+      <path d="M32 44V22" stroke="#ff7a6b" stroke-width="6"/>
+    </svg>
+  </div>
+  <div class="num">08</div><h2>Heat, faults, sound and junkers</h2><div class="rule"></div>
+</section>
+
 <section class="shot hdr" id="h-planned">
-  <div class="tile"><img src="sprites/ch-workshop.png" style="height:88px"></div>
-  <div class="num">06</div><h2>Not in this build yet</h2><div class="rule"></div>
+  <div class="tile"><img src="sprites/t-battery.png" style="width:96px;height:auto"></div>
+  <div class="num">09</div><h2>Coming later</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-compat">
-  <div class="tile"><img src="sprites/bank-cabinet.png" style="height:82px"></div>
-  <div class="num">07</div><h2>Compatibility</h2><div class="rule"></div>
+  <div class="tile"><img src="sprites/bank-cabinet.png" style="height:82px;width:auto"></div>
+  <div class="num">10</div><h2>Compatibility</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-help">
-  <div class="tile"><img src="sprites/controller.png" style="height:82px"></div>
-  <div class="num">08</div><h2>Bugs and help</h2><div class="rule"></div>
+  <div class="tile"><img src="sprites/controller.png" style="height:82px;width:auto"></div>
+  <div class="num">11</div><h2>Bugs and help</h2><div class="rule"></div>
 </section>
 
-<!-- =============================================================== vehicles  (EV.KINDS) -->
+<!-- =============================================================== vehicles  (EV.KINDS, EV_Spawns) -->
 <section class="shot panel" id="vehicles">
-  <div class="ptitle">Four ways to drive on batteries</div>
-  <div class="grid cols-4 veh">
+  <div class="ptitle">Six electric vehicles of their own</div>
+  <div class="grid cols-3 veh">
     <div class="card">
-      <div class="art"><img src="sprites/conv.png" class="r" style="width:262px"></div>
-      <h4>Garage Conversion</h4>
-      <div class="sub">a donor car, converted</div>
-      <div class="chips"><span class="chip hot">120 V</span><span class="chip hot">10 batteries</span></div>
-      <div class="chips"><span class="chip">about 3/4 the donor’s speed</span></div>
-    </div>
-    <div class="card">
-      <div class="art"><img src="sprites/cart.png" class="r" style="height:190px"></div>
+      <div class="art"><img src="sprites/v-cart.png"></div>
       <h4>Club Cart</h4>
       <div class="sub">golf cart, found or built</div>
-      <div class="chips"><span class="chip hot">36 V</span><span class="chip hot">3 batteries</span></div>
-      <div class="chips"><span class="chip">22 km/h</span><span class="chip">2 seats</span></div>
+      <div class="chips"><span class="chip hot">36 V</span><span class="chip hot">3 batteries</span><span class="chip">22 km/h</span><span class="chip">2 seats</span></div>
     </div>
     <div class="card">
-      <div class="art"><img src="sprites/trak.png" class="r" style="width:262px"></div>
+      <div class="art"><img src="sprites/v-cart4.png"></div>
+      <h4>Four-Seat Club Cart</h4>
+      <div class="sub">found, or stretch a club cart</div>
+      <div class="chips"><span class="chip hot">48 V</span><span class="chip hot">8 batteries</span><span class="chip">20 km/h</span><span class="chip">4 seats</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/v-trak.png"></div>
       <h4>Elec-Trak</h4>
-      <div class="sub">garden tractor, found</div>
-      <div class="chips"><span class="chip hot">36 V</span><span class="chip hot">3 batteries</span></div>
-      <div class="chips"><span class="chip">11 km/h</span><span class="chip">1 seat</span></div>
+      <div class="sub">garden tractor, takes implements</div>
+      <div class="chips"><span class="chip hot">36 V</span><span class="chip hot">3 batteries</span><span class="chip">11 km/h</span><span class="chip">1 seat</span></div>
     </div>
     <div class="card">
-      <div class="art"><img src="sprites/wedge.png" class="r" style="width:262px"></div>
-      <h4>Wedge car</h4>
+      <div class="art"><img src="sprites/v-wedge.png"></div>
+      <h4>Wedge Car</h4>
       <div class="sub">homemade, only built</div>
-      <div class="chips"><span class="chip hot">48 V</span><span class="chip hot">4 batteries</span></div>
-      <div class="chips"><span class="chip">60 km/h</span><span class="chip">2 seats</span></div>
+      <div class="chips"><span class="chip hot">48 V</span><span class="chip hot">4 batteries</span><span class="chip">60 km/h</span><span class="chip">2 seats</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/i-toyatv.png" style="max-height:80px;margin-bottom:8px"><span style="font-size:30px;color:var(--accent);margin-bottom:30px">→</span><img src="sprites/v-atv.png"></div>
+      <h4>Ride-On ATV</h4>
+      <div class="sub">a kids’ battery quad, fits through doors</div>
+      <div class="chips"><span class="chip hot">24 V</span><span class="chip hot">2 batteries</span><span class="chip">15 km/h</span><span class="chip">1 seat</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/v-hauler.png"></div>
+      <h4>Five-Wheel Hauler</h4>
+      <div class="sub">tipping bed and hitch, found</div>
+      <div class="chips"><span class="chip hot">36 V</span><span class="chip hot">6 batteries</span><span class="chip">18 km/h</span><span class="chip">2 seats</span></div>
     </div>
   </div>
-  <div class="card wide" style="margin-top:14px">
-    <h4>Seven donor cars, liveries included</h4>
-    <div class="donors">
-      <span class="chip">Chevalier Dart</span><span class="chip">Masterson Horizon</span><span class="chip">Chevalier D6</span>
-      <span class="chip">Franklin Valuline</span><span class="chip">Chevalier Nyala</span><span class="chip">Dash Rancher</span>
-      <span class="chip">Chevalier Cerise Wagon</span>
-    </div>
-  </div>
-  <div class="fine">Pictures are the mod’s concept renders. A converted car keeps the donor’s own body.</div>
+  <div class="note">Found on farms, at well-off houses, trailer parks and junkyards<span class="dot">·</span>built ones start with an empty tray</div>
+  <div class="fine">The mod’s in-game models, with plain stand-in wheels.</div>
 </section>
 
-<!-- =============================================================== building  (EV_Actions Cv, EV_Build Bd, EV_BuildWedge Bw) -->
-<section class="shot panel" id="building">
-  <div class="ptitle">Read the magazine, gather the parts, right-click</div>
-  <div class="grid cols-3 bld">
-    <div class="card">
-      <div class="art"><img src="sprites/conv-rear.png" class="r" style="height:176px"></div>
-      <div class="mag">Convert It!</div>
-      <div class="act">Convert to electric</div>
-      <div class="chips"><span class="chip hot">Mechanics 5</span><span class="chip hot">Electrical 5</span><span class="chip hot">Metalworking 3</span></div>
-      <div class="parts"><b>Traction motor</b> (rewound) and <b>motor controller</b>, both homemade · wire · sheet metal · screws</div>
-      <div class="sub accent" style="margin-top:8px">the old engine comes back as engine parts and scrap</div>
-    </div>
-    <div class="card">
-      <div class="art"><img src="sprites/cart.png" class="r" style="height:172px"></div>
-      <div class="mag">Golf Cart Rebuild</div>
-      <div class="act">Build club cart here</div>
-      <div class="chips"><span class="chip hot">Mechanics 2</span><span class="chip hot">Electrical 2</span></div>
-      <div class="parts"><b>Cart motor</b> and <b>resistor-coil controller</b>, both homemade · metal pipes · sheet metal · planks · wire · screws · four tyres</div>
-      <div class="sub accent" style="margin-top:8px">on clear ground</div>
-    </div>
-    <div class="card">
-      <div class="art"><img src="sprites/wedge.png" class="r" style="height:166px"></div>
-      <div class="mag">Build Your Own Commuter Car</div>
-      <div class="act">Build a wedge car on this frame</div>
-      <div class="chips"><span class="chip hot">Mechanics 4</span><span class="chip hot">Electrical 4</span><span class="chip hot">Metalworking or Carpentry 3</span></div>
-      <div class="parts"><b>Traction motor</b> and <b>motor controller</b> · sheet metal · metal pipes · planks · wire · screws</div>
-      <div class="sub accent" style="margin-top:8px">on an emptied Chevalier Dart or Masterson Horizon</div>
+<!-- =============================================================== conversions  (Cv, EV_ConvScripts: 90 twins, EV_Swap) -->
+<section class="shot panel" id="conversions">
+  <div class="ptitle">Garage Conversion: put a pack in a car you already have</div>
+  <div class="card" style="padding:16px 10px 14px">
+    <div class="donors">
+      <div class="donor"><div class="art"><img src="sprites/d-dart.png"></div><b>Chevalier Dart</b></div>
+      <div class="donor"><div class="art"><img src="sprites/d-horizon.png"></div><b>Masterson Horizon</b></div>
+      <div class="donor"><div class="art"><img src="sprites/d-d6.png"></div><b>Chevalier D6</b></div>
+      <div class="donor"><div class="art"><img src="sprites/d-valuline.png"></div><b>Franklin Valuline</b></div>
+      <div class="donor"><div class="art"><img src="sprites/d-nyala.png"></div><b>Chevalier Nyala</b></div>
+      <div class="donor"><div class="art"><img src="sprites/d-rancher.png"></div><b>Dash Rancher</b></div>
+      <div class="donor"><div class="art"><img src="sprites/d-cerise.png"></div><b>Chevalier Cerise Wagon</b></div>
     </div>
   </div>
-  <div class="note">Built vehicles roll out with an empty battery tray</div>
+  <div class="conv3">
+    <div class="card">
+      <div class="big">90<small>versions</small></div>
+      <div class="lbl" style="font-size:25px;margin-top:8px">silent electric twins</div>
+      <div class="sub">every livery of the seven, police cars, taxis, rangers and work vans included</div>
+    </div>
+    <div class="card">
+      <div class="lbl" style="font-size:25px">It stays your car</div>
+      <div class="sub" style="margin-top:6px">same livery, paint and rust, same parts, trunk contents and key. The old engine comes back as engine parts and scrap.</div>
+    </div>
+    <div class="card">
+      <div class="chips" style="margin-top:0"><span class="chip hot">120 V</span><span class="chip hot">10 batteries</span></div>
+      <div class="chips"><span class="chip">about 3/4 the donor’s speed</span></div>
+      <div class="sub" style="margin-top:10px">no idle, no petrol, and gas pumps won’t fill it</div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== building  (magazines: ItemName, recipes, EV_Build*) -->
+<section class="shot panel" id="building">
+  <div class="ptitle">Five magazines teach the builds</div>
+  <div class="mags">
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#c0392b,#7b1f17)"><div class="t">Convert It!</div><div class="y">1993 · HOBBY</div></div>
+      <ul>
+        <li><b>Garage Conversion</b>, Mechanics 5, Electrical 5, Metalworking 3</li>
+        <li>traction motor and controller</li>
+        <li>Salvaged and Workshop chargers</li>
+        <li>battery trailer</li>
+        <li>salvaged and fold-out roof arrays</li>
+      </ul>
+    </div>
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#3f8f4f,#1f4f2a)"><div class="t">Golf Cart Rebuild</div><div class="y">GROUNDSKEEPER</div></div>
+      <ul>
+        <li><b>Club Cart</b> on clear ground, Mechanics 2, Electrical 2</li>
+        <li>cart motor and resistor-coil controller</li>
+        <li><b>stretch</b> a cart into a four-seater</li>
+      </ul>
+    </div>
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#d98a2b,#8a4e12)"><div class="t">Build Your Own Commuter Car</div><div class="y">1993 · HOBBY</div></div>
+      <ul>
+        <li><b>Wedge Car</b> on an emptied Dart or Horizon, Mechanics 4, Electrical 4</li>
+        <li>plus Metalworking or Carpentry 3</li>
+        <li>fold-out roof array</li>
+      </ul>
+    </div>
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#d0457f,#7a1f4a)"><div class="t">Kid Kart Hacks</div><div class="y">ELECTRONICS</div></div>
+      <ul>
+        <li><b>Ride-On ATV</b> from a kids’ battery ATV, Electrical 1, Metalworking 1</li>
+        <li>the toy turns up in toy stores, garages and sheds</li>
+      </ul>
+    </div>
+    <div class="card mag">
+      <div class="cover" style="background:linear-gradient(160deg,#4f7fbf,#253f6a)"><div class="t">Electric Tractor Owner’s Manual</div><div class="y">FARM</div></div>
+      <ul>
+        <li><b>mower deck</b>, <b>furrow plough</b> and <b>front blade</b>, Mechanics 2, Electrical 2</li>
+        <li>dump trailer</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card known">
+    <h4>Everyone already knows</h4>
+    <div class="chips">
+      <span class="chip">Makeshift car battery</span><span class="chip">Makeshift EV charger</span><span class="chip">Makeshift roof array</span>
+      <span class="chip">Utility trailer</span><span class="chip">Insulated battery box</span><span class="chip">Cell meter</span><span class="chip">Pack balancer</span>
+    </div>
+  </div>
+  <div class="note">Right-click the car, the cart or clear ground to build<span class="dot">·</span>a wrench and a screwdriver for every job</div>
 </section>
 
 <!-- =============================================================== pack  (EV.CELLS: wh 240/720/1400, cycles 150/300/900;
-     heavy: powerFactor -25%, topSpeed -15% with a full deep-cycle pack) -->
+     box: half the cold loss, -10 C 78% not 55%; balancer 5%/h, weakest wears half; meter rows) -->
 <section class="shot panel" id="pack">
   <div class="ptitle">Fill the pack with any mix of three batteries</div>
   <div class="grid cols-3 bat">
     <div class="card">
       <div class="art">
-        <svg viewBox="0 0 160 130" width="176" height="143" style="position:relative;z-index:1">
+        <svg viewBox="0 0 160 130" width="160" height="130" style="position:relative;z-index:1">
           <path d="M20 52l60-30 60 30v46l-60 30-60-30z" fill="#26222c"/>
           <path d="M20 52l60 30v46l-60-30z" fill="#34303c"/>
           <path d="M80 82l60-30v46l-60 30z" fill="#1d1a22"/>
@@ -281,17 +409,17 @@
       </div>
       <h4>Car battery</h4>
       <div class="big">720<small>Wh</small></div>
-      <div class="sub" style="margin-top:8px">any car battery you find</div>
+      <div class="sub" style="margin-top:6px">any car battery you find</div>
     </div>
     <div class="card">
-      <div class="art"><img src="sprites/makeshift.png" class="r" style="height:150px"></div>
+      <div class="art"><img src="sprites/makeshift.png" class="r" style="height:140px"></div>
       <h4>Makeshift battery</h4>
       <div class="big">240<small>Wh</small></div>
-      <div class="sub" style="margin-top:8px">12 torch batteries in a box · Electrical 2</div>
+      <div class="sub" style="margin-top:6px">12 torch batteries, wears out fast</div>
     </div>
     <div class="card">
       <div class="art">
-        <svg viewBox="0 0 200 150" width="214" height="160" style="position:relative;z-index:1">
+        <svg viewBox="0 0 200 150" width="190" height="142" style="position:relative;z-index:1">
           <path d="M14 58l86-40 86 40v52l-86 40-86-40z" fill="#22303f"/>
           <path d="M14 58l86 40v52l-86-40z" fill="#2e4157"/>
           <path d="M100 98l86-40v52l-86 40z" fill="#1b2633"/>
@@ -304,57 +432,56 @@
       </div>
       <h4>Heavy deep-cycle</h4>
       <div class="big">1,400<small>Wh</small></div>
-      <div class="sub" style="margin-top:8px">barns, golf stores, army surplus</div>
+      <div class="sub" style="margin-top:6px">lasts 3 times as long, cuts top speed</div>
     </div>
   </div>
-  <div class="two" style="margin-top:14px">
-    <div class="card list">
-      <h4>How long they last in a pack</h4>
-      <div class="bars">
-        <div class="bar"><div class="fill" style="width:calc(100% - 6px)"></div><div class="in">Heavy deep-cycle</div><div class="tail" style="color:#1b0d2c;font-weight:600">3 times a car battery</div></div>
-        <div class="bar"><div class="fill" style="width:33%"></div><div class="in">Car battery</div></div>
-        <div class="bar"><div class="fill" style="width:17%"></div><div class="in out" style="left:calc(17% + 16px)">Makeshift</div><div class="tail">wears out fast</div></div>
-      </div>
-      <div class="sub foot">Every battery wears with use</div>
+  <div class="grid cols-3" style="margin-top:14px">
+    <div class="card kit">
+      <div class="art"><img src="sprites/i-box.png"></div>
+      <div><h4>Insulated box</h4><div class="sub">halves the cold’s range loss: at -10 °C the pack keeps 78%, not 55%</div></div>
     </div>
-    <div class="card list">
-      <h4>The pack</h4>
-      <div class="wrow"><b>Mix them freely</b><span>any slot, any type</span></div>
-      <div class="wrow"><b>Battery pack menu</b><span>install and remove</span></div>
-      <div class="wrow"><b>Each battery keeps</b><span>its own charge and condition</span></div>
-      <div class="wrow"><b>A full heavy pack</b><span>up to 25% less power,<br>15% less top speed</span></div>
+    <div class="card kit">
+      <div class="art"><img src="sprites/i-bal.png"></div>
+      <div><h4>Pack balancer</h4><div class="sub">evens the batteries out on charge and spares the weakest one half its wear</div></div>
+    </div>
+    <div class="card kit">
+      <div class="art"><img src="sprites/i-meter.png"></div>
+      <div><h4>Cell meter</h4><div class="sub">volts, gravity, charge, health and heat for each battery, with WEAK, LOW and DEAD flags</div></div>
     </div>
   </div>
+  <div class="note">Mix kinds freely<span class="dot">·</span>each battery keeps its own charge and health<span class="dot">·</span>fit and pull them from the Battery pack menu</div>
 </section>
 
 <!-- =============================================================== driving
-     limp below 15% (half power, half speed), crawl below 5% (quarter power, 12 km/h), flat stalls.
-     coldFactor 0.55 + 0.45*(t+10)/25: 1.00 at 15 C, 0.73 at 0 C, 0.55 at -10 C and below.
-     Range at cruise, mild, full fresh car-battery pack: whPerKm 180/70/110/90 ->
-     7200/180=40, 2160/70=31, 2160/110=20, 2880/90=32 km. Accessories: lights 110 W, heater 1000 W, radio 15 W. -->
+     limp below 15% (half power, half speed), crawl below 5%, flat stalls. coldFactor: 73% at 0 C, 55% at -10 C.
+     Range on a full pack of new car batteries at cruise (slots*720 / whPerKm): conversion 7200/180=40,
+     cart 2160/70=31, cart4 5760/85=68, trak 2160/110=20, wedge 2880/90=32, atv 1440/35=41, hauler 4320/100=43. -->
 <section class="shot panel" id="driving">
   <div class="ptitle">The pack is the fuel tank</div>
   <div class="drv">
     <div class="card dashcard">
-      <img src="sprites/dash.png" style="width:560px">
-      <div class="sub" style="margin-top:12px">Charge, motor power, volts, range and batteries,<br>with <b style="color:var(--ink)">LIMP</b>, <b style="color:var(--ink)">LOW</b>, <b style="color:var(--ink)">PLUG</b> and <b style="color:var(--ink)">COLD</b> lamps <span class="accent">(sample readings)</span></div>
+      <img src="sprites/dash-drive.png" style="width:568px">
+      <div class="sub" style="margin-top:14px">Charge, power, <b style="color:var(--ink)">TEMP</b> and range from how you really drive,<br>with the <b style="color:var(--ink)">LIMP</b>, <b style="color:var(--ink)">LOW</b>, <b style="color:var(--ink)">PLUG</b>, <b style="color:var(--ink)">COLD</b> and <b style="color:var(--ink)">HOT</b> lamps</div>
     </div>
     <div class="card list">
-      <h4>Rough range on a full pack</h4>
+      <h4>Rough range, full pack</h4>
       <div class="rng">
+        <span class="k">Four-Seat Club Cart</span><span class="v">~68 km</span>
+        <span class="k">Five-Wheel Hauler</span><span class="v">~43 km</span>
+        <span class="k">Ride-On ATV</span><span class="v">~41 km</span>
         <span class="k">Garage Conversion</span><span class="v">~40 km</span>
-        <span class="k">Wedge car</span><span class="v">~32 km</span>
+        <span class="k">Wedge Car</span><span class="v">~32 km</span>
         <span class="k">Club Cart</span><span class="v">~31 km</span>
         <span class="k">Elec-Trak</span><span class="v">~20 km</span>
       </div>
-      <div class="sub foot">new car batteries, mild weather, at cruise.<br>Flat out costs more, deep-cycle goes further.</div>
+      <div class="sub foot">every slot full of new car batteries,<br>mild weather, at cruise</div>
     </div>
   </div>
-  <div class="grid" style="grid-template-columns: 1.35fr 1fr 0.8fr; margin-top:14px">
+  <div class="grid" style="grid-template-columns: 1.3fr 1fr 0.85fr; margin-top:14px">
     <div class="card list">
       <h4>Low charge</h4>
       <div class="soc"><div class="z0"></div><div class="z1">limp</div><div class="z2">full power</div></div>
-      <div class="socax"><span style="left:5%">5%</span><span style="left:15%">15%</span><span style="left:96%">100%</span></div>
+      <div class="socax"><span style="left:5%">5%</span><span style="left:15%">15%</span><span style="left:95%">100%</span></div>
       <div class="keys">
         <div class="key"><b><i style="background:#e6a23c"></i>Below 15%</b>half power,<br>half speed</div>
         <div class="key"><b><i style="background:#d0524f"></i>Below 5%</b>it crawls</div>
@@ -364,66 +491,188 @@
     </div>
     <div class="card list">
       <h4>Cold cuts range</h4>
-      <div class="bars">
-        <div class="bar"><div class="fill" style="width:calc(100% - 6px)"></div><div class="in">15 °C and warmer</div><div class="tail" style="color:#1b0d2c;font-weight:600">full</div></div>
+      <div class="bars sm">
+        <div class="bar"><div class="fill" style="width:calc(100% - 6px)"></div><div class="in">15 °C and up</div><div class="tail" style="color:#1b0d2c;font-weight:600">full</div></div>
         <div class="bar ice"><div class="fill" style="width:73%"></div><div class="in">0 °C</div><div class="tail">73%</div></div>
         <div class="bar ice"><div class="fill" style="width:55%"></div><div class="in">-10 °C</div><div class="tail">55%</div></div>
       </div>
-      <div class="sub foot">and no lower. Dazed Power’s<br>battery cold factor</div>
+      <div class="sub foot">by the pack’s own temperature</div>
     </div>
     <div class="card list">
       <h4>Also on the pack</h4>
       <div class="wrow"><b>Headlights</b><span>110 W</span></div>
       <div class="wrow"><b>Heater</b><span>1,000 W</span></div>
       <div class="wrow"><b>Radio</b><span>15 W</span></div>
-      <div class="sub foot">Quiet. Gas cans and<br>pumps don’t work on them.</div>
+      <div class="wrow"><b>Implement</b><span>100-250 W</span></div>
     </div>
   </div>
 </section>
 
 <!-- =============================================================== charging
-     S.RATE_W = 600, reach Ch.REACH (10 tiles), from the racks above the floor; drive off pulls it.
-     Empty to full on new car batteries at 600 W: 2160/600=3.6 h, 2880/600=4.8 h, 7200/600=12 h. -->
+     Chg.WATTS 600/1200/2400, Chg.REACH 4; any wired Power part 600 W within 10 tiles.
+     Empty to full (room / watts, before charging loss): conversion 7200 Wh, wedge 2880, club cart 2160. -->
 <section class="shot panel" id="charging">
-  <div class="ptitle">Plug into your wired Dazed Power system</div>
-  <div class="card" style="padding:20px 14px 30px">
-    <div class="flow">
-      <div class="src">
-        <img src="sprites/bank-shelf.png" style="height:150px">
-        <img src="sprites/controller.png" style="height:118px">
-        <img src="sprites/bank-cabinet.png" style="height:160px">
-      </div>
-      <div class="lead">
-        <div class="w">600 W</div>
-        <div class="lbl" style="margin-top:6px">Plug in charging lead</div>
-        <div class="sub">to the nearest wired part within 10 tiles</div>
-        <svg viewBox="0 0 400 60" width="400" height="60" fill="none" stroke-linecap="round" style="margin-top:14px">
-          <path d="M8 40 C 90 0, 150 60, 220 26 S 340 10, 392 34" stroke="#e8b84a" stroke-width="6"/>
-          <path d="M8 40 C 90 0, 150 60, 220 26 S 340 10, 392 34" stroke="#fff1b8" stroke-width="2" stroke-dasharray="2 22" opacity=".9"/>
-        </svg>
-      </div>
-      <div class="dst"><img src="sprites/wedge-lead.png" class="r" style="width:320px"></div>
+  <div class="ptitle">Charge from your wired Dazed Power system</div>
+  <div class="grades">
+    <div class="card">
+      <div class="art"><div class="src"><img src="sprites/bank-cabinet.png" style="height:118px"><img src="sprites/bench.png" style="height:100px"></div></div>
+      <h4>Any wired part</h4>
+      <div class="w">600 W</div>
+      <div class="sub">the nearest within 10 tiles</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/ch-mk.png"></div>
+      <h4>Makeshift charger</h4>
+      <div class="w">600 W</div>
+      <div class="sub">Electrical 2, no magazine</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/ch-salv.png"></div>
+      <h4>Salvaged charger</h4>
+      <div class="w">1,200 W</div>
+      <div class="sub">Electrical 4, from Convert It!</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/ch-work.png"></div>
+      <h4>Workshop charger</h4>
+      <div class="w">2,400 W</div>
+      <div class="sub">Electrical 7, from Convert It!</div>
     </div>
   </div>
-  <div class="chg">
+  <div class="note">Wire it in like the charging bench, park within 4 tiles, <b>Plug in charging lead</b><span class="dot">·</span>it glows and hums</div>
+  <div class="chg2">
+    <div class="card dashcard">
+      <img src="sprites/dash-charge.png" style="width:568px">
+      <div class="sub" style="margin-top:10px">Parked on charge the dash reads <b style="color:var(--ink)">FULL IN</b>,<br>and <b style="color:var(--ink)">Sun</b> when a roof array is making power</div>
+    </div>
     <div class="card list">
-      <h4>Empty to full on new car batteries</h4>
+      <h4>Empty to full</h4>
       <div class="ct">
-        <span class="k">Club Cart, Elec-Trak</span><div class="t"><i style="width:30%"></i></div><span class="v">3.6 h</span>
-        <span class="k">Wedge car</span><div class="t"><i style="width:40%"></i></div><span class="v">4.8 h</span>
-        <span class="k">Garage Conversion</span><div class="t"><i style="width:100%"></i></div><span class="v">12 h</span>
+        <span></span><span class="h">600 W</span><span class="h">1,200 W</span><span class="h">2,400 W</span>
+        <span class="k">Club Cart</span><span class="v">3.6 h</span><span class="v">1.8 h</span><span class="v">0.9 h</span>
+        <span class="k">Wedge Car</span><span class="v">4.8 h</span><span class="v">2.4 h</span><span class="v">1.2 h</span>
+        <span class="k">Conversion</span><span class="v">12 h</span><span class="v">6 h</span><span class="v">3 h</span>
       </div>
-      <div class="sub foot">From the battery banks, above the discharge floor.<br>Driving off pulls the lead.</div>
-    </div>
-    <div class="card bench">
-      <div class="art"><img src="sprites/bench.png" style="height:150px"></div>
-      <div>
-        <h4>Swap a spare set</h4>
-        <div class="sub">Dazed Power’s <b style="color:var(--ink)">charging bench</b> also charges makeshift and deep-cycle batteries.</div>
-        <div class="sub accent" style="margin-top:8px">Keep a charged set ready and swap it in from the Battery pack menu.</div>
-      </div>
+      <div class="sub foot">new car batteries, from your banks above<br>the discharge floor. Driving off pulls the lead.</div>
     </div>
   </div>
+</section>
+
+<!-- =============================================================== roof solar  (EV_Solar, README clear-day table, Normal mode) -->
+<section class="shot panel" id="solar">
+  <div class="ptitle">Bolt an array on the roof, charge in the sun</div>
+  <div class="grid cols-3 sol">
+    <div class="card">
+      <div class="art"><img src="sprites/a-cart-mk.png"></div>
+      <h4>Makeshift array</h4>
+      <div class="sub">known to everyone<br>club carts, wedge car, conversions</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/a-wedge-roof.png"></div>
+      <h4>Salvaged array</h4>
+      <div class="sub">from Convert It!<br>club carts, wedge car, conversions</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/a-foldout.png"></div>
+      <h4>Fold-out array</h4>
+      <div class="sub">unfolds when parked, 3 times the area<br>wedge car, conversions</div>
+    </div>
+  </div>
+  <div class="grid" style="grid-template-columns: 1.25fr 1fr; margin-top:14px">
+    <div class="card list">
+      <h4>One clear day, summer / winter</h4>
+      <div class="kwh">
+        <span></span><span class="h">Makeshift</span><span class="h">Salvaged</span><span class="h">Fold-out</span>
+        <span class="k">Club Cart</span><span class="v">1.3 / 0.5 kWh</span><span class="v">1.7 / 0.6</span><span class="v">no</span>
+        <span class="k">Wedge Car</span><span class="v">1.2 / 0.4</span><span class="v">1.5 / 0.6</span><span class="v">5.8 / 2.0</span>
+        <span class="k">Conversion</span><span class="v">1.4 / 0.5</span><span class="v">1.8 / 0.7</span><span class="v">6.8 / 2.4</span>
+      </div>
+      <div class="sub foot">Dazed Power’s Normal mode. Realistic gives less.</div>
+    </div>
+    <div class="card list">
+      <h4>Dazed Power’s own solar maths</h4>
+      <div class="wrow"><b>Sun, season, cloud, snow</b><span>all count</span></div>
+      <div class="wrow"><b>Charges while driving</b><span>yes</span></div>
+      <div class="wrow"><b>Night, garage, indoors</b><span>nothing</span></div>
+      <div class="wrow"><b>Built on</b><span>Power’s arrays</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== implements and trailers  (EV_Implements, EV_Trailers) -->
+<section class="shot panel" id="towing">
+  <div class="ptitle">Work the yard with the Elec-Trak, tow what you need</div>
+  <div class="grid cols-3 imp">
+    <div class="card">
+      <div class="art"><img src="sprites/a-mower.png"></div>
+      <h4>Mower deck</h4>
+      <div class="sub">cuts grass and weeds, not crops<br>200 W while working</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/a-plough.png"></div>
+      <h4>Furrow plough</h4>
+      <div class="sub">digs vanilla furrows for any crop<br>250 W while working</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/a-blade.png"></div>
+      <h4>Front blade</h4>
+      <div class="sub">pushes glass, trash and rubble aside<br>100 W while working</div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:12px">Lower it from the radial menu and drive at 8 km/h or slower</div>
+  <div class="grid cols-3 imp" style="margin-top:14px">
+    <div class="card">
+      <div class="art"><img src="sprites/t-utility.png"></div>
+      <h4>Utility trailer</h4>
+      <div class="sub">a 100-unit trunk<br>known to everyone</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/t-dump.png"></div>
+      <h4>Dump trailer</h4>
+      <div class="sub">a steel tub that tips its load<br>from the Owner’s Manual</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/t-battery.png"></div>
+      <h4>Battery trailer</h4>
+      <div class="sub">six slots that join the towing pack<br>from Convert It!</div>
+    </div>
+  </div>
+  <div class="note">Every EV has a hitch<span class="dot">·</span>the hauler’s bed tips like the dump trailer</div>
+</section>
+
+<!-- =============================================================== heat, faults, sound, junk  (EV.HEAT, EV.FAULTS, EV_Motor loudness, EV_Salvage) -->
+<section class="shot panel" id="faults">
+  <div class="ptitle">Motors that get hot, wear out and hum</div>
+  <div class="grid" style="grid-template-columns: 1.2fr 1fr">
+    <div class="card list">
+      <h4>Motor heat</h4>
+      <div class="heat">
+        <div style="width:53%;background:linear-gradient(90deg,#6fcf8f,#9fe0a9)">normal</div>
+        <div style="width:30%;background:linear-gradient(90deg,#e6c03c,#e6823c)">cuts back</div>
+        <div style="flex:1;background:#d0524f;color:#fff">cutout</div>
+      </div>
+      <div class="heatax"><span style="left:53%">100 °C</span><span style="left:83%">130 °C</span></div>
+      <div class="sub" style="margin-top:6px">Hot days, heavy tows and a lowered plough heat it. Past 100 °C the controller eases off power and speed; at 130 °C it stops until it cools to 70 °C.</div>
+    </div>
+    <div class="card list">
+      <h4>Quiet, not silent</h4>
+      <div class="snd">
+        <span class="k">Ride-On ATV</span><span class="v">a faint whir</span><span class="l"><i class="on"></i><i></i><i></i><i></i><i></i></span>
+        <span class="k">Club carts</span><span class="v">soft whine, two ticks</span><span class="l"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span>
+        <span class="k">Wedge, hauler</span><span class="v">rising whine</span><span class="l"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
+        <span class="k">Elec-Trak</span><span class="v">gear whine</span><span class="l"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+        <span class="k">Conversion</span><span class="v">traction whine</span><span class="l"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+      </div>
+      <div class="sub foot">no idle · bars show how far zombies hear it</div>
+    </div>
+  </div>
+  <div class="grid cols-4 flt" style="margin-top:14px">
+    <div class="card"><h4>Main fuse</h4><div class="sub">can blow when the cutout opens. Electrical 1, a wire</div></div>
+    <div class="card"><h4>Contactor</h4><div class="sub">burns now and then at the key. Electrical 3, scrap and wire</div></div>
+    <div class="card"><h4>Brushes</h4><div class="sub">wear out over about 1,200 km. Mechanics 2, Electrical 2</div></div>
+    <div class="card"><h4>Junkyard EVs</h4><div class="sub">flat, worn junkers. Strip the motor and controller with a wrench and screwdriver</div></div>
+  </div>
+  <div class="note">Mend faults from <b>Battery pack › Repair motor</b> with the motor off</div>
 </section>
 
 </body>

@@ -143,6 +143,16 @@
       <path d="M45 18L80 58L115 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" opacity=".7"/>
       <path d="M30 96l14 7v-18l-14-7zM104 103l18-9v-16l-18 9z" fill="#120a1d" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
     </symbol>
+    <symbol id="i-spawn" viewBox="0 0 64 64">
+      <path d="M32 30L56 18V44L32 58Z" fill="#5a3a86" stroke="#c592ff" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M32 30L8 18V44L32 58Z" fill="#3b2a52" stroke="#c592ff" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M8 18L32 6L56 18L32 30Z" fill="#7a52b8" stroke="#c592ff" stroke-width="3" stroke-linejoin="round"/>
+      <g stroke="#ffcf6b" stroke-width="3.5" stroke-linecap="round"><path d="M50 2v8M46 6h8M10 50v8M6 54h8"/></g>
+    </symbol>
+    <symbol id="i-yield" viewBox="0 0 64 64">
+      <path d="M8 18H24Q22 8 30 8Q38 8 36 18H52V34Q62 32 62 40Q62 48 52 46V58H8Z" fill="#3b2a52" stroke="#c592ff" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M20 36L28 44L44 26" fill="none" stroke="#7be59a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -221,7 +231,7 @@
         <div class="chips"><span class="chip">Custom</span><span class="chip">Easy</span><span class="chip on">Standard</span><span class="chip">Realistic</span><span class="chip">Hardcore</span></div>
       </div>
       <h4>One sandbox preset</h4>
-      <div class="sub">One Dazed Core page sets<br><span class="accent">every Dazed mod's options at once.</span></div>
+      <div class="sub">One Dazed Core page sets Power,<br><span class="accent">Plumbing, Climate and Essentials.</span></div>
     </div>
     <div class="card">
       <div class="art"><div class="sidebtn"><img src="sprites/guide.png" style="height:84px"></div></div>
@@ -237,6 +247,21 @@
       <div class="art"><svg class="ic" width="130" height="130"><use href="#i-sync"/></svg></div>
       <h4>Server sync</h4>
       <div class="sub">The server decides, clients stay in step;<br><span class="accent">a line above your head says why not.</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/thermometer.png" class="px" style="height:118px"></div>
+      <h4>Temperatures</h4>
+      <div class="sub">Celsius, Fahrenheit or the game's,<br><span class="accent">followed by every Dazed mod.</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><svg class="ic" width="118" height="118"><use href="#i-yield"/></svg></div>
+      <h4>Plays nice</h4>
+      <div class="sub">A feature steps aside when<br><span class="accent">another mod already does it.</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><svg class="ic" width="118" height="118"><use href="#i-spawn"/></svg></div>
+      <h4>Debug spawn</h4>
+      <div class="sub">In debug mode or for staff, a menu<br><span class="accent">spawns a mod's whole item set.</span></div>
     </div>
   </div>
 </section>
@@ -298,6 +323,7 @@
         <div class="opt"><span class="nm">Animate windmills<span class="by">Power</span></span><span class="box">✓</span></div>
         <div class="opt"><span class="nm">Ride pedal generators<span class="by">Power</span></span><span class="box">✓</span></div>
         <div class="opt"><span class="nm">Essentials: prying minigame</span><span class="box">✓</span></div>
+        <div class="opt"><span class="nm">Essentials: swap hands and back</span><span class="combo">None</span></div>
       </div>
     </div>
     <div class="win">
@@ -315,22 +341,22 @@
       </div>
     </div>
   </div>
-  <div class="note">Temperatures: how every Dazed mod shows them (Climate, Dank's grow rooms)<span class="dot">·</span>a guide tab shows only while its mod is on</div>
+  <div class="note">Temperatures: how every Dazed mod shows them (Climate, Dank, the EVs)<span class="dot">·</span>a guide tab shows only while its mod is on</div>
 </section>
 
 <!-- =============================================================== the suite
-     Lines shortened from the suite list in workshop.txt. Art is each mod's own (Cooking cooks
+     Lines shortened from the suite list in workshop.txt (released mods only). Art is each mod's own (Cooking cooks
      Butchery's cuts, so it shows two of them; Essentials has no in-game art, so its page icon). -->
 <section class="shot panel" id="suite">
   <div class="ptitle">Every Dazed mod loads it first</div>
-  <div class="grid cols-4 suite">
+  <div class="grid cols-3 suite">
     <div class="card">
       <div class="art"><img src="sprites/tracker.png" style="height:150px"><img src="sprites/generator.png" style="height:84px"></div>
       <h4>Power</h4><div class="sub">solar, wind, steam and gas<br>feeding battery banks</div>
     </div>
     <div class="card">
       <div class="art"><img src="sprites/cart.png" class="r" style="height:140px"></div>
-      <h4>Power: EV</h4><div class="sub">homemade 1993 electric<br>vehicles</div>
+      <h4>Power: Electric Vehicles</h4><div class="sub">homemade 1993 electric<br>vehicles you build and charge</div>
     </div>
     <div class="card">
       <div class="art"><img src="sprites/hand-pump.png" style="height:120px"><img src="sprites/tank-water.png" style="height:140px"></div>
@@ -341,8 +367,8 @@
       <h4>Dank</h4><div class="sub">realistic cannabis<br>growing</div>
     </div>
     <div class="card">
-      <div class="art"><img src="sprites/thermometer.png" class="px" style="height:120px"></div>
-      <h4>Climate</h4><div class="sub">real winters, frost on crops<br>and freezing pipes</div>
+      <div class="art"><img src="sprites/gc-tomato.png" style="height:150px"><img src="sprites/gc-cabbage.png" style="height:70px"></div>
+      <h4>Dank: Garden Crops</h4><div class="sub">vanilla crops in Dank's<br>grow bags and hydro</div>
     </div>
     <div class="card">
       <div class="art"><img src="sprites/pig.png" style="height:105px"></div>
@@ -351,6 +377,10 @@
     <div class="card">
       <div class="art"><img src="sprites/beef-rib.png" class="px" style="height:78px"><img src="sprites/pork-ham.png" class="px" style="height:90px"></div>
       <h4>Cooking</h4><div class="sub">a best method and doneness<br>for every cut</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/thermometer.png" class="px" style="height:120px"></div>
+      <h4>Climate</h4><div class="sub">real winters, frost on crops,<br>row tunnels and frozen pipes</div>
     </div>
     <div class="card">
       <div class="art"><svg class="ic" width="130" height="130"><use href="#i-crowbar"/></svg></div>

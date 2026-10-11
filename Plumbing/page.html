@@ -1,0 +1,269 @@
+<!doctype html>
+<!-- Dazed Plumbing Workshop art (0.16.2). Each <section class="shot" id="x"> renders to images/x.png
+     (banner -> banner.jpg):  node _kit/render.mjs Plumbing   (from the dazed-workshop root).
+     Sprites come from sprites.json:  python3 _kit/sprites.py Plumbing -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/suite.css">
+<style>
+  #banner .title { font-size: 150px; letter-spacing: 3px; white-space: nowrap; top: 70px; }
+  #banner .sub { top: 232px; }
+  #banner .pills { top: 292px; }
+  /* line colours, as the pipes are tinted in game */
+  :root { --water: #4d8ff7; --propane: #ececf2; --petrol: #e64545; }
+  .sw { display: inline-block; width: 26px; height: 26px; border-radius: 50%; vertical-align: -3px; margin-right: 14px; }
+  .sw.water { background: var(--water); box-shadow: 0 0 10px rgba(77, 143, 247, .7); }
+  .sw.propane { background: var(--propane); box-shadow: 0 0 10px rgba(236, 236, 242, .6); }
+  .sw.petrol { background: var(--petrol); box-shadow: 0 0 10px rgba(230, 69, 69, .7); }
+
+  /* tanks panel */
+  .heads { display: grid; grid-template-columns: 250px 1fr 1fr 1.35fr; margin: 0 0 8px; }
+  .heads div { font-weight: 700; font-size: 30px; text-align: center; }
+  .trow { display: grid; grid-template-columns: 250px 1fr 1fr 1.35fr; align-items: end; padding: 14px 12px 16px 26px; text-align: left; }
+  .trow + .trow { margin-top: 12px; }
+  .trow .name { align-self: center; font-weight: 700; font-size: 36px; }
+  .trow .art { margin: 0; height: 150px; }
+  .trow .art::after { width: 170px; }
+  .chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .chip { font-size: 21px; font-weight: 600; padding: 6px 15px; border-radius: 999px; border: 1.5px solid #6d43b5; background: var(--well); color: var(--lilac); white-space: nowrap; }
+
+  /* pipes panel */
+  .line { display: grid; grid-template-columns: 230px 1fr 230px; align-items: center; height: 168px; }
+  .line .end { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 168px; }
+  .line .end img { position: relative; z-index: 1; }
+  .line .end .cap { font-weight: 600; font-size: 22px; color: var(--lilac); margin-top: 6px; white-space: nowrap; }
+  .run { position: relative; height: 120px; margin: 0 16px; }
+  .run .pipe { position: absolute; left: 0; right: 0; top: 62px; height: 20px; border-radius: 10px; }
+  .run .pipe.water { background: linear-gradient(180deg, #7fb0ff, var(--water) 55%, #2f69c9); box-shadow: 0 0 14px rgba(77, 143, 247, .55); }
+  .run .pipe.propane { background: linear-gradient(180deg, #ffffff, var(--propane) 55%, #b9b9c6); box-shadow: 0 0 14px rgba(236, 236, 242, .4); }
+  .run .pipe.petrol { background: linear-gradient(180deg, #ff7f7f, var(--petrol) 55%, #a92b2b); box-shadow: 0 0 14px rgba(230, 69, 69, .55); }
+  .run .lab { position: absolute; left: 0; right: 0; top: 10px; text-align: center; font-weight: 700; font-size: 32px; }
+  .run .valve { position: absolute; left: 50%; top: 40px; height: 66px; transform: translateX(-50%); z-index: 2; }
+  .run .vlab { position: absolute; left: 50%; top: 92px; transform: translateX(-50%); font-size: 20px; color: var(--muted); white-space: nowrap; }
+  .run .tee { position: absolute; top: 72px; width: 4px; height: 48px; border-radius: 2px; }
+
+  /* water panel */
+  .water .card h4 { font-size: 32px; margin-bottom: 6px; }
+  .water .art { height: 176px; margin-bottom: 14px; }
+  .water .sub { font-size: 21px; }
+  .sched { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+  .sched span { font-size: 18px; font-weight: 600; padding: 3px 10px; border-radius: 999px; border: 1.5px solid #6d43b5; background: var(--well); color: var(--lilac); }
+  .sched span.on { border-color: #8fb8ff; color: #cfe2ff; }
+
+  /* fuel panel */
+  .fuel .card { padding: 20px 22px 22px; }
+  .fuel .art { height: 200px; }
+  .fuel ul { list-style: none; text-align: left; margin: 0 auto; display: inline-block; }
+  .fuel li { position: relative; padding-left: 26px; font-size: 24px; line-height: 1.55; color: var(--ink); white-space: nowrap; }
+  .fuel li::before { content: ""; position: absolute; left: 2px; top: 14px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); }
+  .fuel li .m { color: var(--muted); }
+  .big { font-weight: 800; color: #ffd27a; }
+</style>
+</head>
+<body>
+
+<!-- =============================================================== banner -->
+<section class="shot banner" id="banner">
+  <div class="title">DAZED PLUMBING</div>
+  <div class="sub">Tanks, pipes, pumps and running water for Build 42</div>
+  <div class="pills">
+    <span class="pill">Water</span>
+    <span class="pill">Propane</span>
+    <span class="pill">Petrol</span>
+    <span class="pill">Pipe networks</span>
+    <span class="pill">Water main</span>
+    <span class="pill">Wells &amp; pumps</span>
+    <span class="pill">Fuel pumps</span>
+    <span class="pill">Smoker</span>
+  </div>
+  <div class="row">
+    <div class="spr"><img src="sprites/hand-pump.png" style="height:200px"></div>
+    <div class="spr"><img src="sprites/xl-water.png" style="height:205px"></div>
+    <div class="spr"><img src="sprites/well.png" style="height:150px"></div>
+    <div class="spr"><img src="sprites/main.png" style="height:130px"></div>
+    <div class="spr"><img src="sprites/digester.png" style="height:160px"></div>
+    <div class="spr"><img src="sprites/large-propane.png" style="height:175px"></div>
+    <div class="spr"><img src="sprites/fuel-hand.png" style="height:150px"></div>
+    <div class="spr"><img src="sprites/smoker.png" style="height:180px"></div>
+    <div class="spr"><img src="sprites/sprinkler.png" style="height:124px"></div>
+  </div>
+</section>
+
+<!-- =============================================================== section headers -->
+<section class="shot hdr" id="h-tanks">
+  <div class="tile"><img src="sprites/small-water.png" style="height:80px"></div>
+  <div class="num">01</div><h2>Tanks</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-pipes">
+  <div class="tile"><img src="sprites/i-pipe.png" class="px" style="width:84px;height:auto"></div>
+  <div class="num">02</div><h2>Pipes</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-water">
+  <div class="tile"><img src="sprites/hand-pump.png" style="height:84px"></div>
+  <div class="num">03</div><h2>Running water</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-fuel">
+  <div class="tile"><img src="sprites/fuel-hand.png" style="height:82px"></div>
+  <div class="num">04</div><h2>Fuel, gas and smoke</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-works">
+  <div class="tile"><img src="sprites/well.png" style="height:76px"></div>
+  <div class="num">05</div><h2>Works with</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-sandbox">
+  <div class="tile"><img src="sprites/i-valve.png" class="px" style="width:84px;height:auto"></div>
+  <div class="num">06</div><h2>Sandbox options</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-compat">
+  <div class="tile"><img src="sprites/pipe-t.png" style="width:84px;height:auto"></div>
+  <div class="num">07</div><h2>Compatibility</h2><div class="rule"></div>
+</section>
+
+<section class="shot hdr" id="h-help">
+  <div class="tile"><img src="sprites/i-filter.png" class="px" style="height:80px"></div>
+  <div class="num">08</div><h2>Bugs and help</h2><div class="rule"></div>
+</section>
+
+<!-- =============================================================== tanks
+     Crafted tier, facing S. 18 = 3 sizes x 3 fluids x 2 tiers (DUP_Parts / DUP_Model). -->
+<section class="shot panel" id="tanks">
+  <div class="ptitle">18 tanks: three sizes, three fluids, two tiers</div>
+  <div class="heads"><div></div><div>Small</div><div>Large</div><div>Extra-large</div></div>
+  <div class="card trow">
+    <div class="name"><span class="sw water"></span>Water</div>
+    <div class="art"><img src="sprites/small-water.png" style="height:96px"></div>
+    <div class="art"><img src="sprites/large-water.png" style="height:126px"></div>
+    <div class="art"><img src="sprites/xl-water.png" style="height:148px"></div>
+  </div>
+  <div class="card trow">
+    <div class="name"><span class="sw propane"></span>Propane</div>
+    <div class="art"><img src="sprites/small-propane.png" style="height:96px"></div>
+    <div class="art"><img src="sprites/large-propane.png" style="height:126px"></div>
+    <div class="art"><img src="sprites/xl-propane.png" style="height:148px"></div>
+  </div>
+  <div class="card trow">
+    <div class="name"><span class="sw petrol"></span>Petrol</div>
+    <div class="art"><img src="sprites/small-petrol.png" style="height:110px"></div>
+    <div class="art"><img src="sprites/large-petrol.png" style="height:138px"></div>
+    <div class="art"><img src="sprites/xl-petrol.png" style="height:148px"></div>
+  </div>
+  <div class="chips">
+    <span class="chip">Salvaged or welded Crafted</span>
+    <span class="chip">Pour, take, patch, rename</span>
+    <span class="chip">Damaged tanks leak</span>
+    <span class="chip">Fuel explodes in fire</span>
+    <span class="chip">Open tops catch rain</span>
+  </div>
+</section>
+
+<!-- =============================================================== pipes
+     Colours from DUP_Pipes K.COLORS. -->
+<section class="shot panel" id="pipes">
+  <div class="ptitle">Colour-coded lines, never mixed</div>
+  <div class="line">
+    <div class="end"><img src="sprites/large-water.png" style="height:120px"></div>
+    <div class="run"><div class="lab">Water</div><div class="pipe water"></div><img class="valve" src="sprites/valve.png"><div class="vlab" style="top:104px">shut-off valve</div></div>
+    <div class="end"><img src="sprites/main.png" style="height:104px"><div class="cap">Water main</div></div>
+  </div>
+  <div class="line">
+    <div class="end"><img src="sprites/large-propane.png" style="height:120px"></div>
+    <div class="run"><div class="lab">Propane</div><div class="pipe propane"></div><img class="valve" src="sprites/valve.png"></div>
+    <div class="end"><img src="sprites/smoker.png" style="height:116px"><div class="cap">Smoker</div></div>
+  </div>
+  <div class="line">
+    <div class="end"><img src="sprites/large-petrol.png" style="height:128px"></div>
+    <div class="run"><div class="lab">Petrol</div><div class="pipe petrol"></div><img class="valve" src="sprites/valve.png"></div>
+    <div class="end"><img src="sprites/fuel-hand.png" style="height:104px"><div class="cap">Fuel pump</div></div>
+  </div>
+  <div class="note">Right-click a machine, choose its line, <b>Pipe to</b> a tank<span class="dot">·</span>runs that meet join up with T-branches</div>
+  <div class="note" style="margin-top:8px">Welded from pipe sections<span class="dot">·</span>overhead indoors, on the ground outdoors, where they wear</div>
+</section>
+
+<!-- =============================================================== water -->
+<section class="shot panel water" id="water">
+  <div class="ptitle">Bring a whole house's taps back to life</div>
+  <div class="grid cols-3">
+    <div class="card bright">
+      <div class="art"><img src="sprites/main.png" style="height:140px"></div>
+      <h4>Water main</h4>
+      <div class="sub">Pick the house in the <span class="accent">Building Picker</span>:<br>every sink, bath, shower, toilet<br>and washer runs from your tank</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/hand-pump.png" style="height:166px"><img src="sprites/elec-pump.png" style="height:96px"></div>
+      <h4>Water pumps</h4>
+      <div class="sub">hand or electric, stood on<br>bare ground, they pump<br><span class="accent">ground water into a tank</span></div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/well.png" style="height:150px"></div>
+      <h4>Drilled well</h4>
+      <div class="sub">about <span class="accent">15 L of clean water</span><br>a minute, wired to<br>Dazed Power</div>
+    </div>
+  </div>
+  <div class="grid cols-3" style="margin-top:14px">
+    <div class="card">
+      <div class="art"><img src="sprites/purifier.png" style="height:160px"><img src="sprites/i-filter.png" class="px" style="height:70px"></div>
+      <h4>Purifier</h4>
+      <div class="sub">cleans dirty water on its way<br>into a tank, fast with a<br><span class="accent">filter cartridge</span> fitted</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/downspout.png" style="height:170px"><img src="sprites/small-water.png" style="height:96px"></div>
+      <h4>Rain</h4>
+      <div class="sub">open tanks, roof runoff,<br>downspouts and vanilla<br>rain barrels piped in</div>
+    </div>
+    <div class="card">
+      <div class="art"><img src="sprites/sprinkler.png" style="height:120px"></div>
+      <h4>Sprinklers</h4>
+      <div class="sub">water thirsty crops within 3 squares</div>
+      <div class="sched"><span class="on">Always</span><span>Dawn</span><span>Evening</span><span>Night</span></div>
+      <div class="sub accent" style="margin-top:6px">skip when raining</div>
+    </div>
+  </div>
+  <div class="note"><b>Taps</b> pipe a single sink, bath or shower to a tank<span class="dot">·</span>tainted water stays tainted</div>
+</section>
+
+<!-- =============================================================== fuel, biogas, smoker
+     Numbers: DUP_Smokers (SMOKE_HOURS 8, FRESH_MULT 6), DUP_Digesters (half speed below 10 °C, stops below 0). -->
+<section class="shot panel fuel" id="fuel">
+  <div class="grid cols-3">
+    <div class="card">
+      <h4>Fuel pumps</h4>
+      <div class="art"><img src="sprites/fuel-hand.png" style="height:150px"><img src="sprites/fuel-elec.png" style="height:150px"></div>
+      <ul>
+        <li>Refuel a parked car</li>
+        <li>Fill petrol cans</li>
+        <li>From a piped petrol tank</li>
+        <li>Hand-cranked, or electric</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Biogas digester</h4>
+      <div class="art"><img src="sprites/digester.png" style="height:170px"></div>
+      <ul>
+        <li>Rotten food and manure</li>
+        <li>Slowly makes propane</li>
+        <li>Half speed below 10 °C</li>
+        <li>Stops below freezing</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Smoker</h4>
+      <div class="art"><img src="sprites/smoker.png" style="height:180px"></div>
+      <ul>
+        <li>Propane-fired drum</li>
+        <li>Raw meat and fish in <span class="big">8 h</span></li>
+        <li>Keeps <span class="big">6x</span> longer</li>
+        <li>Butchery cuts, jerky strips</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

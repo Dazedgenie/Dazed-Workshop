@@ -278,6 +278,16 @@
       "png": "DazedButchery/Contents/mods/DazedButchery/42/media/textures/Item_DB_BoneMeal.png",
       "scale": 4,
       "filter": "nearest"
+    },
+    "salted-strips": {
+      "png": "DazedCooking/Contents/mods/DazedCooking/42/media/textures/Item_DC_SaltedMeatStrips.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "drying-rack": {
+      "pack": "DazedCooking/Contents/mods/DazedCooking/42/media/texturepacks/dazedcooking.pack",
+      "sprite": "dazedcooking_01_4",
+      "scale": 1
     }
   }
 }

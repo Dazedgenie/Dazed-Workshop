@@ -1,65 +1,136 @@
 {
   "repos": "/home/claude",
   "sprites": {
-    "cart": {
-      "png": "/mnt/project-files/electric-vehicles/art/club_cart_0.png",
-      "scale": 0.5,
-      "crop": [
-        106,
-        0,
-        920,
-        767
-      ]
+    "v-cart": {
+      "png": "dazed-workshop/PowerEV/renders/clubcart.png",
+      "scale": 1
     },
-    "trak": {
-      "png": "/mnt/project-files/electric-vehicles/art/elec_trak_0.png",
-      "scale": 0.5,
-      "crop": [
-        92,
-        0,
-        934,
-        765
-      ]
+    "v-cart4": {
+      "png": "dazed-workshop/PowerEV/renders/clubcart4.png",
+      "scale": 1
     },
-    "wedge": {
-      "png": "/mnt/project-files/electric-vehicles/art/wedge_car_0.png",
-      "scale": 0.5,
-      "crop": [
-        86,
-        0,
-        938,
-        748
-      ]
+    "v-trak": {
+      "png": "dazed-workshop/PowerEV/renders/electrak.png",
+      "scale": 1
     },
-    "wedge-lead": {
-      "png": "/mnt/project-files/electric-vehicles/art/wedge_car_90.png",
-      "scale": 0.5,
-      "crop": [
-        12,
-        21,
-        1024,
-        726
-      ]
+    "v-wedge": {
+      "png": "dazed-workshop/PowerEV/renders/wedge.png",
+      "scale": 1
     },
-    "conv": {
-      "png": "/mnt/project-files/electric-vehicles/art/garage_conversion_0.png",
-      "scale": 0.5,
-      "crop": [
-        88,
-        0,
-        936,
-        758
-      ]
+    "v-atv": {
+      "png": "dazed-workshop/PowerEV/renders/rideatv.png",
+      "scale": 1
     },
-    "conv-rear": {
-      "png": "/mnt/project-files/electric-vehicles/art/garage_conversion_180.png",
-      "scale": 0.5,
-      "crop": [
-        90,
-        0,
-        934,
-        768
-      ]
+    "v-hauler": {
+      "png": "dazed-workshop/PowerEV/renders/hauler.png",
+      "scale": 1
+    },
+    "t-utility": {
+      "png": "dazed-workshop/PowerEV/renders/trailer-utility.png",
+      "scale": 1
+    },
+    "t-dump": {
+      "png": "dazed-workshop/PowerEV/renders/trailer-dump.png",
+      "scale": 1
+    },
+    "t-battery": {
+      "png": "dazed-workshop/PowerEV/renders/trailer-battery.png",
+      "scale": 1
+    },
+    "a-mower": {
+      "png": "dazed-workshop/PowerEV/renders/trak-mower.png",
+      "scale": 1
+    },
+    "a-plough": {
+      "png": "dazed-workshop/PowerEV/renders/trak-plough.png",
+      "scale": 1
+    },
+    "a-blade": {
+      "png": "dazed-workshop/PowerEV/renders/trak-blade.png",
+      "scale": 1
+    },
+    "a-foldout": {
+      "png": "dazed-workshop/PowerEV/renders/wedge-foldout.png",
+      "scale": 1
+    },
+    "a-wedge-roof": {
+      "png": "dazed-workshop/PowerEV/renders/wedge-roof.png",
+      "scale": 1
+    },
+    "a-cart-salv": {
+      "png": "dazed-workshop/PowerEV/renders/cart-roof-salvaged.png",
+      "scale": 1
+    },
+    "a-cart-mk": {
+      "png": "dazed-workshop/PowerEV/renders/cart-roof-makeshift.png",
+      "scale": 1
+    },
+    "d-dart": {
+      "png": "/mnt/project-files/electric-vehicles/donor-cars/SmallCar_180.png",
+      "scale": 0.36
+    },
+    "d-horizon": {
+      "png": "/mnt/project-files/electric-vehicles/donor-cars/SmallCar02_180.png",
+      "scale": 0.36
+    },
+    "d-d6": {
+      "png": "/mnt/project-files/electric-vehicles/donor-cars/PickUpTruck_180.png",
+      "scale": 0.36
+    },
+    "d-valuline": {
+      "png": "/mnt/project-files/electric-vehicles/donor-cars/Van_180.png",
+      "scale": 0.36
+    },
+    "d-nyala": {
+      "png": "/mnt/project-files/electric-vehicles/donor-cars/CarNormal_180.png",
+      "scale": 0.36
+    },
+    "d-rancher": {
+      "png": "/mnt/project-files/electric-vehicles/donor-cars/OffRoad_180.png",
+      "scale": 0.36
+    },
+    "d-cerise": {
+      "png": "/mnt/project-files/electric-vehicles/donor-cars/CarStationWagon_180.png",
+      "scale": 0.36
+    },
+    "ch-mk": {
+      "pack": "dazedpowerev/Contents/mods/DazedPowerEV/common/media/texturepacks/dazedpowerev.pack",
+      "sprite": "dazedpowerev_01_5",
+      "scale": 1.3
+    },
+    "ch-salv": {
+      "pack": "dazedpowerev/Contents/mods/DazedPowerEV/common/media/texturepacks/dazedpowerev.pack",
+      "sprite": "dazedpowerev_01_13",
+      "scale": 1.3
+    },
+    "ch-work": {
+      "pack": "dazedpowerev/Contents/mods/DazedPowerEV/common/media/texturepacks/dazedpowerev.pack",
+      "sprite": "dazedpowerev_01_21",
+      "scale": 1.3
+    },
+    "i-box": {
+      "png": "dazed-workshop/PowerEV/renders/icon-box.png",
+      "scale": 0.55
+    },
+    "i-meter": {
+      "png": "dazed-workshop/PowerEV/renders/icon-meter.png",
+      "scale": 0.55
+    },
+    "i-bal": {
+      "png": "dazed-workshop/PowerEV/renders/icon-balancer.png",
+      "scale": 0.55
+    },
+    "i-toyatv": {
+      "png": "dazed-workshop/PowerEV/renders/icon-toyatv.png",
+      "scale": 0.55
+    },
+    "dash-drive": {
+      "png": "dazed-workshop/PowerEV/renders/dash-drive.png",
+      "scale": 0.6
+    },
+    "dash-charge": {
+      "png": "dazed-workshop/PowerEV/renders/dash-charge.png",
+      "scale": 0.6
     },
     "makeshift": {
       "png": "/mnt/project-files/electric-vehicles/art/makeshift_battery_30.png",
@@ -68,16 +139,6 @@
         0,
         0,
         768,
-        768
-      ]
-    },
-    "ch-workshop": {
-      "png": "/mnt/project-files/electric-vehicles/art/charger_workshop_0.png",
-      "scale": 0.5,
-      "crop": [
-        274,
-        0,
-        750,
         768
       ]
     },
@@ -100,10 +161,6 @@
       "pack": "DazedPower/Contents/mods/DazedPower/common/media/texturepacks/dazedpower.pack",
       "sprite": "dazedpower_01_357",
       "scale": 1.6
-    },
-    "dash": {
-      "png": "/mnt/project-files/electric-vehicles/art/dashboard_preview.png",
-      "scale": 0.62
     }
   }
 }

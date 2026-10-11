@@ -1,0 +1,748 @@
+<!doctype html>
+<!-- Dazed Dank Workshop art. Each <section class="shot" id="x"> renders to images/x.png
+     (banner -> banner.jpg):  node _kit/render.mjs Dank   (from the workshop-art root).
+     Sprites:  python3 Dank/pots.py  (plants standing in their containers, as the game draws them)
+               python3 _kit/sprites.py Dank
+     Numbers are from DazedDank main (dd56, 76d3b9d) at sandbox defaults: CannabisConfig.lua unless named. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/suite.css">
+<style>
+  .hdr .tile img { image-rendering: auto; }
+  .hdr .tile img.px { image-rendering: pixelated; }
+  .row3 { display: grid; gap: 14px; }
+  .chip { font-size: 21px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #6d43b5;
+    background: var(--well); color: var(--lilac); white-space: nowrap; }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .pts { display: grid; gap: 8px; text-align: left; }
+  .pts div { font-size: 22px; line-height: 1.3; color: var(--ink); padding-left: 24px; position: relative; }
+  .pts div::before { content: ""; position: absolute; left: 4px; top: 11px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+  .pts .m { color: var(--muted); }
+  .card.list { text-align: left; padding: 18px 22px 20px; }
+  .card.list h4 { text-align: center; }
+  .icons { display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 100px; margin-bottom: 12px; position: relative; }
+  .icons::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 160px; height: 22px; transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(165, 90, 255, .5), rgba(165, 90, 255, 0) 70%); }
+  .icons img { position: relative; z-index: 1; }
+  .big { font-weight: 800; font-size: 38px; line-height: 1.05; color: var(--ink); margin: 2px 0 6px; }
+  .tag { display: inline-block; font-size: 19px; font-weight: 700; padding: 3px 12px; border-radius: 999px; margin-top: 8px; }
+  .tag.ind { background: #7b3fe0; color: #fff; } .tag.sat { background: #d9851f; color: #1b0d2c; } .tag.hyb { background: #2f9e4f; color: #fff; }
+
+  /* banner */
+  #banner .pills { gap: 12px; }
+  #banner .pill { font-size: 22px; padding: 8px 16px 9px; }
+  #banner .row { left: 22px; right: 22px; bottom: 18px; height: 260px; }
+
+  /* stages */
+  .stages { display: grid; grid-template-columns: repeat(5, 1fr); align-items: end; position: relative; text-align: center; }
+  .stages .art { height: 270px; margin-bottom: 16px; }
+  .stages .lbl { font-size: 32px; }
+  .arrowrow { position: absolute; left: 0; right: 0; top: 170px; height: 0; }
+  .arrowrow i { position: absolute; width: 56px; height: 4px; background: var(--accent); border-radius: 2px; }
+  .arrowrow i::after { content: ""; position: absolute; right: -4px; top: -8px; border: 10px solid transparent; border-left: 14px solid var(--accent); border-right: 0; }
+  .care .card { padding: 14px 12px 16px; }
+  .care h4 { font-size: 28px; margin-bottom: 4px; }
+  .care .sub { font-size: 20px; }
+
+  /* lights */
+  .lamps .card { padding: 12px 6px 14px; }
+  .lamps .art { height: 210px; margin-bottom: 12px; }
+  .lamps .lbl { font-size: 27px; }
+  .timers { display: grid; grid-template-columns: 240px 1fr; gap: 12px 18px; align-items: center; margin-top: 18px; }
+  .timers .name { font-size: 27px; font-weight: 700; text-align: left; }
+  .timers .name span { display: block; font-size: 20px; font-weight: 400; color: var(--muted); }
+  .day { position: relative; height: 46px; border-radius: 10px; border: 1.5px solid #6c40b8; background: var(--well); overflow: hidden; }
+  .day .on { position: absolute; top: 3px; bottom: 3px; border-radius: 7px; background: linear-gradient(90deg, #f2c35e, #ffe7a8); }
+  .day .on.leak { background: repeating-linear-gradient(135deg, #ff9a9a 0 10px, #d06a7a 10px 20px); }
+  .day .t { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; font-size: 21px; font-weight: 700; color: #1b0d2c; }
+  .day .t.out { color: var(--muted); font-weight: 400; }
+  .hours { position: relative; height: 26px; margin-left: 258px; }
+  .hours span { position: absolute; transform: translateX(-50%); font-size: 19px; color: var(--muted); }
+
+  /* bags */
+  .bags .art { height: 250px; }
+  .bags h4 { font-size: 30px; }
+  .bags .card { padding: 14px 10px 16px; }
+
+  /* hydro */
+  .hydro .art { height: 270px; margin-bottom: 14px; }
+  .hydro .pts div { font-size: 23px; }
+  .hydro h4 { font-size: 40px; }
+
+  /* strains */
+  .starters .card { padding: 10px 6px 14px; display: flex; flex-direction: column; align-items: center; }
+  .starters .tag { margin-top: auto; } .starters .sub { margin-bottom: 8px; }
+  .starters .art { height: 236px; margin-bottom: 10px; }
+  .starters .lbl { font-size: 25px; }
+  .starters .sub { font-size: 19px; line-height: 1.25; }
+  .genes .card { padding: 12px 12px 14px; }
+  .genes .art { height: 160px; margin-bottom: 8px; }
+  .genes h4 { font-size: 28px; margin-bottom: 4px; }
+  .genes .sub { font-size: 20px; }
+
+  /* cloning */
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 36px; position: relative; }
+  .steps .card { padding: 14px 8px 16px; }
+  .steps .card + .card::before { content: ""; position: absolute; left: -32px; top: 60px; border: 13px solid transparent; border-left: 20px solid var(--accent); border-right: 0; }
+  .steps .icons { height: 96px; }
+  .steps h4 { font-size: 27px; margin-bottom: 4px; }
+  .steps .sub { font-size: 19px; }
+  .odds { display: grid; grid-template-columns: 1.55fr 1fr; gap: 14px; margin-top: 14px; }
+  .odds .row { display: grid; grid-template-columns: 1fr 170px; align-items: center; gap: 10px; font-size: 21px; padding: 3px 0; }
+  .odds .row b { text-align: right; font-weight: 800; }
+  .up { color: #9be38f; } .dn { color: #ff9a9a; }
+  .mother { display: grid; grid-template-columns: 200px 1fr; align-items: center; gap: 10px; text-align: left; }
+
+  /* dashboard: Dank's Grow Room Panel, drawn from CannabisDashboardLayout.lua at its own 760 x 566 size */
+  .dashwrap { display: flex; justify-content: center; }
+  .dash { position: relative; width: 760px; height: 566px; zoom: 1.5; background: #f3f0ea; border-radius: 6px; overflow: hidden;
+    font-family: "Suite", sans-serif; color: #26222b; box-shadow: 0 0 0 1.5px #7444cf, 0 8px 30px rgba(0,0,0,.45); }
+  .dash * { position: absolute; }
+  .dash .bar0 { left: 0; top: 0; width: 760px; height: 40px; background: #2b1f3d; }
+  .dash .c { background: #fff; border: 1px solid #dcd6cc; border-radius: 8px; }
+  .dash .t { font-size: 13px; line-height: 16px; white-space: nowrap; }
+  .dash .tm { font-size: 17px; line-height: 20px; font-weight: 600; white-space: nowrap; }
+  .dash .tl { font-size: 26px; line-height: 30px; font-weight: 700; white-space: nowrap; }
+  .dash .mu { color: #7d7684; } .dash .gd { color: #2f9e4f; } .dash .wn { color: #c98a12; } .dash .bd { color: #cc3a33; } .dash .wh { color: #fff; }
+  .dash .lab { font-size: 12px; line-height: 16px; letter-spacing: .5px; color: #7d7684; font-weight: 600; white-space: nowrap; }
+  .dash .lab img { position: static; display: inline-block; width: 16px; height: 16px; object-fit: contain; vertical-align: -3px; margin-right: 4px; }
+  .dash .btn { height: 22px; border-radius: 11px; font-size: 12px; line-height: 22px; text-align: center; font-weight: 600; }
+  .dash .btn.f { background: #7b3fe0; color: #fff; } .dash .btn.o { background: #efe9f7; color: #7b3fe0; }
+  .dash .dd { border-radius: 50%; }
+  .dash .pl { border-radius: 4px; }
+  .dash .ph { background: #efe9f7; border-radius: 6px; overflow: hidden; }
+  .dash .ph img { left: 50%; bottom: 4px; transform: translateX(-50%); }
+  .dash .eq { background: #f3f0ea; border-radius: 8px; }
+  .dash .eq img { image-rendering: pixelated; }
+  .dashnote { display: flex; justify-content: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+
+  /* room gear */
+  .gear8 .card { padding: 12px 8px 14px; }
+  .gear8 .icons { height: 128px; }
+  .gear8 h4 { font-size: 26px; margin-bottom: 4px; }
+  .gear8 .sub { font-size: 19px; }
+  .targets { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .targets .card { padding: 14px 12px 16px; }
+  .targets h4 { font-size: 30px; margin-bottom: 8px; }
+  .targets .v { font-size: 26px; font-weight: 700; }
+  .targets .v small { font-size: 19px; font-weight: 400; color: var(--muted); }
+
+  /* curing */
+  .chain { display: flex; align-items: flex-start; justify-content: space-between; }
+  .chain .st { width: 168px; text-align: center; }
+  .chain .box { height: 140px; border: 2px solid #a676ee; border-radius: 22px; background: linear-gradient(160deg, #4a2378, #2d1648);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .chain .ar, .leafrow .ar { width: 24px; height: 140px; font-size: 0; display: flex; align-items: center; justify-content: center; }
+  .leafrow .ar { height: 84px; align-self: flex-start; }
+  .chain .ar::before, .leafrow .ar::before { content: ""; border: 12px solid transparent; border-left: 18px solid var(--accent); border-right: 0; }
+  .chain .lbl { font-size: 28px; }
+  .chain .sub { font-size: 19px; line-height: 1.25; }
+  .tiers { display: grid; grid-template-columns: 40fr 25fr 20fr 16fr 15fr; gap: 4px; height: 72px; margin-top: 4px; }
+  .tiers div { border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.05; }
+  .tiers b { font-size: 25px; font-weight: 800; color: #1b0d2c; }
+  .tiers span { font-size: 18px; font-weight: 600; color: #2b1544; }
+  .leafrow { display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .leafrow .st { text-align: center; }
+  .leafrow .st .sub { font-size: 19px; }
+
+  /* smoking */
+  .smoke3 .icons { height: 92px; }
+  .smoke3 h4 { font-size: 32px; margin-bottom: 4px; }
+  .effects { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .effects .card { padding: 14px 14px 16px; }
+  .effects h4 { font-size: 28px; margin-bottom: 6px; }
+  .effects .sub { font-size: 20px; }
+
+  /* people */
+  .occ .card { display: grid; grid-template-columns: 76px 1fr; gap: 12px; text-align: left; align-items: start; padding: 16px 18px; }
+  .occ h4 { font-size: 29px; margin-bottom: 6px; }
+  .occ .pts div { font-size: 20px; white-space: nowrap; }
+  .traits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
+  .traits .card { padding: 12px 10px 14px; }
+  .traits .icons { height: 64px; margin-bottom: 8px; }
+  .traits h4 { font-size: 27px; margin-bottom: 4px; }
+  .traits .sub { font-size: 19px; }
+  .trackerline { margin-top: 14px; }
+
+  /* skill */
+  .lv { display: grid; grid-template-columns: 90px 1fr; gap: 12px 18px; align-items: center; }
+  .lv .n { height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; color: #1b0d2c; }
+  .lv .d { height: 50px; border-radius: 12px; border: 1.5px solid var(--line); background: linear-gradient(180deg, var(--card), var(--card-2));
+    display: flex; align-items: center; padding: 0 20px; font-size: 24px; white-space: nowrap; }
+
+  /* gear grid */
+  .items .card { padding: 14px 6px 12px; }
+  .items .icons { height: 96px; margin-bottom: 10px; }
+  .items .lbl { font-size: 23px; }
+
+  /* compat */
+  .compat .card { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: center; text-align: left; padding: 14px 20px; }
+  .compat .icons { height: 100px; margin: 0; }
+  .compat h4 { font-size: 29px; margin-bottom: 4px; }
+  .compat .sub { font-size: 21px; color: var(--ink); }
+  .compat .sub i { font-style: normal; color: var(--muted); }
+  .compat .opt { font-size: 18px; font-weight: 700; color: var(--accent); margin-left: 8px; }
+</style>
+</head>
+<body>
+
+<!-- =============================================================== banner -->
+<section class="shot banner" id="banner">
+  <div class="title">DAZED DANK</div>
+  <div class="sub">Realistic cannabis growing for Project Zomboid Build 42</div>
+  <div class="pills">
+    <span class="pill">Strains and breeding</span>
+    <span class="pill">Cloning</span>
+    <span class="pill">Hydroponics</span>
+    <span class="pill">Grow rooms</span>
+    <span class="pill">Dry, trim, cure</span>
+    <span class="pill">Joints, pipes, blunts</span>
+  </div>
+  <div class="row">
+    <div class="spr"><img src="sprites/b-1.png" style="height:200px"></div>
+    <div class="spr"><img src="sprites/b-2.png" style="height:190px"></div>
+    <div class="spr"><img src="sprites/b-3.png" style="height:228px"></div>
+    <div class="spr"><img src="sprites/b-4.png" style="height:222px"></div>
+    <div class="spr"><img src="sprites/b-5.png" style="height:216px"></div>
+    <div class="spr"><img src="sprites/b-6.png" style="height:244px"></div>
+    <div class="spr"><img src="sprites/b-7.png" style="height:206px"></div>
+  </div>
+</section>
+
+<!-- =============================================================== section headers -->
+<section class="shot hdr" id="h-grow">
+  <div class="tile"><img src="sprites/i-CannabisSeed.png" class="px" style="width:84px"></div>
+  <div class="num">01</div><h2>Grow from seed</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-light">
+  <div class="tile"><img src="sprites/lamp-pro.png" style="height:84px"></div>
+  <div class="num">02</div><h2>Grow lights and timers</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-bags">
+  <div class="tile"><img src="sprites/bag-large.png" style="width:86px"></div>
+  <div class="num">03</div><h2>Grow bags and soil</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-hydro">
+  <div class="tile"><img src="sprites/dwc.png" style="height:84px"></div>
+  <div class="num">04</div><h2>Hydroponics</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-breed">
+  <div class="tile"><img src="sprites/s-muldraugh.png" style="height:92px"></div>
+  <div class="num">05</div><h2>Strains and breeding</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-clone">
+  <div class="tile"><img src="sprites/i-CannabisCutting.png" class="px" style="height:84px"></div>
+  <div class="num">06</div><h2>Cloning</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-rooms">
+  <div class="tile"><img src="sprites/panel.png" style="height:86px"></div>
+  <div class="num">07</div><h2>Grow rooms</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-cure">
+  <div class="tile"><img src="sprites/i-CuringJar.png" class="px" style="height:84px"></div>
+  <div class="num">08</div><h2>Dry, trim and cure</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-smoke">
+  <div class="tile"><img src="sprites/i-Blunt.png" class="px" style="width:86px"></div>
+  <div class="num">09</div><h2>Smoking</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-people">
+  <div class="tile"><img src="sprites/prof-cultivationtech.png" class="px" style="height:84px"></div>
+  <div class="num">10</div><h2>Occupations and traits</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-skill">
+  <div class="tile"><img src="sprites/i-GrowersHandbook.png" class="px" style="height:84px"></div>
+  <div class="num">11</div><h2>Agriculture skill</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-parts">
+  <div class="tile"><img src="sprites/i-HydroMagazine.png" class="px" style="height:84px"></div>
+  <div class="num">12</div><h2>Finding and crafting gear</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-compat">
+  <div class="tile"><img src="sprites/i-CannabisBud.png" class="px" style="height:84px"></div>
+  <div class="num">13</div><h2>Works with</h2><div class="rule"></div>
+</section>
+<section class="shot hdr" id="h-help">
+  <div class="tile"><img src="sprites/i-FanLeaf.png" class="px" style="height:84px"></div>
+  <div class="num">14</div><h2>Bugs and help</h2><div class="rule"></div>
+</section>
+
+<!-- =============================================================== stages
+     Five stages; feeding Config.Nutrients (once per stage, twice burns); Config.Topping (+20%, once, veg);
+     Config.FanLeaves (late veg + first 35% of flower, +3 to +5 care, over-strip costs care). -->
+<section class="shot panel" id="stages">
+  <div class="stages">
+    <div class="arrowrow">
+      <i style="left:216px"></i><i style="left:461px"></i><i style="left:707px"></i><i style="left:952px"></i>
+    </div>
+    <div><div class="art"><img src="sprites/st-seedling.png" style="height:150px"></div><div class="lbl">Seedling</div><div class="sub">sow a seed or a clone</div></div>
+    <div><div class="art"><img src="sprites/st-veg.png" style="height:200px"></div><div class="lbl">Vegetative</div><div class="sub">18/6 holds it here</div></div>
+    <div><div class="art"><img src="sprites/st-pre.png" style="height:236px"></div><div class="lbl">Pre-flower</div><div class="sub">flip to 12/12, sex shows</div></div>
+    <div><div class="art"><img src="sprites/st-flower.png" style="height:262px"></div><div class="lbl">Flowering</div><div class="sub">males drop pollen</div></div>
+    <div><div class="art"><img src="sprites/st-ripe.png" style="height:262px"></div><div class="lbl">Ripe</div><div class="sub">harvest in the window</div></div>
+  </div>
+  <div class="grid cols-4 care" style="margin-top:22px">
+    <div class="card"><div class="icons"><img src="sprites/i-VegNutrients.png" class="px" style="height:84px"></div><h4>Veg food</h4><div class="sub">in veg, once per stage<br><span class="accent">twice in one stage burns</span></div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-BloomNutrients.png" class="px" style="height:84px"></div><h4>Bloom food</h4><div class="sub">in flower, once per stage<br><span class="accent">wrong food hurts too</span></div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-CannabisCutting.png" class="px" style="height:80px"></div><h4>Top Plant</h4><div class="sub">snip the tip in veg, once<br><span class="accent">+20% buds</span></div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-FanLeaf.png" class="px" style="height:84px"><img src="sprites/i-FanLeaf.png" class="px" style="height:70px"></div><h4>Strip Fan Leaves</h4><div class="sub">late veg and early flower<br><span class="accent">better buds, and leaves to keep</span></div></div>
+  </div>
+  <div class="note">Care, light, genetics and harvest timing set the final quality<span class="dot">·</span>over-stripping or over-feeding costs care</div>
+</section>
+
+<!-- =============================================================== lights
+     Config.Light.SPRITES radius and cap; Config.Timer (on at 6:00, 18/6 and 12/12, no timer = 24/0, leak 6 pm to 6 am). -->
+<section class="shot panel" id="lights">
+  <div class="ptitle">Every lamp lights a round zone and sets a quality ceiling</div>
+  <div class="grid cols-6 lamps">
+    <div class="card"><div class="art"><img src="sprites/lamp-basic.png" style="height:120px"></div><div class="lbl">Basic</div><div class="sub">2 tiles</div><div class="sub accent">ceiling 85</div></div>
+    <div class="card"><div class="art"><img src="sprites/lamp-pro.png" style="height:126px"></div><div class="lbl">Pro</div><div class="sub">2.5 tiles</div><div class="sub accent">ceiling 100</div></div>
+    <div class="card"><div class="art"><img src="sprites/lamp-lbasic.png" style="width:178px"></div><div class="lbl">Large Basic</div><div class="sub">3 tiles, 2 long</div><div class="sub accent">ceiling 85</div></div>
+    <div class="card"><div class="art"><img src="sprites/lamp-lpro.png" style="width:184px"></div><div class="lbl">Large Pro</div><div class="sub">4 tiles, 3 long</div><div class="sub accent">ceiling 100</div></div>
+    <div class="card"><div class="art"><img src="sprites/flood-basic.png" style="height:200px"></div><div class="lbl">Flood</div><div class="sub">3.5 tiles</div><div class="sub accent">ceiling 85</div></div>
+    <div class="card"><div class="art"><img src="sprites/flood-pro.png" style="height:206px"></div><div class="lbl">Pro Flood</div><div class="sub">4.5 tiles</div><div class="sub accent">ceiling 100</div></div>
+  </div>
+  <div class="timers">
+    <div class="name">24/0<span>no timer: stays in veg</span></div>
+    <div class="day"><div class="on" style="left:3px;right:3px"></div><div class="t" style="left:20px">always on</div></div>
+    <div class="name">18/6 veg<span>extra days add yield</span></div>
+    <div class="day"><div class="on" style="left:25%;right:3px"></div><div class="t" style="left:calc(25% + 18px)">on 06:00 to 24:00</div></div>
+    <div class="name">12/12 flower<span>flips the plant to flower</span></div>
+    <div class="day"><div class="on" style="left:25%;right:25%"></div><div class="on leak" style="left:87%;width:5%"></div><div class="t" style="left:calc(25% + 18px)">on 06:00 to 18:00</div><div class="t out" style="left:calc(75% + 14px)">dark</div><div class="t" style="left:calc(92% + 10px);color:#ff9a9a">leak</div></div>
+  </div>
+  <div class="hours"><span style="left:0%">00:00</span><span style="left:25%">06:00</span><span style="left:50%">12:00</span><span style="left:75%">18:00</span><span style="left:100%">24:00</span></div>
+  <div class="note">Sun is ceiling 70<span class="dot">·</span>veg light reaching a 12/12 plant in its dark hours is a <b>light leak</b>: stress, and maybe a hermie</div>
+</section>
+
+<!-- =============================================================== bags
+     Config.GrowBag: drain (overwater penalty) small .6 large .5 xl .45; yield 1 / 1.25 / 1.25; soil sacks 1/2/3;
+     Config.Mother; Config.Drip (50 L tank, holds soil pots at 70, tops up from a water line). -->
+<section class="shot panel" id="bags">
+  <div class="ptitle">Fabric pots that keep their soil from one harvest to the next</div>
+  <div class="grid cols-5 bags">
+    <div class="card"><div class="art"><img src="sprites/p-ground.png" style="height:200px"></div><h4>Farm plot</h4><div class="sub">plow, Sow Seed, water<br><span class="accent">indoors or out</span></div></div>
+    <div class="card"><div class="art"><img src="sprites/p-small.png" style="height:180px"></div><h4>Small bag</h4><div class="sub">1 sack of soil<br><span class="accent">forgives overwatering</span></div></div>
+    <div class="card"><div class="art"><img src="sprites/p-large.png" style="height:226px"></div><h4>Large bag</h4><div class="sub">2 sacks of soil<br><span class="accent">+25% buds</span></div></div>
+    <div class="card"><div class="art"><img src="sprites/p-xlbag.png" style="height:200px"></div><h4>XL mother bag</h4><div class="sub">3 sacks, +25% buds<br><span class="accent">8 cuttings at a time</span></div></div>
+    <div class="card"><div class="art"><img src="sprites/drip.png" style="height:180px"></div><h4>Drip tank</h4><div class="sub">50 L, keeps soil pots<br><span class="accent">evenly watered</span></div></div>
+  </div>
+  <div class="note">Place bags like furniture<span class="dot">·</span>fill them once with potting soil<span class="dot">·</span>a dead plant just empties the bag</div>
+</section>
+
+<!-- =============================================================== hydro
+     Config.GrowBag dwc/rdwc/ebb yield and careMult; Config.Hydro litres, sites, ranges, EBB_ROT_MULT; HydroQualityBonus .15. -->
+<section class="shot panel" id="hydro">
+  <div class="grid cols-3 hydro">
+    <div class="card list">
+      <h4>DWC</h4>
+      <div class="art"><img src="sprites/p-dwc.png" style="height:220px"><img src="sprites/dwc-xl.png" style="height:110px"></div>
+      <div class="pts">
+        <div>15 L bucket, <span class="m">XL mother 30 L</span></div>
+        <div>Air pump needs power</div>
+        <div>Yield ×1.3</div>
+        <div>Care mistakes ×0.75</div>
+        <div>Quality up to 100</div>
+      </div>
+    </div>
+    <div class="card list">
+      <h4>RDWC</h4>
+      <div class="art"><img src="sprites/rdwc-control.png" style="height:122px"><img src="sprites/p-rdwc.png" style="height:262px"></div>
+      <div class="pts">
+        <div>40 L, +20 L per site</div>
+        <div>Up to 6 sites within 3 tiles</div>
+        <div>Yield ×1.4</div>
+        <div>Care mistakes ×0.6</div>
+        <div><b>Top Shelf</b>: up to 115</div>
+      </div>
+    </div>
+    <div class="card list">
+      <h4>Ebb and Flow</h4>
+      <div class="art"><img src="sprites/p-ebb.png" style="height:230px"><img src="sprites/flood-res.png" style="height:96px"></div>
+      <div class="pts">
+        <div>60 L flood reservoir</div>
+        <div>Up to 12 sites on rockwool</div>
+        <div>Yield ×1.2</div>
+        <div>Root rot ×0.25</div>
+        <div>A flood timer runs it</div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Indoors only<span class="dot">·</span>a dead pump or stale water brings <b>root rot</b><span class="dot">·</span>change the water and treat with bleach</div>
+</section>
+
+<!-- =============================================================== strains
+     CannabisStrains.lua STARTERS (ind 65+ Indica, 35 or less Sativa), shapes and colours; Config.Weather purple
+     (5 to 15 C nights in late flower, x1.05 quality); male seed chance 10%. -->
+<section class="shot panel" id="strains">
+  <div class="ptitle">Six starter strains, each with its own shape, colour and hidden genes</div>
+  <div class="grid cols-6 starters">
+    <div class="card"><div class="art"><img src="sprites/s-knox.png" style="height:180px"></div><div class="lbl">Knox Kush</div><div class="sub">Kush</div><span class="tag ind">Indica</span></div>
+    <div class="card"><div class="art"><img src="sprites/s-muldraugh.png" style="height:178px"></div><div class="lbl">Muldraugh Purple</div><div class="sub">Afghan, purple</div><span class="tag ind">Indica</span></div>
+    <div class="card"><div class="art"><img src="sprites/s-rosewood.png" style="height:196px"></div><div class="lbl">Rosewood Stone</div><div class="sub">Christmas Tree, dark</div><span class="tag ind">Indica</span></div>
+    <div class="card"><div class="art"><img src="sprites/s-riverside.png" style="height:214px"></div><div class="lbl">Riverside Haze</div><div class="sub">Haze</div><span class="tag sat">Sativa</span></div>
+    <div class="card"><div class="art"><img src="sprites/s-westpoint.png" style="height:232px"></div><div class="lbl">West Point Lightning</div><div class="sub">Landrace, frosty white</div><span class="tag sat">Sativa</span></div>
+    <div class="card"><div class="art"><img src="sprites/s-marchridge.png" style="height:206px"></div><div class="lbl">March Ridge Gold</div><div class="sub">Hybrid, lime gold</div><span class="tag sat">Sativa</span></div>
+  </div>
+  <div class="grid cols-4 genes" style="margin-top:14px">
+    <div class="card"><div class="art"><img src="sprites/s-male.png" style="height:156px"></div><h4>Males</h4><div class="sub">about 1 seed in 10<br><span class="accent">pollen sacs, no buds</span></div></div>
+    <div class="card"><div class="art"><img src="sprites/i-CannabisSeed.png" class="px" style="height:64px"><img src="sprites/i-CannabisSeed.png" class="px" style="height:52px"></div><h4>Crosses</h4><div class="sub">a new strain with a new name<br><span class="accent">potency, yield, flower speed</span></div></div>
+    <div class="card"><div class="art"><img src="sprites/s-riverside.png" style="height:150px"></div><h4>Hermies</h4><div class="sub">stressed females seed<br><span class="accent">themselves and others</span></div></div>
+    <div class="card"><div class="art"><img src="sprites/s-purple.png" style="height:136px"></div><h4>Purple buds</h4><div class="sub">cold nights in late flower<br><span class="accent">+5% quality, indicas most</span></div></div>
+  </div>
+  <div class="note">Indica relaxes, Sativa lifts, Hybrid sits between<span class="dot">·</span>shape and colour pass down whole, with a rare surprise</div>
+</section>
+
+<!-- =============================================================== cloning
+     Config.Rooting: 35 + 4/level, gel +15, dome +15, soil -10, outside 18-28 C -15, no light -10, dry -20; 5 to 95%.
+     Dome holds 12. Config.Mother: XL pots give 8 cuttings, drift 0-2 instead of 1-5. -->
+<section class="shot panel" id="cloning">
+  <div class="ptitle">Copy your best plant, cut by cut</div>
+  <div class="steps">
+    <div class="card"><div class="icons"><img src="sprites/mother.png" style="height:94px"></div><h4>Take Cutting</h4><div class="sub">in veg or pre-flower,<br>scissors or a knife</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-RootingGel.png" class="px" style="height:86px"></div><h4>Rooting gel</h4><div class="sub">dip the cutting<br><span class="accent">+15%</span></div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-CloningDome.png" class="px" style="width:110px"></div><h4>Cloning Dome</h4><div class="sub">up to 12 cuttings<br><span class="accent">+15%, always moist</span></div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-RootedCannabisCutting.png" class="px" style="height:88px"></div><h4>Rooted</h4><div class="sub">or stick it straight<br>in soil and hope</div></div>
+    <div class="card"><div class="icons"><img src="sprites/c-sown.png" style="height:92px"></div><h4>Sow it</h4><div class="sub">starts in veg with<br>its mother's genes</div></div>
+  </div>
+  <div class="odds">
+    <div class="card list">
+      <h4 style="font-size:30px;margin-bottom:8px">Rooting chance</h4>
+      <div class="row"><span>Base, plus 4% per Agriculture level</span><b>35%</b></div>
+      <div class="row"><span>Rooting gel / cloning dome</span><b class="up">+15% each</b></div>
+      <div class="row"><span>Warm (18 to 28 °C) and under light</span><b class="up">no loss</b></div>
+      <div class="row"><span>Cold or hot / in the dark</span><b class="dn">-15% / -10%</b></div>
+      <div class="row"><span>Straight in soil / left to dry out</span><b class="dn">-10% / -20%</b></div>
+    </div>
+    <div class="card mother">
+      <div class="art" style="height:200px;margin:0"><img src="sprites/mother.png" style="height:190px"></div>
+      <div>
+        <h4 style="font-size:30px;text-align:left">Mother pots</h4>
+        <div class="pts">
+          <div>XL bag or XL DWC</div>
+          <div>8 cuttings at a time</div>
+          <div>Steadier clones</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================================================== rooms: the Grow Room Panel dashboard
+     Layout: CannabisDashboardLayout.lua (760 x 566, HEAD_H 40, M 12, row 1 at 52 h 132, plants at 214 h 168, cards 240 + 8,
+     reservoirs and equipment at 394 h 126). Colours: CannabisStatusLayout.COLORS. Sample room in Flower mode. -->
+<section class="shot panel" id="rooms">
+  <div class="ptitle">Hang a Grow Room Panel: one dashboard for the whole room</div>
+  <div class="dashwrap">
+    <div class="dash">
+      <div class="bar0"></div>
+      <div class="tm wh" style="left:12px;top:10px">Basement Grow</div>
+      <div class="btn f" style="left:141px;top:9px;width:70px">FLOWER</div>
+      <div class="t" style="left:225px;top:12px;color:#c9bfe0">52 tiles  |  4 lamps  |  6 plants</div>
+      <div class="t wh" style="left:604px;top:12px">21:00</div>
+      <div class="btn f" style="left:646px;top:9px;width:70px">Refresh</div>
+      <div class="t" style="left:734px;top:11px;color:#c9bfe0;font-size:15px">×</div>
+
+      <!-- lights -->
+      <div class="c" style="left:12px;top:52px;width:176px;height:132px"></div>
+      <div id="ring" style="left:64px;top:120px;width:0;height:0"></div>
+      <div class="t mu" style="left:56px;top:84px">00</div>
+      <div class="t mu" style="left:57px;top:136px">12</div>
+      <div class="lab" style="left:116px;top:66px"><img src="sprites/ui-lights.png">LIGHTS</div>
+      <div class="tm" style="left:116px;top:84px">12/12</div>
+      <div class="t mu" style="left:116px;top:108px">on 06 to 18</div>
+      <div class="btn o" style="left:116px;top:148px;width:62px">Change</div>
+
+      <!-- temperature -->
+      <div class="c" style="left:198px;top:52px;width:180px;height:132px"></div>
+      <div class="lab" style="left:212px;top:66px"><img src="sprites/ui-temp.png">TEMPERATURE</div>
+      <div class="tl gd" style="left:212px;top:84px">24.6 °C</div>
+      <div class="pl" style="left:212px;top:124px;width:152px;height:8px;background:#ece7df"></div>
+      <div class="pl" style="left:274px;top:124px;width:26px;height:8px;background:#9ed6a8"></div>
+      <div class="pl" style="left:291px;top:121px;width:12px;height:14px;background:#2f9e4f"></div>
+      <div class="t mu" style="left:212px;top:140px">target 20 to 26 °C</div>
+      <div class="t mu" style="left:212px;top:157px">outdoors 14.0 °C</div>
+
+      <!-- humidity -->
+      <div class="c" style="left:388px;top:52px;width:180px;height:132px"></div>
+      <div class="lab" style="left:402px;top:66px"><img src="sprites/ui-humid.png">HUMIDITY</div>
+      <div class="tl gd" style="left:402px;top:84px">46.0 %</div>
+      <div class="pl" style="left:402px;top:124px;width:152px;height:8px;background:#ece7df"></div>
+      <div class="pl" style="left:458px;top:124px;width:19px;height:8px;background:#9ed6a8"></div>
+      <div class="pl" style="left:464px;top:121px;width:12px;height:14px;background:#2f9e4f"></div>
+      <div class="t mu" style="left:402px;top:140px">target 40 to 50 %</div>
+      <div class="t mu" style="left:402px;top:157px">outdoors 71%</div>
+
+      <!-- room seal -->
+      <div class="c" style="left:578px;top:52px;width:170px;height:132px"></div>
+      <div class="lab" style="left:592px;top:66px"><img src="sprites/ui-seal.png">ROOM SEAL</div>
+      <div class="dd" style="left:592px;top:92px;width:9px;height:9px;background:#2f9e4f"></div><div class="t" style="left:608px;top:88px">Panel powered</div>
+      <div class="dd" style="left:592px;top:114px;width:9px;height:9px;background:#2f9e4f"></div><div class="t" style="left:608px;top:110px">Door 8412,11736 covered</div>
+      <div class="dd" style="left:592px;top:136px;width:9px;height:9px;background:#2f9e4f"></div><div class="t" style="left:608px;top:132px">Window 8418,11731 cov..</div>
+      <div class="dd" style="left:592px;top:158px;width:9px;height:9px;background:#c98a12"></div><div class="t wn" style="left:608px;top:154px">Door 8421,11733 seeps</div>
+
+      <!-- plants -->
+      <div class="lab" style="left:14px;top:192px"><img src="sprites/ui-plants.png">PLANTS</div>
+      <div class="btn o" style="left:672px;top:189px;width:76px">View all</div>
+      <div id="cards"></div>
+
+      <!-- reservoirs -->
+      <div class="c" style="left:12px;top:394px;width:300px;height:126px"></div>
+      <div class="lab" style="left:26px;top:406px"><img src="sprites/ui-tank.png">RESERVOIRS</div>
+      <div class="btn f" style="left:154px;top:402px;width:78px">Top up all</div>
+      <div class="btn o" style="left:238px;top:402px;width:62px">More</div>
+      <div id="tanks"></div>
+
+      <!-- equipment -->
+      <div class="c" style="left:322px;top:394px;width:426px;height:126px"></div>
+      <div class="lab" style="left:336px;top:406px"><img src="sprites/ui-fan.png">EQUIPMENT</div>
+      <div id="equip"></div>
+
+      <!-- bottom strip -->
+      <div class="c" style="left:12px;top:530px;width:736px;height:24px"></div>
+      <div class="t mu" style="left:24px;top:534px">Latest: Lights set to 12/12</div>
+      <div class="btn o" style="left:678px;top:531px;width:60px;height:22px">Log</div>
+    </div>
+  </div>
+  <div class="dashnote">
+    <span class="chip">Veg, Flower or Drying mode</span>
+    <span class="chip">one light schedule for every lamp</span>
+    <span class="chip">an All plants table and a room log</span>
+  </div>
+</section>
+
+<!-- =============================================================== room gear
+     Config.Rooms.EQUIPMENT (wall units 20-39), Config.Climate (TARGETS, HEATER_C 3, COOLER_C 6, humidifier/dehumidifier 14,
+     inside-wall fans 25%), Closed Door Light Leak 25%. -->
+<section class="shot panel" id="roomgear">
+  <div class="ptitle">Each room has its own temperature and humidity</div>
+  <div class="grid cols-4 gear8">
+    <div class="card"><div class="icons"><img src="sprites/panel.png" style="height:118px"></div><h4>Grow Room Panel</h4><div class="sub">needs power,<br>one per room</div></div>
+    <div class="card"><div class="icons"><img src="sprites/exhaust.png" style="height:112px"></div><h4>Exhaust fan</h4><div class="sub">pulls stale air out,<br>best on an outside wall</div></div>
+    <div class="card"><div class="icons"><img src="sprites/intake.png" style="height:112px"></div><h4>Intake fan</h4><div class="sub">draws fresh air in</div></div>
+    <div class="card"><div class="icons"><img src="sprites/ac.png" style="height:118px"></div><h4>Wall AC</h4><div class="sub">cools and dries,<br>carries off lamp heat</div></div>
+    <div class="card"><div class="icons"><img src="sprites/heater.png" style="height:96px"></div><h4>Heater</h4><div class="sub">warms a cold room</div></div>
+    <div class="card"><div class="icons"><img src="sprites/dehum.png" style="height:104px"></div><h4>Dehumidifier</h4><div class="sub">dries the air,<br>keeps mold away</div></div>
+    <div class="card"><div class="icons"><img src="sprites/humid.png" style="height:108px"></div><h4>Humidifier</h4><div class="sub">for clones<br>and drying rooms</div></div>
+    <div class="card"><div class="icons"><img src="sprites/circ.png" style="height:96px"></div><h4>Circulation fan</h4><div class="sub">breaks up<br>hot spots</div></div>
+  </div>
+  <div class="targets">
+    <div class="card"><h4>Veg</h4><div class="v">24 to 28 °C <small>75 to 82 °F</small></div><div class="v">50 to 65% <small>humidity</small></div></div>
+    <div class="card"><h4>Flower</h4><div class="v">20 to 26 °C <small>68 to 79 °F</small></div><div class="v">40 to 50% <small>humidity</small></div></div>
+    <div class="card"><h4>Drying</h4><div class="v">15 to 21 °C <small>59 to 70 °F</small></div><div class="v">55 to 62% <small>humidity</small></div></div>
+  </div>
+  <div class="note">Gear runs on Auto, or set it On or Off<span class="dot">·</span>lit lamps add heat<span class="dot">·</span>hang a sheet over doors and windows to stop light leaks</div>
+</section>
+
+<!-- =============================================================== curing
+     CannabisDrying.lua: 48 h dry, rack 8 per tile, fan within 3 tiles; jar 30, barrel 300; 6 day cure up to +10%,
+     burp about every 1.5 days. Config.QualityTiers 101 Top Shelf, 85 Premium, 65 Good, 40 Average; moldy x0.2; purple x1.05.
+     Fan leaves: dry in half a plant's time (24 h), cure in half the buds' time (3 days) into Cured Fan Leaves. -->
+<section class="shot panel" id="curing">
+  <div class="chain">
+    <div class="st"><div class="box"><img src="sprites/i-WetIndicaPlant.png" class="px" style="height:104px"></div><div class="lbl">Harvest</div><div class="sub">a wet whole plant</div></div>
+    <div class="ar">›</div>
+    <div class="st"><div class="box"><img src="sprites/rack.png" style="height:118px"></div><div class="lbl">Dry</div><div class="sub">about 48 h on a rack,<br>a fan helps</div></div>
+    <div class="ar">›</div>
+    <div class="st"><div class="box"><img src="sprites/i-DriedHybridPlant.png" class="px" style="height:104px"></div><div class="lbl">Trim</div><div class="sub">scissors or a knife</div></div>
+    <div class="ar">›</div>
+    <div class="st"><div class="box"><img src="sprites/i-CannabisBud.png" class="px" style="height:100px"></div><div class="lbl">Buds</div><div class="sub">named by quality</div></div>
+    <div class="ar">›</div>
+    <div class="st"><div class="box"><img src="sprites/i-CuringJar.png" class="px" style="height:100px"><img src="sprites/barrel.png" style="height:96px"></div><div class="lbl">Cure</div><div class="sub">6 days, burp it,<br>up to +10%</div></div>
+    <div class="ar">›</div>
+    <div class="st"><div class="box"><img src="sprites/i-Joint.png" class="px" style="width:120px"></div><div class="lbl">Enjoy</div><div class="sub">joint, pipe or blunt</div></div>
+  </div>
+  <div class="ptitle" style="margin:26px 0 12px;font-size:28px">Bud grades</div>
+  <div class="tiers">
+    <div style="background:linear-gradient(180deg,#8c7aa6,#6f5e88)"><b>Poor</b><span>0 to 39</span></div>
+    <div style="background:linear-gradient(180deg,#b49ad6,#9478c0)"><b>Average</b><span>40 to 64</span></div>
+    <div style="background:linear-gradient(180deg,#c6a2f4,#a676ee)"><b>Good</b><span>65 to 84</span></div>
+    <div style="background:linear-gradient(180deg,#d8b6ff,#b98af7)"><b>Premium</b><span>85 to 100</span></div>
+    <div style="background:linear-gradient(180deg,#ffe7a8,#f2c35e)"><b>Top Shelf</b><span>RDWC, to 115</span></div>
+  </div>
+  <div class="chips" style="margin-top:14px">
+    <span class="chip">Purple: cold nights, +5%</span>
+    <span class="chip">Moldy: worth a fifth, and it hurts</span>
+    <span class="chip">Jar holds 30 buds, barrel 300</span>
+  </div>
+  <div class="ptitle" style="margin:24px 0 12px;font-size:28px">Fan leaves become hemp wraps</div>
+  <div class="leafrow">
+    <div class="st"><div class="icons" style="height:84px"><img src="sprites/i-FanLeaf.png" class="px" style="height:78px"></div><div class="sub">strip or trim</div></div>
+    <div class="ar">›</div>
+    <div class="st"><div class="icons" style="height:84px"><img src="sprites/i-DriedFanLeaf.png" class="px" style="height:78px"></div><div class="sub">24 h on the rack</div></div>
+    <div class="ar">›</div>
+    <div class="st"><div class="icons" style="height:84px"><img src="sprites/i-CuredFanLeaf.png" class="px" style="height:78px"></div><div class="sub">3 days in a jar</div></div>
+    <div class="ar">›</div>
+    <div class="st"><div class="icons" style="height:84px"><img src="sprites/i-Blunt.png" class="px" style="height:62px"></div><div class="sub">roll a blunt</div></div>
+  </div>
+</section>
+
+<!-- =============================================================== smoking
+     CannabisUse.lua / README: joint ~2.5 h; pipe ~30% stronger; blunt 3 sessions, 35% stronger, 40% longer, relight;
+     tolerance up to 65% weaker; withdrawal after about a day. -->
+<section class="shot panel" id="smoking">
+  <div class="ptitle">Joints, pipes and blunts</div>
+  <div class="grid cols-3 smoke3">
+    <div class="card"><div class="icons"><img src="sprites/i-RollingPapers.png" class="px" style="height:62px"><img src="sprites/i-Joint.png" class="px" style="width:96px"></div><h4>Joint</h4><div class="sub">rolling papers and a bud<br><span class="accent">gentle, about 2.5 hours</span></div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-SmokingPipe.png" class="px" style="width:110px"></div><h4>Pipe</h4><div class="sub">pack a bud and light it<br><span class="accent">about 30% stronger</span></div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-Blunt.png" class="px" style="width:96px"><img src="sprites/i-HalfSmokedBlunt.png" class="px" style="width:70px"></div><h4>Blunt</h4><div class="sub">two buds in a leaf wrap<br><span class="accent">3 sessions, relight in between</span></div></div>
+  </div>
+  <div class="effects">
+    <div class="card"><h4><span style="color:#b98af7">Indica</span></h4><div class="sub">relaxes, eases stress,<br>makes you hungry and tired</div></div>
+    <div class="card"><h4><span style="color:#f2b45e">Sativa</span></h4><div class="sub">lifts boredom and mood,<br>wakes you up</div></div>
+    <div class="card"><h4>Tolerance and habit</h4><div class="sub">each dose weakens the next;<br>regular use brings withdrawal</div></div>
+  </div>
+  <div class="note">You need a lighter, matches or an open flame<span class="dot">·</span>moldy smoke only hurts<span class="dot">·</span>a <b>High Tracker</b> window shows it all live</div>
+</section>
+
+<!-- =============================================================== people
+     CannabisCharacters.txt, CannabisTraits.lua: Tech reads +2 levels (not genetics), +10% rooting; Budtender reads buds,
+     cures up to +15%; Breeder reads strains, +1 seed per pollination, steadier crosses. Icons are the mod's own. -->
+<section class="shot panel" id="people">
+  <div class="ptitle">Three grower occupations and four traits</div>
+  <div class="grid cols-3 occ">
+    <div class="card"><img src="sprites/prof-cultivationtech.png" class="px" style="width:76px">
+      <div><h4>Cultivation Tech</h4><div class="pts"><div>Reads plants 2 levels higher</div><div>Cuttings root 10% better</div><div>Knows the grow recipes</div></div></div></div>
+    <div class="card"><img src="sprites/prof-budtender.png" class="px" style="width:76px">
+      <div><h4>Budtender</h4><div class="pts"><div>Reads any bud in full</div><div>Jars cure up to +15%</div><div>Knows papers, jars, barrels</div></div></div></div>
+    <div class="card"><img src="sprites/prof-breeder.png" class="px" style="width:76px">
+      <div><h4>Botanist / Breeder</h4><div class="pts"><div>Reads strains on anything</div><div>Extra seed per pollination</div><div>Steadier, luckier crosses</div></div></div></div>
+  </div>
+  <div class="traits">
+    <div class="card"><div class="icons"><img src="sprites/trait-greenthumb.png" class="px" style="height:54px"></div><h4>Green Thumb</h4><div class="sub">care mistakes hurt less,<br>cuttings root better</div></div>
+    <div class="card"><div class="icons"><img src="sprites/trait-trimhand.png" class="px" style="height:54px"></div><h4>Trim Hand</h4><div class="sub">trims twice as fast</div></div>
+    <div class="card"><div class="icons"><img src="sprites/trait-chronic.png" class="px" style="height:54px"></div><h4>Chronic</h4><div class="sub">starts with a habit<br>and some tolerance</div></div>
+    <div class="card"><div class="icons"><img src="sprites/trait-lightweight.png" class="px" style="height:54px"></div><h4>Lightweight</h4><div class="sub">highs hit 50% harder</div></div>
+  </div>
+  <div class="note">All of it can be switched off in the sandbox options</div>
+</section>
+
+<!-- =============================================================== skill
+     Config INFO tiers: 0, 2, 3, 5, 7, 9, 10. -->
+<section class="shot panel" id="skill">
+  <div class="ptitle">What Inspect shows at each Agriculture level</div>
+  <div class="lv">
+    <div class="n" style="background:#9a5cf0">0</div><div class="d" style="width:58%">Stage and water roughly, topped, fan leaves</div>
+    <div class="n" style="background:#a46af2">2</div><div class="d" style="width:76%">Exact stage, hours left, water %, last feed, reservoir, strip window</div>
+    <div class="n" style="background:#ae78f4">3</div><div class="d" style="width:80%">Strain, looks, sex, light source and cycle, roots and root rot</div>
+    <div class="n" style="background:#b886f6">5</div><div class="d" style="width:70%">Health, stress, warnings, extra veg time</div>
+    <div class="n" style="background:#c294f8">7</div><div class="d" style="width:62%">Harvest window, pollinated, hermie signs</div>
+    <div class="n" style="background:#cca2fa">9</div><div class="d" style="width:56%">Generation, genetics and the strain's traits</div>
+    <div class="n" style="background:#d6b0fc">10</div><div class="d" style="width:40%">Expected quality</div>
+  </div>
+  <div class="note">Seeds, cuttings and buds read the same way: at 3 you can tell a seed's strain and sex</div>
+</section>
+
+<!-- =============================================================== gear grid -->
+<section class="shot panel" id="gear">
+  <div class="grid cols-6 items">
+    <div class="card"><div class="icons"><img src="sprites/i-CannabisSeed.png" class="px" style="height:56px"></div><div class="lbl">Seeds</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-GrowBagLarge.png" class="px" style="height:84px"></div><div class="lbl">Grow bags</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-VegNutrients.png" class="px" style="height:90px"></div><div class="lbl">Veg food</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-BloomNutrients.png" class="px" style="height:90px"></div><div class="lbl">Bloom food</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-LightTimer.png" class="px" style="height:90px"></div><div class="lbl">Light timer</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-GrowRoomPanel.png" class="px" style="height:90px"></div><div class="lbl">Grow Room Panel</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-RockwoolCube.png" class="px" style="height:84px"></div><div class="lbl">Rockwool</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-ClayPebbles.png" class="px" style="height:88px"></div><div class="lbl">Clay pebbles</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-FloodTimer.png" class="px" style="height:90px"></div><div class="lbl">Flood timer</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-RootingGel.png" class="px" style="height:90px"></div><div class="lbl">Rooting gel</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-CloningDome.png" class="px" style="height:64px"></div><div class="lbl">Cloning dome</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-DryingFan.png" class="px" style="height:90px"></div><div class="lbl">Drying fan</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-CuringJar.png" class="px" style="height:90px"></div><div class="lbl">Curing jar</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-RollingPapers.png" class="px" style="height:60px"></div><div class="lbl">Rolling papers</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-SmokingPipe.png" class="px" style="width:96px"></div><div class="lbl">Pipe</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-GrowersHandbook.png" class="px" style="height:84px"></div><div class="lbl">Grower's Handbook</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-HydroMagazine.png" class="px" style="height:90px"></div><div class="lbl">Hydroponics Monthly</div></div>
+    <div class="card"><div class="icons"><img src="sprites/i-ControlledEnvMagazine.png" class="px" style="height:90px"></div><div class="lbl">Controlled Env. Quarterly</div></div>
+  </div>
+  <div class="note">Found in garden and hardware stores, farms, tobacco shops and drug labs<span class="dot">·</span>three magazines teach every recipe</div>
+</section>
+
+<!-- =============================================================== compat
+     Core: CannabisWeather (C/F), debug spawn. Climate: CannabisPlantTemp (room temps, lamp heat, frost, frost covers).
+     Plumbing: CannabisHydro water line. Power: no DazedPower code in Dank; it reads square power, which Power's wiring gives.
+     Garden Crops: Config.canSowVanilla / CannabisVanillaCrops.lua. -->
+<section class="shot panel" id="compat">
+  <div class="grid cols-2 compat">
+    <div class="card"><div class="icons"><img src="sprites/heater.png" style="height:80px"></div>
+      <div><h4>Dazed Climate<span class="opt">optional</span></h4><div class="sub">Real room temperatures and lamp heat. <i>Frost and frost covers for outdoor plants.</i></div></div></div>
+    <div class="card"><div class="icons"><img src="sprites/rdwc-control.png" style="height:92px"></div>
+      <div><h4>Dazed Plumbing<span class="opt">optional</span></h4><div class="sub">Pipe a reservoir or drip tank to a water tank. <i>Changes refill themselves.</i></div></div></div>
+    <div class="card"><div class="icons"><img src="sprites/ui-temp-big.png" class="px" style="height:90px"></div>
+      <div><h4>Dazed Core<span class="opt">optional</span></h4><div class="sub">Temperatures follow Core's °C or °F choice.</div></div></div>
+    <div class="card"><div class="icons"><img src="sprites/p-small.png" style="height:96px"></div>
+      <div><h4>Garden Crops add-on<span class="opt">separate</span></h4><div class="sub">Grow vanilla crops in Dank's bags and hydro.</div></div></div>
+    <div class="card"><div class="icons"><img src="sprites/lamp-pro.png" style="height:82px"></div>
+      <div><h4>Dazed Power<span class="opt">not needed</span></h4><div class="sub">Dank gear runs in any powered building, including one Power has wired. <i>It doesn't show up as Power loads.</i></div></div></div>
+    <div class="card"><div class="icons"><img src="sprites/p-ground.png" style="height:90px"></div>
+      <div><h4>Vanilla farming</h4><div class="sub">Cannabis is a normal crop and counts as a houseplant. <i>Add mid-save.</i></div></div></div>
+  </div>
+</section>
+
+<script>
+  // Dashboard pieces repeated from CannabisDashboardLayout.lua.
+  (function () {
+    var ring = document.getElementById('ring'), html = '';
+    for (var hr = 0; hr < 24; hr++) {
+      var a = hr / 24 * 2 * Math.PI - Math.PI / 2, on = hr >= 6 && hr < 18, now = hr === 21, d = now ? 10 : 7;
+      var col = now ? '#cc3a33' : (on ? '#f5c442' : '#2b1f3d');
+      html += '<div class="dd" style="left:' + (38 * Math.cos(a) - d / 2) + 'px;top:' + (38 * Math.sin(a) - d / 2) + 'px;width:' + d + 'px;height:' + d + 'px;background:' + col + '"></div>';
+    }
+    ring.innerHTML = html;
+
+    var plants = [
+      { n: 'Knox Kush', c: '#7b3fe0', sub: 'Indica  |  Kush', img: 'p-dwc', h: 112, st: 'Flowering', w: 72, hl: 'Good', chip: ['all good', '#e2f4e5', '#2f9e4f'] },
+      { n: 'West Point Lightning', c: '#d9851f', sub: 'Sativa  |  Landrace, Frosty..', img: 'p-rdwc', h: 120, st: 'Flowering', w: 64, hl: 'Excellent', chip: ['all good', '#e2f4e5', '#2f9e4f'] },
+      { n: 'Bugtussle Drift', c: '#2f9e4f', sub: 'Hybrid  |  Haze', img: 'p-ebb', h: 110, st: 'Pre-flower', w: 58, hl: 'Fair', chip: ['1 warning', '#fdf1d8', '#c98a12'] }
+    ];
+    var out = '';
+    plants.forEach(function (p, i) {
+      var x = 12 + i * 248, y = 214;
+      out += '<div class="c" style="left:' + x + 'px;top:' + y + 'px;width:240px;height:168px"></div>';
+      out += '<div class="tm" style="left:' + (x + 12) + 'px;top:' + (y + 8) + 'px;color:' + p.c + '">' + p.n + '</div>';
+      out += '<div class="ph" style="left:' + (x + 8) + 'px;top:' + (y + 34) + 'px;width:84px;height:126px"><img src="sprites/' + p.img + '.png" style="height:' + p.h + 'px"></div>';
+      var tx = x + 102, ty = y + 40;
+      out += '<div class="t mu" style="left:' + tx + 'px;top:' + ty + 'px">' + p.sub + '</div>'; ty += 18;
+      out += '<div class="t" style="left:' + tx + 'px;top:' + ty + 'px">Female</div>'; ty += 22;
+      out += '<div class="tm" style="left:' + tx + 'px;top:' + ty + 'px">' + p.st + '</div>'; ty += 24;
+      out += '<div class="t mu" style="left:' + tx + 'px;top:' + ty + 'px">Water</div>';
+      out += '<div class="pl" style="left:' + (tx + 44) + 'px;top:' + (ty + 4) + 'px;width:82px;height:8px;background:#ece7df"></div>';
+      out += '<div class="pl" style="left:' + (tx + 44) + 'px;top:' + (ty + 4) + 'px;width:' + (82 * p.w / 100) + 'px;height:8px;background:#2b7bd0"></div>'; ty += 20;
+      var hc = (p.hl === 'Excellent' || p.hl === 'Good') ? 'gd' : 'wn';
+      out += '<div class="t mu" style="left:' + tx + 'px;top:' + ty + 'px">Health</div>';
+      out += '<div class="t ' + hc + '" style="right:' + (760 - x - 228) + 'px;top:' + ty + 'px">' + p.hl + '</div>';
+      out += '<div class="btn" style="left:' + (x + 10) + 'px;top:' + (y + 136) + 'px;width:80px;height:20px;line-height:20px;background:' + p.chip[1] + ';color:' + p.chip[2] + '">' + p.chip[0] + '</div>';
+    });
+    document.getElementById('cards').outerHTML = out;
+
+    var tanks = [['RDWC', 104, 160, 'Bloom 74%', 'healthy', 'gd'], ['Flood', 41, 60, 'Bloom 58%', 'healthy', 'gd'], ['DWC', 9, 15, 'Veg 22%', 'rot 12%', 'wn']];
+    out = '';
+    tanks.forEach(function (r, i) {
+      var x = 26 + i * 94, y = 428, f = r[1] / r[2];
+      out += '<img src="sprites/ui-tank-back.png" style="left:' + (x + 22) + 'px;top:' + (y - 6) + 'px;width:40px;height:48px">';
+      out += '<div style="left:' + (x + 25) + 'px;top:' + (y + 1 + 37 * (1 - f)) + 'px;width:34px;height:' + (37 * f) + 'px;background:#2b7bd0;opacity:.8"></div>';
+      out += '<img src="sprites/ui-tank-front.png" style="left:' + (x + 22) + 'px;top:' + (y - 6) + 'px;width:40px;height:48px">';
+      out += '<div class="t" style="left:' + x + 'px;width:84px;text-align:center;top:' + (y + 44) + 'px">' + r[0] + ' ' + r[1] + '/' + r[2] + ' L</div>';
+      out += '<div class="t mu" style="left:' + x + 'px;width:84px;text-align:center;top:' + (y + 60) + 'px">' + r[3] + '</div>';
+      out += '<div class="t ' + r[5] + '" style="left:' + x + 'px;width:84px;text-align:center;top:' + (y + 76) + 'px">' + r[4] + '</div>';
+    });
+    document.getElementById('tanks').outerHTML = out;
+
+    var eq = [['Exhaust', 'i-ExhaustFan', 'running', 'gd'], ['Intake', 'i-IntakeFan', 'running', 'gd'], ['Heater', 'i-Heater', 'idle', 'mu'],
+              ['Dehumidifier', 'i-Dehumidifier', 'running', 'gd'], ['Drip system', 'i-DripTank', 'running', 'gd']];
+    out = '';
+    eq.forEach(function (e, i) {
+      var x = 336 + i * 82, y = 424;
+      out += '<div class="eq" style="left:' + x + 'px;top:' + y + 'px;width:74px;height:58px"></div>';
+      out += '<div class="btn f" style="left:' + (x + 34) + 'px;top:' + (y + 3) + 'px;width:36px;height:17px;line-height:17px;font-size:11px">Auto</div>';
+      var src = e[1];
+      out += '<img class="px" src="sprites/' + src + '.png" style="left:' + (x + 8) + 'px;top:' + (y + 14) + 'px;width:36px;height:36px;object-fit:contain">';
+      out += '<div class="t" style="left:' + x + 'px;width:74px;text-align:center;top:' + (y + 62) + 'px">' + e[0] + '</div>';
+      out += '<div class="dd" style="left:' + (x + 6) + 'px;top:' + (y + 84) + 'px;width:8px;height:8px;background:' + (e[3] === 'gd' ? '#2f9e4f' : '#7d7684') + '"></div>';
+      out += '<div class="t ' + e[3] + '" style="left:' + (x + 18) + 'px;top:' + (y + 78) + 'px">' + e[2] + '</div>';
+    });
+    document.getElementById('equip').outerHTML = out;
+  })();
+</script>
+</body>
+</html>

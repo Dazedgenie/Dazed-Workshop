@@ -1,0 +1,252 @@
+{
+  "repos": "/home/claude",
+  "sprites": {
+    "small-propane": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_5",
+      "scale": 2.5
+    },
+    "large-propane": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_34",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_35",
+          64,
+          32
+        ]
+      ],
+      "scale": 2.0
+    },
+    "xl-propane": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_87",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_88",
+          64,
+          32
+        ],
+        [
+          "dazedplumb_01_89",
+          128,
+          64
+        ]
+      ],
+      "scale": 2.0
+    },
+    "small-petrol": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_13",
+      "scale": 2.5
+    },
+    "large-petrol": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_50",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_51",
+          64,
+          32
+        ]
+      ],
+      "scale": 2.0
+    },
+    "xl-petrol": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_111",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_112",
+          64,
+          32
+        ],
+        [
+          "dazedplumb_01_113",
+          128,
+          64
+        ]
+      ],
+      "scale": 2.0
+    },
+    "small-water": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_21",
+      "scale": 2.5
+    },
+    "large-water": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_66",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_67",
+          64,
+          32
+        ]
+      ],
+      "scale": 2.0
+    },
+    "xl-water": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_135",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_136",
+          64,
+          32
+        ],
+        [
+          "dazedplumb_01_137",
+          128,
+          64
+        ]
+      ],
+      "scale": 2.0
+    },
+    "small-water-salv": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_17",
+      "scale": 2.5
+    },
+    "xl-water-salv": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "layers": [
+        [
+          "dazedplumb_01_123",
+          0,
+          0
+        ],
+        [
+          "dazedplumb_01_124",
+          64,
+          32
+        ],
+        [
+          "dazedplumb_01_125",
+          128,
+          64
+        ]
+      ],
+      "scale": 2.0
+    },
+    "hand-pump": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_177",
+      "scale": 2.5
+    },
+    "elec-pump": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_181",
+      "scale": 2.5
+    },
+    "purifier": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_185",
+      "scale": 2.5
+    },
+    "downspout": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_193",
+      "scale": 2.5
+    },
+    "valve": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_197",
+      "scale": 4
+    },
+    "sprinkler": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_209",
+      "scale": 2.5
+    },
+    "sprinkler-idle": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_205",
+      "scale": 2.5
+    },
+    "pipe-t": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_151",
+      "scale": 2.5
+    },
+    "pipe-straight": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_149",
+      "scale": 2.5
+    },
+    "pipe-cross": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_159",
+      "scale": 2.5
+    },
+    "main": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_233",
+      "scale": 2.5
+    },
+    "fuel-hand": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_237",
+      "scale": 2.5
+    },
+    "fuel-elec": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_241",
+      "scale": 2.5
+    },
+    "digester": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_245",
+      "scale": 2.5
+    },
+    "well": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_249",
+      "scale": 2.5
+    },
+    "smoker": {
+      "pack": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/texturepacks/dazedplumbing.pack",
+      "sprite": "dazedplumb_01_253",
+      "scale": 2.5
+    },
+    "i-pipe": {
+      "png": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/textures/Item_DazedPipeSection.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "i-valve": {
+      "png": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/textures/Item_DazedValve.png",
+      "scale": 4,
+      "filter": "nearest"
+    },
+    "i-filter": {
+      "png": "DazedPlumbing/Contents/mods/DazedPlumbing/common/media/textures/Item_DazedPurifierFilter.png",
+      "scale": 4,
+      "filter": "nearest"
+    }
+  }
+}

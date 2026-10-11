@@ -2,9 +2,9 @@
 <!-- Dazed Cooking Workshop art. Each <section class="shot" id="x"> renders to images/x.png
      (banner -> banner.jpg):  node _kit/render.mjs Cooking   (from the workshop-art root).
      Sprites come from sprites.json:  python3 _kit/sprites.py Cooking
-     Dazed Cooking ships no textures of its own (its portions use vanilla icons), so the cuts are
-     Dazed Butchery's item icons and the thermometer is Dazed Climate's: the two mods it works with.
-     Appliance icons are drawn here. -->
+     The cuts are Dazed Butchery's item icons and the thermometer is Dazed Climate's. The drying racks,
+     the dehydrator (dazedcooking.pack, dazedcooking_01_*) and the dried-food icons are Dazed Cooking's own (dc4).
+     Stove, grill, smoker and microwave icons are drawn here. -->
 <html>
 <head>
 <meta charset="utf-8">
@@ -132,9 +132,67 @@
   .btns { display: grid; gap: 6px; }
   .wfoot { display: flex; justify-content: space-between; font-size: 18px; color: #a59fb1; padding: 8px 18px 10px; border-top: 1px solid #4b4559; }
   .box { display: inline-block; width: 16px; height: 16px; border: 1.5px solid #a59fb1; margin-right: 8px; vertical-align: -2px; background: #5f8f52; }
-  .tabs3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+  .tabs3 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
   .tabs3 .card h4 { font-size: 30px; margin-bottom: 6px; }
-  .tabs3 .sub { font-size: 21px; }
+  .tabs3 .sub { font-size: 20px; }
+  .tabs3 .card { padding: 14px 10px 16px; }
+
+  /* drying panels (dc4) */
+  .dryers { display: grid; grid-template-columns: 1.15fr 1.15fr 1fr; gap: 14px; }
+  .dryers .card { padding: 14px 12px 16px; }
+  .states { display: flex; align-items: flex-end; justify-content: center; gap: 12px; height: 186px; margin-bottom: 6px; position: relative; }
+  .states::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 300px; height: 26px; transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(165, 90, 255, .45), rgba(165, 90, 255, 0) 70%); }
+  .states figure { margin: 0; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
+  .states figcaption { font-size: 17px; color: var(--muted); margin-top: 2px; }
+  .dryers h4 { font-size: 29px; margin: 8px 0 4px; }
+  .dryers .sub { font-size: 20px; line-height: 1.3; }
+  .kvs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 10px; }
+  .kvs span { font-size: 18px; font-weight: 600; padding: 3px 11px 4px; border-radius: 999px; border: 1.5px solid #6d43b5; color: var(--lilac); background: var(--well); white-space: nowrap; }
+  .foods { display: grid; grid-template-columns: 1fr 4.1fr 1.15fr; gap: 14px; margin-top: 14px; }
+  .foods .card { padding: 12px 10px 14px; }
+  .foods .days { font-weight: 800; font-size: 28px; color: var(--ink); line-height: 1; margin-bottom: 10px; }
+  .foods .days small { font-size: 19px; font-weight: 600; color: var(--muted); }
+  .fgrid { display: grid; gap: 6px 4px; }
+  .f { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+  .f .ic { height: 92px; display: flex; align-items: center; justify-content: center; }
+  .f span { font-size: 16px; line-height: 1.12; color: var(--lilac); text-align: center; min-height: 36px; }
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
+  .facts .card { padding: 12px 10px 14px; }
+  .facts .big { font-size: 36px; }
+
+  .dry3 { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .dry3 .card h4 { font-size: 28px; margin-bottom: 8px; }
+  .flow .div { width: 2px; height: 70px; background: rgba(160, 120, 230, .35); margin: 0 10px; }
+  .wx { display: grid; grid-template-columns: 128px 1fr; gap: 8px 12px; align-items: center; text-align: left; font-size: 20px; line-height: 1.2; color: var(--ink); }
+  .wx .w { font-weight: 700; font-size: 18px; text-align: center; padding: 4px 6px; border-radius: 8px; color: #1b0d2c; }
+  .wx .p { background: #e9b3b3; } .wx .s { background: #f0d38c; } .wx .g { background: #a8e39b; } .wx .n { background: #c9b6e4; }
+  .flow { display: flex; align-items: center; justify-content: center; gap: 10px; height: 108px; margin-bottom: 6px; }
+  .flow .arrow { font-size: 30px; font-weight: 700; color: var(--accent); }
+  .flow .plus { font-size: 30px; font-weight: 700; color: var(--muted); }
+  .dry3 .sub { font-size: 20px; line-height: 1.3; }
+  .dry3 .lbl { font-size: 25px; margin-top: 6px; }
+  .slots { display: grid; grid-template-columns: repeat(10, 52px); gap: 6px; margin: 4px 0 10px; }
+  .slots i { position: relative; width: 52px; height: 52px; background: rgba(0,0,0,.5); border: 1px solid #4b4559; display: flex; align-items: center; justify-content: center; }
+  .slots i img { max-width: 40px; max-height: 40px; image-rendering: pixelated; }
+  .slots i b { position: absolute; left: 3px; right: 3px; bottom: 3px; height: 4px; background: #1a1a1a; }
+  .slots i b u { position: absolute; left: 0; top: 0; bottom: 0; background: #4db34d; }
+  .slots i.sel { border-color: #e6e6e6; }
+  .dl { display: grid; grid-template-columns: 400px 1fr; gap: 16px; padding: 12px 16px 14px; }
+  .dbox { border: 1px solid #4b4559; padding: 10px 12px; }
+  .dbox .h { font-size: 18px; color: #cccccc; margin-bottom: 8px; }
+  .drow { display: grid; grid-template-columns: 44px 1fr; gap: 10px; align-items: center; padding: 6px 4px; }
+  .drow.on { background: rgba(255,255,255,.12); }
+  .drow img { width: 40px; height: auto; image-rendering: pixelated; }
+  .drow .n { font-size: 18px; color: #fff; line-height: 1.15; } .drow .m { font-size: 16px; color: #a59fb1; }
+  .drow .m .g { color: #8fd18f; } .drow .m .y { color: #e8cf6a; } .drow .m .gr { color: #a59fb1; }
+  .rdy { font-size: 17px; color: #fff; margin: 4px 0; } .rdy::before { content: ""; display: inline-block; width: 7px; height: 7px; background: #66d166; margin-right: 8px; vertical-align: 2px; }
+  .dtitle { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid #4b4559; padding-bottom: 8px; margin-bottom: 10px; }
+  .dtitle b { font-size: 22px; color: #fff; } .dtitle span { font-size: 17px; color: #b3b3b3; } .dtitle em { margin-left: auto; font-style: normal; font-size: 17px; color: #8fd18f; }
+  .glabel { font-size: 17px; color: #d9d9d9; margin-bottom: 6px; }
+  .info { display: grid; grid-template-columns: 130px 1fr; gap: 3px 10px; font-size: 16px; margin-top: 10px; }
+  .info .k { color: #a59fb1; } .info .v { color: #e8e2ef; } .info .v.g { color: #8fd18f; }
+  .wbtns { display: flex; gap: 8px; margin-top: 12px; }
 </style>
 </head>
 <body>
@@ -172,19 +230,20 @@
     <span class="pill">Best method per cut</span>
     <span class="pill">Live doneness</span>
     <span class="pill">Named dishes</span>
-    <span class="pill">Good food mood</span>
     <span class="pill">Portioning</span>
     <span class="pill">Cooking window</span>
+    <span class="pill">Food drying</span>
   </div>
   <div class="row" style="left:60px;right:60px">
     <div class="spr"><img src="sprites/beef-rib.png" class="px"></div>
     <div class="spr"><img src="sprites/pork-ribs.png" class="px"></div>
     <div class="spr"><img src="sprites/beef-shortloin.png" class="px"></div>
+    <div class="spr"><img src="sprites/tile-4.png" style="height:184px"></div>
+    <div class="spr"><img src="sprites/big-mango.png" class="px"></div>
     <div class="spr"><img src="sprites/chicken-breasts.png" class="px"></div>
-    <div class="spr"><img src="sprites/mutton-rack.png" class="px"></div>
+    <div class="spr"><img src="sprites/tile-29.png" style="height:100px"></div>
     <div class="spr"><img src="sprites/pork-ham.png" class="px"></div>
-    <div class="spr"><img src="sprites/venison-backstrap.png" class="px"></div>
-    <div class="spr"><img src="sprites/heart.png" class="px"></div>
+    <div class="spr"><img src="sprites/big-jerky.png" class="px"></div>
   </div>
 </section>
 
@@ -215,6 +274,11 @@
   <div class="num">04</div><h2>The Cooking window</h2><div class="rule"></div>
 </section>
 
+<section class="shot hdr" id="h-dry">
+  <div class="tile"><img src="sprites/rack-1.png" style="height:84px;width:auto"></div>
+  <div class="num">05</div><h2>Drying food</h2><div class="rule"></div>
+</section>
+
 <section class="shot hdr" id="h-sandbox">
   <div class="tile">
     <svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
@@ -222,17 +286,17 @@
       <g fill="#b47cf7" stroke="#f6efff" stroke-width="2.5"><circle cx="40" cy="16" r="6"/><circle cx="22" cy="32" r="6"/><circle cx="46" cy="48" r="6"/></g>
     </svg>
   </div>
-  <div class="num">05</div><h2>Sandbox options</h2><div class="rule"></div>
+  <div class="num">06</div><h2>Sandbox options</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-compat">
   <div class="tile"><img src="sprites/chicken-breasts-3.png" class="px"></div>
-  <div class="num">06</div><h2>Compatibility</h2><div class="rule"></div>
+  <div class="num">07</div><h2>Compatibility</h2><div class="rule"></div>
 </section>
 
 <section class="shot hdr" id="h-help">
   <div class="tile"><img src="sprites/turkey-legs-3.png" class="px"></div>
-  <div class="num">07</div><h2>Bugs and help</h2><div class="rule"></div>
+  <div class="num">08</div><h2>Bugs and help</h2><div class="rule"></div>
 </section>
 
 <!-- =============================================================== doneness
@@ -429,10 +493,10 @@
 <!-- =============================================================== cooking window
      Illustration of the On the Heat tab, laid out after DC_HeatTab.lua; the values are made up. -->
 <section class="shot panel" id="window">
-  <div class="ptitle">Every dish, pot and stove within reach, in one window</div>
+  <div class="ptitle">Every dish, pot, stove and drying rack within reach, in one window</div>
   <div class="win">
     <div class="bar1">Cooking</div>
-    <div class="tabs"><span class="tab">Cook</span><span class="tab on">On the Heat (2)</span><span class="tab">Recipes</span></div>
+    <div class="tabs"><span class="tab">Cook</span><span class="tab on">On the Heat (2)</span><span class="tab">Recipes</span><span class="tab">Drying</span></div>
     <div class="wbody">
       <div class="app">Barbecue <span class="on">(on)</span>, 3 tiles</div>
       <div class="irow">
@@ -455,11 +519,119 @@
     <div class="wfoot"><span><span class="box"></span>Warn me before anything burns</span><span>Shows appliances within 12 tiles</span></div>
   </div>
   <div class="tabs3">
-    <div class="card"><h4>Cook</h4><div class="sub">pick a dish and a pot, see every ingredient<br>in reach with its grade, <span class="accent">Add to pot</span></div></div>
-    <div class="card"><h4>On the Heat</h4><div class="sub">doneness bars for cuts, cooking<br>bars for pots, <span class="accent">Take Off</span></div></div>
-    <div class="card"><h4>Recipes</h4><div class="sub">save a pot, see what you have and<br>what can stand in, <span class="accent">Cook Again</span></div></div>
+    <div class="card"><h4>Cook</h4><div class="sub">pick a dish and a pot, see what's<br>in reach, <span class="accent">Add to pot</span></div></div>
+    <div class="card"><h4>On the Heat</h4><div class="sub">doneness bars for cuts,<br>cooking bars for pots, <span class="accent">Take Off</span></div></div>
+    <div class="card"><h4>Recipes</h4><div class="sub">save a pot, see what you<br>have, <span class="accent">Cook Again</span></div></div>
+    <div class="card"><h4>Drying</h4><div class="sub">racks and dehydrators near you,<br>time left, <span class="accent">Collect</span></div></div>
   </div>
   <div class="note">Illustration, not a screenshot: names and times are examples<span class="dot">·</span>does nothing while closed</div>
+</section>
+
+<!-- =============================================================== drying (dc4)
+     DC_Dry.lua: racks 20 slots, dehydrator 10 slots, 3x speed, 500 W (DehydratorWatts), weather multipliers;
+     DC_DryTable.lua: rack hours 24 / 48 / 72 and days fresh 120 to 365; recipes: rack Woodwork 2, ground rack no skill. -->
+<section class="shot panel" id="dry">
+  <div class="ptitle">Put fresh food on a rack and it dries on its own</div>
+  <div class="dryers">
+    <div class="card">
+      <div class="states">
+        <figure><img src="sprites/tile-0.png" style="height:156px"><figcaption>empty</figcaption></figure>
+        <figure><img src="sprites/tile-4.png" style="height:156px"><figcaption>drying</figcaption></figure>
+        <figure><img src="sprites/tile-8.png" style="height:156px"><figcaption>done</figcaption></figure>
+      </div>
+      <h4>Wooden Drying Rack</h4>
+      <div class="sub">Carpentry 2: planks, long sticks,<br>ripped sheets and nails</div>
+      <div class="kvs"><span>20 slots</span><span>place it like furniture</span></div>
+    </div>
+    <div class="card">
+      <div class="states">
+        <figure><img src="sprites/tile-12.png" style="width:128px"><figcaption>empty</figcaption></figure>
+        <figure><img src="sprites/tile-16.png" style="width:128px"><figcaption>drying</figcaption></figure>
+        <figure><img src="sprites/tile-20.png" style="width:128px"><figcaption>done</figcaption></figure>
+      </div>
+      <h4>Ground Drying Rack</h4>
+      <div class="sub">no skill needed: long sticks,<br>twine and ripped sheets</div>
+      <div class="kvs"><span>20 slots</span><span>same speed</span></div>
+    </div>
+    <div class="card">
+      <div class="states">
+        <figure><img src="sprites/tile-24.png" style="height:104px"><figcaption>off</figcaption></figure>
+        <figure><img src="sprites/tile-29.png" style="height:104px"><figcaption>on</figcaption></figure>
+      </div>
+      <h4>Food Dehydrator</h4>
+      <div class="sub">found in kitchens and appliance stores,<br>runs on the grid or a generator</div>
+      <div class="kvs"><span>10 slots</span><span>3× rack speed</span><span>Dazed Power: 500 W</span></div>
+    </div>
+  </div>
+  <div class="foods">
+    <div class="card"><div class="days">1 day</div><div class="fgrid" style="grid-template-columns:repeat(2,1fr)"><div class="f"><div class="ic"><img src="sprites/i-kale-chips.png" class="px"></div><span>Kale Chips</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-greens.png" class="px"></div><span>Dried Greens</span></div><div class="f" style="grid-column:span 2"><div class="ic"><img src="sprites/i-dried-mushrooms.png" class="px"></div><span>Dried Mushrooms</span></div></div></div>
+    <div class="card"><div class="days">2 days <small>most fruit and vegetables</small></div><div class="fgrid" style="grid-template-columns:repeat(8,1fr)"><div class="f"><div class="ic"><img src="sprites/i-dried-apple-rings.png" class="px"></div><span>Apple Rings</span></div><div class="f"><div class="ic"><img src="sprites/i-banana-chips.png" class="px"></div><span>Banana Chips</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-peach.png" class="px"></div><span>Dried Peach</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-mango.png" class="px"></div><span>Dried Mango</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-pineapple.png" class="px"></div><span>Dried Pineapple</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-pear.png" class="px"></div><span>Dried Pear</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-carrot.png" class="px"></div><span>Dried Carrot</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-potato-slices.png" class="px"></div><span>Potato Slices</span></div><div class="f"><div class="ic"><img src="sprites/i-onion-flakes.png" class="px"></div><span>Onion Flakes</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-leek.png" class="px"></div><span>Dried Leek</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-pepper.png" class="px"></div><span>Dried Pepper</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-zucchini.png" class="px"></div><span>Dried Zucchini</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-eggplant.png" class="px"></div><span>Dried Eggplant</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-pumpkin.png" class="px"></div><span>Dried Pumpkin</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-corn.png" class="px"></div><span>Dried Corn</span></div></div></div>
+    <div class="card"><div class="days">3 days <small>juicy</small></div><div class="fgrid" style="grid-template-columns:repeat(2,1fr)"><div class="f"><div class="ic"><img src="sprites/i-dried-cherries.png" class="px"></div><span>Dried Cherries</span></div><div class="f"><div class="ic"><img src="sprites/i-raisins.png" class="px"></div><span>Raisins</span></div><div class="f"><div class="ic"><img src="sprites/i-dried-berries.png" class="px"></div><span>Dried Berries</span></div><div class="f"><div class="ic"><img src="sprites/i-sun-dried-tomatoes.png" class="px"></div><span>Sun-Dried Tomatoes</span></div></div></div>
+  </div>
+  <div class="facts">
+    <div class="card"><div class="big">¼</div><div class="sub">the weight of the fresh food,<br><span class="accent">same calories and nutrients</span></div></div>
+    <div class="card"><div class="big">4 to 12 months</div><div class="sub">before it goes stale<br><span class="accent">mushrooms keep a year</span></div></div>
+    <div class="card"><div class="big">+1 XP</div><div class="sub">Cooking for every dried food<br><span class="accent">you collect</span></div></div>
+    <div class="card"><div class="big">22 foods</div><div class="sub">to eat as they are, or in stews,<br><span class="accent">soups, salads, cakes and pies</span></div></div>
+  </div>
+  <div class="note">Rack times at default speed<span class="dot">·</span>a dehydrator takes a third<span class="dot">·</span>rotten food is refused, poisonous stays poisonous</div>
+</section>
+
+<!-- =============================================================== drying 2: the Drying tab (DC_DryTab.lua layout; values are made up),
+     weather (DC_Dry.lua: pause below 0 °C, rain, snow; half below 5 °C or humidity over 80%; +25% sun over 20 °C),
+     Trail Mix / Fruit Leather (DazedCooking_recipes.txt), Salted Meat Strips 48 h -> DazedButchery.Jerky. -->
+<section class="shot panel" id="dry-more">
+  <div class="ptitle">Watch every rack from the Drying tab</div>
+  <div class="win">
+    <div class="bar1">Cooking</div>
+    <div class="tabs"><span class="tab">Cook</span><span class="tab">On the Heat</span><span class="tab">Recipes</span><span class="tab on">Drying (3)</span></div>
+    <div class="dl">
+      <div class="dbox">
+        <div class="h">Drying Nearby</div>
+        <div class="drow on"><img src="sprites/rack-1.png" style="width:30px"><div><div class="n">Wooden Drying Rack</div><div class="m">outside · 14/20 · <span class="g">drying fast in the sun</span></div></div></div>
+        <div class="drow"><img src="sprites/tile-29.png"><div><div class="n">Food Dehydrator</div><div class="m">indoors · 6/10 · <span class="g">running</span></div></div></div>
+        <div class="drow"><img src="sprites/tile-12.png"><div><div class="n">Ground Drying Rack</div><div class="m">outside · 4/20 · <span class="g">done</span></div></div></div>
+        <div class="h" style="margin-top:12px">Ready to collect</div>
+        <div class="rdy">Raisins x4</div>
+        <div class="rdy">Kale Chips x6</div>
+      </div>
+      <div class="dbox">
+        <div class="dtitle"><b>Wooden Drying Rack</b><span>outdoors, no roof · 3 tiles</span><em>drying fast in the sun</em></div>
+        <div class="slots"><i class="sel"><img src="sprites/i-dried-apple-rings.png"><b><u style="width:62%"></u></b></i><i class="sel"><img src="sprites/i-dried-apple-rings.png"><b><u style="width:62%"></u></b></i><i class="sel"><img src="sprites/i-dried-apple-rings.png"><b><u style="width:62%"></u></b></i><i class="sel"><img src="sprites/i-dried-apple-rings.png"><b><u style="width:62%"></u></b></i><i class="sel"><img src="sprites/i-dried-apple-rings.png"><b><u style="width:62%"></u></b></i><i class="sel"><img src="sprites/i-dried-apple-rings.png"><b><u style="width:62%"></u></b></i><i><img src="sprites/i-dried-mango.png"><b><u style="width:62%"></u></b></i><i><img src="sprites/i-dried-mango.png"><b><u style="width:62%"></u></b></i><i><img src="sprites/i-dried-mango.png"><b><u style="width:62%"></u></b></i><i><img src="sprites/i-dried-mango.png"><b><u style="width:62%"></u></b></i><i><img src="sprites/i-salted-meat-strips.png"><b><u style="width:35%"></u></b></i><i><img src="sprites/i-salted-meat-strips.png"><b><u style="width:35%"></u></b></i><i><img src="sprites/i-salted-meat-strips.png"><b><u style="width:35%"></u></b></i><i><img src="sprites/i-salted-meat-strips.png"><b><u style="width:35%"></u></b></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="glabel">Selected: Apple x6 → Dried Apple Rings</div>
+        <div class="prog"><div class="f" style="width:62%"></div><span>62% · 18 h left (48 h total)</span></div>
+        <div class="info">
+          <span class="k">Weather</span><span class="v g">sunny and warm: 25% faster</span>
+          <span class="k">Temperature</span><span class="v">24 °C</span>
+          <span class="k">Hardcore</span><span class="v">off: rain never spoils food</span>
+        </div>
+        <div class="wbtns"><span class="btn">Load from Inventory</span><span class="btn">Collect Ready (0)</span><span class="btn">Walk to Rack</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="dry3">
+    <div class="card">
+      <h4>Weather, with Dazed Climate</h4>
+      <div class="wx">
+        <span class="w p">paused</span><span>rain, snow, or below 0 °C</span>
+        <span class="w s">half speed</span><span>below 5 °C, or very humid</span>
+        <span class="w g">25% faster</span><span>sunny and above 20 °C</span>
+        <span class="w n">normal</span><span>under a roof, or in a dehydrator</span>
+      </div>
+      <div class="sub" style="margin-top:10px">Hardcore option, off by default:<br><span class="accent">6 hours of rain ages rack food a stage</span></div>
+    </div>
+    <div class="card">
+      <div class="flow"><img src="sprites/big-trail.png" class="px" style="height:52px"><span class="div"></span><img src="sprites/big-mash.png" class="px" style="height:52px"><span class="arrow">→</span><img src="sprites/big-leather.png" class="px" style="height:72px"></div>
+      <h4>Trail Mix and Fruit Leather</h4>
+      <div class="sub">3 dried fruit and a handful of nuts<br>or seeds <span class="accent">cheer you up</span>. Mash 3 ripe<br>fruit in a bowl, <span class="accent">dry it 3 days</span></div>
+    </div>
+    <div class="card">
+      <div class="flow"><img src="sprites/big-strips.png" class="px" style="height:92px"><span class="arrow">→</span><img src="sprites/big-jerky.png" class="px" style="height:70px"></div>
+      <h4>Jerky from Butchery</h4>
+      <div class="sub">Make Jerky gives <span class="accent">Salted<br>Meat Strips</span>. Dry them 2 days on<br>a rack, in a dehydrator or in<br>Dazed Plumbing's smoker</div>
+    </div>
+  </div>
+  <div class="note">Illustration, not a screenshot<span class="dot">·</span>right-click a rack to Load Food to Dry and Collect Dried Food</div>
 </section>
 
 </body>

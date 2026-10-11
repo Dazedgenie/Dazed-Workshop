@@ -83,6 +83,9 @@
   .recipes .icons { height: 96px; }
   .recipes h4 { font-size: 28px; margin-bottom: 6px; }
   .recipes .sub { font-size: 20px; }
+  .jdry { display: flex; align-items: center; gap: 22px; margin-top: 14px; padding: 12px 24px; text-align: left;
+    background: var(--well); border: 1.5px solid #6d43b5; border-radius: 14px; font-size: 22px; line-height: 1.4; color: var(--ink); }
+  .jdry b { color: var(--ink); }
 </style>
 </head>
 <body>
@@ -98,6 +101,7 @@
     <span class="pill">Field dressing</span>
     <span class="pill">Dry-aging</span>
     <span class="pill">Curing</span>
+    <span class="pill">Fat rendering</span>
   </div>
   <div class="row">
     <div class="spr"><img src="sprites/coat-cow.png" style="height:180px"></div>
@@ -364,7 +368,7 @@
 
 <!-- =============================================================== preserve
      DazedButchery_recipes.txt outputs: bacon 1, ham 1, jerky 4, sausages 9 (3 mince + intestines + salt),
-     mince 3, suet pot -> 3 tallow, pork fat pot -> 3 lard + 2 cracklings, candles 2, lye soap 2,
+     mince 3 (db9.1: with Dazed Cooking's Jerky Needs Drying, jerky becomes DazedCooking.SaltedMeatStrips, 48 h on a rack), suet pot -> 3 tallow, pork fat pot -> 3 lard + 2 cracklings, candles 2, lye soap 2,
      bone -> 2 bone meal, 3 bone meal + blood + sandbag -> fertilizer. -->
 <section class="shot panel" id="preserve">
   <div class="ptitle">Nothing goes to waste, and the grade carries over</div>
@@ -378,7 +382,7 @@
       <h4>Cured ham</h4><div class="sub">pork ham and salt</div>
     </div>
     <div class="card">
-      <div class="icons"><img src="sprites/venison-backstrap.png" class="px" style="height:76px"><img src="sprites/jerky.png" class="px" style="height:64px"></div>
+      <div class="icons"><img src="sprites/venison-backstrap.png" class="px" style="height:70px"><img src="sprites/salted-strips.png" class="px" style="height:72px"><img src="sprites/jerky.png" class="px" style="height:56px"></div>
       <h4>Jerky</h4><div class="sub">a beef, mutton or venison<br>cut and salt <span class="accent">give 4</span></div>
     </div>
     <div class="card">
@@ -401,6 +405,10 @@
       <div class="icons"><img src="sprites/bone-meal.png" class="px" style="height:88px"></div>
       <h4>Bone meal</h4><div class="sub">ground bones, then blood<br>and bone <span class="accent">fertilizer</span></div>
     </div>
+  </div>
+  <div class="jdry">
+    <img src="sprites/drying-rack.png" style="height:104px">
+    <div><b>With Dazed Cooking:</b> jerky comes out as <span class="accent">Salted Meat Strips</span> that dry into jerky on a drying rack (2 days), in a food dehydrator or in Dazed Plumbing's smoker. The grade carries over.</div>
   </div>
   <div class="note">Five magazines in loot: four primal guides steady your knife on their animals, <i>Curing and Smoking Quarterly</i> teaches the cures</div>
 </section>
