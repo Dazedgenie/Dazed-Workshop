@@ -1,0 +1,105 @@
+{
+ "repos": "/home/claude",
+ "sprites": {
+  "scrap_blue": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Scrap_Blue.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "scrap_green": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Scrap_Green.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "scrap_red": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Scrap_Red.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "scrap_off": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Scrap_Off.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "chrome_red": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Chrome_Red.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "chrome_blue": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Chrome_Blue.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "chrome_purple": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Chrome_Purple.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "chrome_off": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Chrome_Off.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "dark_green": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Dark_Green.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "dark_yellow": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Dark_Yellow.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "dark_off": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Dark_Off.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "dark_red": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Dark_Red.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "crystal_blue": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Crystal_Blue.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "crystal_green": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Crystal_Green.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "crystal_purple": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Crystal_Purple.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "crystal_red": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Crystal_Red.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "crystal_yellow": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_Crystal_Yellow.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "severedarm": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_SeveredArm.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "severedhead": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_SeveredHead.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "severedleg": {
+   "png": "zomboidsabers/Contents/mods/ZomboidSabers/common/media/textures/Item_ZSaber_SeveredLeg.png",
+   "scale": 4,
+   "filter": "nearest"
+  }
+ }
+}

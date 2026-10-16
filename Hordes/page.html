@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- Hordes Workshop art. Each <section class="shot" id="x"> renders to images/x.png
+     (banner -> banner.jpg):  node _kit/render.mjs Hordes   (from the dazed-workshop root).
+     Sprites come from sprites.json:  python3 _kit/sprites.py Hordes. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/suite.css">
+<link rel="stylesheet" href="../_kit/neon.css">
+<style>:root { --n1:#c04dff; --n2:#3ab8ff; --n3:#ff3a3a; --n4:#ff7a3a; }   /* Hordes logo: purple, blue, red, orange */</style>
+<style>
+  .hdr .tile img { image-rendering: auto; } .hdr .tile img.px { image-rendering: pixelated; }
+  .px { image-rendering: pixelated; }
+  .card .lbl { margin-bottom: 4px; }
+  .pts { display: grid; gap: 9px; text-align: left; }
+  .pts p { font-size: 24px; line-height: 1.28; color: var(--lilac); padding-left: 24px; position: relative; }
+  .pts p::before { content: ""; position: absolute; left: 4px; top: 11px; width: 9px; height: 9px; border-radius: 50%; background: var(--n4); box-shadow: 0 0 8px var(--n4); }
+  .pts b { color: #fff; }
+  .card.list { text-align: left; padding: 20px 22px; }
+  .card.list h4 { text-align: center; font-size: 32px; }
+  .chip { display: inline-block; font-size: 22px; font-weight: 700; padding: 4px 14px; border-radius: 999px; border: 1.5px solid var(--n2); background: var(--well); color: #fff; margin: 3px 3px; }
+  .chip.c1 { border-color: var(--n3); } .chip.c2 { border-color: var(--n4); } .chip.c3 { border-color: #ff5a6a; } .chip.c4 { border-color: var(--n1); }
+  .bar .fill { background: linear-gradient(90deg, color-mix(in srgb, var(--n3) 60%, #000), var(--n4)); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cuts { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  #banner .row2b { position: absolute; left: 640px; right: 40px; bottom: 22px; display: flex; align-items: flex-end; justify-content: space-between; z-index: 2; }
+  .stage { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 18px; }
+</style>
+</head>
+<body>
+<section class="shot banner neon" id="banner">
+  <img class="logo" src="logo.png">
+  <div class="side">
+    <div class="sub">Scheduled hordes for Build 42<br>Early test build</div>
+    <div class="tube"></div>
+    <div class="pills"><span class="sign c1">Hordes that find your base</span><span class="sign c2">Staff test only</span></div>
+  </div>
+  
+</section>
+
+</body>
+</html>

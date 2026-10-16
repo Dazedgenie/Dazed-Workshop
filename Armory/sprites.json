@@ -1,0 +1,155 @@
+{
+ "repos": "/home/claude",
+ "sprites": {
+  "pistol": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Pistol.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "shotgun": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Shotgun.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "rifle": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Rifle.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "glock17": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Glock17.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "ar15": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_AR15.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "spas12": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_SPAS12.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "m2": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_M2.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "m249": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_M249.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "m60": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_M60.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "m82": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_M82.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "tripod": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Tripod.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "pressrockchukker": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_PressRockChukker.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "lealoader": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_LeaLoader.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "brass45": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Brass45.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "belt308": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Belt308.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "belt50": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Belt50.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "flaregun": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_FlareGun.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "nailgun": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_NailGun.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "garand": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Garand.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "mosin": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Mosin.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "mp5": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_MP5.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "bb": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_BB.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "co2": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_CO2.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "bbtube": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_BBTube.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "repairkit": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_RepairKit.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "hull12": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Hull12.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "python": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Python.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "uzi": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_Uzi.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "handloadersdigest": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_HandloadersDigest.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "inertiapuller": {
+   "png": "dazedarmory/Contents/mods/DazedArmory/common/media/textures/Item_DArm_InertiaPuller.png",
+   "scale": 4,
+   "filter": "nearest"
+  }
+ }
+}
