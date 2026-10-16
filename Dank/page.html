@@ -8,11 +8,13 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="../_kit/suite.css">
+<link rel="stylesheet" href="../_kit/neon.css">
 <style>
+  :root { --n1:#ff4fd8; --n2:#39d4ff; --n3:#6dff6a; --n4:#ffc53a; }   /* Dank logo: pink, cyan, lime, gold */
   .hdr .tile img { image-rendering: auto; }
   .hdr .tile img.px { image-rendering: pixelated; }
   .row3 { display: grid; gap: 14px; }
-  .chip { font-size: 21px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #6d43b5;
+  .chip { font-size: 21px; font-weight: 600; padding: 5px 14px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--n2) 55%, transparent);
     background: var(--well); color: var(--lilac); white-space: nowrap; }
   .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
   .pts { display: grid; gap: 8px; text-align: left; }
@@ -23,11 +25,11 @@
   .card.list h4 { text-align: center; }
   .icons { display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 100px; margin-bottom: 12px; position: relative; }
   .icons::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 160px; height: 22px; transform: translateX(-50%);
-    background: radial-gradient(ellipse at center, rgba(165, 90, 255, .5), rgba(165, 90, 255, 0) 70%); }
+    background: radial-gradient(ellipse at center, color-mix(in srgb, var(--n2) 40%, transparent), transparent 70%); }
   .icons img { position: relative; z-index: 1; }
   .big { font-weight: 800; font-size: 38px; line-height: 1.05; color: var(--ink); margin: 2px 0 6px; }
   .tag { display: inline-block; font-size: 19px; font-weight: 700; padding: 3px 12px; border-radius: 999px; margin-top: 8px; }
-  .tag.ind { background: #7b3fe0; color: #fff; } .tag.sat { background: #d9851f; color: #1b0d2c; } .tag.hyb { background: #2f9e4f; color: #fff; }
+  .tag.ind { background: #b04bff; color: #fff; } .tag.sat { background: #d9851f; color: #1b0d2c; } .tag.hyb { background: #2f9e4f; color: #fff; }
 
   /* banner */
   #banner .pills { gap: 12px; }
@@ -97,7 +99,7 @@
   /* dashboard: Dank's Grow Room Panel, drawn from CannabisDashboardLayout.lua at its own 760 x 566 size */
   .dashwrap { display: flex; justify-content: center; }
   .dash { position: relative; width: 760px; height: 566px; zoom: 1.5; background: #f3f0ea; border-radius: 6px; overflow: hidden;
-    font-family: "Suite", sans-serif; color: #26222b; box-shadow: 0 0 0 1.5px #7444cf, 0 8px 30px rgba(0,0,0,.45); }
+    font-family: "Suite", sans-serif; color: #26222b; box-shadow: 0 0 0 2px var(--n2), 0 0 18px color-mix(in srgb, var(--n2) 50%, transparent), 0 8px 30px rgba(0,0,0,.45); }
   .dash * { position: absolute; }
   .dash .bar0 { left: 0; top: 0; width: 760px; height: 40px; background: #2b1f3d; }
   .dash .c { background: #fff; border: 1px solid #dcd6cc; border-radius: 8px; }
@@ -131,7 +133,7 @@
   /* curing */
   .chain { display: flex; align-items: flex-start; justify-content: space-between; }
   .chain .st { width: 168px; text-align: center; }
-  .chain .box { height: 140px; border: 2px solid #a676ee; border-radius: 22px; background: linear-gradient(160deg, #4a2378, #2d1648);
+  .chain .box { height: 140px; border: 2px solid var(--n2); border-radius: 22px; background: rgba(8, 7, 12, .8); box-shadow: 0 0 12px color-mix(in srgb, var(--n2) 50%, transparent);
     display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
   .chain .ar, .leafrow .ar { width: 24px; height: 140px; font-size: 0; display: flex; align-items: center; justify-content: center; }
   .leafrow .ar { height: 84px; align-self: flex-start; }
@@ -188,25 +190,25 @@
 <body>
 
 <!-- =============================================================== banner -->
-<section class="shot banner" id="banner">
-  <div class="title">DAZED DANK</div>
-  <div class="sub">Realistic cannabis growing for Project Zomboid Build 42</div>
-  <div class="pills">
-    <span class="pill">Strains and breeding</span>
-    <span class="pill">Cloning</span>
-    <span class="pill">Hydroponics</span>
-    <span class="pill">Grow rooms</span>
-    <span class="pill">Dry, trim, cure</span>
-    <span class="pill">Joints, pipes, blunts</span>
+<section class="shot banner neon" id="banner">
+  <img class="logo" src="logo.png">
+  <div class="side">
+    <div class="sub">Realistic cannabis growing<br>for Project Zomboid Build 42</div>
+    <div class="tube"></div>
+    <div class="pills">
+      <span class="sign c3">Strains and breeding</span>
+      <span class="sign c2">Cloning</span>
+      <span class="sign c1">Hydroponics</span>
+      <span class="sign c4">Grow rooms</span>
+      <span class="sign c2">Dry, trim, cure</span>
+      <span class="sign c3">Joints, pipes, blunts</span>
+    </div>
   </div>
   <div class="row">
-    <div class="spr"><img src="sprites/b-1.png" style="height:200px"></div>
-    <div class="spr"><img src="sprites/b-2.png" style="height:190px"></div>
-    <div class="spr"><img src="sprites/b-3.png" style="height:228px"></div>
-    <div class="spr"><img src="sprites/b-4.png" style="height:222px"></div>
-    <div class="spr"><img src="sprites/b-5.png" style="height:216px"></div>
-    <div class="spr"><img src="sprites/b-6.png" style="height:244px"></div>
-    <div class="spr"><img src="sprites/b-7.png" style="height:206px"></div>
+    <div class="spr"><img src="sprites/b-3.png" style="height:200px"></div>
+    <div class="spr"><img src="sprites/b-4.png" style="height:196px"></div>
+    <div class="spr"><img src="sprites/b-6.png" style="height:220px"></div>
+    <div class="spr"><img src="sprites/b-7.png" style="height:184px"></div>
   </div>
 </section>
 

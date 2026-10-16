@@ -1,0 +1,105 @@
+/* Neon layer for the Dazed suite Workshop art (2026-10-15).
+   Link it after suite.css. Dark brick wall, glowing neon edges in the mod's logo colours,
+   plain readable body text. A page sets its colours on :root:
+     --n1 main tube (borders, rules)   --n2 second tube (tiles, card edges)
+     --n3 highlight (numbers, accents) --n4 warm sign colour                      */
+
+:root {
+  --n1: #ff4fd8; --n2: #39d4ff; --n3: #6dff6a; --n4: #ffc53a;
+  --ink: #ffffff; --lilac: #e9e4f2; --muted: #b3acc2; --accent: var(--n3);
+  --line: color-mix(in srgb, var(--n2) 70%, transparent);
+  --line-outer: var(--n1);
+  --card: rgba(20, 16, 30, .78); --card-2: rgba(12, 10, 19, .82);
+  --well: #0b0a10;
+  --fill-a: var(--n3); --fill-b: color-mix(in srgb, var(--n3) 60%, #000);
+}
+.wall {
+  background-color: #0b0a10;
+  background-image: url(neon/brick.png);
+  background-size: 320px 136px;
+}
+
+/* ------------------------------------------------------------------ banner: logo left, signs right */
+.banner.neon { background: #0b0a10 url(neon/brick.png); background-size: 320px 136px; }
+.banner.neon::before {           /* dim the wall away from the lit signs */
+  content: ""; position: absolute; inset: 0; opacity: 1; background-image: none; -webkit-mask-image: none;
+  background:
+    radial-gradient(ellipse 420px 380px at 310px 310px, color-mix(in srgb, var(--n1) 22%, transparent), transparent 70%),
+    radial-gradient(ellipse 520px 260px at 900px 230px, color-mix(in srgb, var(--n2) 12%, transparent), transparent 70%),
+    radial-gradient(ellipse 900px 700px at 50% 45%, transparent 40%, rgba(0, 0, 0, .55) 100%);
+}
+.banner.neon .logo {
+  position: absolute; left: 10px; top: 10px; width: 600px; height: 600px; z-index: 1;
+  mix-blend-mode: screen;          /* the logo's own dark wall drops away into ours */
+  -webkit-mask-image: radial-gradient(ellipse 46% 50% at 50% 50%, #000 70%, transparent 100%);
+}
+.banner.neon .side { position: absolute; left: 600px; right: 34px; top: 52px; z-index: 2; }
+.banner.neon .sub {
+  position: static; text-align: left; font-weight: 700; font-size: 38px; line-height: 1.15; color: #fff;
+  text-shadow: 0 0 2px #fff, 0 0 14px color-mix(in srgb, var(--n1) 70%, transparent);
+}
+.banner.neon .tube {                 /* neon underline below the subtitle */
+  height: 4px; border-radius: 2px; margin: 18px 0 22px; width: 62%;
+  background: var(--n4); box-shadow: 0 0 6px var(--n4), 0 0 18px var(--n4);
+}
+.banner.neon .pills { position: static; display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 14px 14px; }
+.banner.neon .row, #banner.neon .row { left: 610px; right: 30px; bottom: 18px; height: 240px; z-index: 2; }
+
+/* a feature tag drawn as a small neon sign */
+.sign {
+  --c: var(--n2);
+  font-weight: 700; font-size: 24px; line-height: 1; color: #fff; white-space: nowrap;
+  padding: 9px 18px 10px; border-radius: 12px;
+  border: 2.5px solid var(--c);
+  background: color-mix(in srgb, var(--c) 10%, rgba(8, 7, 12, .7));
+  box-shadow: 0 0 4px var(--c), 0 0 16px color-mix(in srgb, var(--c) 70%, transparent), inset 0 0 12px color-mix(in srgb, var(--c) 35%, transparent);
+  text-shadow: 0 0 10px var(--c);
+}
+.sign.c1 { --c: var(--n1); } .sign.c2 { --c: var(--n2); } .sign.c3 { --c: var(--n3); } .sign.c4 { --c: var(--n4); }
+
+/* sprites stand on a coloured floor glow instead of a purple one */
+.spr::after, .art::after {
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--n2) 45%, transparent), transparent 70%);
+}
+
+/* page-local bars and wells pick up the second tube colour */
+.day, .chip { border-color: color-mix(in srgb, var(--n2) 55%, transparent) !important; }
+
+/* ------------------------------------------------------------------ section header */
+.hdr {
+  background: #0b0a10 url(neon/brick.png); background-size: 320px 136px;
+}
+.hdr::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 260px 170px at 78px 50%, color-mix(in srgb, var(--n2) 26%, transparent), transparent 75%),
+    linear-gradient(90deg, transparent 30%, rgba(0, 0, 0, .45));
+}
+.hdr .tile {
+  border: 3px solid var(--n2); border-radius: 22px; background: rgba(8, 7, 12, .8);
+  box-shadow: 0 0 5px var(--n2), 0 0 20px color-mix(in srgb, var(--n2) 70%, transparent), inset 0 0 16px color-mix(in srgb, var(--n2) 40%, transparent);
+}
+.hdr .num { color: var(--n4); font-weight: 800; letter-spacing: 1px; text-shadow: 0 0 8px var(--n4); }
+.hdr h2 { color: #fff; text-shadow: 0 0 2px #fff, 0 0 18px color-mix(in srgb, var(--n1) 75%, transparent); }
+.hdr .rule {
+  height: 4px; background: var(--n1);
+  box-shadow: 0 0 6px var(--n1), 0 0 18px var(--n1);
+  -webkit-mask-image: linear-gradient(90deg, #000 55%, transparent);
+}
+
+/* ------------------------------------------------------------------ content panel and cards */
+.panel {
+  border: 3px solid var(--n1); border-radius: 26px;
+  background: #0b0a10 url(neon/brick.png); background-size: 320px 136px;
+  box-shadow: inset 0 0 22px color-mix(in srgb, var(--n1) 45%, transparent), inset 0 0 0 2000px rgba(6, 5, 9, .35);
+}
+.ptitle { color: #fff; font-weight: 700; text-shadow: 0 0 14px color-mix(in srgb, var(--n1) 60%, transparent); }
+.card {
+  border: 2px solid var(--line);
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--n2) 35%, transparent), inset 0 0 10px color-mix(in srgb, var(--n2) 15%, transparent);
+}
+.sub.accent, .accent { color: var(--n3); }
+.note { color: var(--lilac); }
+.badge { background: transparent; border: 2.5px solid var(--n4); color: var(--n4); box-shadow: 0 0 10px var(--n4); }
+.bar { border-color: color-mix(in srgb, var(--n2) 60%, transparent); }
