@@ -6,6 +6,8 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="../_kit/suite.css">
+<link rel="stylesheet" href="../_kit/neon.css">
+<style>:root { --n1:#c04dff; --n2:#3ad8ff; --n3:#ffb020; --n4:#3a8bff; }   /* Climate logo colours */</style>
 <style>
   /* light snowfall behind the banner title */
   #banner .snow { position: absolute; inset: 0; opacity: .55;
@@ -87,29 +89,18 @@
 <body>
 
 <!-- =============================================================== banner -->
-<section class="shot banner" id="banner">
-  <div class="snow"></div>
-  <div class="title">DAZED CLIMATE</div>
-  <div class="sub">A temperature overhaul for Project Zomboid Build 42</div>
-  <div class="pills">
-    <span class="pill">Two climates</span>
-    <span class="pill">Room temperatures</span>
-    <span class="pill">Crop frost</span>
-    <span class="pill">Row tunnels</span>
-    <span class="pill">Frozen pipes</span>
-    <span class="pill">Cold storage</span>
-    <span class="pill">Frostbite</span>
+<section class="shot banner neon" id="banner">
+  <img class="logo" src="logo.png">
+  <div class="side">
+    <div class="sub">A temperature overhaul for<br>Project Zomboid Build 42</div>
+    <div class="tube"></div>
+    <div class="pills"><span class="sign c1">Two climates</span><span class="sign c2">Room temperatures</span><span class="sign c3">Crop frost</span><span class="sign c4">Row tunnels</span><span class="sign c1">Frozen pipes</span><span class="sign c2">Cold storage</span><span class="sign c3">Frostbite</span></div>
   </div>
   <div class="row">
-    <div class="spr"><img src="sprites/tomato.png" style="height:230px"></div>
-    <div class="spr"><img src="sprites/heater.png" style="height:150px"></div>
-    <div class="spr"><img src="sprites/tank-water.png" class="frost" style="height:185px"></div>
-    <div class="spr"><img src="sprites/pipe-t.png" class="frost" style="height:170px"></div>
-    <div class="spr"><img src="sprites/thermometer.png" class="px" style="height:165px"></div>
-    <div class="spr"><img src="sprites/insulation.png" class="px" style="height:84px"></div>
-    <div class="spr"><div class="bed" style="width:196px;height:141px;margin:0"><div class="t" style="left:0;top:0"><img src="sprites/cabbage.png" style="left:48px;top:34px;width:104px"><img src="sprites/tunnel-x.png" style="left:0;top:0;width:196px"></div></div></div>
-    <div class="spr"><img src="sprites/cooler.png" style="height:180px"></div>
-    <div class="spr"><img src="sprites/cabbage-dead.png" class="frost" style="height:90px"></div>
+    <div class="spr"><img src="sprites/tomato.png" style="height:207px"></div>
+    <div class="spr"><img src="sprites/heater.png" style="height:135px"></div>
+    <div class="spr"><img src="sprites/tank-water.png" class="frost" style="height:166px"></div>
+    <div class="spr"><img src="sprites/thermometer.png" class="px" style="height:148px"></div>
   </div>
 </section>
 
