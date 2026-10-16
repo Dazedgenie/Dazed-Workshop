@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="../_kit/suite.css">
 <link rel="stylesheet" href="../_kit/neon.css">
-<style>:root { --n1:#c04dff; --n2:#3ab8ff; --n3:#ffa31a; --n4:#ff5a3a; }   /* Defences has no neon logo yet: purple, blue, amber, red */</style>
+<style>:root { --n1:#c04dff; --n2:#3ab8ff; --n3:#ffa31a; --n4:#ff5a3a; }   /* Defences logo: magenta, cyan, amber, red */</style>
 <style>
   .hdr .tile img { image-rendering: auto; } .hdr .tile img.px { image-rendering: pixelated; }
   .px { image-rendering: pixelated; }
@@ -29,14 +29,16 @@
 </head>
 <body>
 <section class="shot banner neon" id="banner">
-  <div style="position:absolute;left:40px;top:40px;width:540px;display:flex;gap:0;align-items:flex-end;justify-content:center;z-index:2;bottom:60px;top:auto">
-    <img src="sprites/pit.png" style="width:190px"><img src="sprites/board.png" style="width:190px;margin-left:-20px"><img src="sprites/alarm.png" style="width:240px;margin-left:-30px">
-  </div>
+  <img class="logo" src="logo.png">
   <div class="side">
-    <div class="sub" style="font-size:78px;line-height:1.0;font-weight:900;color:#fff;text-shadow:0 0 14px var(--n1),0 0 34px var(--n1)">Dazed Defences</div>
-    <div class="tube"></div>
     <div class="sub">Traps and early warning for your base<br>in Project Zomboid Build 42</div>
+    <div class="tube"></div>
     <div class="pills"><span class="sign c1">Alarm line</span><span class="sign c2">Spike pit</span><span class="sign c3">Nail board</span><span class="sign c4">Wears out</span></div>
+  </div>
+  <div class="row2b">
+    <div class="spr"><img src="sprites/alarm.png" style="height:190px"></div>
+    <div class="spr"><img src="sprites/pit.png" style="height:150px"></div>
+    <div class="spr"><img src="sprites/board.png" style="height:150px"></div>
   </div>
 </section>
 <section class="shot hdr" id="h-traps">
