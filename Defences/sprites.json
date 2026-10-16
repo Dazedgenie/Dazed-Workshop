@@ -1,0 +1,55 @@
+{
+ "repos": "/home/claude",
+ "sprites": {
+  "alarm": {
+   "pack": "dazeddefences/Contents/mods/DazedDefences/common/media/texturepacks/dazeddefences.pack",
+   "sprite": "dazeddefences_01_0",
+   "scale": 1.6
+  },
+  "alarmw": {
+   "pack": "dazeddefences/Contents/mods/DazedDefences/common/media/texturepacks/dazeddefences.pack",
+   "sprite": "dazeddefences_01_2",
+   "scale": 1.6
+  },
+  "alarmx": {
+   "pack": "dazeddefences/Contents/mods/DazedDefences/common/media/texturepacks/dazeddefences.pack",
+   "sprite": "dazeddefences_01_4",
+   "scale": 1.6
+  },
+  "pit": {
+   "pack": "dazeddefences/Contents/mods/DazedDefences/common/media/texturepacks/dazeddefences.pack",
+   "sprite": "dazeddefences_01_8",
+   "scale": 1.6
+  },
+  "pitx": {
+   "pack": "dazeddefences/Contents/mods/DazedDefences/common/media/texturepacks/dazeddefences.pack",
+   "sprite": "dazeddefences_01_12",
+   "scale": 1.6
+  },
+  "board": {
+   "pack": "dazeddefences/Contents/mods/DazedDefences/common/media/texturepacks/dazeddefences.pack",
+   "sprite": "dazeddefences_01_16",
+   "scale": 1.6
+  },
+  "boardx": {
+   "pack": "dazeddefences/Contents/mods/DazedDefences/common/media/texturepacks/dazeddefences.pack",
+   "sprite": "dazeddefences_01_20",
+   "scale": 1.6
+  },
+  "i-alarm": {
+   "png": "dazeddefences/Contents/mods/DazedDefences/common/media/textures/Item_DazedDefAlarm.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-pit": {
+   "png": "dazeddefences/Contents/mods/DazedDefences/common/media/textures/Item_DazedDefPit.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-board": {
+   "png": "dazeddefences/Contents/mods/DazedDefences/common/media/textures/Item_DazedDefBoard.png",
+   "scale": 4,
+   "filter": "nearest"
+  }
+ }
+}

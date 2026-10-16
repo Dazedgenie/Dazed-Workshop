@@ -1,0 +1,75 @@
+{
+ "repos": "/home/claude",
+ "sprites": {
+  "s0": {
+   "pack": "dazedsignal/Contents/mods/DazedSignal/common/media/texturepacks/dazedsignal.pack",
+   "sprite": "dazedsignal_01_0",
+   "scale": 1.6
+  },
+  "s1": {
+   "pack": "dazedsignal/Contents/mods/DazedSignal/common/media/texturepacks/dazedsignal.pack",
+   "sprite": "dazedsignal_01_1",
+   "scale": 1.6
+  },
+  "s2": {
+   "pack": "dazedsignal/Contents/mods/DazedSignal/common/media/texturepacks/dazedsignal.pack",
+   "sprite": "dazedsignal_01_2",
+   "scale": 1.6
+  },
+  "s3": {
+   "pack": "dazedsignal/Contents/mods/DazedSignal/common/media/texturepacks/dazedsignal.pack",
+   "sprite": "dazedsignal_01_3",
+   "scale": 1.6
+  },
+  "s4": {
+   "pack": "dazedsignal/Contents/mods/DazedSignal/common/media/texturepacks/dazedsignal.pack",
+   "sprite": "dazedsignal_01_4",
+   "scale": 1.6
+  },
+  "i-antenna": {
+   "png": "dazedsignal/Contents/mods/DazedSignal/common/media/textures/Item_DazedSignalAntenna.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-blankcard": {
+   "png": "dazedsignal/Contents/mods/DazedSignal/common/media/textures/Item_DazedSignalBlankCard.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-ciphercard": {
+   "png": "dazedsignal/Contents/mods/DazedSignal/common/media/textures/Item_DazedSignalCipherCard.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-descrambler": {
+   "png": "dazedsignal/Contents/mods/DazedSignal/common/media/textures/Item_DazedSignalDescrambler.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-latticetower": {
+   "png": "dazedsignal/Contents/mods/DazedSignal/common/media/textures/Item_DazedSignalLatticeTower.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-logger": {
+   "png": "dazedsignal/Contents/mods/DazedSignal/common/media/textures/Item_DazedSignalLogger.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-scrambler": {
+   "png": "dazedsignal/Contents/mods/DazedSignal/common/media/textures/Item_DazedSignalScrambler.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-steelmast": {
+   "png": "dazedsignal/Contents/mods/DazedSignal/common/media/textures/Item_DazedSignalSteelMast.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-woodmast": {
+   "png": "dazedsignal/Contents/mods/DazedSignal/common/media/textures/Item_DazedSignalWoodMast.png",
+   "scale": 4,
+   "filter": "nearest"
+  }
+ }
+}

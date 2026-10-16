@@ -1,0 +1,75 @@
+<!doctype html>
+<!-- HUD Workshop art. Each <section class="shot" id="x"> renders to images/x.png
+     (banner -> banner.jpg):  node _kit/render.mjs HUD   (from the dazed-workshop root).
+     Sprites come from sprites.json:  python3 _kit/sprites.py HUD. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../_kit/suite.css">
+<link rel="stylesheet" href="../_kit/neon.css">
+<style>:root { --n1:#c04dff; --n2:#3ab8ff; --n3:#35e0ff; --n4:#3aff6a; }   /* HUD logo: purple, blue, cyan, green */</style>
+<style>
+  .hdr .tile img { image-rendering: auto; } .hdr .tile img.px { image-rendering: pixelated; }
+  .px { image-rendering: pixelated; }
+  .card .lbl { margin-bottom: 4px; }
+  .pts { display: grid; gap: 9px; text-align: left; }
+  .pts p { font-size: 24px; line-height: 1.28; color: var(--lilac); padding-left: 24px; position: relative; }
+  .pts p::before { content: ""; position: absolute; left: 4px; top: 11px; width: 9px; height: 9px; border-radius: 50%; background: var(--n4); box-shadow: 0 0 8px var(--n4); }
+  .pts b { color: #fff; }
+  .card.list { text-align: left; padding: 20px 22px; }
+  .card.list h4 { text-align: center; font-size: 32px; }
+  .chip { display: inline-block; font-size: 22px; font-weight: 700; padding: 4px 14px; border-radius: 999px; border: 1.5px solid var(--n2); background: var(--well); color: #fff; margin: 3px 3px; }
+  .chip.c1 { border-color: var(--n3); } .chip.c2 { border-color: var(--n4); } .chip.c3 { border-color: #ff5a6a; } .chip.c4 { border-color: var(--n1); }
+  .bar .fill { background: linear-gradient(90deg, color-mix(in srgb, var(--n3) 60%, #000), var(--n4)); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cuts { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  #banner .row2b { position: absolute; left: 640px; right: 40px; bottom: 22px; display: flex; align-items: flex-end; justify-content: space-between; z-index: 2; }
+  .stage { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 18px; }
+</style>
+<style>
+.m { display:flex; flex-direction:column; gap:6px; align-items:center; }
+.m span { font-size:20px; font-weight:700; color:var(--lilac); }
+.seg { display:flex; gap:2px; } .seg i { display:block; width:9px; height:26px; border-radius:2px; }
+#banner .seg i { width:6px; height:22px; } #banner .m span { font-size:17px; } #banner .strip { gap:8px; padding:14px 14px; }
+.strip { display:flex; justify-content:space-between; gap:12px; padding:18px 22px; }
+.rc { display:inline-block; text-align:left; background:#0d0a1c; border:2px solid var(--n3); border-radius:12px; padding:12px 16px; box-shadow:0 0 18px color-mix(in srgb,var(--n3) 45%,transparent); min-width:230px; }
+.rc b { color:#fff; font-size:26px; } .rc .v { float:right; font-weight:900; font-size:26px; }
+.rc .s { color:var(--lilac); font-size:20px; margin-top:6px; clear:both; }
+.bigseg .seg i { width:20px; height:18px; }
+</style></head>
+<body>
+<section class="shot banner neon" id="banner">
+  <img class="logo" src="logo.png">
+  <div class="side">
+    <div class="sub">A quiet HUD for Build 42<br>It only shows things when they matter</div>
+    <div class="tube"></div>
+    <div class="pills"><span class="sign c1">Status strip</span><span class="sign c2">Readout cards</span><span class="sign c3">Weapon tag</span><span class="sign c4">Hotbar strips</span></div>
+  </div>
+  <div class="row2b" style="flex-direction:column;align-items:stretch;left:610px;bottom:30px;right:20px">
+    <div class="strip" style="background:rgba(10,8,24,.82);border:2px solid var(--n2);border-radius:14px;box-shadow:0 0 22px color-mix(in srgb,var(--n2) 40%,transparent)"><div class="m"><span>Health</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i></div></div><div class="m"><span>Hunger</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Thirst</span><div class="seg"><i style="background:#ff3a4a"></i><i style="background:#ff3a4a"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Fatigue</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Endurance</span><div class="seg"><i style="background:#ffb020"></i><i style="background:#ffb020"></i><i style="background:#ffb020"></i><i style="background:#ffb020"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Temp</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Calm</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#1a1630"></i></div></div></div>
+  </div>
+</section>
+<section class="shot panel" id="strip">
+  <div class="ptitle">Seven segmented meters beside the hotbar.</div>
+  <div class="card"><div class="strip" style="justify-content:space-around"><div class="m"><span>Health</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i></div></div><div class="m"><span>Hunger</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Thirst</span><div class="seg"><i style="background:#ff3a4a"></i><i style="background:#ff3a4a"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Fatigue</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Endurance</span><div class="seg"><i style="background:#ffb020"></i><i style="background:#ffb020"></i><i style="background:#ffb020"></i><i style="background:#ffb020"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Temp</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#1a1630"></i><i style="background:#1a1630"></i></div></div><div class="m"><span>Calm</span><div class="seg"><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#3aff6a"></i><i style="background:#1a1630"></i></div></div></div>
+    <div class="sub" style="margin-top:6px">Health, hunger, thirst, fatigue, endurance, body temperature and calm. Green, amber under 45%, red under 20%.</div></div>
+  <div class="row2" style="margin-top:14px">
+    <div class="card"><div class="art" style="align-items:center"><div class="rc"><b>Thirst</b><span class="v" style="color:#ff3a4a">18%</span><div class="s">Parched. Crossed 20%</div><div class="seg bigseg" style="margin-top:8px"><i style="width:20px;height:14px;background:#ff3a4a"></i><i style="width:20px;height:14px;background:#ff3a4a"></i><i style="width:20px;height:14px;background:#1a1630"></i><i style="width:20px;height:14px;background:#1a1630"></i><i style="width:20px;height:14px;background:#1a1630"></i><i style="width:20px;height:14px;background:#1a1630"></i><i style="width:20px;height:14px;background:#1a1630"></i><i style="width:20px;height:14px;background:#1a1630"></i><i style="width:20px;height:14px;background:#1a1630"></i><i style="width:20px;height:14px;background:#1a1630"></i></div></div></div><div class="lbl">Readout cards</div><div class="sub">fade in over a meter when it crosses a line, moves fast, its moodle changes, or you hover it</div></div>
+    <div class="card"><div class="art" style="align-items:center"><div class="rc" style="border-color:var(--n2)"><b>M9 PISTOL</b><span class="v" style="color:#fff;font-size:22px">11 / 15 +34</span><div class="seg" style="margin-top:10px"><i style="width:20px;height:12px;background:#3aff6a"></i><i style="width:20px;height:12px;background:#3aff6a"></i><i style="width:20px;height:12px;background:#3aff6a"></i><i style="width:20px;height:12px;background:#3aff6a"></i><i style="width:20px;height:12px;background:#3aff6a"></i><i style="width:20px;height:12px;background:#3aff6a"></i><i style="width:20px;height:12px;background:#3aff6a"></i><i style="width:20px;height:12px;background:#3aff6a"></i><i style="width:20px;height:12px;background:#1a1630"></i><i style="width:20px;height:12px;background:#1a1630"></i></div></div></div><div class="lbl">Weapon tag</div><div class="sub">ammo, spare rounds, chamber lamp and condition beside you while you aim</div></div>
+  </div>
+</section>
+<section class="shot panel" id="extras">
+  <div class="ptitle">Extra bars only appear while they apply.</div>
+  <div class="grid cols-3">
+    <div class="card"><div class="art" style="align-items:center"><div class="rc" style="border-color:var(--n1);min-width:0"><b>High</b><div class="seg" style="margin-top:8px"><i style="width:16px;height:14px;background:#c04dff"></i><i style="width:16px;height:14px;background:#c04dff"></i><i style="width:16px;height:14px;background:#c04dff"></i><i style="width:16px;height:14px;background:#c04dff"></i><i style="width:16px;height:14px;background:#c04dff"></i><i style="width:16px;height:14px;background:#c04dff"></i><i style="width:16px;height:14px;background:#c04dff"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i></div></div></div><div class="lbl">High</div><div class="sub">reads Dazed Dank</div></div>
+    <div class="card"><div class="art" style="align-items:center"><div class="rc" style="border-color:#ffb020;min-width:0"><b>Drunk</b><div class="seg" style="margin-top:8px"><i style="width:16px;height:14px;background:#ffb020"></i><i style="width:16px;height:14px;background:#ffb020"></i><i style="width:16px;height:14px;background:#ffb020"></i><i style="width:16px;height:14px;background:#ffb020"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i></div></div></div><div class="lbl">Drunk</div><div class="sub">right of the hotbar</div></div>
+    <div class="card"><div class="art" style="align-items:center"><div class="rc" style="border-color:#ffd84a;min-width:0"><b>Nicotine</b><div class="seg" style="margin-top:8px"><i style="width:16px;height:14px;background:#ffd84a"></i><i style="width:16px;height:14px;background:#ffd84a"></i><i style="width:16px;height:14px;background:#ffd84a"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i><i style="width:16px;height:14px;background:#1a1630"></i></div></div></div><div class="lbl">Nicotine</div><div class="sub">craving shows when you need it</div></div>
+  </div>
+  <div class="row2" style="margin-top:14px">
+    <div class="card list"><div class="pts"><p>A thin <b>condition strip</b> under each hotbar slot, and the magazine count on guns.</p></div></div>
+    <div class="card list"><div class="pts"><p>Every element is <b>Context / Always / Off</b> in Options &gt; Mods, with opacity, scale and how long cards stay up.</p></div></div>
+  </div>
+</section>
+
+</body>
+</html>
