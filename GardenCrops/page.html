@@ -11,6 +11,9 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="../_kit/suite.css">
+<link rel="stylesheet" href="../_kit/neon.css">
+<style>:root { --n1:#c04dff; --n2:#3ad0ff; --n3:#5dff5a; --n4:#ffc53a; }   /* GardenCrops logo colours */
+.banner.neon .logo { -webkit-mask-image: radial-gradient(ellipse 62% 60% at 50% 48%, #000 80%, transparent 100%); }</style>
 <style>
   .pot { position: relative; z-index: 1; }
   .pot img { position: absolute; }
@@ -92,28 +95,18 @@
 <body>
 
 <!-- =============================================================== banner -->
-<section class="shot banner" id="banner">
-  <div class="kicker">DAZED DANK</div>
-  <div class="title">GARDEN CROPS</div>
-  <div class="sub">Vanilla crops in Dank's grow bags and hydroponics</div>
-  <div class="pills">
-    <span class="pill">55 vanilla crops</span>
-    <span class="pill">Grow bags</span>
-    <span class="pill">DWC · RDWC · Flood tables</span>
-    <span class="pill">15% faster in hydro</span>
-    <span class="pill">Multiplayer</span>
+<section class="shot banner neon" id="banner">
+  <img class="logo" src="logo.png">
+  <div class="side">
+    <div class="sub">Vanilla crops in Dank's<br>grow bags and hydroponics</div>
+    <div class="tube"></div>
+    <div class="pills"><span class="sign c1">55 vanilla crops</span><span class="sign c2">Grow bags</span><span class="sign c3">DWC · RDWC · Flood tables</span><span class="sign c4">15% faster in hydro</span><span class="sign c1">Multiplayer</span></div>
   </div>
   <div class="row">
     <div class="spr"><div class="pot" style="width:164px;height:386px;zoom:0.6"><img src="sprites/bag-large.png" style="left:0px;top:232px"><img src="sprites/sunflower.png" style="left:22px;top:0px"></div></div>
-    <div class="spr"><div class="pot" style="width:138px;height:202px;zoom:0.6"><img src="sprites/dwc.png" style="left:12px;top:78px"><img src="sprites/lettuce.png" style="left:0px;top:0px"></div></div>
     <div class="spr"><div class="pot" style="width:204px;height:248px;zoom:0.6"><img src="sprites/bag-xl.png" style="left:0px;top:56px"><img src="sprites/kale.png" style="left:42px;top:0px"></div></div>
     <div class="spr"><div class="pot" style="width:190px;height:270px;zoom:0.6"><img src="sprites/rdwc.png" style="left:0px;top:146px"><img src="sprites/jalapeno.png" style="left:68px;top:0px"></div></div>
-    <div class="spr"><div class="pot" style="width:158px;height:386px;zoom:0.6"><img src="sprites/dwc-xl.png" style="left:2px;top:230px"><img src="sprites/tomato.png" style="left:0px;top:0px"></div></div>
     <div class="spr"><div class="pot" style="width:244px;height:282px;zoom:0.6"><img src="sprites/flood.png" style="left:0px;top:94px"><img src="sprites/basil.png" style="left:62px;top:0px"></div></div>
-    <div class="spr"><div class="pot" style="width:164px;height:242px;zoom:0.6"><img src="sprites/bag-large.png" style="left:0px;top:88px"><img src="sprites/pumpkin.png" style="left:22px;top:0px"></div></div>
-    <div class="spr"><div class="pot" style="width:138px;height:308px;zoom:0.6"><img src="sprites/dwc.png" style="left:12px;top:184px"><img src="sprites/pepper.png" style="left:0px;top:0px"></div></div>
-    <div class="spr"><div class="pot" style="width:124px;height:238px;zoom:0.6"><img src="sprites/bag-small.png" style="left:0px;top:130px"><img src="sprites/marigold.png" style="left:2px;top:0px"></div></div>
-    <div class="spr"><div class="pot" style="width:124px;height:146px;zoom:0.6"><img src="sprites/bag-small.png" style="left:0px;top:38px"><img src="sprites/cabbage.png" style="left:2px;top:0px"></div></div>
   </div>
 </section>
 
