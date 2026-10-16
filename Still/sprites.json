@@ -1,0 +1,106 @@
+{
+ "repos": "/home/claude",
+ "sprites": {
+  "bucket": {
+   "pack": "dazedstill/Contents/mods/DazedStill/common/media/texturepacks/dazedstill.pack",
+   "sprite": "dazedstill_01_1",
+   "scale": 1.6
+  },
+  "crock": {
+   "pack": "dazedstill/Contents/mods/DazedStill/common/media/texturepacks/dazedstill.pack",
+   "sprite": "dazedstill_01_5",
+   "scale": 1.6
+  },
+  "still-m": {
+   "pack": "dazedstill/Contents/mods/DazedStill/common/media/texturepacks/dazedstill.pack",
+   "sprite": "dazedstill_01_9",
+   "scale": 1.6
+  },
+  "still-s": {
+   "pack": "dazedstill/Contents/mods/DazedStill/common/media/texturepacks/dazedstill.pack",
+   "sprite": "dazedstill_01_13",
+   "scale": 1.6
+  },
+  "barrel": {
+   "pack": "dazedstill/Contents/mods/DazedStill/common/media/texturepacks/dazedstill.pack",
+   "sprite": "dazedstill_01_25",
+   "scale": 1.6
+  },
+  "copper": {
+   "pack": "dazedstill/Contents/mods/DazedStill/common/media/texturepacks/dazedstill.pack",
+   "layers": [
+    [
+     "dazedstill_01_18",
+     0,
+     0
+    ],
+    [
+     "dazedstill_01_19",
+     64,
+     32
+    ]
+   ],
+   "scale": 1.6
+  },
+  "i-bucket": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedFermentBucket.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-crock": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedFermentCrock.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-hydro": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedHydrometer.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-spirits": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedMountainSpirits.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-magazine": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedStillMagazine.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-starter": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedYeastStarter.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-airlock": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedAirlock.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-worm": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedCopperWorm.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-barrelitem": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedAgeingBarrel.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-stillm": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedStillMakeshift.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-stills": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedStillSalvaged.png",
+   "scale": 4,
+   "filter": "nearest"
+  },
+  "i-stillw": {
+   "png": "dazedstill/Contents/mods/DazedStill/common/media/textures/Item_DazedStillWorkshop.png",
+   "scale": 4,
+   "filter": "nearest"
+  }
+ }
+}
