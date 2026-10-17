@@ -36,7 +36,7 @@ from pathlib import Path
 from PIL import Image
 
 PZFORMAT = os.environ.get(
-    "PZFORMAT", "/home/claude/DazedCore/Contents/mods/DazedCore/tools/pzformat")
+    "PZFORMAT", "/home/claude/DazedCore/tools/pzformat")
 sys.path.insert(0, PZFORMAT)
 
 _packs: dict[Path, dict] = {}

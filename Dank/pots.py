@@ -12,7 +12,7 @@ Shapes: landrace haze hybrid kush afghan auto tree. Colours: purple frosty gold 
 import io, sys
 from pathlib import Path
 from PIL import Image
-sys.path.insert(0, "/home/claude/DazedCore/Contents/mods/DazedCore/tools/pzformat")
+sys.path.insert(0, "/home/claude/DazedCore/tools/pzformat")
 from packfile import TexturePack
 
 TP = Path("/home/claude/DazedDank/Contents/mods/DazedDank/42/media/texturepacks")
