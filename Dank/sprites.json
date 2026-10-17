@@ -469,41 +469,6 @@
       "scale": 3,
       "filter": "nearest"
     },
-    "prof-breeder": {
-      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/profession_dd_breeder.png",
-      "scale": 1.5,
-      "filter": "nearest"
-    },
-    "prof-budtender": {
-      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/profession_dd_budtender.png",
-      "scale": 1.5,
-      "filter": "nearest"
-    },
-    "prof-cultivationtech": {
-      "png": "DazedDank/Contents/mods/DazedDank/42/media/textures/profession_dd_cultivationtech.png",
-      "scale": 1.5,
-      "filter": "nearest"
-    },
-    "trait-greenthumb": {
-      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/traits/trait_greenthumb.png",
-      "scale": 3,
-      "filter": "nearest"
-    },
-    "trait-trimhand": {
-      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/traits/trait_trimhand.png",
-      "scale": 3,
-      "filter": "nearest"
-    },
-    "trait-chronic": {
-      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/traits/trait_chronic.png",
-      "scale": 3,
-      "filter": "nearest"
-    },
-    "trait-lightweight": {
-      "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/traits/trait_lightweight.png",
-      "scale": 3,
-      "filter": "nearest"
-    },
     "ui-lights": {
       "png": "DazedDank/Contents/mods/DazedDank/42/media/ui/DazedDank/icon_lights.png",
       "scale": 1

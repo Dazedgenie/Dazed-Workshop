@@ -156,15 +156,6 @@
   .effects h4 { font-size: 28px; margin-bottom: 6px; }
   .effects .sub { font-size: 20px; }
 
-  /* people */
-  .occ .card { display: grid; grid-template-columns: 76px 1fr; gap: 12px; text-align: left; align-items: start; padding: 16px 18px; }
-  .occ h4 { font-size: 29px; margin-bottom: 6px; }
-  .occ .pts div { font-size: 20px; white-space: nowrap; }
-  .traits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
-  .traits .card { padding: 12px 10px 14px; }
-  .traits .icons { height: 64px; margin-bottom: 8px; }
-  .traits h4 { font-size: 27px; margin-bottom: 4px; }
-  .traits .sub { font-size: 19px; }
   .trackerline { margin-top: 14px; }
 
   /* skill */
@@ -249,25 +240,21 @@
   <div class="tile"><img src="sprites/i-Blunt.png" class="px" style="width:86px"></div>
   <div class="num">09</div><h2>Smoking</h2><div class="rule"></div>
 </section>
-<section class="shot hdr" id="h-people">
-  <div class="tile"><img src="sprites/prof-cultivationtech.png" class="px" style="height:84px"></div>
-  <div class="num">10</div><h2>Occupations and traits</h2><div class="rule"></div>
-</section>
 <section class="shot hdr" id="h-skill">
   <div class="tile"><img src="sprites/i-GrowersHandbook.png" class="px" style="height:84px"></div>
-  <div class="num">11</div><h2>Agriculture skill</h2><div class="rule"></div>
+  <div class="num">10</div><h2>Agriculture skill</h2><div class="rule"></div>
 </section>
 <section class="shot hdr" id="h-parts">
   <div class="tile"><img src="sprites/i-HydroMagazine.png" class="px" style="height:84px"></div>
-  <div class="num">12</div><h2>Finding and crafting gear</h2><div class="rule"></div>
+  <div class="num">11</div><h2>Finding and crafting gear</h2><div class="rule"></div>
 </section>
 <section class="shot hdr" id="h-compat">
   <div class="tile"><img src="sprites/i-CannabisBud.png" class="px" style="height:84px"></div>
-  <div class="num">13</div><h2>Works with</h2><div class="rule"></div>
+  <div class="num">12</div><h2>Works with</h2><div class="rule"></div>
 </section>
 <section class="shot hdr" id="h-help">
   <div class="tile"><img src="sprites/i-FanLeaf.png" class="px" style="height:84px"></div>
-  <div class="num">14</div><h2>Bugs and help</h2><div class="rule"></div>
+  <div class="num">13</div><h2>Bugs and help</h2><div class="rule"></div>
 </section>
 
 <!-- =============================================================== stages
@@ -595,28 +582,6 @@
     <div class="card"><h4>Tolerance and habit</h4><div class="sub">each dose weakens the next;<br>regular use brings withdrawal</div></div>
   </div>
   <div class="note">You need a lighter, matches or an open flame<span class="dot">·</span>moldy smoke only hurts<span class="dot">·</span>a <b>High Tracker</b> window shows it all live</div>
-</section>
-
-<!-- =============================================================== people
-     CannabisCharacters.txt, CannabisTraits.lua: Tech reads +2 levels (not genetics), +10% rooting; Budtender reads buds,
-     cures up to +15%; Breeder reads strains, +1 seed per pollination, steadier crosses. Icons are the mod's own. -->
-<section class="shot panel" id="people">
-  <div class="ptitle">Three grower occupations and four traits</div>
-  <div class="grid cols-3 occ">
-    <div class="card"><img src="sprites/prof-cultivationtech.png" class="px" style="width:76px">
-      <div><h4>Cultivation Tech</h4><div class="pts"><div>Reads plants 2 levels higher</div><div>Cuttings root 10% better</div><div>Knows the grow recipes</div></div></div></div>
-    <div class="card"><img src="sprites/prof-budtender.png" class="px" style="width:76px">
-      <div><h4>Budtender</h4><div class="pts"><div>Reads any bud in full</div><div>Jars cure up to +15%</div><div>Knows papers, jars, barrels</div></div></div></div>
-    <div class="card"><img src="sprites/prof-breeder.png" class="px" style="width:76px">
-      <div><h4>Botanist / Breeder</h4><div class="pts"><div>Reads strains on anything</div><div>Extra seed per pollination</div><div>Steadier, luckier crosses</div></div></div></div>
-  </div>
-  <div class="traits">
-    <div class="card"><div class="icons"><img src="sprites/trait-greenthumb.png" class="px" style="height:54px"></div><h4>Green Thumb</h4><div class="sub">care mistakes hurt less,<br>cuttings root better</div></div>
-    <div class="card"><div class="icons"><img src="sprites/trait-trimhand.png" class="px" style="height:54px"></div><h4>Trim Hand</h4><div class="sub">trims twice as fast</div></div>
-    <div class="card"><div class="icons"><img src="sprites/trait-chronic.png" class="px" style="height:54px"></div><h4>Chronic</h4><div class="sub">starts with a habit<br>and some tolerance</div></div>
-    <div class="card"><div class="icons"><img src="sprites/trait-lightweight.png" class="px" style="height:54px"></div><h4>Lightweight</h4><div class="sub">highs hit 50% harder</div></div>
-  </div>
-  <div class="note">All of it can be switched off in the sandbox options</div>
 </section>
 
 <!-- =============================================================== skill
